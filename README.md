@@ -1,5 +1,8 @@
 # Draft proposal for SCHC over LoRaWAN
 
+[![Build Status](https://travis-ci.org/Acklio/schc-over-lorawan.svg?branch=master)](https://travis-ci.org/Acklio/schc-over-lorawan)
+[![CircleCI](https://circleci.com/gh/Acklio/schc-over-lorawan.svg?style=svg)](https://circleci.com/gh/Acklio/schc-over-lorawan)
+
 ## Building the Draft
 
 Formatted text and HTML versions of the draft can be built using `make`.
