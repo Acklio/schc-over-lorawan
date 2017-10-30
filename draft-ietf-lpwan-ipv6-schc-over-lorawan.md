@@ -68,10 +68,11 @@ is used over LoRaWAN networks.
 
 This section defines the terminology and acronyms used in this document. For all other definitions, please look up the SCHC specification {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
-  o  DevEUI: 
+  o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the procedure while joining the network (Join Procedure)
 
-  o  DevAddr: 
+  o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or dynamically after a Join Procedure (depending on the activation mode)
 
+  o  TBD: all significant LoRaWAN-related terms.
 
 # Static Context Header Compression Overview
 
