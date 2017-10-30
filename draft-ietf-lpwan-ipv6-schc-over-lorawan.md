@@ -39,11 +39,9 @@ informative:
 
 The Static Context Header Compression (SCHC) specification describes generic
 header compression and fragmentation techniques for LPWAN (Low Power Wide Area
-Networks) technologies. SCHC is designed with great flexibility in mind, so
-that it can be adapted for any of the LPWAN technologies.
+Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies. 
 
-This document describes the optimal parameters and modes of operation when SCHC
-is used over LoRaWAN networks.
+This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.
 
 --- middle
 
