@@ -1,4 +1,4 @@
 .targets.mk
 .refcache/
-draft-ietf-lpwan-ipv6-schc-over-lorawan.txt
-draft-ietf-lpwan-ipv6-schc-over-lorawan.html
+draft-*.txt
+draft-*.html
