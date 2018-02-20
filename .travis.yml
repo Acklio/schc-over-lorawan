@@ -1,22 +1,27 @@
 language: python
 sudo: false
 dist: trusty
-
 addons:
   apt:
     packages:
-     - python-pip
-     - xsltproc
-
+      - python-pip
+      - xsltproc
 env:
   global:
-   - GOPATH="${TRAVIS_BUILD_DIR}/.go_workspace"
-   - mmark_src=github.com/miekg/mmark/mmark
-   - mmark=./mmark
-
+    - GOPATH="${TRAVIS_BUILD_DIR}/.go_workspace"
+    - mmark_src=github.com/miekg/mmark/mmark
+    - mmark=./mmark
 install:
- - pip install xml2rfc
- - if head -1 -q *.md | grep '^\-\-\-' >/dev/null 2>&1; then gem install --no-doc kramdown-rfc2629; fi
- - if head -1 -q *.md | grep '^%%%' >/dev/null 2>&1; then go get "$mmark_src" && go build "$mmark_src"; fi
-
-script: make ghpages
+  - pip install xml2rfc
+  - if head -1 -q *.md | grep '^\-\-\-' >/dev/null 2>&1; then gem install --no-doc kramdown-rfc2629;
+    fi
+  - if head -1 -q *.md | grep '^%%%' >/dev/null 2>&1; then go get "$mmark_src" && go
+    build "$mmark_src"; fi
+script: GIT_SSH_COMMAND="ssh -i $HOME/.ssh/deploy_key" make ghpages
+before_install:
+  - mkdir -p $HOME/.ssh
+  - openssl aes-256-cbc -K $encrypted_ac365149bacd_key -iv $encrypted_ac365149bacd_iv
+    -in deploy_key.enc -out $HOME/.ssh/deploy_key -d
+  - chmod 600 $HOME/.ssh/deploy_key
+  - eval `ssh-agent -s`
+  - ssh-add $HOME/.ssh/deploy_key
