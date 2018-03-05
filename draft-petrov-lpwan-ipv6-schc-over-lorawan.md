@@ -13,6 +13,21 @@ title: Static Context Header Compression (SCHC) over LoRaWAN
 abbrev: SCHC-over-LORA
 wg: lpwan Working Group
 author:
+- ins: N. Sornin
+  name: Nicolas Sornin
+  org: Semtech
+  street: 14 Chemin des Clos
+  city: Meylan
+  country: France
+  email: nsornin@semtech.com
+  role: editor
+- ins: M. Coracin
+  name: Michael Coracin
+  org: Semtech
+  street: 14 Chemin des Clos
+  city: Meylan
+  country: France
+  email: mcoracin@semtech.com
 - ins: I. Petrov
   name: Ivaylo Petrov
   org: Acklio
@@ -27,6 +42,20 @@ author:
   city: Paris, Paris
   country: France
   email: alper.yegin@actility.com
+- ins: J. Catalano
+  name: Julien Catalano
+  org: Kerlink
+  street: 1 rue Jacqueline Auriol
+  city: 35235 Thorigné-Fouillard
+  country: France
+  email: j.catalano@kerlink.fr
+- ins: V. Audebert
+  name: Vincent AUDEBERT
+  org: EDF R&D
+  street: 7 bd Gaspard Monge
+  city: 91120 PALAISEAU
+  country: FRANCE
+  email: vincent.audebert@edf.fr
 normative:
   RFC4944:
   RFC5795:
