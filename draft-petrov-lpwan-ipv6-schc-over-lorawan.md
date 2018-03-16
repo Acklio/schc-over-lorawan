@@ -10,7 +10,7 @@ pi:
   compact: 'yes'
   toc: 'yes'
 title: Static Context Header Compression (SCHC) over LoRaWAN
-abbrev: SCHC-over-LORA
+abbrev: SCHC-over-LoRaWAN
 wg: lpwan Working Group
 author:
 - ins: N. Sornin
