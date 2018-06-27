@@ -10,9 +10,24 @@ pi:
   compact: 'yes'
   toc: 'yes'
 title: Static Context Header Compression (SCHC) over LoRaWAN
-abbrev: SCHC-over-LORA
+abbrev: SCHC-over-LoRaWAN
 wg: lpwan Working Group
 author:
+- ins: N. Sornin
+  name: Nicolas Sornin
+  org: Semtech
+  street: 14 Chemin des Clos
+  city: Meylan
+  country: France
+  email: nsornin@semtech.com
+  role: editor
+- ins: M. Coracin
+  name: Michael Coracin
+  org: Semtech
+  street: 14 Chemin des Clos
+  city: Meylan
+  country: France
+  email: mcoracin@semtech.com
 - ins: I. Petrov
   name: Ivaylo Petrov
   org: Acklio
@@ -27,6 +42,20 @@ author:
   city: Paris, Paris
   country: France
   email: alper.yegin@actility.com
+- ins: J. Catalano
+  name: Julien Catalano
+  org: Kerlink
+  street: 1 rue Jacqueline Auriol
+  city: 35235 Thorigné-Fouillard
+  country: France
+  email: j.catalano@kerlink.fr
+- ins: V. Audebert
+  name: Vincent AUDEBERT
+  org: EDF R&D
+  street: 7 bd Gaspard Monge
+  city: 91120 PALAISEAU
+  country: FRANCE
+  email: vincent.audebert@edf.fr
 normative:
   RFC4944:
   RFC5795:
@@ -34,6 +63,12 @@ normative:
 informative:
   I-D.ietf-lpwan-overview:
   I-D.ietf-lpwan-ipv6-static-context-hc:
+  lora-alliance-spec:
+    title: LoRaWAN Specification Version V1.0.2
+    author:
+      name: LoRa Alliance
+    date: 07.2016
+    target: http://portal.lora-alliance.org/DesktopModules/Inventures_Document/FileDownload.aspx?ContentID=1398
 
 --- abstract
 
@@ -137,7 +172,50 @@ Network Server and/or the Application Server.
 Next steps for this section: detailed overview of the LoRaWAN architecture and
 its mapping to the SCHC architecture.
 
-# LoRaWAN Overview
+#LoRaWAN Architecture
+
+An overview of LoRaWAN {{lora-alliance-spec}} protocol and architecture is
+described in {{I-D.ietf-lpwan-overview}}. Mapping between the LPWAN
+architecture entities as described in {{I-D.ietf-lpwan-ipv6-static-context-hc}}
+and the ones in {{lora-alliance-spec}} is as follows:
+
+   o Devices (Dev) are the end-devices or hosts (e.g. sensors,
+   actuators, etc.).  There can be a very high density of devices per
+   radio gateway. This entity maps to the LoRaWAN End-device.
+
+   o The Radio Gateway (RGW), which is the end point of the constrained
+   link. This entity maps to the LoRaWAN Gateway.
+
+   o The Network Gateway (NGW) is the interconnection node between the
+   Radio Gateway and the Internet. This entity maps to the LoRaWAN Network
+   Server.
+
+   o LPWAN-AAA Server, which controls the user authentication and the
+   applications. This entity maps to the LoRaWAN Join Server.
+
+   o Application Server (App). The same terminology is used in LoRaWAN.
+
+
+    ()   ()   ()       |                      +------+
+     ()  () () ()     / \       +---------+   | Join |
+    () () () () ()   /   \======|    ^    |===|Server|  +-----------+
+     () ()  ()      |           | <--|--> |   +------+  |Application|
+    () ()  ()  ()  / \==========|    v    |=============|  Server   |
+     ()  ()  ()   /   \         +---------+             +-----------+
+    End-Devices  Gateways     Network Server
+
+
+                       Figure 1: LPWAN/LoRaWAN Architecture
+
+   SCHC C/D (Compressor/Decompressor) and SCHC Fragmentation are performed on
+   the LoRaWAN End-device and the Application Server. While the point-to-point
+   link between the End-device and the Application Server constitutes single IP
+   hop, the ultimate end-point of the IP communication may be an Internet node
+   beyond the Application Server. In other words, the LoRaWAN Application
+   Server acts as the first hop IP router for the End-device. Note that the
+   Application Server and Network Server may be co-located, which effectively
+   turns the Network/Application Server into the first hop IP router.
+
 
 ## Device classes (A, B, C) and interactions
 TBD
