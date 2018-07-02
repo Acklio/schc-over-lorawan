@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-petrov-lpwan-ipv6-schc-over-lorawan-00
+docname: draft-petrov-lpwan-ipv6-schc-over-lorawan-latest
 cat: info
 pi:
   symrefs: 'yes'
@@ -60,6 +60,7 @@ normative:
   RFC4944:
   RFC5795:
   RFC7136:
+  RFC3385:
 informative:
   I-D.ietf-lpwan-overview:
   I-D.ietf-lpwan-ipv6-static-context-hc:
@@ -234,7 +235,7 @@ TBD
 ## Rule ID management
 
 Rule ID can be stored and transported in the FPort field of the LoRaWAN MAC
-frame.
+frame or as the first bytes of the payload.
 
 TBD
 
@@ -245,7 +246,221 @@ TBD
 TBD
 
 ### Reliability options
-TBD
+
+#### Uplinks: From device to gateway
+
+In that case the device is the fragmentation transmitter, and the SCHC gateway
+the fragmentation receiver.
+
+* SCHC fragmentation reliability mode : `ACK_ALWAYS`
+* Window size: 8, the FCN field is encoded on 3 bits
+* DTag : 1bit. this field is used to clearly separate two consecutive
+  fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
+  SCHC datagrams.
+* MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
+  representation of the polynomial used e.g. in the Ethernet standard
+  [RFC3385])
+* Retransmission Timer and inactivity Timer:
+  LoRaWAN devices do not implement a "retransmission timer". At the end of a
+  window the ACK corresponding to this window is transmitted by the network
+  gateway in the RX1 or RX2 receive slot of the device. If this ACK is not
+  received the device sends an all-0 (or an all-1) fragment with no payload to
+  request an ACK retransmission. The periodicity between retransmission of the
+  all-0/all-1 fragments is device/application specific and may be different for
+  each device (not specified).  The gateway implements an "inactivity timer".
+  The default recommended duration of this timer is 12h.  This value is mainly
+  driven by application requirements and may be changed.
+
+~~~~
+
+| RuleID | DTag  | W     | FCN    | Payload |
++ ------ + ----- + ----- | ------ + ------- +
+| 3 bits | 1 bit | 1 bit | 3 bits |         |
+
+
+~~~~
+{: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 8 bits.'}
+
+~~~~
+
+| RuleID | DTag  | W     | FCN    | MIC     | Payload |
++ ------ + ----- + ----- | ------ + ------- + ------- +
+| 3 bits | 1 bit | 1 bit | 3 bits | 32 bits |         |
+
+
+~~~~
+{: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment. Header size is 8 bits.'}
+
+The format of an all-0 or all-1 acknowledge is:
+
+~~~~
+
+| RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
++ ------ + ----- + ----- | -------------- + ------------ +
+| 3 bits | 1 bit | 1 bit | up to 8 bits   | 0 to 3 bits  |
+
+
+~~~~
+{: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows. Header size is 1 or 2 bytes.'}
+
+~~~~
+
+| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
+| 3 bits | 1 bit | 1 bit | 1 bit | up to 8 bits              | 0 to 2 bits  |
+
+
+~~~~
+{: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows. Header size is 1 or 2 bytes.'}
+
+
+#### Downlinks: From gateway to device
+
+In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation
+transmitter. The following fields are common to all devices.
+
+* SCHC fragmentation reliability mode : ACK_ALWAYS
+* Window size : 1 , The FCN field is encoded on 1 bits
+* DTag : 1bit. This field is used to clearly separate two consecutive fragmentation sessions. A
+  LoRaWAN device cannot interleave several fragmented SCHC datagrams.
+* MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse representation of the
+  polynomial used e.g. in the Ethernet standard [RFC3385])
+* MAX_ACK_REQUESTS : 8
+
+~~~~
+
+| RuleID | DTag  | W     | FCN    | Payload | Padding |
++ ------ + ----- + ----- | ------ + ------- + ------- +
+| 3 bits | 1 bit | 1 bit | 1 bits | X bytes | 2 bits  |
+
+
+~~~~
+{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size is 6 bits.'}
+
+~~~~
+
+| RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding |
++ ------ + ----- + ----- | ------ + ------- + ------- + ------- +
+| 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 2 bits  |
+
+
+~~~~
+{: #Fig-fragmentation-downlink-header-all1 title='All-1 Fragment Detailed Format for the Last Fragment. Header size is 6 bits.'}
+
+The format of an all-0 or all-1 acknowledge is:
+
+~~~~
+
+| RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
++ ------ + ----- + ----- | -------------- + ------------ +
+| 3 bits | 1 bit | 1 bit | 1 bit          | 2 bits       |
+
+
+~~~~
+{: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows. Header size is 8 bits.'}
+
+~~~~
+
+| RuleID | DTag  | W     | C = 1 | Padding (0s) |
++ ------ + ----- + ----- + ----- + ------------ +
+| 3 bits | 1 bit | 1 bit | 1 bit | 2 bits       |
+
+
+~~~~
+{: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct. Header size is 8 bits.'}
+
+~~~~
+
+| RuleID | DTag  | W     | b'111  | 0xFF (all 1's) |
++ ------ + ----- + ----- + ------ + -------------- +
+| 3 bits | 1 bit | 1 bit | 3 bits | 8 bits         |
+
+
+~~~~
+{: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.'}
+
+
+Class A and classB&C device do not manage retransmissions and timers in the same way.
+
+##### Class A devices
+
+Class A devices can only receive in an RX slot following the transmission of an
+uplink.  Therefore there cannot be a concept of "retransmission timer" for a
+gateway talking to classA devices for downlink fragmentation.
+
+The device replies with an ACK fragment to every single fragment received from
+the gateway (because the window size is 1).  Following the reception of a FCN=0
+fragment (fragment that is not the last fragment of the packet or ACK-request),
+the device MUST transmit the ACK fragment until it receives the fragment of the
+next window. The device shall transmit up to MAX_ACK_REQUESTS ACK fragments
+before aborting. The device should transmit those ACK as soon as possible while
+taking into consideration eventual local radio regulation on duty-cycle, to
+progress the fragmentation session as quickly as possible. The ACK bitmap is 1
+bit long and is always 1.
+
+Following the reception of a FCN=1 fragment (the last fragment of a datagram)
+and if the MIC is correct, the device shall transmit the ACK with the  “MIC
+is correct” indicator bit set. This message might be lost therefore the
+gateway may request a retransmission of this ACK in the next downlink. The
+device SHALL keep this ACK message in memory until it receives a downlink
+from the gateway different from an ACK-request indicating that the gateway
+has received the ACK message.
+
+Following the reception of a FCN=1 fragment (the last fragment of a datagram)
+and if the MIC is NOT correct, the device shall transmit a receiver-ABORT
+fragment. The device SHALL keep this ABORT message in memory until it
+receives a downlink from the gateway different from an ACK-request indicating
+that the gateway has received the ABORT message.  The fragmentation receiver
+(device) does not implement retransmission timer and inactivity timer.
+
+The fragmentation sender (the gateway) implements an
+inactivity timer with default duration 12 hours. Once a fragmentation session
+is started, if the gateway has not received any ACK or receiver-ABORT message
+12 hours fater the last message from the device was received, the gateway may
+flush the fragmentation context.  For devices with very low transmission rates
+(example 1 packet a day in normal operation) , that duration may be extended,
+but this is application specific.
+
+
+#### Class B or C devices
+
+Class B&C devices can receive in scheduled RX slots or in RX slots following
+the transmission of an uplink.  The device replies with an ACK fragment to
+every single fragment received from the gateway (because the window size is 1).
+Following the reception of a FCN=0 fragment (fragment that is not the last
+fragment of the packet or ACK-request), the device MUST always transmit the
+corresponding ACK fragment even if that fragment has already been received. The
+ACK bitmap is 1 bit long and is always 1.  If the gateway receives this ACK, it
+proceeds to send the next window fragment If the retransmission timer elapses
+and the gateway has not received the ACK of the current window it retransmits
+the last fragment. The gateway tries retransmitting up to MAX_ACK_REQUESTS
+times before aborting.
+
+Following the reception of a FCN=1 fragment (the last fragment of a datagram)
+and if the MIC is correct, the device shall transmit the ACK with the “MIC is
+correct” indicator bit set.  If the gateway receives this ACK, the current
+fragmentation session has succeeded and its context can be cleared.
+
+If the retransmission timer elapses and the gateway has not received the all-1
+ACK it retransmits the last fragment with the payload (not an ACK-request
+without payload). The gateway tries retransmitting up to MAX_ACK_REQUESTS times
+before aborting.
+
+The device SHALL keep the all-1 ACK message in memory until it receives a
+downlink from the gateway different from the last (FCN=1) fragment indicating
+that the gateway has received the ACK message.  Following the reception of a
+FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct,
+  the device shall transmit a receiver-ABORT fragment.  The retransmission
+timer is used by the gateway (the sender), the optimal value is very much
+application specific but here are some recommended default values.  For classB
+devices, this timer trigger is a function of the periodicity of the classB ping
+slots. The recommended value is equal to 3 times the classB ping slot
+periodicity. (modify 128sec) For classC devices which are nearly constantly
+receiving, the recommended value is 30 seconds. This means that the device
+shall try to transmit the ACK within 30 seconds  of the reception of each
+fragment.  The inactivity timer is implemented by the device to flush the
+context in-case it receives nothing from the gateway over an extended period of
+time. The recommended value is  12 hours for both classB&C devices.
 
 ### Supporting multiple window sizes
 TBD
