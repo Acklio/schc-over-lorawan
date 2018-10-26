@@ -196,6 +196,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
    o Application Server (App). The same terminology is used in LoRaWAN.
 
+~~~~
 
     ()   ()   ()       |                      +------+
      ()  () () ()     / \       +---------+   | Join |
@@ -205,8 +206,8 @@ and the ones in {{lora-alliance-spec}} is as follows:
      ()  ()  ()   /   \         +---------+             +-----------+
     End-Devices  Gateways     Network Server
 
-
-                       Figure 1: LPWAN/LoRaWAN Architecture
+~~~~
+{: #Fig-LPWANarchi title='LPWAN Architecture'}
 
    SCHC C/D (Compressor/Decompressor) and SCHC Fragmentation are performed on
    the LoRaWAN End-device and the Application Server. While the point-to-point
@@ -219,10 +220,56 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
 
 ## Device classes (A, B, C) and interactions
-TBD
+
+The LoRaWAN MAC layer supports 3 classes of devices named A,B and C.
+All devices implement the classA, some devices implement classA+B or class
+A+C. ClassB and classC are mutually exclusive.
+
+* *ClassA*: The classA is the simplest class of devices. The device is allowed
+  to transmit at any time, randomly selecting a communication channel. The
+  network may reply with a downlink in one of the 2 receive windows immediately
+  following the uplinks. Therefore, the network cannot initiate a downlink, it
+  has to wait for the next uplink from the device to get a downlink
+  opportunity. The classA is the lowest power device class.
+* *ClassB*: classB devices implement all the functionalities of classA devices,
+  but also schedule periodic listen windows. Therefore, as opposed the classA
+  devices, classB devices can receive downlink that are initiated by the
+  network and not following an uplink. There is a trade-off between the
+  periodicity of those scheduled classB listen windows and the power
+  consumption of the device. The lower the downlink latency, the higher the
+  power consumption.
+* *ClassC*: classC devices implement all the functionalities of classA devices,
+  but keep their receiver open whenever they are not transmitting. ClassC
+  devices can receive downlinks at any time at the expense of a higher power
+  consumption. Battery powered devices can only operate in classC for a limited
+  amount of time (for example for a firmware upgrade over the air). Most of the
+  classC devices are main powered (for example Smart Plugs).
 
 ## Device addressing
-TBD
+
+LoRaWAN devices use a 32bits network address (devAddr) to communicate with
+the network over the air. However that address might be reused several time
+on the same network. Devices using the same devAddr are separated by the
+network server based on the cryptographic signature appended to every single
+LoRaWAN MAC frame, as all devices use different security keys.
+To communicate with the SCHC gateway the network server MUST identify the
+devices by a unique 64bits device ID called the devEUI. Unlike devAddr,
+devEUI is guaranteed to be unique for every single device across all
+networks. The devEUI is assigned to the device during the manufacturing
+process by the device’s manufacturer. The devEUI is built like an Ethernet
+MAC address by concatenating the manufacturer’s IEEE 24bits OUI field with a
+40bits serial number.
+The network server translates the devAddr into a devEUI in the uplink
+direction and reciprocally on the downlink direction.
+
+~~~~
+
+ +--------+         +---------------+        +--------------------+
+ | device | <=====> | Network Server| <====> | Application Server |
+ +--------+ devAddr +---------------+ devEUI +--------------------+
+
+~~~~
+{: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
 
 ## General Message Types
 TBD
@@ -234,20 +281,41 @@ TBD
 
 ## Rule ID management
 
-Rule ID can be stored and transported in the FPort field of the LoRaWAN MAC
-frame or as the first bytes of the payload.
+The LoRaWAN MAC layers features a port field in all frames. This port field
+(FPort) is 8bit long and the values from 1 to 220 can be used.
+SCHC over LoRaWAN uses 2 contiguous FPort value to separate the uplink SCHC
+traffic from the downlink and avoid any confusion. Those FPorts are called
+FPortUp and FPortDwn. Those FPorts can use arbitrary values inside the allowed
+Fport range but must be shared by the end-device and SCHC gateway.
 
-TBD
+SCHC over LoRAWAN encodes RuleID on 3 bits, there are therefore 8 possible
+RuleIds on both uplink and downlink direction.
+
+The RuleID 0 is reserved for fragmentation in both directions. The 7
+remaining RuleIDs are available for IPV6 header compression. Uplink (on
+FPortUp) and downlink (on FportDwn) RuleIDs are independent. The same RuleID
+may have different meanings on the uplink and downlink paths.
+
+The only uplink messages using the FportDwn port are the fragmentation SCHC
+ACKs messages of a downlink fragmentation session. Similarly, the only
+downlink messages using the FportUp port are the fragmentation SCHC ACKs
+messages of an uplink fragmentation session
 
 ## IID computation
 TBD
 
 ## Fragmentation {#Frag}
-TBD
 
-### Reliability options
+The L2 word size used by LoRaWAN is 1 octet (8 bits).
+The SCHC fragmentation over LoRaWAN exclusively uses the ACK-always mode.
+A LoRaWAN device cannot support simultaneous interleaved fragmentation
+sessions in the same direction (uplink or downlink). This means that only a
+single fragmented IPV6 datagram may be transmitted and/or received by the
+device at a given moment.
+The fragmentation parameters are different for uplink and downlink
+fragmentation sessions and are successively described in the next sections.
 
-#### Uplinks: From device to gateway
+### Uplink fragmentation: From device to gateway
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.
@@ -297,7 +365,7 @@ The format of an all-0 or all-1 acknowledge is:
 
 | RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
 + ------ + ----- + ----- | -------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | up to 8 bits   | 0 to 3 bits  |
+| 3 bits | 1 bit | 1 bit | 3 or 8 bits    | 0 or 3 bits  |
 
 
 ~~~~
@@ -307,14 +375,14 @@ The format of an all-0 or all-1 acknowledge is:
 
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bit | up to 8 bits              | 0 to 2 bits  |
+| 3 bits | 1 bit | 1 bit | 1 bit | 2 or 8 bits               | 0 or 2 bits  |
 
 
 ~~~~
 {: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows. Header size is 1 or 2 bytes.'}
 
 
-#### Downlinks: From gateway to device
+### Downlinks: From gateway to device
 
 In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation
 transmitter. The following fields are common to all devices.
@@ -329,9 +397,9 @@ transmitter. The following fields are common to all devices.
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN    | Payload | Padding |
+| RuleID | DTag  | W     | FCN    | Payload           |
 + ------ + ----- + ----- | ------ + ------- + ------- +
-| 3 bits | 1 bit | 1 bit | 1 bits | X bytes | 2 bits  |
+| 3 bits | 1 bit | 1 bit | 1 bits | X bytes + 2 bits  |
 
 
 ~~~~
@@ -339,9 +407,9 @@ transmitter. The following fields are common to all devices.
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding |
-+ ------ + ----- + ----- | ------ + ------- + ------- + ------- +
-| 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 2 bits  |
+| RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding (0s) |
++ ------ + ----- + ----- | ------ + ------- + ------- + ------------ +
+| 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 0 to 7 bits  |
 
 
 ~~~~
@@ -380,9 +448,9 @@ The format of an all-0 or all-1 acknowledge is:
 {: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.'}
 
 
-Class A and classB&C device do not manage retransmissions and timers in the same way.
+Class A and classB&C devices do not manage retransmissions and timers in the same way.
 
-##### Class A devices
+#### Class A devices
 
 Class A devices can only receive in an RX slot following the transmission of an
 uplink.  Therefore there cannot be a concept of "retransmission timer" for a
@@ -416,7 +484,7 @@ that the gateway has received the ABORT message.  The fragmentation receiver
 The fragmentation sender (the gateway) implements an
 inactivity timer with default duration 12 hours. Once a fragmentation session
 is started, if the gateway has not received any ACK or receiver-ABORT message
-12 hours fater the last message from the device was received, the gateway may
+12 hours after the last message from the device was received, the gateway may
 flush the fragmentation context.  For devices with very low transmission rates
 (example 1 packet a day in normal operation) , that duration may be extended,
 but this is application specific.
@@ -455,21 +523,12 @@ timer is used by the gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.  For classB
 devices, this timer trigger is a function of the periodicity of the classB ping
 slots. The recommended value is equal to 3 times the classB ping slot
-periodicity. (modify 128sec) For classC devices which are nearly constantly
+periodicity. For classC devices which are nearly constantly
 receiving, the recommended value is 30 seconds. This means that the device
 shall try to transmit the ACK within 30 seconds  of the reception of each
 fragment.  The inactivity timer is implemented by the device to flush the
 context in-case it receives nothing from the gateway over an extended period of
 time. The recommended value is  12 hours for both classB&C devices.
-
-### Supporting multiple window sizes
-TBD
-
-### Downlink fragment transmission
-TBD
-
-### SCHC behavior for devices in class A, B and C
-TBD
 
 # Security considerations
 TBD
