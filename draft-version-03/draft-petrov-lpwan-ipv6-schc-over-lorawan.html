@@ -9,77 +9,30 @@
 
   
 <style type="text/css">/*<![CDATA[*/
-@viewport {
-  zoom: 1.0;
-  width: extend-to-zoom;
-}
-@-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
-}
-
-@media screen and (min-width: 1024px) {
-  ul.toc, #rfc\.toc {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 500px);
-    width: 300px;
-    padding: 0 1em;
-    z-index: 1;
-  }
-  #rfc\.toc {
-    top: 16px;
-  }
-  ul.toc {
-    top: 80px;
-    overflow: auto;
-  }
-
-  body {
-    padding-left: 1.5em;
-    padding-right: 29em;
-  }
-}
 
 body {
-  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   color: #333;
   font-size-adjust: 0.5;
-  line-height: 130%;
-  margin: 2.5em auto;
-  max-width: 724px;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
 }
 
-.title, .filename, h1, h2, h3, h4 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   font-size-adjust: 0.5;
-  font-weight: 500;
+  font-weight: bold;
   color: #333;
   line-height: 100%;
-  margin: 0.8em 0 0.3em;
+  margin: 1.2em 0 0.3em;
 }
-.title { font-size: 36px; }
-h1 { font-size: 30px; }
-h2 { font-size: 24px; }
-h3, h4 { font-size: 18px; }
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
 h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
   color: #333;
-}
-
-ul.toc li {
-  list-style: none;
-  text-indent: -2.5em;
-  padding-left: 2.5em;
-  padding-bottom: 5px;
-  margin: 0;
-}
-ul.toc ul {
-  margin: 0;
-}
-/* xml2rfc nests ul directly inside ul which messes with the style badly */
-ul.toc, ul.toc>ul, ul.toc ul>ul {
-  margin: 0 0 0 1.5em;
 }
 
 table {
@@ -108,29 +61,30 @@ td.reference {
 }
 
 
-table.header {
+table.header, table#rfc\.headerblock {
   width: 100%;
 }
-table.header td {
+table.header td, table#rfc\.headerblock td {
   border: none;
   background-color: transparent;
   color: black;
+  padding: 0;
 }
 .filename {
+  display: block;
   color: rgb(119, 119, 119);
-  font-size: 23px;
-  font-weight: normal;
-  height: auto;
-  line-height: 100%;
-}
-#rfc\.abstract+p {
   font-size: 20px;
-  font-weight: 300;
-  line-height: 130%;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
 }
 
 samp, tt, code, pre {
-  font: 11pt consolas, monospace;
+  font: 13.5px Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -140,13 +94,15 @@ pre {
   padding: 5px;
   margin: 5px;
 }
-.figure {
+.figure, caption {
   font-style: italic;
   margin: 0 1.5em;
+  text-align: left;
 }
 
 address {
-  margin: 10px 0 0;
+  margin: 16px 2px;
+  line-height: 20px;
 }
 .vcard {
   font-style: normal;
@@ -154,8 +110,8 @@ address {
 .vcardline {
   display: block;
 }
-.vcardline .fn {
-  font-weight: bold;
+.vcardline .fn, address b {
+  font-weight: normal;
 }
 .vcardline .hidden {
   display: none;
@@ -195,6 +151,9 @@ hr {
   border: 0;
   border-top: 1px solid #eee;
 }
+hr.noprint {
+  display: none;
+}
 
 a {
   text-decoration: none;
@@ -206,15 +165,59 @@ a[href]:hover {
   background-color: #eee;
 }
 
-ol, ul, li, p {
+p, ol, ul, li {
   padding: 0;
-  margin: 0.5em 0 0.5em 2em;
 }
-li, p {
-  margin-left: 0;
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
 }
 address {
   font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
 }
 
 .github-fork-ribbon-wrapper {
@@ -274,6 +277,7 @@ address {
     position: fixed;
   }
   /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
 
 
   <link href="#rfc.toc" rel="Contents">
@@ -301,7 +305,7 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.11.1 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Sornin, N., Ed., Coracin, M., Petrov, I., Yegin, A., Catalano, J., and V. Audebert" />
@@ -510,16 +514,16 @@ address {
 
 <ul>
 <li>
-<em>ClassA</em>: The classA is the simplest class of devices. The device is allowed to transmit at any time, randomly selecting a communication channel. The network may reply with a downlink in one of the 2 receive windows immediately following the uplinks. Therefore, the network cannot initiate a downlink, it has to wait for the next uplink from the device to get a downlink opportunity. The classA is the lowest power device class.</li>
+<strong>ClassA</strong>: The classA is the simplest class of devices. The device is allowed to transmit at any time, randomly selecting a communication channel. The network may reply with a downlink in one of the 2 receive windows immediately following the uplinks. Therefore, the network cannot initiate a downlink, it has to wait for the next uplink from the device to get a downlink opportunity. The classA is the lowest power device class.</li>
 <li>
-<em>ClassB</em>: classB devices implement all the functionalities of classA devices, but also schedule periodic listen windows. Therefore, as opposed the classA devices, classB devices can receive downlink that are initiated by the network and not following an uplink. There is a trade-off between the periodicity of those scheduled classB listen windows and the power consumption of the device. The lower the downlink latency, the higher the power consumption.</li>
+<strong>ClassB</strong>: classB devices implement all the functionalities of classA devices, but also schedule periodic listen windows. Therefore, as opposed the classA devices, classB devices can receive downlink that are initiated by the network and not following an uplink. There is a trade-off between the periodicity of those scheduled classB listen windows and the power consumption of the device. The lower the downlink latency, the higher the power consumption.</li>
 <li>
-<em>ClassC</em>: classC devices implement all the functionalities of classA devices, but keep their receiver open whenever they are not transmitting. ClassC devices can receive downlinks at any time at the expense of a higher power consumption. Battery powered devices can only operate in classC for a limited amount of time (for example for a firmware upgrade over the air). Most of the classC devices are main powered (for example Smart Plugs).</li>
+<strong>ClassC</strong>: classC devices implement all the functionalities of classA devices, but keep their receiver open whenever they are not transmitting. ClassC devices can receive downlinks at any time at the expense of a higher power consumption. Battery powered devices can only operate in classC for a limited amount of time (for example for a firmware upgrade over the air). Most of the classC devices are main powered (for example Smart Plugs).</li>
 </ul>
 <h1 id="rfc.section.4.2">
 <a href="#rfc.section.4.2">4.2.</a> <a href="#device-addressing" id="device-addressing">Device addressing</a>
 </h1>
-<p id="rfc.section.4.2.p.1">LoRaWAN devices use a 32bits network address (devAddr) to communicate with the network over the air. However that address might be reused several time on the same network. Devices using the same devAddr are separated by the network server based on the cryptographic signature appended to every single LoRaWAN MAC frame, as all devices use different security keys.  To communicate with the SCHC gateway the network server MUST identify the devices by a unique 64bits device ID called the devEUI. Unlike devAddr, devEUI is guaranteed to be unique for every single device across all networks. The devEUI is assigned to the device during the manufacturing process by the device&#8217;s manufacturer. The devEUI is built like an Ethernet MAC address by concatenating the manufacturer&#8217;s IEEE 24bits OUI field with a 40bits serial number.  The network server translates the devAddr into a devEUI in the uplink direction and reciprocally on the downlink direction.</p>
+<p id="rfc.section.4.2.p.1">LoRaWAN devices use a 32bits network address (devAddr) to communicate with the network over the air. However that address might be reused several time on the same network at the same time for different devices. Devices using the same devAddr are distinguish by the network server based on the cryptographic signature appended to every single LoRaWAN MAC frame, as all devices use different security keys.  To communicate with the SCHC gateway the network server MUST identify the devices by a unique 64bits device ID called the devEUI. Unlike devAddr, devEUI is guaranteed to be unique for every single device across all networks. The devEUI is assigned to the device during the manufacturing process by the device&#8217;s manufacturer. The devEUI is built like an Ethernet MAC address by concatenating the manufacturer&#8217;s IEEE 24bits OUI field with a 40bits serial number.  The network server translates the devAddr into a devEUI in the uplink direction and reciprocally on the downlink direction.</p>
 <div id="rfc.figure.3"></div>
 <div id="Fig-LoRaWANaddresses"></div>
 <pre>
@@ -576,7 +580,6 @@ address {
 + ------ + ----- + ----- | ------ + ------- +
 | 3 bits | 1 bit | 1 bit | 3 bits |         |
 
-
 </pre>
 <p class="figure">Figure 4: All fragment except the last one. Header size is 8 bits.</p>
 <div id="rfc.figure.5"></div>
@@ -585,7 +588,6 @@ address {
 | RuleID | DTag  | W     | FCN    | MIC     | Payload |
 + ------ + ----- + ----- | ------ + ------- + ------- +
 | 3 bits | 1 bit | 1 bit | 3 bits | 32 bits |         |
-
 
 </pre>
 <p class="figure">Figure 5: All-1 fragment detailed format for the last fragment. Header size is 8 bits.</p>
@@ -597,7 +599,6 @@ address {
 + ------ + ----- + ----- | -------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 3 or 8 bits    | 0 or 3 bits  |
 
-
 </pre>
 <p class="figure">Figure 6: ACK format for All-0 windows. Header size is 1 or 2 bytes.</p>
 <div id="rfc.figure.7"></div>
@@ -606,7 +607,6 @@ address {
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit | 2 or 8 bits               | 0 or 2 bits  |
-
 
 </pre>
 <p class="figure">Figure 7: ACK format for All-1 windows. Header size is 1 or 2 bytes.</p>
@@ -630,7 +630,6 @@ address {
 + ------ + ----- + ----- | ------ + ------- + ------- +
 | 3 bits | 1 bit | 1 bit | 1 bits | X bytes + 2 bits  |
 
-
 </pre>
 <p class="figure">Figure 8: All fragments but the last one. Header size is 6 bits.</p>
 <div id="rfc.figure.9"></div>
@@ -639,7 +638,6 @@ address {
 | RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding (0s) |
 + ------ + ----- + ----- | ------ + ------- + ------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 0 to 7 bits  |
-
 
 </pre>
 <p class="figure">Figure 9: All-1 Fragment Detailed Format for the Last Fragment. Header size is 6 bits.</p>
@@ -651,7 +649,6 @@ address {
 + ------ + ----- + ----- | -------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit          | 2 bits       |
 
-
 </pre>
 <p class="figure">Figure 10: ACK format for All-0 windows. Header size is 8 bits.</p>
 <div id="rfc.figure.11"></div>
@@ -661,7 +658,6 @@ address {
 + ------ + ----- + ----- + ----- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit | 2 bits       |
 
-
 </pre>
 <p class="figure">Figure 11: ACK format for All-1 windows, MIC is correct. Header size is 8 bits.</p>
 <div id="rfc.figure.12"></div>
@@ -670,7 +666,6 @@ address {
 | RuleID | DTag  | W     | b'111  | 0xFF (all 1's) |
 + ------ + ----- + ----- + ------ + -------------- +
 | 3 bits | 1 bit | 1 bit | 3 bits | 8 bits         |
-
 
 </pre>
 <p class="figure">Figure 12: Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.</p>
@@ -884,6 +879,5 @@ address {
   </address>
 </div>
 
-  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/Acklio/schc-over-lorawan">Fork me on GitHub</a></div></div>
 </body>
 </html>
