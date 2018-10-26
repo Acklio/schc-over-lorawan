@@ -225,20 +225,20 @@ The LoRaWAN MAC layer supports 3 classes of devices named A,B and C.
 All devices implement the classA, some devices implement classA+B or class
 A+C. ClassB and classC are mutually exclusive.
 
-* *ClassA*: The classA is the simplest class of devices. The device is allowed
+* **ClassA**: The classA is the simplest class of devices. The device is allowed
   to transmit at any time, randomly selecting a communication channel. The
   network may reply with a downlink in one of the 2 receive windows immediately
   following the uplinks. Therefore, the network cannot initiate a downlink, it
   has to wait for the next uplink from the device to get a downlink
   opportunity. The classA is the lowest power device class.
-* *ClassB*: classB devices implement all the functionalities of classA devices,
+* **ClassB**: classB devices implement all the functionalities of classA devices,
   but also schedule periodic listen windows. Therefore, as opposed the classA
   devices, classB devices can receive downlink that are initiated by the
   network and not following an uplink. There is a trade-off between the
   periodicity of those scheduled classB listen windows and the power
   consumption of the device. The lower the downlink latency, the higher the
   power consumption.
-* *ClassC*: classC devices implement all the functionalities of classA devices,
+* **ClassC**: classC devices implement all the functionalities of classA devices,
   but keep their receiver open whenever they are not transmitting. ClassC
   devices can receive downlinks at any time at the expense of a higher power
   consumption. Battery powered devices can only operate in classC for a limited
@@ -249,7 +249,8 @@ A+C. ClassB and classC are mutually exclusive.
 
 LoRaWAN devices use a 32bits network address (devAddr) to communicate with
 the network over the air. However that address might be reused several time
-on the same network. Devices using the same devAddr are separated by the
+on the same network at the same time for different devices. Devices using the
+same devAddr are distinguish by the
 network server based on the cryptographic signature appended to every single
 LoRaWAN MAC frame, as all devices use different security keys.
 To communicate with the SCHC gateway the network server MUST identify the
@@ -345,7 +346,6 @@ the fragmentation receiver.
 + ------ + ----- + ----- | ------ + ------- +
 | 3 bits | 1 bit | 1 bit | 3 bits |         |
 
-
 ~~~~
 {: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 8 bits.'}
 
@@ -354,7 +354,6 @@ the fragmentation receiver.
 | RuleID | DTag  | W     | FCN    | MIC     | Payload |
 + ------ + ----- + ----- | ------ + ------- + ------- +
 | 3 bits | 1 bit | 1 bit | 3 bits | 32 bits |         |
-
 
 ~~~~
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment. Header size is 8 bits.'}
@@ -367,7 +366,6 @@ The format of an all-0 or all-1 acknowledge is:
 + ------ + ----- + ----- | -------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 3 or 8 bits    | 0 or 3 bits  |
 
-
 ~~~~
 {: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows. Header size is 1 or 2 bytes.'}
 
@@ -376,7 +374,6 @@ The format of an all-0 or all-1 acknowledge is:
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit | 2 or 8 bits               | 0 or 2 bits  |
-
 
 ~~~~
 {: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows. Header size is 1 or 2 bytes.'}
@@ -401,7 +398,6 @@ transmitter. The following fields are common to all devices.
 + ------ + ----- + ----- | ------ + ------- + ------- +
 | 3 bits | 1 bit | 1 bit | 1 bits | X bytes + 2 bits  |
 
-
 ~~~~
 {: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size is 6 bits.'}
 
@@ -410,7 +406,6 @@ transmitter. The following fields are common to all devices.
 | RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding (0s) |
 + ------ + ----- + ----- | ------ + ------- + ------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 0 to 7 bits  |
-
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 Fragment Detailed Format for the Last Fragment. Header size is 6 bits.'}
@@ -423,7 +418,6 @@ The format of an all-0 or all-1 acknowledge is:
 + ------ + ----- + ----- | -------------- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit          | 2 bits       |
 
-
 ~~~~
 {: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows. Header size is 8 bits.'}
 
@@ -433,7 +427,6 @@ The format of an all-0 or all-1 acknowledge is:
 + ------ + ----- + ----- + ----- + ------------ +
 | 3 bits | 1 bit | 1 bit | 1 bit | 2 bits       |
 
-
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct. Header size is 8 bits.'}
 
@@ -442,7 +435,6 @@ The format of an all-0 or all-1 acknowledge is:
 | RuleID | DTag  | W     | b'111  | 0xFF (all 1's) |
 + ------ + ----- + ----- + ------ + -------------- +
 | 3 bits | 1 bit | 1 bit | 3 bits | 8 bits         |
-
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.'}
