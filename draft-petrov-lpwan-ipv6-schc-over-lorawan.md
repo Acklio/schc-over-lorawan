@@ -528,7 +528,11 @@ context in-case it receives nothing from the gateway over an extended period of
 time. The recommended value is  12 hours for both classB&C devices.
 
 # Security considerations
-TBD
+
+As this document is only providing parameters that are expected to be better
+suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
+such, this parameters does not contribute to any new security issues in
+addition of those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
 # Acknowledgements
 TBD
