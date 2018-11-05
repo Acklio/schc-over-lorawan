@@ -278,10 +278,15 @@ direction and reciprocally on the downlink direction.
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
 
 ## General Message Types
-TBD
+
+* Confirmed messages:
+* Unconfirmed messages:
 
 ## LoRaWAN MAC Frames
-TBD
+
+* JoinRequest
+* JoinAccept
+* Data
 
 # SCHC over LoRaWAN
 
@@ -294,8 +299,8 @@ traffic from the downlink and avoid any confusion. Those FPorts are called
 FPortUp and FPortDwn. Those FPorts can use arbitrary values inside the allowed
 Fport range but must be shared by the end-device and SCHC gateway.
 
-SCHC over LoRAWAN encodes RuleID on 3 bits, there are therefore 8 possible
-RuleIds on both uplink and downlink direction.
+SCHC over LoRAWAN SHOULD support encoding RuleID on 3 bits, there are therefore
+8 possible RuleIds on both uplink and downlink direction.
 
 The RuleID 0 is reserved for fragmentation in both directions. The 7
 remaining RuleIDs are available for IPV6 header compression. Uplink (on
@@ -308,7 +313,10 @@ downlink messages using the FportUp port are the fragmentation SCHC ACKs
 messages of an uplink fragmentation session
 
 ## IID computation
-TBD
+
+TBD (To discuss with the SCHC authors).
+
+## No compression packets are sent using Rule ID 7.
 
 ## Fragmentation {#Frag}
 
@@ -528,7 +536,11 @@ context in-case it receives nothing from the gateway over an extended period of
 time. The recommended value is  12 hours for both classB&C devices.
 
 # Security considerations
-TBD
+
+As this document is only providing parameters that are expected to be better
+suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
+such, this parameters does not contribute to any new security issues in
+addition of those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
 # Acknowledgements
 TBD
