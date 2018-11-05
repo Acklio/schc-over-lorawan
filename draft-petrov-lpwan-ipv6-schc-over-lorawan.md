@@ -57,6 +57,7 @@ author:
   country: FRANCE
   email: vincent.audebert@edf.fr
 normative:
+  RFC2119:
   RFC4944:
   RFC5795:
   RFC7136:
@@ -103,6 +104,10 @@ This document describes the efficient parameters and modes of operation when
 SCHC is used over LoRaWAN networks.
 
 # Terminology
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in {{RFC2119}}.
 
 This section defines the terminology and acronyms used in this document. For
 all other definitions, please look up the SCHC specification
