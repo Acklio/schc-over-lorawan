@@ -9,77 +9,30 @@
 
   
 <style type="text/css">/*<![CDATA[*/
-@viewport {
-  zoom: 1.0;
-  width: extend-to-zoom;
-}
-@-ms-viewport {
-  width: extend-to-zoom;
-  zoom: 1.0;
-}
-
-@media screen and (min-width: 1024px) {
-  ul.toc, #rfc\.toc {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    right: calc(50vw - 500px);
-    width: 300px;
-    padding: 0 1em;
-    z-index: 1;
-  }
-  #rfc\.toc {
-    top: 16px;
-  }
-  ul.toc {
-    top: 80px;
-    overflow: auto;
-  }
-
-  body {
-    padding-left: 1.5em;
-    padding-right: 29em;
-  }
-}
 
 body {
-  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   color: #333;
   font-size-adjust: 0.5;
-  line-height: 130%;
-  margin: 2.5em auto;
-  max-width: 724px;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
 }
 
-.title, .filename, h1, h2, h3, h4 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
   font-size-adjust: 0.5;
-  font-weight: 500;
+  font-weight: bold;
   color: #333;
   line-height: 100%;
-  margin: 0.8em 0 0.3em;
+  margin: 1.2em 0 0.3em;
 }
-.title { font-size: 36px; }
-h1 { font-size: 30px; }
-h2 { font-size: 24px; }
-h3, h4 { font-size: 18px; }
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
 h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
   color: #333;
-}
-
-ul.toc li {
-  list-style: none;
-  text-indent: -2.5em;
-  padding-left: 2.5em;
-  padding-bottom: 5px;
-  margin: 0;
-}
-ul.toc ul {
-  margin: 0;
-}
-/* xml2rfc nests ul directly inside ul which messes with the style badly */
-ul.toc, ul.toc>ul, ul.toc ul>ul {
-  margin: 0 0 0 1.5em;
 }
 
 table {
@@ -108,29 +61,30 @@ td.reference {
 }
 
 
-table.header {
+table.header, table#rfc\.headerblock {
   width: 100%;
 }
-table.header td {
+table.header td, table#rfc\.headerblock td {
   border: none;
   background-color: transparent;
   color: black;
+  padding: 0;
 }
 .filename {
+  display: block;
   color: rgb(119, 119, 119);
-  font-size: 23px;
-  font-weight: normal;
-  height: auto;
-  line-height: 100%;
-}
-#rfc\.abstract+p {
   font-size: 20px;
-  font-weight: 300;
-  line-height: 130%;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
 }
 
 samp, tt, code, pre {
-  font: 11pt consolas, monospace;
+  font: 13.5px Consolas, monospace;
   font-size-adjust: none;
 }
 pre {
@@ -140,13 +94,15 @@ pre {
   padding: 5px;
   margin: 5px;
 }
-.figure {
+.figure, caption {
   font-style: italic;
   margin: 0 1.5em;
+  text-align: left;
 }
 
 address {
-  margin: 10px 0 0;
+  margin: 16px 2px;
+  line-height: 20px;
 }
 .vcard {
   font-style: normal;
@@ -154,8 +110,8 @@ address {
 .vcardline {
   display: block;
 }
-.vcardline .fn {
-  font-weight: bold;
+.vcardline .fn, address b {
+  font-weight: normal;
 }
 .vcardline .hidden {
   display: none;
@@ -195,6 +151,9 @@ hr {
   border: 0;
   border-top: 1px solid #eee;
 }
+hr.noprint {
+  display: none;
+}
 
 a {
   text-decoration: none;
@@ -206,15 +165,59 @@ a[href]:hover {
   background-color: #eee;
 }
 
-ol, ul, li, p {
+p, ol, ul, li {
   padding: 0;
-  margin: 0.5em 0 0.5em 2em;
 }
-li, p {
-  margin-left: 0;
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
 }
 address {
   font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
 }
 
 .github-fork-ribbon-wrapper {
@@ -274,6 +277,7 @@ address {
     position: fixed;
   }
   /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
 
 
   <link href="#rfc.toc" rel="Contents">
@@ -288,9 +292,10 @@ address {
 <link href="#rfc.section.5" rel="Chapter" title="5 SCHC over LoRaWAN">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 Rule ID management">
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 IID computation">
-<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Fragmentation">
-<link href="#rfc.section.5.3.1" rel="Chapter" title="5.3.1 Uplink fragmentation: From device to gateway">
-<link href="#rfc.section.5.3.2" rel="Chapter" title="5.3.2 Downlinks: From gateway to device">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 No compression packets are sent using Rule ID 7.">
+<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Fragmentation">
+<link href="#rfc.section.5.4.1" rel="Chapter" title="5.4.1 Uplink fragmentation: From device to gateway">
+<link href="#rfc.section.5.4.2" rel="Chapter" title="5.4.2 Downlinks: From gateway to device">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 Acknowledgements">
 <link href="#rfc.references" rel="Chapter" title="8 References">
@@ -301,7 +306,7 @@ address {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.12.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Sornin, N., Ed., Coracin, M., Petrov, I., Yegin, A., Catalano, J., and V. Audebert" />
@@ -412,11 +417,13 @@ address {
 </li>
 <li>5.2.   <a href="#rfc.section.5.2">IID computation</a>
 </li>
-<li>5.3.   <a href="#rfc.section.5.3">Fragmentation</a>
+<li>5.3.   <a href="#rfc.section.5.3">No compression packets are sent using Rule ID 7.</a>
 </li>
-<ul><li>5.3.1.   <a href="#rfc.section.5.3.1">Uplink fragmentation: From device to gateway</a>
+<li>5.4.   <a href="#rfc.section.5.4">Fragmentation</a>
 </li>
-<li>5.3.2.   <a href="#rfc.section.5.3.2">Downlinks: From gateway to device</a>
+<ul><li>5.4.1.   <a href="#rfc.section.5.4.1">Uplink fragmentation: From device to gateway</a>
+</li>
+<li>5.4.2.   <a href="#rfc.section.5.4.2">Downlinks: From gateway to device</a>
 </li>
 </ul></ul><li>6.   <a href="#rfc.section.6">Security considerations</a>
 </li>
@@ -533,11 +540,22 @@ address {
 <h1 id="rfc.section.4.3">
 <a href="#rfc.section.4.3">4.3.</a> <a href="#general-message-types" id="general-message-types">General Message Types</a>
 </h1>
-<p id="rfc.section.4.3.p.1">TBD</p>
+<p></p>
+
+<ul>
+<li>Confirmed messages:</li>
+<li>Unconfirmed messages:</li>
+</ul>
 <h1 id="rfc.section.4.4">
 <a href="#rfc.section.4.4">4.4.</a> <a href="#lorawan-mac-frames" id="lorawan-mac-frames">LoRaWAN MAC Frames</a>
 </h1>
-<p id="rfc.section.4.4.p.1">TBD</p>
+<p></p>
+
+<ul>
+<li>JoinRequest</li>
+<li>JoinAccept</li>
+<li>Data</li>
+</ul>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#schc-over-lorawan" id="schc-over-lorawan">SCHC over LoRaWAN</a>
 </h1>
@@ -545,21 +563,24 @@ address {
 <a href="#rfc.section.5.1">5.1.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
 </h1>
 <p id="rfc.section.5.1.p.1">The LoRaWAN MAC layers features a port field in all frames. This port field (FPort) is 8bit long and the values from 1 to 220 can be used.  SCHC over LoRaWAN uses 2 contiguous FPort value to separate the uplink SCHC traffic from the downlink and avoid any confusion. Those FPorts are called FPortUp and FPortDwn. Those FPorts can use arbitrary values inside the allowed Fport range but must be shared by the end-device and SCHC gateway.</p>
-<p id="rfc.section.5.1.p.2">SCHC over LoRAWAN encodes RuleID on 3 bits, there are therefore 8 possible RuleIds on both uplink and downlink direction.</p>
+<p id="rfc.section.5.1.p.2">SCHC over LoRAWAN SHOULD support encoding RuleID on 3 bits, there are therefore 8 possible RuleIds on both uplink and downlink direction.</p>
 <p id="rfc.section.5.1.p.3">The RuleID 0 is reserved for fragmentation in both directions. The 7 remaining RuleIDs are available for IPV6 header compression. Uplink (on FPortUp) and downlink (on FportDwn) RuleIDs are independent. The same RuleID may have different meanings on the uplink and downlink paths.</p>
 <p id="rfc.section.5.1.p.4">The only uplink messages using the FportDwn port are the fragmentation SCHC ACKs messages of a downlink fragmentation session. Similarly, the only downlink messages using the FportUp port are the fragmentation SCHC ACKs messages of an uplink fragmentation session</p>
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#iid-computation" id="iid-computation">IID computation</a>
 </h1>
-<p id="rfc.section.5.2.p.1">TBD</p>
+<p id="rfc.section.5.2.p.1">TBD (To discuss with the SCHC authors).</p>
 <h1 id="rfc.section.5.3">
-<a href="#rfc.section.5.3">5.3.</a> <a href="#Frag" id="Frag">Fragmentation</a>
+<a href="#rfc.section.5.3">5.3.</a> <a href="#no-compression-packets-are-sent-using-rule-id-7" id="no-compression-packets-are-sent-using-rule-id-7">No compression packets are sent using Rule ID 7.</a>
 </h1>
-<p id="rfc.section.5.3.p.1">The L2 word size used by LoRaWAN is 1 octet (8 bits).  The SCHC fragmentation over LoRaWAN exclusively uses the ACK-always mode.  A LoRaWAN device cannot support simultaneous interleaved fragmentation sessions in the same direction (uplink or downlink). This means that only a single fragmented IPV6 datagram may be transmitted and/or received by the device at a given moment.  The fragmentation parameters are different for uplink and downlink fragmentation sessions and are successively described in the next sections.</p>
-<h1 id="rfc.section.5.3.1">
-<a href="#rfc.section.5.3.1">5.3.1.</a> <a href="#uplink-fragmentation-from-device-to-gateway" id="uplink-fragmentation-from-device-to-gateway">Uplink fragmentation: From device to gateway</a>
+<h1 id="rfc.section.5.4">
+<a href="#rfc.section.5.4">5.4.</a> <a href="#Frag" id="Frag">Fragmentation</a>
 </h1>
-<p id="rfc.section.5.3.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.</p>
+<p id="rfc.section.5.4.p.1">The L2 word size used by LoRaWAN is 1 octet (8 bits).  The SCHC fragmentation over LoRaWAN exclusively uses the ACK-always mode.  A LoRaWAN device cannot support simultaneous interleaved fragmentation sessions in the same direction (uplink or downlink). This means that only a single fragmented IPV6 datagram may be transmitted and/or received by the device at a given moment.  The fragmentation parameters are different for uplink and downlink fragmentation sessions and are successively described in the next sections.</p>
+<h1 id="rfc.section.5.4.1">
+<a href="#rfc.section.5.4.1">5.4.1.</a> <a href="#uplink-fragmentation-from-device-to-gateway" id="uplink-fragmentation-from-device-to-gateway">Uplink fragmentation: From device to gateway</a>
+</h1>
+<p id="rfc.section.5.4.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.</p>
 <p></p>
 
 <ul>
@@ -588,7 +609,7 @@ address {
 
 </pre>
 <p class="figure">Figure 5: All-1 fragment detailed format for the last fragment. Header size is 8 bits.</p>
-<p id="rfc.section.5.3.1.p.3">The format of an all-0 or all-1 acknowledge is:</p>
+<p id="rfc.section.5.4.1.p.3">The format of an all-0 or all-1 acknowledge is:</p>
 <div id="rfc.figure.6"></div>
 <div id="Fig-fragmentation-header-all0-ack"></div>
 <pre>
@@ -607,10 +628,10 @@ address {
 
 </pre>
 <p class="figure">Figure 7: ACK format for All-1 windows. Header size is 1 or 2 bytes.</p>
-<h1 id="rfc.section.5.3.2">
-<a href="#rfc.section.5.3.2">5.3.2.</a> <a href="#downlinks-from-gateway-to-device" id="downlinks-from-gateway-to-device">Downlinks: From gateway to device</a>
+<h1 id="rfc.section.5.4.2">
+<a href="#rfc.section.5.4.2">5.4.2.</a> <a href="#downlinks-from-gateway-to-device" id="downlinks-from-gateway-to-device">Downlinks: From gateway to device</a>
 </h1>
-<p id="rfc.section.5.3.2.p.1">In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation transmitter. The following fields are common to all devices.</p>
+<p id="rfc.section.5.4.2.p.1">In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation transmitter. The following fields are common to all devices.</p>
 <p></p>
 
 <ul>
@@ -638,7 +659,7 @@ address {
 
 </pre>
 <p class="figure">Figure 9: All-1 Fragment Detailed Format for the Last Fragment. Header size is 6 bits.</p>
-<p id="rfc.section.5.3.2.p.3">The format of an all-0 or all-1 acknowledge is:</p>
+<p id="rfc.section.5.4.2.p.3">The format of an all-0 or all-1 acknowledge is:</p>
 <div id="rfc.figure.10"></div>
 <div id="Fig-fragmentation-header-downlink-all0-ack"></div>
 <pre>
@@ -666,22 +687,22 @@ address {
 
 </pre>
 <p class="figure">Figure 12: Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.</p>
-<p id="rfc.section.5.3.2.p.4">Class A and classB&amp;C devices do not manage retransmissions and timers in the same way.</p>
-<h1 id="rfc.section.5.3.2.1">
-<a href="#rfc.section.5.3.2.1">5.3.2.1.</a> <a href="#class-a-devices" id="class-a-devices">Class A devices</a>
+<p id="rfc.section.5.4.2.p.4">Class A and classB&amp;C devices do not manage retransmissions and timers in the same way.</p>
+<h1 id="rfc.section.5.4.2.1">
+<a href="#rfc.section.5.4.2.1">5.4.2.1.</a> <a href="#class-a-devices" id="class-a-devices">Class A devices</a>
 </h1>
-<p id="rfc.section.5.3.2.1.p.1">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for a gateway talking to classA devices for downlink fragmentation.</p>
-<p id="rfc.section.5.3.2.1.p.2">The device replies with an ACK fragment to every single fragment received from the gateway (because the window size is 1).  Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST transmit the ACK fragment until it receives the fragment of the next window. The device shall transmit up to MAX_ACK_REQUESTS ACK fragments before aborting. The device should transmit those ACK as soon as possible while taking into consideration eventual local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
-<p id="rfc.section.5.3.2.1.p.3">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the  &#8220;MIC is correct&#8221; indicator bit set. This message might be lost therefore the gateway may request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink from the gateway different from an ACK-request indicating that the gateway has received the ACK message.</p>
-<p id="rfc.section.5.3.2.1.p.4">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct, the device shall transmit a receiver-ABORT fragment. The device SHALL keep this ABORT message in memory until it receives a downlink from the gateway different from an ACK-request indicating that the gateway has received the ABORT message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
-<p id="rfc.section.5.3.2.1.p.5">The fragmentation sender (the gateway) implements an inactivity timer with default duration 12 hours. Once a fragmentation session is started, if the gateway has not received any ACK or receiver-ABORT message 12 hours after the last message from the device was received, the gateway may flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
-<h1 id="rfc.section.5.3.2.2">
-<a href="#rfc.section.5.3.2.2">5.3.2.2.</a> <a href="#class-b-or-c-devices" id="class-b-or-c-devices">Class B or C devices</a>
+<p id="rfc.section.5.4.2.1.p.1">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for a gateway talking to classA devices for downlink fragmentation.</p>
+<p id="rfc.section.5.4.2.1.p.2">The device replies with an ACK fragment to every single fragment received from the gateway (because the window size is 1).  Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST transmit the ACK fragment until it receives the fragment of the next window. The device shall transmit up to MAX_ACK_REQUESTS ACK fragments before aborting. The device should transmit those ACK as soon as possible while taking into consideration eventual local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
+<p id="rfc.section.5.4.2.1.p.3">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the  &#8220;MIC is correct&#8221; indicator bit set. This message might be lost therefore the gateway may request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink from the gateway different from an ACK-request indicating that the gateway has received the ACK message.</p>
+<p id="rfc.section.5.4.2.1.p.4">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct, the device shall transmit a receiver-ABORT fragment. The device SHALL keep this ABORT message in memory until it receives a downlink from the gateway different from an ACK-request indicating that the gateway has received the ABORT message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
+<p id="rfc.section.5.4.2.1.p.5">The fragmentation sender (the gateway) implements an inactivity timer with default duration 12 hours. Once a fragmentation session is started, if the gateway has not received any ACK or receiver-ABORT message 12 hours after the last message from the device was received, the gateway may flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
+<h1 id="rfc.section.5.4.2.2">
+<a href="#rfc.section.5.4.2.2">5.4.2.2.</a> <a href="#class-b-or-c-devices" id="class-b-or-c-devices">Class B or C devices</a>
 </h1>
-<p id="rfc.section.5.3.2.2.p.1">Class B&amp;C devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink.  The device replies with an ACK fragment to every single fragment received from the gateway (because the window size is 1).  Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding ACK fragment even if that fragment has already been received. The ACK bitmap is 1 bit long and is always 1.  If the gateway receives this ACK, it proceeds to send the next window fragment If the retransmission timer elapses and the gateway has not received the ACK of the current window it retransmits the last fragment. The gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
-<p id="rfc.section.5.3.2.2.p.2">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the &#8220;MIC is correct&#8221; indicator bit set.  If the gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
-<p id="rfc.section.5.3.2.2.p.3">If the retransmission timer elapses and the gateway has not received the all-1 ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
-<p id="rfc.section.5.3.2.2.p.4">The device SHALL keep the all-1 ACK message in memory until it receives a downlink from the gateway different from the last (FCN=1) fragment indicating that the gateway has received the ACK message.  Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct, the device shall transmit a receiver-ABORT fragment.  The retransmission timer is used by the gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For classB devices, this timer trigger is a function of the periodicity of the classB ping slots. The recommended value is equal to 3 times the classB ping slot periodicity. For classC devices which are nearly constantly receiving, the recommended value is 30 seconds. This means that the device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the device to flush the context in-case it receives nothing from the gateway over an extended period of time. The recommended value is  12 hours for both classB&amp;C devices.</p>
+<p id="rfc.section.5.4.2.2.p.1">Class B&amp;C devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink.  The device replies with an ACK fragment to every single fragment received from the gateway (because the window size is 1).  Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding ACK fragment even if that fragment has already been received. The ACK bitmap is 1 bit long and is always 1.  If the gateway receives this ACK, it proceeds to send the next window fragment If the retransmission timer elapses and the gateway has not received the ACK of the current window it retransmits the last fragment. The gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.4.2.2.p.2">Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the &#8220;MIC is correct&#8221; indicator bit set.  If the gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
+<p id="rfc.section.5.4.2.2.p.3">If the retransmission timer elapses and the gateway has not received the all-1 ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.4.2.2.p.4">The device SHALL keep the all-1 ACK message in memory until it receives a downlink from the gateway different from the last (FCN=1) fragment indicating that the gateway has received the ACK message.  Following the reception of a FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct, the device shall transmit a receiver-ABORT fragment.  The retransmission timer is used by the gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For classB devices, this timer trigger is a function of the periodicity of the classB ping slots. The recommended value is equal to 3 times the classB ping slot periodicity. For classC devices which are nearly constantly receiving, the recommended value is 30 seconds. This means that the device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the device to flush the context in-case it receives nothing from the gateway over an extended period of time. The recommended value is  12 hours for both classB&amp;C devices.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>
@@ -881,6 +902,5 @@ address {
   </address>
 </div>
 
-  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/Acklio/schc-over-lorawan">Fork me on GitHub</a></div></div>
 </body>
 </html>
