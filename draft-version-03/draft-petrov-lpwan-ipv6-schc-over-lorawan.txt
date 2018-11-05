@@ -5,7 +5,7 @@
 lpwan Working Group                                       N. Sornin, Ed.
 Internet-Draft                                                M. Coracin
 Intended status: Informational                                   Semtech
-Expires: April 29, 2019                                        I. Petrov
+Expires: May 9, 2019                                           I. Petrov
                                                                   Acklio
                                                                 A. Yegin
                                                                 Actility
@@ -13,7 +13,7 @@ Expires: April 29, 2019                                        I. Petrov
                                                                  Kerlink
                                                              V. Audebert
                                                                  EDF R&D
-                                                        October 26, 2018
+                                                       November 05, 2018
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 29, 2019.
+   This Internet-Draft will expire on May 9, 2019.
 
 
 
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 1]
+Sornin, et al.             Expires May 9, 2019                  [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
 Copyright Notice
@@ -90,11 +90,11 @@ Table of Contents
        5.3.1.  Uplink fragmentation: From device to gateway  . . . .   8
        5.3.2.  Downlinks: From gateway to device . . . . . . . . . .   9
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  12
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  13
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  13
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  14
    Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 2]
+Sornin, et al.             Expires May 9, 2019                  [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    network architecture, devices with mostly quite predictable
@@ -127,6 +127,10 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
    operation when SCHC is used over LoRaWAN networks.
 
 2.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
 
    This section defines the terminology and acronyms used in this
    document.  For all other definitions, please look up the SCHC
@@ -161,13 +165,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-
-
-
-
-Sornin, et al.           Expires April 29, 2019                 [Page 3]
+Sornin, et al.             Expires May 9, 2019                  [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
         Dev                                                 App
@@ -221,9 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 4]
+Sornin, et al.             Expires May 9, 2019                  [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    [I-D.ietf-lpwan-ipv6-static-context-hc] and the ones in
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 5]
+Sornin, et al.             Expires May 9, 2019                  [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    o  *ClassA*: The classA is the simplest class of devices.  The device
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 6]
+Sornin, et al.             Expires May 9, 2019                  [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
     +--------+         +---------------+        +--------------------+
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 7]
+Sornin, et al.             Expires May 9, 2019                  [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
 5.3.  Fragmentation
@@ -445,9 +445,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 8]
+Sornin, et al.             Expires May 9, 2019                  [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    | RuleID | DTag  | W     | FCN    | MIC     | Payload |
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                 [Page 9]
+Sornin, et al.             Expires May 9, 2019                  [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    | RuleID | DTag  | W     | FCN    | Payload           |
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                [Page 10]
+Sornin, et al.             Expires May 9, 2019                 [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    "retransmission timer" for a gateway talking to classA devices for
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-Sornin, et al.           Expires April 29, 2019                [Page 11]
+Sornin, et al.             Expires May 9, 2019                 [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
 
 
    fragment even if that fragment has already been received.  The ACK
@@ -656,27 +656,36 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 6.  Security considerations
 
-   TBD
+   As this document is only providing parameters that are expected to be
+   better suited for LoRaWAN networks for
+   [I-D.ietf-lpwan-ipv6-static-context-hc].  As such, this parameters
+   does not contribute to any new security issues in addition of those
+   identified in [I-D.ietf-lpwan-ipv6-static-context-hc].
+
+
+
+
+
+
+
+
+Sornin, et al.             Expires May 9, 2019                 [Page 12]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
+
 
 7.  Acknowledgements
 
    TBD
 
-
-
-
-
-
-
-
-Sornin, et al.           Expires April 29, 2019                [Page 12]
-
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
-
-
 8.  References
 
 8.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3385]  Sheinwald, D., Satran, J., Thaler, P., and V. Cavanna,
               "Internet Protocol Small Computer System Interface (iSCSI)
@@ -711,6 +720,16 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
               Farrell, S., "LPWAN Overview", draft-ietf-lpwan-
               overview-10 (work in progress), February 2018.
 
+
+
+
+
+
+Sornin, et al.             Expires May 9, 2019                 [Page 13]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
+
+
    [lora-alliance-spec]
               Alliance, L., "LoRaWAN Specification Version V1.0.2",
               <http://portal.lora-
@@ -718,17 +737,6 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
               FileDownload.aspx?ContentID=1398>.
 
 Appendix A.  Examples
-
-
-
-
-
-
-
-Sornin, et al.           Expires April 29, 2019                [Page 13]
-
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
-
 
 Appendix B.  Note
 
@@ -770,6 +778,14 @@ Authors' Addresses
    Email: alper.yegin@actility.com
 
 
+
+
+
+Sornin, et al.             Expires May 9, 2019                 [Page 14]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2018
+
+
    Julien Catalano
    Kerlink
    1 rue Jacqueline Auriol
@@ -777,13 +793,6 @@ Authors' Addresses
    France
 
    Email: j.catalano@kerlink.fr
-
-
-
-
-Sornin, et al.           Expires April 29, 2019                [Page 14]
-
-Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
    Vincent AUDEBERT
@@ -828,13 +837,4 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2018
 
 
 
-
-
-
-
-
-
-
-
-
-Sornin, et al.           Expires April 29, 2019                [Page 15]
+Sornin, et al.             Expires May 9, 2019                 [Page 15]
