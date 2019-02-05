@@ -5,7 +5,7 @@
 lpwan Working Group                                       N. Sornin, Ed.
 Internet-Draft                                                M. Coracin
 Intended status: Informational                                   Semtech
-Expires: July 9, 2019                                          I. Petrov
+Expires: August 9, 2019                                        I. Petrov
                                                                   Acklio
                                                                 A. Yegin
                                                                 Actility
@@ -13,7 +13,7 @@ Expires: July 9, 2019                                          I. Petrov
                                                                  Kerlink
                                                              V. Audebert
                                                                  EDF R&D
-                                                        January 05, 2019
+                                                       February 05, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 9, 2019.
+   This Internet-Draft will expire on August 9, 2019.
 
 
 
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 1]
+Sornin, et al.           Expires August 9, 2019                 [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 2]
+Sornin, et al.           Expires August 9, 2019                 [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    [I-D.ietf-lpwan-overview].  Even though those technologies share a
@@ -165,9 +165,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 3]
+Sornin, et al.           Expires August 9, 2019                 [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
         Dev                                                 App
@@ -221,9 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 4]
+Sornin, et al.           Expires August 9, 2019                 [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    [I-D.ietf-lpwan-ipv6-static-context-hc] and the ones in
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 5]
+Sornin, et al.           Expires August 9, 2019                 [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
 4.2.  Device addressing
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 6]
+Sornin, et al.           Expires August 9, 2019                 [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    o  Retransmission Timer and inactivity Timer: LoRaWAN devices do not
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 7]
+Sornin, et al.           Expires August 9, 2019                 [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
 5.3.1.2.  Downlinks: From gateway to device
@@ -445,9 +445,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 8]
+Sornin, et al.           Expires August 9, 2019                 [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    | RuleID | DTag  | W     | C = 1 | Padding (0s) |
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                  [Page 9]
+Sornin, et al.           Expires August 9, 2019                 [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    Following the reception of a FCN=1 fragment (the last fragment of a
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                 [Page 10]
+Sornin, et al.           Expires August 9, 2019                [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    receiver-ABORT fragment.  The retransmission timer is used by the
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                 [Page 11]
+Sornin, et al.           Expires August 9, 2019                [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    [RFC5795]  Sandlund, K., Pelletier, G., and L-E. Jonsson, "The RObust
@@ -669,9 +669,9 @@ Authors' Addresses
 
 
 
-Sornin, et al.            Expires July 9, 2019                 [Page 12]
+Sornin, et al.           Expires August 9, 2019                [Page 12]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2019
+Internet-Draft              SCHC-over-LoRaWAN              February 2019
 
 
    Michael Coracin
@@ -725,4 +725,4 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2019
 
 
 
-Sornin, et al.            Expires July 9, 2019                 [Page 13]
+Sornin, et al.           Expires August 9, 2019                [Page 13]
