@@ -448,7 +448,7 @@ TODO OGZ: Check for error
 | 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
 
 ~~~~
-{: #Fig-fragmentation-header-all1-ack title='Receiver abort format.'}
+{: #Fig-fragmentation-receiver-abort title='Receiver abort format.'}
 
 
 SCHC acknowledge request
@@ -461,7 +461,7 @@ SCHC acknowledge request
 
 
 ~~~~
-{: #Fig-fragmentation-header-all1-ack title='SCHC ACK REQ format.'}
+{: #Fig-fragmentation-schc-ack-req title='SCHC ACK REQ format.'}
 
 
 
