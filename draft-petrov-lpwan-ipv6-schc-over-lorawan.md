@@ -272,9 +272,9 @@ direction and reciprocally on the downlink direction.
 
 ~~~~
 
- +--------+         +---------------+        +--------------------+
- | device | <=====> | Network Server| <====> | Application Server |
- +--------+ devAddr +---------------+ devEUI +--------------------+
++--------+         +---------------+        +----------+             +------------+
+| device | <=====> | Network Server| <====> | GTW SCHC | <=========> |  Internet  |
++--------+ devAddr +---------------+ devEUI +----------+   IPv6/udp  +------------+
 
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
