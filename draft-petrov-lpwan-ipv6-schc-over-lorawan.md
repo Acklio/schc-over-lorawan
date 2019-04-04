@@ -389,7 +389,7 @@ the fragmentation receiver.
   This value is mainly driven by application requirements and may be changed by
   the application.
 
-Regular fragments
+**Regular fragments**
 
 ~~~~
 
@@ -402,7 +402,7 @@ Regular fragments
 {: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 16 bits (2 bytes).'}
 
 
-Last fragment (All-1)
+**Last fragment (All-1)**
 
 ~~~~
 
@@ -414,7 +414,7 @@ Last fragment (All-1)
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
 
 
-Windows ACK (All-0 ACK)
+**Windows ACK (All-0 ACK)**
 
 ~~~~
 
@@ -426,7 +426,7 @@ Windows ACK (All-0 ACK)
 {: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows.'}
 
 
-All-1 ACK
+**All-1 ACK**
 
 ~~~~
 
@@ -438,7 +438,7 @@ All-1 ACK
 {: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
 
-Receiver abort
+**Receiver abort**
 TODO OGZ: Check for error
 
 ~~~~
@@ -451,7 +451,7 @@ TODO OGZ: Check for error
 {: #Fig-fragmentation-receiver-abort title='Receiver abort format.'}
 
 
-SCHC acknowledge request
+**SCHC acknowledge request**
 
 ~~~~
 
@@ -484,7 +484,7 @@ fragmentationtransmitter. The following fields are common to all devices.
 
 As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU minus header (1 byte)
 
-Regular fragments
+**Regular fragments**
 
 ~~~~
 
@@ -496,7 +496,7 @@ Regular fragments
 {: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 1 byte (8 bits).'}
 
 
-Last fragment (All-1)
+**Last fragment (All-1)**
 
 ~~~~
 
@@ -507,7 +507,7 @@ Last fragment (All-1)
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC ACK detailed format for the last fragment.'}
 
-All-0 acknowledge
+**All-0 acknowledge**
 
 ~~~~
 
@@ -519,7 +519,7 @@ All-0 acknowledge
 {: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows.'}
 
 
-All-1 acknowledge
+**All-1 acknowledge**
 
 ~~~~
 
@@ -531,7 +531,7 @@ All-1 acknowledge
 {: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct.'}
 
 
-Receiver abort
+**Receiver abort**
 
 ~~~~
 
