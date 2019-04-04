@@ -80,7 +80,7 @@ Networks) technologies. SCHC is a generic mechanism designed for great
 flexibility, so that it can be adapted for any of the LPWAN technologies.
 
 This document provides the adaptation of SCHC for use in LoRaWAN networks, and
-provides elements such as efficient parameterization and modes of operation.
+provides elements such as efficient parameterization and modes of operation. This is called a profile.
 
 --- middle
 
@@ -91,7 +91,7 @@ The Static Context Header Compression (SCHC) specification
 generic header compression and fragmentation techniques that can be used on all
 LPWAN (Low Power Wide Area Networks) technologies defined in
 {{I-D.ietf-lpwan-overview}}. Even though those technologies share a great
-number of common features like start-oriented topologies, network architecture,
+number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
 slight differences in respect of payload sizes, reactiveness, etc.
 
@@ -173,7 +173,7 @@ the other direction.
 
 In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
 and the SCHC C/D can be embedded in different places, for example in the
-Network Server and/or the Application Server.
+Network Server and/or the Application Server. TODO OGZ: clarify
 
 Next steps for this section: detailed overview of the LoRaWAN architecture and
 its mapping to the SCHC architecture.
@@ -226,7 +226,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
 ## Device classes (A, B, C) and interactions
 
-The LoRaWAN MAC layer supports 3 classes of devices named A,B and C.
+The LoRaWAN MAC layer supports 3 classes of devices named A, B and C.
 All devices implement the classA, some devices implement classA+B or class
 A+C. ClassB and classC are mutually exclusive.
 
@@ -253,7 +253,7 @@ A+C. ClassB and classC are mutually exclusive.
 ## Device addressing
 
 LoRaWAN devices use a 32bits network address (devAddr) to communicate with
-the network over the air. However that address might be reused several time
+the network over the air. However, that address might be reused several time
 on the same network at the same time for different devices. Devices using the
 same devAddr are distinguish by the
 network server based on the cryptographic signature appended to every single
@@ -262,9 +262,11 @@ To communicate with the SCHC gateway the network server MUST identify the
 devices by a unique 64bits device ID called the devEUI. Unlike devAddr,
 devEUI is guaranteed to be unique for every single device across all
 networks. The devEUI is assigned to the device during the manufacturing
-process by the device’s manufacturer. The devEUI is built like an Ethernet
-MAC address by concatenating the manufacturer’s IEEE 24bits OUI field with a
-40bits serial number.
+process by the device’s manufacturer. 
+The devEUI is assigned to the device during the manufacturing process by the
+device's manufacturer. The devEUI is built like an Ethernet MAC address by
+concatenating the manufacturer's IEEE OUI field with a vendor unique number.
+ex: 24bits OUI is concatenated with a 40 bits serial number.
 The network server translates the devAddr into a devEUI in the uplink
 direction and reciprocally on the downlink direction.
 
@@ -280,214 +282,305 @@ direction and reciprocally on the downlink direction.
 ## General Message Types
 
 * Confirmed messages:
+  The sender asks the receiver to acknowledge the message.
 * Unconfirmed messages:
+  The sender does not ask the receiver to acknowledge the message.
 
 ## LoRaWAN MAC Frames
 
-* JoinRequest
-* JoinAccept
+* JoinRequest:
+  This message is used by a device to join a network. It contains the device’s
+  unique identifier devEUI and a random nonce that will be used for session key
+  derivation.
+* JoinAccept:
+  To on-board a device, the network server responds to the JoinRequest device’s
+  message with a JoinAccept message. That message is encrypted with the device’s
+  AppKey and contains (amongst other fields) the major network’s settings and a
+  network random nonce used to derive the session keys.
 * Data
 
 # SCHC over LoRaWAN
 
-## Rule ID management
+TODO OGZ: Downlink MTU. Marc to ask LoRaWAN TC
+
+## LoRaWAN FPort
 
 The LoRaWAN MAC layers features a port field in all frames. This port field
-(FPort) is 8bit long and the values from 1 to 220 can be used.
-SCHC over LoRaWAN uses 2 contiguous FPort value to separate the uplink SCHC
-traffic from the downlink and avoid any confusion. Those FPorts are called
-FPortUp and FPortDwn. Those FPorts can use arbitrary values inside the allowed
-Fport range but must be shared by the end-device and SCHC gateway.
+(FPort) is 8 bit long and the values from 1 to 223 can be used. It allows
+LoRaWAN network and application to identify data.
 
-SCHC over LoRAWAN SHOULD support encoding RuleID on 3 bits, there are therefore
-8 possible RuleIds on both uplink and downlink direction.
+A fragmentation session with application payload transfered from device
+to server, is called uplink fragmentation session. It uses FPortUp for uplink
+and downlinks.
+The other way, a fragmentation session with application payload transfered
+from server to device, is called downlink fragmentation session. It uses
+FPortDown for uplink and downlinks.
 
-The RuleID 0 is reserved for fragmentation in both directions. The 7
-remaining RuleIDs are available for IPV6 header compression. Uplink (on
-FPortUp) and downlink (on FportDwn) RuleIDs are independent. The same RuleID
-may have different meanings on the uplink and downlink paths.
+Those FPorts can use arbitrary values inside the allowed Fport range and must
+be shared by the end-device, the network server and SCHC gateway. The uplink
+and downlink SCHC ports must be different .  In order to improve
+interoperability, it is recommended to use FPortUp = 20 and FportDwn = 21
+TODO OGZ: Claridy
+
+## Rule ID management
+
+SCHC over LoRAWAN SHOULD support encoding RuleID on 6 bits for uplink
+(64 possible rules) and 5 bits for downlinks (32 possible rules).
+
+The RuleID 0 is reserved for fragmentation in both directions.  
+The uplink ruleID 63 is used to tag packets for which SCHC compression was not
+possible (no matching Rule was found)
+The downlink ruleID 31 is used to tag packets for which SCHC compression was
+not possible (no matching Rule was found)
+
+The remaining RuleIDs are available for header compression. RuleIDs are
+independent. The same RuleID may have different meanings on the uplink and
+downlink paths, at the exception of rules 0. A RuleId different from 0 means
+that the compression is not used, thus the packet should be send to C/D layer.
 
 The only uplink messages using the FportDwn port are the fragmentation SCHC
-ACKs messages of a downlink fragmentation session. Similarly, the only
-downlink messages using the FportUp port are the fragmentation SCHC ACKs
-messages of an uplink fragmentation session
+control messages of a downlink fragmentation session (ex ACKs). Similarly, the
+only downlink messages using the FportUp port are the fragmentation SCHC
+controlmessages of an uplink fragmentation session
 
 ## IID computation
 
 TBD (To discuss with the SCHC authors).
 
-## No compression packets are sent using Rule ID 7.
-
 ## Fragmentation {#Frag}
 
-The L2 word size used by LoRaWAN is 1 octet (8 bits).
-The SCHC fragmentation over LoRaWAN exclusively uses the ACK-always mode.
-A LoRaWAN device cannot support simultaneous interleaved fragmentation
-sessions in the same direction (uplink or downlink). This means that only a
-single fragmented IPV6 datagram may be transmitted and/or received by the
-device at a given moment.
+The L2 word size used by LoRaWAN is 1 byte (8 bits).
+The SCHC fragmentation over LoRaWAN uses the ACK-on-Error for uplink
+fragmentation and Ack-Always for downlink fragmentation. A LoRaWAN device
+cannot support simultaneous interleaved fragmentation sessions in the same
+direction (uplink or downlink). This means that only a single fragmented
+IPV6 datagram may be transmitted and/or received by the device at a given
+moment.
 The fragmentation parameters are different for uplink and downlink
 fragmentation sessions and are successively described in the next sections.
 
-### Uplink fragmentation: From device to gateway
+### Uplink fragmentation: From device to SCHC gateway
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.
 
-* SCHC fragmentation reliability mode : `ACK_ALWAYS`
-* Window size: 8, the FCN field is encoded on 3 bits
-* DTag : 1bit. this field is used to clearly separate two consecutive
+* SCHC fragmentation reliability mode : `ACK-on-Error`
+* RuleId: size is 6 bits (64 possible rules, 62 available for user)
+* Window index: encoded on W = 2 bits. So 4 windows are available.
+* DTag: size is 1 bit. This field is used to clearly separate two consecutive
   fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
   SCHC datagrams.
+* FCN: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles are
+  allowed in a window (FCN=All-1 is reserved for SCHC).
 * MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
-  [RFC3385])
+  [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* MAX_ACK_REQUESTS: 8
+* Tile: size is 3 bytes (24 bits)
 * Retransmission Timer and inactivity Timer:
   LoRaWAN devices do not implement a "retransmission timer". At the end of a
   window the ACK corresponding to this window is transmitted by the network
-  gateway in the RX1 or RX2 receive slot of the device. If this ACK is not
-  received the device sends an all-0 (or an all-1) fragment with no payload to
-  request an ACK retransmission. The periodicity between retransmission of the
-  all-0/all-1 fragments is device/application specific and may be different for
-  each device (not specified).  The gateway implements an "inactivity timer".
-  The default recommended duration of this timer is 12h.  This value is mainly
-  driven by application requirements and may be changed.
+  gateway in the RX1 or RX2 receive slot of the device if tiles are missing.
+  If this ACK is not received the device sends an all-0 (or an all-1) fragment
+  with no payload to request an ACK retransmission. The periodicity between
+  retransmission of the all-0/all-1 fragments is device/application specific
+  and may be different for each device (not specified). The gateway implements
+  an "inactivity timer". The default recommended duration of this timer is 12h.
+  This value is mainly driven by application requirements and may be changed by
+  the application.
+
+Regular fragments
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN    | Payload |
-+ ------ + ----- + ----- | ------ + ------- +
-| 3 bits | 1 bit | 1 bit | 3 bits |         |
+| RuleID | DTag  | W      | FCN    | Payload |
++ ------ + ----- + ------ | ------ + ------- +
+| 6 bits | 1 bit | 2 bits | 7 bits |         |
+
 
 ~~~~
-{: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 8 bits.'}
+{: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 16 bits (2 bytes).'}
 
-~~~~
 
-| RuleID | DTag  | W     | FCN    | MIC     | Payload |
-+ ------ + ----- + ----- | ------ + ------- + ------- +
-| 3 bits | 1 bit | 1 bit | 3 bits | 32 bits |         |
-
-~~~~
-{: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment. Header size is 8 bits.'}
-
-The format of an all-0 or all-1 acknowledge is:
+Last fragment (All-1)
 
 ~~~~
 
-| RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
-+ ------ + ----- + ----- | -------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 3 or 8 bits    | 0 or 3 bits  |
+| RuleID | DTag  | W      | FCN=All-1 | MIC     |
++ ------ + ----- + ------ | --------- + ------- +
+| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits |
 
 ~~~~
-{: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows. Header size is 1 or 2 bytes.'}
+{: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
+
+
+Windows ACK (All-0 ACK)
+
+~~~~
+
+| RuleID | DTag  | W      | Encoded bitmap | Padding (0s) |
++ ------ + ----- + ------ | -------------- + ------------ +
+| 6 bits | 1 bit | 2 bits | 0 to 127 bits   | 6 to 0 bits |
+
+~~~~
+{: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows.'}
+
+
+All-1 ACK
 
 ~~~~
 
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bit | 2 or 8 bits               | 0 or 2 bits  |
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows. Header size is 1 or 2 bytes.'}
+{: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
 
-### Downlinks: From gateway to device
-
-In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation
-transmitter. The following fields are common to all devices.
-
-* SCHC fragmentation reliability mode : ACK_ALWAYS
-* Window size : 1 , The FCN field is encoded on 1 bits
-* DTag : 1bit. This field is used to clearly separate two consecutive fragmentation sessions. A
-  LoRaWAN device cannot interleave several fragmented SCHC datagrams.
-* MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse representation of the
-  polynomial used e.g. in the Ethernet standard [RFC3385])
-* MAX_ACK_REQUESTS : 8
+Receiver abort
+TODO OGZ: Check for error
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN    | Payload           |
-+ ------ + ----- + ----- | ------ + ------- + ------- +
-| 3 bits | 1 bit | 1 bit | 1 bits | X bytes + 2 bits  |
+| RuleID | DTag  | W = b’11 | C = 1 | b’111111 | 0xFF (all 1's) |
++ ------ + ----- + -------- + ------+--------- + ---------------|
+| 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size is 6 bits.'}
+{: #Fig-fragmentation-header-all1-ack title='Receiver abort format.'}
 
-~~~~
 
-| RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + ----- | ------ + ------- + ------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 0 to 7 bits  |
-
-~~~~
-{: #Fig-fragmentation-downlink-header-all1 title='All-1 Fragment Detailed Format for the Last Fragment. Header size is 6 bits.'}
-
-The format of an all-0 or all-1 acknowledge is:
+SCHC acknowledge request
 
 ~~~~
 
-| RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
-+ ------ + ----- + ----- | -------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bit          | 2 bits       |
+| RuleID | DTag  | W      | FCN = b’0000000 |
++ ------ + ----- + ------ + --------------- +
+| 6 bits | 1 bit | 2 bits | 7 bits          |
+
 
 ~~~~
-{: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows. Header size is 8 bits.'}
+{: #Fig-fragmentation-header-all1-ack title='SCHC ACK REQ format.'}
+
+
+
+### Downlinks: From SCHC gateway to device
+
+In that case the device is the fragmentation receiver, and the SCHC gateway the
+fragmentationtransmitter. The following fields are common to all devices.
+
+* SCHC fragmentation reliability mode: ACK-Always.
+* RuleId: size is 5 bits (32 possible rules, 31 for user).
+* Window index is encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* DTag: size is 1 bit. This field is used to clearly separate two consecutive
+  fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
+  SCHC datagrams.
+* FCN: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
+  (FCN=All-1 is reserved for SCHC).
+* MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
+  representation of the polynomial used e.g. in the Ethernet standard [RFC3385]), as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* MAX_ACK_REQUESTS: 8
+
+As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU minus header (1 byte)
+
+Regular fragments
 
 ~~~~
 
-| RuleID | DTag  | W     | C = 1 | Padding (0s) |
-+ ------ + ----- + ----- + ----- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bit | 2 bits       |
+| RuleID | DTag  | W     | FCN = b'0 | Payload |
++ ------ + ----- + ----- | --------- + ------- +
+| 5 bits | 1 bit | 1 bit | 1 bits    | X bytes |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct. Header size is 8 bits.'}
+{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 1 byte (8 bits).'}
+
+
+Last fragment (All-1)
 
 ~~~~
 
-| RuleID | DTag  | W     | b'111  | 0xFF (all 1's) |
-+ ------ + ----- + ----- + ------ + -------------- +
-| 3 bits | 1 bit | 1 bit | 3 bits | 8 bits         |
+| RuleID | DTag  | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
++ ------ + ----- + ----- | --------- + ------- + ------- + ------------ +
+| 5 bits | 1 bit | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC). Header size is 16 bits.'}
+{: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC ACK detailed format for the last fragment.'}
+
+All-0 acknowledge
+
+~~~~
+
+| RuleID | DTag  | W     | Encoded bitmap |
++ ------ + ----- + ----- | -------------- +
+| 5 bits | 1 bit | 1 bit | 1 bit          |
+
+~~~~
+{: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows.'}
+
+
+All-1 acknowledge
+
+~~~~
+
+| RuleID | DTag  | W     | C = b’1 |
++ ------ + ----- + ----- + ------- +
+| 5 bits | 1 bit | 1 bit | 1 bit   |
+
+~~~~
+{: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct.'}
+
+
+Receiver abort
+
+~~~~
+
+| RuleID | DTag  | W     | C = b'0 | b’11111111 |
++ ------ + ----- + ----- + ------- + ---------- +
+| 5 bits | 1 bit | 1 bit | 1 bits  | 8 bits     |
+
+~~~~
+{: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC).'}
 
 
 Class A and classB&C devices do not manage retransmissions and timers in the same way.
 
-#### Class A devices
+#### ClassA devices
+
+TODO OGZ: FPending use ?
 
 Class A devices can only receive in an RX slot following the transmission of an
 uplink.  Therefore there cannot be a concept of "retransmission timer" for a
-gateway talking to classA devices for downlink fragmentation.
+gateway.  The gateway cannot initiate communication to a classA device.
 
 The device replies with an ACK fragment to every single fragment received from
 the gateway (because the window size is 1).  Following the reception of a FCN=0
-fragment (fragment that is not the last fragment of the packet or ACK-request),
-the device MUST transmit the ACK fragment until it receives the fragment of the
-next window. The device shall transmit up to MAX_ACK_REQUESTS ACK fragments
-before aborting. The device should transmit those ACK as soon as possible while
-taking into consideration eventual local radio regulation on duty-cycle, to
-progress the fragmentation session as quickly as possible. The ACK bitmap is 1
-bit long and is always 1.
+fragment (fragment that is not the last fragment of the packet or ACK-request,
+but the end of a window), the device MUST transmit the SCHC ACK fragment until
+it receives the fragment of the next window. The device shall transmit up to
+MAX_ACK_REQUESTS ACK fragments before aborting. The device should transmit those
+ACK as soon as possible while taking into consideration potential local radio
+regulation on duty-cycle, to progress the fragmentation session as quickly as
+possible. The ACK bitmap is 1 bit long and is always 1.
 
-Following the reception of a FCN=1 fragment (the last fragment of a datagram)
-and if the MIC is correct, the device shall transmit the ACK with the  “MIC
-is correct” indicator bit set. This message might be lost therefore the
-gateway may request a retransmission of this ACK in the next downlink. The
-device SHALL keep this ACK message in memory until it receives a downlink
+Following the reception of a FCN=All-1 fragment (the last fragment of a
+datagram) and if the MIC is correct, the device shall transmit the ACK with
+the "MIC is correct" indicator bit set (C=1). This message might be lost
+therefore the gateway may request a retransmission of this ACK in the next
+downlink. The device SHALL keep this ACK message in memory until it receives
+a downlink, on SCHC FPortDown from the gateway different from an ACK-request:
+it indicates that the gateway has received the ACK message.
+
+Following the reception of a FCN=All-1 fragment (the last fragment of a
+datagram), if all fragments have been received and the MIC is NOT correct,
+the device shall transmit a receiver-ABORT fragment. The device SHALL keep
+this ABORT message in memory until it receives a downlink, on SCHC FPortDwn,
 from the gateway different from an ACK-request indicating that the gateway
-has received the ACK message.
-
-Following the reception of a FCN=1 fragment (the last fragment of a datagram)
-and if the MIC is NOT correct, the device shall transmit a receiver-ABORT
-fragment. The device SHALL keep this ABORT message in memory until it
-receives a downlink from the gateway different from an ACK-request indicating
-that the gateway has received the ABORT message.  The fragmentation receiver
-(device) does not implement retransmission timer and inactivity timer.
+has received the ABORT message.  The fragmentation receiver (device) does
+not implement retransmission timer and inactivity timer.
 
 The fragmentation sender (the gateway) implements an
-inactivity timer with default duration 12 hours. Once a fragmentation session
+inactivity timer with default duration of 12 hours. Once a fragmentation session
 is started, if the gateway has not received any ACK or receiver-ABORT message
 12 hours after the last message from the device was received, the gateway may
 flush the fragmentation context.  For devices with very low transmission rates
@@ -502,28 +595,30 @@ the transmission of an uplink.  The device replies with an ACK fragment to
 every single fragment received from the gateway (because the window size is 1).
 Following the reception of a FCN=0 fragment (fragment that is not the last
 fragment of the packet or ACK-request), the device MUST always transmit the
-corresponding ACK fragment even if that fragment has already been received. The
+corresponding SCHC ACK fragment even if that fragment has already been received. The
 ACK bitmap is 1 bit long and is always 1.  If the gateway receives this ACK, it
 proceeds to send the next window fragment If the retransmission timer elapses
 and the gateway has not received the ACK of the current window it retransmits
 the last fragment. The gateway tries retransmitting up to MAX_ACK_REQUESTS
 times before aborting.
 
-Following the reception of a FCN=1 fragment (the last fragment of a datagram)
+Following the reception of a FCN=All-1 fragment (the last fragment of a datagram)
 and if the MIC is correct, the device shall transmit the ACK with the “MIC is
 correct” indicator bit set.  If the gateway receives this ACK, the current
 fragmentation session has succeeded and its context can be cleared.
 
-If the retransmission timer elapses and the gateway has not received the all-1
+If the retransmission timer elapses and the gateway has not received the All-1
 ACK it retransmits the last fragment with the payload (not an ACK-request
 without payload). The gateway tries retransmitting up to MAX_ACK_REQUESTS times
 before aborting.
 
-The device SHALL keep the all-1 ACK message in memory until it receives a
-downlink from the gateway different from the last (FCN=1) fragment indicating
-that the gateway has received the ACK message.  Following the reception of a
-FCN=1 fragment (the last fragment of a datagram) and if the MIC is NOT correct,
-  the device shall transmit a receiver-ABORT fragment.  The retransmission
+The device SHALL keep the All-1 ACK message in memory until it receives a
+downlink from the gateway different from the last (FCN>0 and different DTag)
+fragment indicatingthat the gateway has received the ACK message.
+
+Following the reception of a FCN=All-1 fragment (the last fragment of a
+datagram), if all fragments have been received aand if the MIC is NOT correct,
+the device shall transmit a receiver-ABORT fragment.  The retransmission
 timer is used by the gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.  For classB
 devices, this timer trigger is a function of the periodicity of the classB ping
@@ -533,7 +628,7 @@ receiving, the recommended value is 30 seconds. This means that the device
 shall try to transmit the ACK within 30 seconds  of the reception of each
 fragment.  The inactivity timer is implemented by the device to flush the
 context in-case it receives nothing from the gateway over an extended period of
-time. The recommended value is  12 hours for both classB&C devices.
+time. The recommended value is 12 hours for both classB&C devices.
 
 # Security considerations
 
