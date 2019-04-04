@@ -172,11 +172,28 @@ The SCHC C/D process is bidirectional, so the same principles can be applied in
 the other direction.
 
 In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
-and the SCHC C/D can be embedded in different places, for example in the
-Network Server and/or the Application Server. TODO OGZ: clarify
+and the SCHC C/D is an Application Server. It can be provided by the Network
+server or any third party software. {{Fig-archi}} can be map in LoRaWAN
+terminology to:
 
-Next steps for this section: detailed overview of the LoRaWAN architecture and
-its mapping to the SCHC architecture.
+~~~~
+     Dev                                                            App
++--------------+                                             +--------------+
+|APP1 APP2 APP3|                                             |APP1 APP2 APP3|
+|              |                                             |              |
+|      UDP     |                                             |     UDP      |
+|     IPv6     |                                             |    IPv6      |
+|              |                                             |              |
+|   SCHC C/D   |                                             |              |
+|   (context)  |                                             |              |
++-------+------+                                             +-------+------+
+         |   +-------+     +-------+     +-----------+              .
+         +~~ |Gateway| === |Network| === |Application|... Internet ..
+             +-------+|    |Server |     |   Server  |
+                           +-------+     +-----------+
+~~~~
+{: #Fig-archi-lorawan title='Architecture'}
+
 
 #LoRaWAN Architecture
 
