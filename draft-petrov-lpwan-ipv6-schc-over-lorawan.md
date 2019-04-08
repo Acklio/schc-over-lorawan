@@ -80,7 +80,8 @@ Networks) technologies. SCHC is a generic mechanism designed for great
 flexibility, so that it can be adapted for any of the LPWAN technologies.
 
 This document provides the adaptation of SCHC for use in LoRaWAN networks, and
-provides elements such as efficient parameterization and modes of operation. This is called a profile.
+provides elements such as efficient parameterization and modes of operation.
+This is called a profile.
 
 --- middle
 
@@ -250,25 +251,25 @@ The LoRaWAN MAC layer supports 3 classes of devices named A, B and C.
 All devices implement the classA, some devices implement classA+B or class
 A+C. ClassB and classC are mutually exclusive.
 
-* **ClassA**: The classA is the simplest class of devices. The device is allowed
-  to transmit at any time, randomly selecting a communication channel. The
-  network may reply with a downlink in one of the 2 receive windows immediately
-  following the uplinks. Therefore, the network cannot initiate a downlink, it
-  has to wait for the next uplink from the device to get a downlink
-  opportunity. The classA is the lowest power device class.
-* **ClassB**: classB devices implement all the functionalities of classA devices,
-  but also schedule periodic listen windows. Therefore, as opposed the classA
-  devices, classB devices can receive downlink that are initiated by the
+* **ClassA**: The classA is the simplest class of devices. The device is
+  allowed to transmit at any time, randomly selecting a communication channel.
+  The network may reply with a downlink in one of the 2 receive windows
+  immediately following the uplinks. Therefore, the network cannot initiate a
+  downlink, it has to wait for the next uplink from the device to get a
+  downlink opportunity. The classA is the lowest power device class.
+* **ClassB**: classB devices implement all the functionalities of classA
+  devices, but also schedule periodic listen windows. Therefore, as opposed the
+  classA devices, classB devices can receive downlink that are initiated by the
   network and not following an uplink. There is a trade-off between the
   periodicity of those scheduled classB listen windows and the power
   consumption of the device. The lower the downlink latency, the higher the
   power consumption.
-* **ClassC**: classC devices implement all the functionalities of classA devices,
-  but keep their receiver open whenever they are not transmitting. ClassC
-  devices can receive downlinks at any time at the expense of a higher power
-  consumption. Battery powered devices can only operate in classC for a limited
-  amount of time (for example for a firmware upgrade over the air). Most of the
-  classC devices are main powered (for example Smart Plugs).
+* **ClassC**: classC devices implement all the functionalities of classA
+  devices, but keep their receiver open whenever they are not transmitting.
+  ClassC devices can receive downlinks at any time at the expense of a higher
+  power consumption. Battery powered devices can only operate in classC for a
+  limited amount of time (for example for a firmware upgrade over the air).
+  Most of the classC devices are main powered (for example Smart Plugs).
 
 ## Device addressing
 
@@ -282,7 +283,7 @@ To communicate with the SCHC gateway the network server MUST identify the
 devices by a unique 64bits device ID called the devEUI. Unlike devAddr,
 devEUI is guaranteed to be unique for every single device across all
 networks. The devEUI is assigned to the device during the manufacturing
-process by the device’s manufacturer. 
+process by the device’s manufacturer.
 The devEUI is assigned to the device during the manufacturing process by the
 device's manufacturer. The devEUI is built like an Ethernet MAC address by
 concatenating the manufacturer's IEEE OUI field with a vendor unique number.
@@ -314,9 +315,9 @@ direction and reciprocally on the downlink direction.
   derivation.
 * JoinAccept:
   To on-board a device, the network server responds to the JoinRequest device’s
-  message with a JoinAccept message. That message is encrypted with the device’s
-  AppKey and contains (amongst other fields) the major network’s settings and a
-  network random nonce used to derive the session keys.
+  message with a JoinAccept message. That message is encrypted with the
+  device’s AppKey and contains (amongst other fields) the major network’s
+  settings and a network random nonce used to derive the session keys.
 * Data
 
 # SCHC over LoRaWAN
@@ -338,9 +339,9 @@ FPortDown for uplink and downlinks.
 
 Those FPorts can use arbitrary values inside the allowed Fport range and must
 be shared by the end-device, the network server and SCHC gateway. The uplink
-and downlink SCHC ports must be different .  In order to improve
+and downlink SCHC ports must be different. In order to improve
 interoperability, it is recommended to use FPortUp = 20 and FportDwn = 21
-TODO OGZ: Claridy
+TODO OGZ: Clarify
 
 ## Rule ID management
 
@@ -503,10 +504,12 @@ fragmentationtransmitter. The following fields are common to all devices.
 * FCN: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
 * MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
-  representation of the polynomial used e.g. in the Ethernet standard [RFC3385]), as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+  representation of the polynomial used e.g. in the Ethernet standard
+  [RFC3385]), as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * MAX_ACK_REQUESTS: 8
 
-As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU minus header (1 byte)
+As only 1 tile is used, its size can change for each downlink, and will be
+maximum available MTU minus header (1 byte)
 
 **Regular fragments**
 
