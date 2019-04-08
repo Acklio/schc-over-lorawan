@@ -410,6 +410,9 @@ the fragmentation receiver.
   timer is 12h. This value is mainly driven by application requirements and may
   be changed by the application.
 
+With this set of parameters, the SCHC fragment header overhead is 2 bytes
+(16 bits). MTU is: 4 windows * 127 tiles * 3 bytes per tile = 1524 bytes
+
 **Regular fragments**
 
 ~~~~
