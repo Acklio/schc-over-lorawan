@@ -3,3 +3,4 @@
 draft-*.txt
 draft-*.html
 draft-*.xml
+.venv
