@@ -204,7 +204,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
    o Devices (Dev) are the end-devices or hosts (e.g. sensors,
    actuators, etc.).  There can be a very high density of devices per
-   radio gateway. This entity maps to the LoRaWAN End-device.
+   radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN End-device.
 
    o The Radio Gateway (RGW), which is the end point of the constrained
    link. This entity maps to the LoRaWAN Gateway.
@@ -217,6 +217,8 @@ and the ones in {{lora-alliance-spec}} is as follows:
    applications. This entity maps to the LoRaWAN Join Server.
 
    o Application Server (App). The same terminology is used in LoRaWAN.
+   In that case, the application server will be the SCHC gateway, doing
+   C/D and F/R.
 
 ~~~~
 
@@ -231,14 +233,15 @@ and the ones in {{lora-alliance-spec}} is as follows:
 ~~~~
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
 
-   SCHC C/D (Compressor/Decompressor) and SCHC Fragmentation are performed on
-   the LoRaWAN End-device and the Application Server. While the point-to-point
-   link between the End-device and the Application Server constitutes single IP
-   hop, the ultimate end-point of the IP communication may be an Internet node
-   beyond the Application Server. In other words, the LoRaWAN Application
-   Server acts as the first hop IP router for the End-device. Note that the
-   Application Server and Network Server may be co-located, which effectively
-   turns the Network/Application Server into the first hop IP router.
+   SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly)
+   are performed on the LoRaWAN End-device and the Application Server (called
+   SCHC gateway). While the point-to-point link between the End-device and the
+   Application Server constitutes single IP hop, the ultimate end-point of the
+   IP communication may be an Internet node beyond the Application Server.
+   In other words, the LoRaWAN Application Server (SCHC gateway) acts as the
+   first hop IP router for the End-device. Note that the Application Server and
+   Network Server may be co-located, which effectively turns the
+   Network/Application Server into the first hop IP router.
 
 
 ## Device classes (A, B, C) and interactions
@@ -397,14 +400,15 @@ the fragmentation receiver.
 * Retransmission Timer and inactivity Timer:
   LoRaWAN devices do not implement a "retransmission timer". At the end of a
   window the ACK corresponding to this window is transmitted by the network
-  gateway in the RX1 or RX2 receive slot of the device if tiles are missing.
+  gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of 
+  device if tiles are missing.
   If this ACK is not received the device sends an all-0 (or an all-1) fragment
   with no payload to request an ACK retransmission. The periodicity between
   retransmission of the all-0/all-1 fragments is device/application specific
-  and may be different for each device (not specified). The gateway implements
-  an "inactivity timer". The default recommended duration of this timer is 12h.
-  This value is mainly driven by application requirements and may be changed by
-  the application.
+  and may be different for each device (not specified). The SCHC gateway
+  implements an "inactivity timer". The default recommended duration of this
+  timer is 12h. This value is mainly driven by application requirements and may
+  be changed by the application.
 
 **Regular fragments**
 
@@ -560,47 +564,49 @@ As only 1 tile is used, its size can change for each downlink, and will be maxim
 {: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC).'}
 
 
-Class A and classB&C devices do not manage retransmissions and timers in the same way.
+Class A and classB&C devices do not manage retransmissions and timers in the
+same way.
 
 #### ClassA devices
 
 TODO OGZ: FPending use ?
 
 Class A devices can only receive in an RX slot following the transmission of an
-uplink.  Therefore there cannot be a concept of "retransmission timer" for a
-gateway.  The gateway cannot initiate communication to a classA device.
+uplink.  Therefore there cannot be a concept of "retransmission timer" for an
+SCHC gateway. The SCHC gateway cannot initiate communication to a classA
+device.
 
 The device replies with an ACK fragment to every single fragment received from
-the gateway (because the window size is 1).  Following the reception of a FCN=0
-fragment (fragment that is not the last fragment of the packet or ACK-request,
-but the end of a window), the device MUST transmit the SCHC ACK fragment until
-it receives the fragment of the next window. The device shall transmit up to
-MAX_ACK_REQUESTS ACK fragments before aborting. The device should transmit those
-ACK as soon as possible while taking into consideration potential local radio
-regulation on duty-cycle, to progress the fragmentation session as quickly as
-possible. The ACK bitmap is 1 bit long and is always 1.
+the SCHC gateway (because the window size is 1). Following the reception of a
+FCN=0 fragment (fragment that is not the last fragment of the packet or
+ACK-request, but the end of a window), the device MUST transmit the SCHC ACK
+fragment until it receives the fragment of the next window. The device shall
+transmit up to MAX_ACK_REQUESTS ACK fragments before aborting. The device
+should transmit those ACK as soon as possible while taking into consideration
+potential local radio regulation on duty-cycle, to progress the fragmentation
+session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram) and if the MIC is correct, the device shall transmit the ACK with
 the "MIC is correct" indicator bit set (C=1). This message might be lost
-therefore the gateway may request a retransmission of this ACK in the next
+therefore the SCHC gateway may request a retransmission of this ACK in the next
 downlink. The device SHALL keep this ACK message in memory until it receives
-a downlink, on SCHC FPortDown from the gateway different from an ACK-request:
-it indicates that the gateway has received the ACK message.
+a downlink, on SCHC FPortDown from the SCHC gateway different from an
+ACK-request: it indicates that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and the MIC is NOT correct,
 the device shall transmit a receiver-ABORT fragment. The device SHALL keep
 this ABORT message in memory until it receives a downlink, on SCHC FPortDwn,
-from the gateway different from an ACK-request indicating that the gateway
-has received the ABORT message.  The fragmentation receiver (device) does
-not implement retransmission timer and inactivity timer.
+from the SCHC gateway different from an ACK-request indicating that the SCHC
+gateway has received the ABORT message.  The fragmentation receiver (device)
+does not implement retransmission timer and inactivity timer.
 
-The fragmentation sender (the gateway) implements an
-inactivity timer with default duration of 12 hours. Once a fragmentation session
-is started, if the gateway has not received any ACK or receiver-ABORT message
-12 hours after the last message from the device was received, the gateway may
-flush the fragmentation context.  For devices with very low transmission rates
+The fragmentation sender (the SCHC gateway) implements an inactivity timer with
+default duration of 12 hours. Once a fragmentation session is started, if the
+SCHC gateway has not received any ACK or receiver-ABORT message 12 hours after
+the last message from the device was received, the SCHC gateway may flush the
+fragmentation context.  For devices with very low transmission rates
 (example 1 packet a day in normal operation) , that duration may be extended,
 but this is application specific.
 
@@ -608,35 +614,36 @@ but this is application specific.
 #### Class B or C devices
 
 Class B&C devices can receive in scheduled RX slots or in RX slots following
-the transmission of an uplink.  The device replies with an ACK fragment to
-every single fragment received from the gateway (because the window size is 1).
-Following the reception of a FCN=0 fragment (fragment that is not the last
-fragment of the packet or ACK-request), the device MUST always transmit the
-corresponding SCHC ACK fragment even if that fragment has already been received. The
-ACK bitmap is 1 bit long and is always 1.  If the gateway receives this ACK, it
-proceeds to send the next window fragment If the retransmission timer elapses
-and the gateway has not received the ACK of the current window it retransmits
-the last fragment. The gateway tries retransmitting up to MAX_ACK_REQUESTS
+the transmission of an uplink. The device replies with an ACK fragment to
+every single fragment received from the SCHC gateway (because the window size
+is 1). Following the reception of a FCN=0 fragment (fragment that is not the
+last fragment of the packet or ACK-request), the device MUST always transmit
+the corresponding SCHC ACK fragment even if that fragment has already been
+received.
+The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this
+ACK, it proceeds to send the next window fragment If the retransmission timer
+elapses and the SCHC gateway has not received the ACK of the current window it
+retransmits the last fragment. The SCHC gateway tries retransmitting up to
+MAX_ACK_REQUESTS times before aborting.
+
+Following the reception of a FCN=All-1 fragment (the last fragment of a
+datagram) and if the MIC is correct, the device shall transmit the ACK with the
+“MIC is correct” indicator bit set. If the SCHC gateway receives this ACK, the
+current fragmentation session has succeeded and its context can be cleared.
+
+If the retransmission timer elapses and the SCHC gateway has not received the
+All-1 ACK it retransmits the last fragment with the payload (not an ACK-request
+without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS
 times before aborting.
 
-Following the reception of a FCN=All-1 fragment (the last fragment of a datagram)
-and if the MIC is correct, the device shall transmit the ACK with the “MIC is
-correct” indicator bit set.  If the gateway receives this ACK, the current
-fragmentation session has succeeded and its context can be cleared.
-
-If the retransmission timer elapses and the gateway has not received the All-1
-ACK it retransmits the last fragment with the payload (not an ACK-request
-without payload). The gateway tries retransmitting up to MAX_ACK_REQUESTS times
-before aborting.
-
 The device SHALL keep the All-1 ACK message in memory until it receives a
-downlink from the gateway different from the last (FCN>0 and different DTag)
-fragment indicatingthat the gateway has received the ACK message.
+downlink from the SCHC gateway different from the last (FCN>0 and different
+DTag) fragment indicatingthat the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received aand if the MIC is NOT correct,
 the device shall transmit a receiver-ABORT fragment.  The retransmission
-timer is used by the gateway (the sender), the optimal value is very much
+timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.  For classB
 devices, this timer trigger is a function of the periodicity of the classB ping
 slots. The recommended value is equal to 3 times the classB ping slot
@@ -644,8 +651,8 @@ periodicity. For classC devices which are nearly constantly
 receiving, the recommended value is 30 seconds. This means that the device
 shall try to transmit the ACK within 30 seconds  of the reception of each
 fragment.  The inactivity timer is implemented by the device to flush the
-context in-case it receives nothing from the gateway over an extended period of
-time. The recommended value is 12 hours for both classB&C devices.
+context in-case it receives nothing from the SCHC gateway over an extended
+period of time. The recommended value is 12 hours for both classB&C devices.
 
 # Security considerations
 
