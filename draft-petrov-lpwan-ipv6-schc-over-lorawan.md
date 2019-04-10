@@ -282,10 +282,9 @@ LoRaWAN MAC frame, as all devices use different security keys.
 To communicate with the SCHC gateway the network server MUST identify the
 devices by a unique 64bits device ID called the devEUI. Unlike devAddr,
 devEUI is guaranteed to be unique for every single device across all
-networks. The devEUI is assigned to the device during the manufacturing
-process by the device’s manufacturer.
+networks.
 The devEUI is assigned to the device during the manufacturing process by the
-device's manufacturer. The devEUI is built like an Ethernet MAC address by
+device's manufacturer. It is built like an Ethernet MAC address by
 concatenating the manufacturer's IEEE OUI field with a vendor unique number.
 ex: 24bits OUI is concatenated with a 40 bits serial number.
 The network server translates the devAddr into a devEUI in the uplink
@@ -331,8 +330,8 @@ The LoRaWAN MAC layers features a port field in all frames. This port field
 LoRaWAN network and application to identify data.
 
 A fragmentation session with application payload transfered from device
-to server, is called uplink fragmentation session. It uses FPortUp for uplink
-and downlinks.
+to server, is called uplink fragmentation session. It uses FPortUp for data
+uplink and SCHC control downlinks.
 The other way, a fragmentation session with application payload transfered
 from server to device, is called downlink fragmentation session. It uses
 FPortDown for uplink and downlinks.
@@ -357,12 +356,13 @@ not possible (no matching Rule was found)
 The remaining RuleIDs are available for header compression. RuleIDs are
 independent. The same RuleID may have different meanings on the uplink and
 downlink paths, at the exception of rules 0. A RuleId different from 0 means
-that the compression is not used, thus the packet should be send to C/D layer.
+that the fragmentation is not used, thus the packet should be send to C/D
+layer.
 
 The only uplink messages using the FportDwn port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
 only downlink messages using the FportUp port are the fragmentation SCHC
-controlmessages of an uplink fragmentation session
+control messages of an uplink fragmentation session
 
 ## IID computation
 
@@ -493,7 +493,7 @@ TODO OGZ: Check for error
 ### Downlinks: From SCHC gateway to device
 
 In that case the device is the fragmentation receiver, and the SCHC gateway the
-fragmentationtransmitter. The following fields are common to all devices.
+fragmentation transmitter. The following fields are common to all devices.
 
 * SCHC fragmentation reliability mode: ACK-Always.
 * RuleId: size is 5 bits (32 possible rules, 31 for user).
@@ -647,7 +647,7 @@ downlink from the SCHC gateway different from the last (FCN>0 and different
 DTag) fragment indicatingthat the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received aand if the MIC is NOT correct,
+datagram), if all fragments have been received and if the MIC is NOT correct,
 the device shall transmit a receiver-ABORT fragment.  The retransmission
 timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.  For classB
