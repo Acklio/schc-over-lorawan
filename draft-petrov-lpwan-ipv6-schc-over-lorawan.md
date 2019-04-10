@@ -401,7 +401,7 @@ the fragmentation receiver.
 * Retransmission Timer and inactivity Timer:
   LoRaWAN devices do not implement a "retransmission timer". At the end of a
   window the ACK corresponding to this window is transmitted by the network
-  gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of 
+  gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of
   device if tiles are missing.
   If this ACK is not received the device sends an all-0 (or an all-1) fragment
   with no payload to request an ACK retransmission. The periodicity between
@@ -490,7 +490,7 @@ TODO OGZ: Check for error
 
 
 
-### Downlinks: From SCHC gateway to device
+### Downlink fragmentation: From SCHC gateway to device
 
 In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
