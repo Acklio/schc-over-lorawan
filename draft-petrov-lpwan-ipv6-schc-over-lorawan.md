@@ -321,8 +321,6 @@ direction and reciprocally on the downlink direction.
 
 # SCHC over LoRaWAN
 
-TODO OGZ: Downlink MTU. Marc to ask LoRaWAN TC
-
 ## LoRaWAN FPort
 
 The LoRaWAN MAC layers features a port field in all frames. This port field
@@ -510,6 +508,10 @@ fragmentation transmitter. The following fields are common to all devices.
 
 As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU minus header (1 byte)
+
+Note: The Fpending bit included in LoRaWAN protocol SHOULD not be used for SCHC
+over LoRaWAN protocol. It might be set by the network server for other
+purposes in but not SCHC needs.
 
 **Regular fragments**
 
