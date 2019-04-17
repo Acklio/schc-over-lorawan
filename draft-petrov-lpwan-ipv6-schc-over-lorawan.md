@@ -544,8 +544,7 @@ payload size less than 382 bytes.
 {: #Fig-fragmentation-header-long-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
 
-**Receiver abort**
-TODO OGZ: Check for error
+**Receiver-Abort**
 
 ~~~~
 
@@ -554,7 +553,7 @@ TODO OGZ: Check for error
 | 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
 
 ~~~~
-{: #Fig-fragmentation-receiver-abort title='Receiver abort format.'}
+{: #Fig-fragmentation-receiver-abort title='Receiver-Abort format.'}
 
 
 **SCHC acknowledge request**
@@ -643,7 +642,7 @@ purposes in but not SCHC needs.
 {: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct.'}
 
 
-**Receiver abort**
+**Receiver-Abort**
 
 ~~~~
 
@@ -652,7 +651,7 @@ purposes in but not SCHC needs.
 | 5 bits | 1 bit | 1 bit | 1 bits  | 8 bits     |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-abort title='Receiver ABORT packet (following an all-1 packet with incorrect MIC).'}
+{: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an all-1 packet with incorrect MIC).'}
 
 
 Class A and classB&C devices do not manage retransmissions and timers in the
@@ -685,15 +684,15 @@ ACK-request: it indicates that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and the MIC is NOT correct,
-the device shall transmit a receiver-ABORT fragment. The device SHALL keep
-this ABORT message in memory until it receives a downlink, on SCHC FPortDown,
+the device shall transmit a Receiver-Abort fragment. The device SHALL keep
+this Abort message in memory until it receives a downlink, on SCHC FPortDown,
 from the SCHC gateway different from an ACK-request indicating that the SCHC
-gateway has received the ABORT message.  The fragmentation receiver (device)
+gateway has received the Abort message.  The fragmentation receiver (device)
 does not implement retransmission timer and inactivity timer.
 
 The fragmentation sender (the SCHC gateway) implements an inactivity timer with
 default duration of 12 hours. Once a fragmentation session is started, if the
-SCHC gateway has not received any ACK or receiver-ABORT message 12 hours after
+SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after
 the last message from the device was received, the SCHC gateway may flush the
 fragmentation context.  For devices with very low transmission rates
 (example 1 packet a day in normal operation) , that duration may be extended,
@@ -731,7 +730,7 @@ DTag) fragment indicatingthat the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and if the MIC is NOT correct,
-the device shall transmit a receiver-ABORT fragment.  The retransmission
+the device shall transmit a Receiver-Abort fragment.  The retransmission
 timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.  
 For classB devices, this timer trigger is a function of the periodicity of the
