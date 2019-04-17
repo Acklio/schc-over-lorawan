@@ -28,6 +28,13 @@ author:
   city: Meylan
   country: France
   email: mcoracin@semtech.com
+- ins: O. Gimenez
+  name: Olivier Gimenez
+  org: Semtech
+  street: 14 Chemin des Clos
+  city: Meylan
+  country: France
+  email: ogimenez@semtech.com
 - ins: I. Petrov
   name: Ivaylo Petrov
   org: Acklio
@@ -56,6 +63,13 @@ author:
   city: 91120 PALAISEAU
   country: FRANCE
   email: vincent.audebert@edf.fr
+- ins: M. Le Gourrierec
+  name: Marc Le Gourrierec
+  org: SagemCom
+  street: 250 Route de l'Empereur
+  city: 92500 Rueil Malmaison
+  country: FRANCE
+  email: marc.legourrierec@sagemcom.com
 normative:
   RFC2119:
   RFC4944:
