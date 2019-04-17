@@ -362,7 +362,7 @@ have multiple fragmentation session between a device and one or several SCHC
 gateways. A set of three FPort values is required for each gateway instance the
 end-device is required to communicate with.
 
-The only uplink messages using the FPortDwn port are the fragmentation SCHC
+The only uplink messages using the FPortDown port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
 only downlink messages using the FPortUpShort or FPortUpShort ports are the
 fragmentation SCHC control messages of an uplink fragmentation session.
@@ -682,7 +682,7 @@ ACK-request: it indicates that the SCHC gateway has received the ACK message.
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and the MIC is NOT correct,
 the device shall transmit a receiver-ABORT fragment. The device SHALL keep
-this ABORT message in memory until it receives a downlink, on SCHC FPortDwn,
+this ABORT message in memory until it receives a downlink, on SCHC FPortDown,
 from the SCHC gateway different from an ACK-request indicating that the SCHC
 gateway has received the ABORT message.  The fragmentation receiver (device)
 does not implement retransmission timer and inactivity timer.
