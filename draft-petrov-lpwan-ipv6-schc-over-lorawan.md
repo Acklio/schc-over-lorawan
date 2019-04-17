@@ -349,7 +349,7 @@ The other way, a fragmentation session with application payload transfered
 from server to device, is called downlink fragmentation session. It uses
 FPortDown for uplink and downlinks.
 
-Those FPorts can use arbitrary values inside the allowed Fport range and must
+Those FPorts can use arbitrary values inside the allowed FPort range and must
 be shared by the end-device, the network server and SCHC gateway. The uplink
 and downlink SCHC ports must be different.
 In order to improve interoperability, it is recommended to use:
@@ -359,12 +359,12 @@ In order to improve interoperability, it is recommended to use:
 
 Those are recommended values and are application defined. Also application can
 have multiple fragmentation session between a device and one or several SCHC
-gateways. A set of three Fport values is required for each gateway instance the
+gateways. A set of three FPort values is required for each gateway instance the
 end-device is required to communicate with.
 
-The only uplink messages using the FportDwn port are the fragmentation SCHC
+The only uplink messages using the FPortDwn port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
-only downlink messages using the FportUpShort or FportUpShort ports are the
+only downlink messages using the FPortUpShort or FPortUpShort ports are the
 fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
@@ -407,11 +407,11 @@ fragmentation sessions and are successively described in the next sections.
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.  
-Two fragmentation rules are defined regarding the Fport:
-* FportUpShort: SCHC header is only one byte. Used when compression is
+Two fragmentation rules are defined regarding the FPort:
+* FPortUpShort: SCHC header is only one byte. Used when compression is
   required and payload size is less than 381 bytes.
   bytes
-* FportUpLong: SCHC header is two bytes. Used for all other cases: no
+* FPortUpLong: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
 
 Both rules have share common parameters:
@@ -444,8 +444,8 @@ And the following fields are differents:
 * Window index size W
 
 
-#### FportUpShort - 1 byte header
-In that case RuleId size is 0, the rule is the Fport=FportUpShort and only
+#### FPortUpShort - 1 byte header
+In that case RuleId size is 0, the rule is the FPort=FPortUpShort and only
 fragmented payload can be transported.
 In order to minimise ACK, windows size is set to 0.
 
@@ -479,7 +479,7 @@ With this set of parameters, the SCHC fragment header overhead is 1 byte
 ~~~~
 {: #Fig-fragmentation-header-short-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
-#### FportUpLong - 2 bytes header
+#### FPortUpLong - 2 bytes header
 
 * RuleId: size is 6 bits (64 possible rules, 62 available for user)
 * Window index: encoded on W = 2 bits. So 4 windows are available.
