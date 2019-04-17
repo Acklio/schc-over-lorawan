@@ -62,6 +62,7 @@ normative:
   RFC5795:
   RFC7136:
   RFC3385:
+  RFC4291:
 informative:
   I-D.ietf-lpwan-overview:
   I-D.ietf-lpwan-ipv6-static-context-hc:
@@ -364,7 +365,10 @@ control messages of an uplink fragmentation session
 
 ## IID computation
 
-TBD (To discuss with the SCHC authors).
+As LoRaWAN network uses unique EUI-64 per device, the Interface IDentifier is
+the LoRaWAN DevEUI.  
+It is compliant with [RFC4291] and IID starting with binary 000 must enforce
+the 64-bits rule.
 
 ## Fragmentation {#Frag}
 
