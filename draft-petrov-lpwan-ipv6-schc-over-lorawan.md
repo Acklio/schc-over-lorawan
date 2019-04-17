@@ -81,11 +81,11 @@ informative:
   I-D.ietf-lpwan-overview:
   I-D.ietf-lpwan-ipv6-static-context-hc:
   lora-alliance-spec:
-    title: LoRaWAN Specification Version V1.0.2
+    title: LoRaWAN Specification Version V1.0.3
     author:
       name: LoRa Alliance
-    date: 07.2016
-    target: http://portal.lora-alliance.org/DesktopModules/Inventures_Document/FileDownload.aspx?ContentID=1398
+    date: 07.2018
+    target: https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf
 
 --- abstract
 
