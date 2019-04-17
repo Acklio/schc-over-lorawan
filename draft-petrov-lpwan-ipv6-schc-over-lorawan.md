@@ -343,17 +343,29 @@ The LoRaWAN MAC layers features a port field in all frames. This port field
 LoRaWAN network and application to identify data.
 
 A fragmentation session with application payload transfered from device
-to server, is called uplink fragmentation session. It uses FPortUp for data
-uplink and SCHC control downlinks.
+to server, is called uplink fragmentation session. It uses FPortUpShort or
+FPortUpLong for data uplink and SCHC control downlinks.  
 The other way, a fragmentation session with application payload transfered
 from server to device, is called downlink fragmentation session. It uses
 FPortDown for uplink and downlinks.
 
 Those FPorts can use arbitrary values inside the allowed Fport range and must
 be shared by the end-device, the network server and SCHC gateway. The uplink
-and downlink SCHC ports must be different. In order to improve
-interoperability, it is recommended to use FPortUp = 20 and FportDwn = 21
-TODO OGZ: Clarify
+and downlink SCHC ports must be different.
+In order to improve interoperability, it is recommended to use:
+* FPortUpShort = 20
+* FPortUpLong = 21
+* FPportDown = 22
+
+Those are recommended values and are application defined. Also application can
+have multiple fragmentation session between a device and one or several SCHC
+gateways. A set of three Fport values is required for each gateway instance the
+end-device is required to communicate with.
+
+The only uplink messages using the FportDwn port are the fragmentation SCHC
+control messages of a downlink fragmentation session (ex ACKs). Similarly, the
+only downlink messages using the FportUpShort or FportUpShort ports are the
+fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
 
@@ -371,11 +383,6 @@ independent. The same RuleID may have different meanings on the uplink and
 downlink paths, at the exception of rules 0. A RuleId different from 0 means
 that the fragmentation is not used, thus the packet should be send to C/D
 layer.
-
-The only uplink messages using the FportDwn port are the fragmentation SCHC
-control messages of a downlink fragmentation session (ex ACKs). Similarly, the
-only downlink messages using the FportUp port are the fragmentation SCHC
-control messages of an uplink fragmentation session
 
 ## IID computation
 
@@ -399,11 +406,16 @@ fragmentation sessions and are successively described in the next sections.
 ### Uplink fragmentation: From device to SCHC gateway
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
-the fragmentation receiver.
+the fragmentation receiver.  
+Two fragmentation rules are defined regarding the Fport:
+* FportUpShort: SCHC header is only one byte. Used when compression is
+  required and payload size is less than 381 bytes.
+  bytes
+* FportUpLong: SCHC header is two bytes. Used for all other cases: no
+  fragmentation required or payload size is between 382 and 1524 byte.
 
+Both rules have share common parameters:
 * SCHC fragmentation reliability mode : `ACK-on-Error`
-* RuleId: size is 6 bits (64 possible rules, 62 available for user)
-* Window index: encoded on W = 2 bits. So 4 windows are available.
 * DTag: size is 1 bit. This field is used to clearly separate two consecutive
   fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
   SCHC datagrams.
@@ -427,8 +439,56 @@ the fragmentation receiver.
   timer is 12h. This value is mainly driven by application requirements and may
   be changed by the application.
 
+And the following fields are differents:
+* RuleId size
+* Window index size W
+
+
+#### FportUpShort - 1 byte header
+In that case RuleId size is 0, the rule is the Fport=FportUpShort and only
+fragmented payload can be transported.
+In order to minimise ACK, windows size is set to 0.
+
+* RuleId: size is 0 bit in SCHC header, not used.
+* Window index: encoded on W = 0 bit, not used
+
+
+With this set of parameters, the SCHC fragment header overhead is 1 byte
+(8 bits). MTU is: 127 tiles * 3 bytes per tile = 381 bytes
+
+**Regular fragments**
+
+~~~~
+
+| DTag  | FCN    | Payload |
++ ----- | ------ + ------- |
+| 1 bit | 7 bits |         |
+
+~~~~
+{: #Fig-fragmentation-header-short-all0 title='All fragment except the last one. Header size is 8 bits (1 byte).'}
+
+
+**All-1 ACK**
+
+~~~~
+
+| DTag  | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ----- + ----- + ------------------------- + ------------ +
+| 1 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
+
+~~~~
+{: #Fig-fragmentation-header-short-all1-ack title='ACK format for All-1 windows, failed mic check.'}
+
+#### FportUpLong - 2 bytes header
+
+* RuleId: size is 6 bits (64 possible rules, 62 available for user)
+* Window index: encoded on W = 2 bits. So 4 windows are available.
+
 With this set of parameters, the SCHC fragment header overhead is 2 bytes
 (16 bits). MTU is: 4 windows * 127 tiles * 3 bytes per tile = 1524 bytes
+
+*Note:* Even if it is less efficient, this rule can also be used for fragemented
+payload size less than 382 bytes.
 
 **Regular fragments**
 
@@ -438,9 +498,8 @@ With this set of parameters, the SCHC fragment header overhead is 2 bytes
 + ------ + ----- + ------ | ------ + ------- +
 | 6 bits | 1 bit | 2 bits | 7 bits |         |
 
-
 ~~~~
-{: #Fig-fragmentation-header-all0 title='All fragment except the last one. Header size is 16 bits (2 bytes).'}
+{: #Fig-fragmentation-header-long-all0 title='All fragment except the last one. Header size is 16 bits (2 bytes).'}
 
 
 **Last fragment (All-1)**
@@ -476,7 +535,7 @@ With this set of parameters, the SCHC fragment header overhead is 2 bytes
 | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-all1-ack title='ACK format for All-1 windows, failed mic check.'}
+{: #Fig-fragmentation-header-long-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
 
 **Receiver abort**
