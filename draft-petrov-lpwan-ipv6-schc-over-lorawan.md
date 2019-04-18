@@ -405,6 +405,13 @@ moment.
 The fragmentation parameters are different for uplink and downlink
 fragmentation sessions and are successively described in the next sections.
 
+## DTag
+A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This one
+bit field is used to distinguish two consecutive fragmentation sessions.
+
+_Note_: While it is used to recover faster from transmitions erros, it SHALL
+not be considered as the only way to distinguish two fragmentation sessions.
+
 ### Uplink fragmentation: From device to SCHC gateway
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
@@ -413,18 +420,15 @@ Two fragmentation rules are defined regarding the FPort:
 
 * **FPortUpShort**: SCHC header is only one byte. Used when compression is
   required and payload size is less than 381 bytes.
-  bytes
 * **FPortUpLong**: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
-
+TODO": shorst is = long with 1 window and  ruleId is FPort
 Both rules have share common parameters:
 
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
-* **DTag**: size is 1 bit. This field is used to clearly separate two consecutive
-  fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
-  SCHC datagrams.
-* **FCN**: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles are
-  allowed in a window (FCN=All-1 is reserved for SCHC).
+* **DTag**: size is 1 bit.
+* **FCN**: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles
+  are allowed in a window (FCN=All-1 is reserved for SCHC).
 * **MIC calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
   [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
@@ -578,9 +582,7 @@ fragmentation transmitter. The following fields are common to all devices.
 * **SCHC fragmentation reliability mode**: ACK-Always.
 * **RuleId**: size is 5 bits (32 possible rules, 31 for user).
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
-* **DTag**: size is 1 bit. This field is used to clearly separate two consecutive
-  fragmentation sessions. A LoRaWAN device cannot interleave several fragmented
-  SCHC datagrams.
+* **DTag**: size is 1 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
 * **MIC calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
