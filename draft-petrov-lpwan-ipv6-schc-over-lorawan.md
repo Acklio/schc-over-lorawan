@@ -391,6 +391,7 @@ As LoRaWAN network uses unique EUI-64 per device, the Interface IDentifier is
 the LoRaWAN DevEUI.  
 It is compliant with [RFC4291] and IID starting with binary 000 must enforce
 the 64-bits rule.
+TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?
 
 ## Fragmentation {#Frag}
 
