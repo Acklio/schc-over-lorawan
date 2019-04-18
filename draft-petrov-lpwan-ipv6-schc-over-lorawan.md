@@ -307,9 +307,9 @@ direction and reciprocally on the downlink direction.
 
 ~~~~
 
-+--------+         +---------------+        +----------+             +------------+
-| device | <=====> | Network Server| <====> | GTW SCHC | <=========> |  Internet  |
-+--------+ devAddr +---------------+ devEUI +----------+   IPv6/udp  +------------+
++--------+         +---------------+        +--------------+             +------------+
+| device | <=====> | Network Server| <====> | SCHC Gateway | <=========> |  Internet  |
++--------+ devAddr +---------------+ devEUI +--------------+   IPv6/udp  +------------+
 
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
@@ -356,7 +356,7 @@ In order to improve interoperability, it is recommended to use:
 
 * FPortUpShort = 20
 * FPortUpLong = 21
-* FPportDown = 22
+* FPortDown = 22
 
 Those are recommended values and are application defined. Also application can
 have multiple fragmentation session between a device and one or several SCHC
