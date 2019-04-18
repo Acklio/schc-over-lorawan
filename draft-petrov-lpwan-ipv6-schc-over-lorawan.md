@@ -148,7 +148,7 @@ is the most bandwidth-consuming operation in other header compression
 mechanisms such as RoHC {{RFC5795}}. Based on the fact that the nature of data
 flows is highly predictable in LPWAN networks, some static contexts may be
 stored on the Device (Dev). The contexts must be stored in both ends, and it
-can either be learned by a provisioning protocol or by out of band means or it
+can either be learned by a provisioning protocol or by out-of-band means or it
 can be pre-provisioned, etc. The way the context is learned on both sides is
 out of the scope of this document.
 
@@ -283,13 +283,13 @@ A+C. ClassB and classC are mutually exclusive.
   end-devices, but keep their receiver open whenever they are not transmitting.
   ClassC end-devices can receive downlinks at any time at the expense of a higher
   power consumption. Battery powered end-devices can only operate in classC for a
-  limited amount of time (for example for a firmware upgrade over the air).
+  limited amount of time (for example for a firmware upgrade over-the-air).
   Most of the classC end-devices are main powered (for example Smart Plugs).
 
 ## End-Device addressing
 
 LoRaWAN end-devices use a 32 bits network address (devAddr) to communicate with
-the network over the air. However, that address might be reused several time
+the network over-the-air. However, that address might be reused several time
 on the same network at the same time for different end-devices. End-devices using the
 same devAddr are distinguish by the Network Server based on the cryptographic
 signature appended to every single LoRaWAN MAC frame, as all end-devices use
@@ -334,7 +334,7 @@ direction and reciprocally on the downlink direction.
   settings and a network random nonce used to derive the session keys.
 * **Data**
 
-# SCHC over LoRaWAN
+# SCHC-over-LoRaWAN
 
 ## LoRaWAN FPort
 
@@ -370,7 +370,7 @@ fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
 
-SCHC over LoRAWAN SHOULD support encoding RuleID on 6 bits for uplink
+SCHC-over-LoRAWAN SHOULD support encoding RuleID on 6 bits for uplink
 (64 possible rules) and 5 bits for downlinks (32 possible rules).  
 
 The RuleID 0 is reserved for fragmentation in both directions.  
@@ -381,7 +381,7 @@ not possible (no matching Rule was found).
 
 The remaining RuleIDs are available for header compression. RuleIDs are
 independent. The same RuleID may have different meanings on the uplink and
-downlink paths, at the exception of rules 0. A RuleId different from 0 means
+downlink paths, at the exception of rules 0. A RuleID different from 0 means
 that the fragmentation is not used, thus the packet should be send to C/D
 layer.  
 
@@ -400,7 +400,7 @@ The SCHC fragmentation over LoRaWAN uses the ACK-on-Error for uplink
 fragmentation and Ack-Always for downlink fragmentation. A LoRaWAN end-device
 cannot support simultaneous interleaved fragmentation sessions in the same
 direction (uplink or downlink). This means that only a single fragmented
-IPV6 datagram may be transmitted and/or received by the end-device at a given
+IPv6 datagram may be transmitted and/or received by the end-device at a given
 moment.  
 
 The fragmentation parameters are different for uplink and downlink
@@ -424,7 +424,7 @@ Two fragmentation rules are defined regarding the FPort:
 * **FPortUpLong**: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
 TODO": shorst is = long with 1 window and  ruleId is FPort
-Both rules have share common parameters:
+Both rules share common parameters:
 
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
 * **DTag**: size is 1 bit.
@@ -445,21 +445,21 @@ Both rules have share common parameters:
   retransmission of the all-0/all-1 fragments is device/application specific
   and may be different for each device (not specified). The SCHC gateway
   implements an "inactivity timer". The default recommended duration of this
-  timer is 12h. This value is mainly driven by application requirements and may
+  timer is 12 hours. This value is mainly driven by application requirements and may
   be changed by the application.
 
 The following fields are differents:
 
-* RuleId size
+* RuleID size
 * Window index size W
 
 
 #### FPortUpShort - 1 byte header
-In that case RuleId size is 0, the rule is the FPort=FPortUpShort and only
+In that case RuleID size is 0, the rule is the FPort=FPortUpShort and only
 fragmented payload can be transported.  
 In order to minimise ACK, windows size is set to 0.
 
-* **RuleId**: size is 0 bit in SCHC header, not used.
+* **RuleID**: size is 0 bit in SCHC header, not used.
 * **Window index**: encoded on W = 0 bit, not used
 
 With this set of parameters, the SCHC fragment header overhead is 1 byte
@@ -491,14 +491,14 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 
 #### FPortUpLong - 2 bytes header
 
-* **RuleId**: size is 6 bits (64 possible rules, 62 available for user)
+* **RuleID**: size is 6 bits (64 possible rules, 62 available for user)
 * **Window index**: encoded on W = 2 bits. So 4 windows are available.
 
 With this set of parameters, the SCHC fragment header overhead is 2 bytes
 (16 bits).  
 MTU is: _4 windows * 127 tiles * 3 bytes per tile = 1524 bytes_
 
-_Note_: Even if it is less efficient, this rule can also be used for fragemented
+_Note_: Even if it is less efficient, this rule can also be used for fragmented
 payload size less than 382 bytes.
 
 **Regular fragments**
@@ -546,7 +546,7 @@ payload size less than 382 bytes.
 | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-long-all1-ack title='ACK format for All-1 windows, failed mic check.'}
+{: #Fig-fragmentation-header-long-all1-ack title='ACK format for All-1 windows, failed MIC check.'}
 
 
 **Receiver-Abort**
@@ -581,7 +581,7 @@ In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 
 * **SCHC fragmentation reliability mode**: ACK-Always.
-* **RuleId**: size is 5 bits (32 possible rules, 31 for user).
+* **RuleID**: size is 5 bits (32 possible rules, 31 for user).
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **DTag**: size is 1 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
@@ -595,7 +595,7 @@ As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU minus header (1 byte)
 
 _Note_: The Fpending bit included in LoRaWAN protocol SHOULD not be used for
-SCHC over LoRaWAN protocol. It might be set by the Network Server for other
+SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other
 purposes in but not SCHC needs.
 
 **Regular fragments**
@@ -712,7 +712,7 @@ last fragment of the packet or ACK-request), the device MUST always transmit
 the corresponding SCHC ACK fragment even if that fragment has already been
 received.  
 The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this
-ACK, it proceeds to send the next window fragment If the retransmission timer
+ACK, it proceeds to send the next window fragment. If the retransmission timer
 elapses and the SCHC gateway has not received the ACK of the current window it
 retransmits the last fragment. The SCHC gateway tries retransmitting up to
 MAX_ACK_REQUESTS times before aborting.
@@ -729,7 +729,7 @@ times before aborting.
 
 The device SHALL keep the All-1 ACK message in memory until it receives a
 downlink from the SCHC gateway different from the last (FCN>0 and different
-DTag) fragment indicatingthat the SCHC gateway has received the ACK message.
+DTag) fragment indicating that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and if the MIC is NOT correct,
@@ -752,7 +752,7 @@ suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
 such, this parameters does not contribute to any new security issues in
 addition of those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
-# Acknowledgementss
+# Acknowledgements
 TBD
 
 --- back
