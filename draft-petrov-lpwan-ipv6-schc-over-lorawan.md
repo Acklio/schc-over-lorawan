@@ -203,9 +203,9 @@ terminology to:
 |   SCHC C/D   |                                             |              |
 |   (context)  |                                             |              |
 +-------+------+                                             +-------+------+
-         |   +-------+     +-------+     +-----------+              .
-         +~~ |Gateway| === |Network| === |Application|... Internet ..
-             +-------+|    |Server |     |   Server  |
+        |    +-------+     +-------+     +-----------+               .
+        +~~~ |Gateway| === |Network| === |Application|... Internet ...
+             +-------+     |Server |     |   Server  |
                            +-------+     +-----------+
 ~~~~
 {: #Fig-archi-lorawan title='Architecture'}
@@ -307,9 +307,10 @@ direction and reciprocally on the downlink direction.
 
 ~~~~
 
-+------------+         +---------------+        +--------------+             +------------+
-| End-Device | <=====> | Network Server| <====> | SCHC Gateway | <=========> |  Internet  |
-+------------+ devAddr +---------------+ devEUI +--------------+   IPv6/udp  +------------+
++--------+         +----------+        +---------+            +----------+
+| End-   | <=====> | Network  | <====> | SCHC    | <========> | Internet |
+| Device | devAddr | Server   | devEUI | Gateway |  IPv6/UDP  |          |
++--------+         +----------+        +---------+            +----------+
 
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
@@ -471,7 +472,7 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 ~~~~
 
 | DTag  | FCN    | Payload |
-+ ----- | ------ + ------- |
++ ----- + ------ + ------- +
 | 1 bit | 7 bits |         |
 
 ~~~~
@@ -506,7 +507,7 @@ payload size less than 382 bytes.
 ~~~~
 
 | RuleID | DTag  | W      | FCN    | Payload |
-+ ------ + ----- + ------ | ------ + ------- +
++ ------ + ----- + ------ + ------ + ------- +
 | 6 bits | 1 bit | 2 bits | 7 bits |         |
 
 ~~~~
@@ -518,7 +519,7 @@ payload size less than 382 bytes.
 ~~~~
 
 | RuleID | DTag  | W      | FCN=All-1 | MIC     |
-+ ------ + ----- + ------ | --------- + ------- +
++ ------ + ----- + ------ + --------- + ------- +
 | 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits |
 
 ~~~~
@@ -530,8 +531,8 @@ payload size less than 382 bytes.
 ~~~~
 
 | RuleID | DTag  | W      | Encoded bitmap | Padding (0s) |
-+ ------ + ----- + ------ | -------------- + ------------ +
-| 6 bits | 1 bit | 2 bits | 0 to 127 bits   | 6 to 0 bits |
++ ------ + ----- + ------ + -------------- + ------------ +
+| 6 bits | 1 bit | 2 bits | 0 to 127 bits  |  6 to 0 bits |
 
 ~~~~
 {: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows.'}
@@ -554,7 +555,7 @@ payload size less than 382 bytes.
 ~~~~
 
 | RuleID | DTag  | W = b’11 | C = 1 | b’111111 | 0xFF (all 1's) |
-+ ------ + ----- + -------- + ------+--------- + ---------------|
++ ------ + ----- + -------- + ------+--------- + ---------------+
 | 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
 
 ~~~~
@@ -603,7 +604,7 @@ purposes in but not SCHC needs.
 ~~~~
 
 | RuleID | DTag  | W     | FCN = b'0 | Payload |
-+ ------ + ----- + ----- | --------- + ------- +
++ ------ + ----- + ----- + --------- + ------- +
 | 5 bits | 1 bit | 1 bit | 1 bits    | X bytes |
 
 ~~~~
@@ -615,7 +616,7 @@ purposes in but not SCHC needs.
 ~~~~
 
 | RuleID | DTag  | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + ----- | --------- + ------- + ------- + ------------ +
++ ------ + ----- + ----- + --------- + ------- + ------- + ------------ +
 | 5 bits | 1 bit | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
 
 ~~~~
@@ -626,7 +627,7 @@ purposes in but not SCHC needs.
 ~~~~
 
 | RuleID | DTag  | W     | Encoded bitmap |
-+ ------ + ----- + ----- | -------------- +
++ ------ + ----- + ----- + -------------- +
 | 5 bits | 1 bit | 1 bit | 1 bit          |
 
 ~~~~
