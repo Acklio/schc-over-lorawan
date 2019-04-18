@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-petrov-lpwan-ipv6-schc-over-lorawan-latest
+docname: draft-lpwan-schc-over-lorawan-latest
 cat: info
 pi:
   symrefs: 'yes'
@@ -77,8 +77,8 @@ normative:
   RFC7136:
   RFC3385:
   RFC4291:
+  RFC8376:
 informative:
-  I-D.ietf-lpwan-overview:
   I-D.ietf-lpwan-ipv6-static-context-hc:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
@@ -106,7 +106,7 @@ The Static Context Header Compression (SCHC) specification
 {{I-D.ietf-lpwan-ipv6-static-context-hc}} describes
 generic header compression and fragmentation techniques that can be used on all
 LPWAN (Low Power Wide Area Networks) technologies defined in
-{{I-D.ietf-lpwan-overview}}. Even though those technologies share a great
+{{RFC8376}}. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
 slight differences in respect of payload sizes, reactiveness, etc.
@@ -172,7 +172,7 @@ out of the scope of this document.
 {: #Fig-archi title='Architecture'}
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
-based on {{I-D.ietf-lpwan-overview}} terminology. The Device is sending
+based on {{RFC8376}} terminology. The Device is sending
 applications flows using IPv6 or IPv6/UDP protocols. These flows are compressed
 by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to
 reduce headers size. Resulting information is sent on a layer two (L2) frame to
@@ -214,7 +214,7 @@ terminology to:
 #LoRaWAN Architecture
 
 An overview of LoRaWAN {{lora-alliance-spec}} protocol and architecture is
-described in {{I-D.ietf-lpwan-overview}}. Mapping between the LPWAN
+described in {{RFC8376}}. Mapping between the LPWAN
 architecture entities as described in {{I-D.ietf-lpwan-ipv6-static-context-hc}}
 and the ones in {{lora-alliance-spec}} is as follows:
 
