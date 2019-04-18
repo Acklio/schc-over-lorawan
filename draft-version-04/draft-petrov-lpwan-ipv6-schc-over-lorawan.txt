@@ -88,8 +88,9 @@ Table of Contents
      5.2.  Rule ID management  . . . . . . . . . . . . . . . . . . .   9
      5.3.  IID computation . . . . . . . . . . . . . . . . . . . . .   9
      5.4.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .   9
-       5.4.1.  Uplink fragmentation: From device to SCHC gateway . .   9
-       5.4.2.  Downlink fragmentation: From SCHC gateway to device .  13
+     5.5.  DTag  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+       5.5.1.  Uplink fragmentation: From device to SCHC gateway . .  10
+       5.5.2.  Downlink fragmentation: From SCHC gateway to device .  13
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  17
    7.  Acknowledgementss . . . . . . . . . . . . . . . . . . . . . .  17
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
@@ -105,7 +106,6 @@ Table of Contents
    [I-D.ietf-lpwan-ipv6-static-context-hc] describes generic header
    compression and fragmentation techniques that can be used on all
    LPWAN (Low Power Wide Area Networks) technologies defined in
-   [I-D.ietf-lpwan-overview].  Even though those technologies share a
 
 
 
@@ -114,6 +114,7 @@ Sornin, et al.          Expires October 20, 2019                [Page 2]
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
+   [I-D.ietf-lpwan-overview].  Even though those technologies share a
    great number of common features like star-oriented topologies,
    network architecture, devices with mostly quite predictable
    communications, etc; they do have some slight differences in respect
@@ -161,7 +162,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    learned by a provisioning protocol or by out of band means or it can
    be pre-provisioned, etc.  The way the context is learned on both
    sides is out of the scope of this document.
-
 
 
 
@@ -364,9 +364,9 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    devEUI in the uplink direction and reciprocally on the downlink
    direction.
 
-+--------+         +---------------+        +----------+             +------------+
-| device | <=====> | Network Server| <====> | GTW SCHC | <=========> |  Internet  |
-+--------+ devAddr +---------------+ devEUI +----------+   IPv6/udp  +------------+
++--------+         +---------------+        +--------------+             +------------+
+| device | <=====> | Network Server| <====> | SCHC Gateway | <=========> |  Internet  |
++--------+ devAddr +---------------+ devEUI +--------------+   IPv6/udp  +------------+
 
 
                         Figure 4: LoRaWAN addresses
@@ -427,7 +427,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    o  FPortUpLong = 21
 
-   o  FPportDown = 22
+   o  FPortDown = 22
 
    Those are recommended values and are application defined.  Also
    application can have multiple fragmentation session between a device
@@ -472,7 +472,8 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    As LoRaWAN network uses unique EUI-64 per device, the Interface
    IDentifier is the LoRaWAN DevEUI.
    It is compliant with [RFC4291] and IID starting with binary 000 must
-   enforce the 64-bits rule.
+   enforce the 64-bits rule.  TODO: Derive IID from DevEUI with privacy
+   constraints ? Ask working group ?
 
 5.4.  Fragmentation
 
@@ -488,16 +489,15 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    fragmentation sessions and are successively described in the next
    sections.
 
-5.4.1.  Uplink fragmentation: From device to SCHC gateway
+5.5.  DTag
 
-   In that case the device is the fragmentation transmitter, and the
-   SCHC gateway the fragmentation receiver.
-   Two fragmentation rules are defined regarding the FPort:
+   A LoRaWAN device cannot interleave several fragmented SCHC datagrams.
+   This one bit field is used to distinguish two consecutive
+   fragmentation sessions.
 
-   o  *FPortUpShort*: SCHC header is only one byte.  Used when
-      compression is required and payload size is less than 381 bytes.
-      bytes
-
+   _Note_: While it is used to recover faster from transmitions erros,
+   it SHALL not be considered as the only way to distinguish two
+   fragmentation sessions.
 
 
 
@@ -506,17 +506,23 @@ Sornin, et al.          Expires October 20, 2019                [Page 9]
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
+5.5.1.  Uplink fragmentation: From device to SCHC gateway
+
+   In that case the device is the fragmentation transmitter, and the
+   SCHC gateway the fragmentation receiver.
+   Two fragmentation rules are defined regarding the FPort:
+
+   o  *FPortUpShort*: SCHC header is only one byte.  Used when
+      compression is required and payload size is less than 381 bytes.
+
    o  *FPortUpLong*: SCHC header is two bytes.  Used for all other
       cases: no fragmentation required or payload size is between 382
-      and 1524 byte.
-
-   Both rules have share common parameters:
+      and 1524 byte.  TODO": shorst is = long with 1 window and ruleId
+      is FPort Both rules have share common parameters:
 
    o  *SCHC fragmentation reliability mode*: "ACK-on-Error"
 
-   o  *DTag*: size is 1 bit.  This field is used to clearly separate two
-      consecutive fragmentation sessions.  A LoRaWAN device cannot
-      interleave several fragmented SCHC datagrams.
+   o  *DTag*: size is 1 bit.
 
    o  *FCN*: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE =
       127 tiles are allowed in a window (FCN=All-1 is reserved for
@@ -549,12 +555,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    o  RuleId size
 
-   o  Window index size W
-
-
-
-
-
 
 
 Sornin, et al.          Expires October 20, 2019               [Page 10]
@@ -562,7 +562,9 @@ Sornin, et al.          Expires October 20, 2019               [Page 10]
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
-5.4.1.1.  FPortUpShort - 1 byte header
+   o  Window index size W
+
+5.5.1.1.  FPortUpShort - 1 byte header
 
    In that case RuleId size is 0, the rule is the FPort=FPortUpShort and
    only fragmented payload can be transported.
@@ -595,7 +597,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
          Figure 6: ACK format for All-1 windows, failed mic check.
 
-5.4.1.2.  FPortUpLong - 2 bytes header
+5.5.1.2.  FPortUpLong - 2 bytes header
 
    o  *RuleId*: size is 6 bits (64 possible rules, 62 available for
       user)
@@ -607,8 +609,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    bytes (16 bits).
    MTU is: _4 windows * 127 tiles * 3 bytes per tile = 1524 bytes_
 
-   _Note_: Even if it is less efficient, this rule can also be used for
-   fragemented payload size less than 382 bytes.
 
 
 
@@ -617,6 +617,9 @@ Sornin, et al.          Expires October 20, 2019               [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
+
+   _Note_: Even if it is less efficient, this rule can also be used for
+   fragemented payload size less than 382 bytes.
 
    *Regular fragments*
 
@@ -664,15 +667,14 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
                      Figure 11: Receiver-Abort format.
 
-   *SCHC acknowledge request*
-
-
 
 
 Sornin, et al.          Expires October 20, 2019               [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
+
+   *SCHC acknowledge request*
 
    | RuleID | DTag  | W      | FCN = b'0000000 |
    + ------ + ----- + ------ + --------------- +
@@ -682,7 +684,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
                       Figure 12: SCHC ACK REQ format.
 
-5.4.2.  Downlink fragmentation: From SCHC gateway to device
+5.5.2.  Downlink fragmentation: From SCHC gateway to device
 
    In that case the device is the fragmentation receiver, and the SCHC
    gateway the fragmentation transmitter.  The following fields are
@@ -695,9 +697,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    o  *Window index*: encoded on W=1 bit, as per
       [I-D.ietf-lpwan-ipv6-static-context-hc].
 
-   o  *DTag*: size is 1 bit.  This field is used to clearly separate two
-      consecutive fragmentation sessions.  A LoRaWAN device cannot
-      interleave several fragmented SCHC datagrams.
+   o  *DTag*: size is 1 bit.
 
    o  *FCN*: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1
       tile (FCN=All-1 is reserved for SCHC).
@@ -786,7 +786,7 @@ Sornin, et al.          Expires October 20, 2019               [Page 14]
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
-5.4.2.1.  ClassA devices
+5.5.2.1.  ClassA devices
 
    Class A devices can only receive in an RX slot following the
    transmission of an uplink.  Therefore there cannot be a concept of
@@ -842,7 +842,7 @@ Sornin, et al.          Expires October 20, 2019               [Page 15]
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
-5.4.2.2.  Class B or C devices
+5.5.2.2.  Class B or C devices
 
    Class B&C devices can receive in scheduled RX slots or in RX slots
    following the transmission of an uplink.  The device replies with an
