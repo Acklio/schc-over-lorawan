@@ -1,7 +1,7 @@
 ---
 stand_alone: true
 ipr: trust200902
-docname: draft-petrov-lpwan-ipv6-schc-over-lorawan-latest
+docname: draft-ietf-lpwan-schc-over-lorawan-latest
 cat: info
 pi:
   symrefs: 'yes'
