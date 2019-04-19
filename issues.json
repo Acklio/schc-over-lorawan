@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/7",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/7/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/7/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/7/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/7",
+    "id": 435176696,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0MjcxOTk2NjAx",
+    "number": 7,
+    "title": "Prepare move to WG item as version 00",
+    "user": {
+      "login": "ivajloip",
+      "id": 170915,
+      "node_id": "MDQ6VXNlcjE3MDkxNQ==",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/170915?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ivajloip",
+      "html_url": "https://github.com/ivajloip",
+      "followers_url": "https://api.github.com/users/ivajloip/followers",
+      "following_url": "https://api.github.com/users/ivajloip/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ivajloip/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ivajloip/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ivajloip/subscriptions",
+      "organizations_url": "https://api.github.com/users/ivajloip/orgs",
+      "repos_url": "https://api.github.com/users/ivajloip/repos",
+      "events_url": "https://api.github.com/users/ivajloip/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ivajloip/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2019-04-19T13:24:48Z",
+    "updated_at": "2019-04-19T13:25:36Z",
+    "closed_at": "2019-04-19T13:25:36Z",
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/7",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/7",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/7.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/7.patch"
+    },
+    "body": ""
+  },
+  {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/6",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
     "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/6/labels{/name}",
