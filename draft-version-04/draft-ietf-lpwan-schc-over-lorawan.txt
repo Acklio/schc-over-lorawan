@@ -5,7 +5,7 @@
 lpwan Working Group                                       N. Sornin, Ed.
 Internet-Draft                                                M. Coracin
 Intended status: Informational                                O. Gimenez
-Expires: October 20, 2019                                        Semtech
+Expires: October 21, 2019                                        Semtech
                                                                I. Petrov
                                                                   Acklio
                                                                 A. Yegin
@@ -16,11 +16,11 @@ Expires: October 20, 2019                                        Semtech
                                                                  EDF R&D
                                                         M. Le Gourrierec
                                                                 SagemCom
-                                                          April 18, 2019
+                                                          April 19, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
-                  draft-lpwan-schc-over-lorawan-latest
+               draft-ietf-lpwan-schc-over-lorawan-latest
 
 Abstract
 
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 20, 2019.
+   This Internet-Draft will expire on October 21, 2019.
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 1]
+Sornin, et al.          Expires October 21, 2019                [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 2]
+Sornin, et al.          Expires October 21, 2019                [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 3]
+Sornin, et al.          Expires October 21, 2019                [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 4]
+Sornin, et al.          Expires October 21, 2019                [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 5]
+Sornin, et al.          Expires October 21, 2019                [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 6]
+Sornin, et al.          Expires October 21, 2019                [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 7]
+Sornin, et al.          Expires October 21, 2019                [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 8]
+Sornin, et al.          Expires October 21, 2019                [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019                [Page 9]
+Sornin, et al.          Expires October 21, 2019                [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 10]
+Sornin, et al.          Expires October 21, 2019               [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 11]
+Sornin, et al.          Expires October 21, 2019               [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 12]
+Sornin, et al.          Expires October 21, 2019               [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 13]
+Sornin, et al.          Expires October 21, 2019               [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 14]
+Sornin, et al.          Expires October 21, 2019               [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 15]
+Sornin, et al.          Expires October 21, 2019               [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 16]
+Sornin, et al.          Expires October 21, 2019               [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -949,7 +949,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 17]
+Sornin, et al.          Expires October 21, 2019               [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -1005,7 +1005,7 @@ Authors' Addresses
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 18]
+Sornin, et al.          Expires October 21, 2019               [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 19]
+Sornin, et al.          Expires October 21, 2019               [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -1117,4 +1117,4 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 20, 2019               [Page 20]
+Sornin, et al.          Expires October 21, 2019               [Page 20]
