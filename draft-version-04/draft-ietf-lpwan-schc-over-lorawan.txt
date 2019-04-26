@@ -5,7 +5,7 @@
 lpwan Working Group                                       N. Sornin, Ed.
 Internet-Draft                                                M. Coracin
 Intended status: Informational                                O. Gimenez
-Expires: October 21, 2019                                        Semtech
+Expires: October 28, 2019                                        Semtech
                                                                I. Petrov
                                                                   Acklio
                                                                 A. Yegin
@@ -16,7 +16,7 @@ Expires: October 21, 2019                                        Semtech
                                                                  EDF R&D
                                                         M. Le Gourrierec
                                                                 SagemCom
-                                                          April 19, 2019
+                                                          April 26, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 21, 2019.
+   This Internet-Draft will expire on October 28, 2019.
 
 
 
-Sornin, et al.          Expires October 21, 2019                [Page 1]
+Sornin, et al.          Expires October 28, 2019                [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -75,7 +75,7 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Static Context Header Compression Overview  . . . . . . . . .   3
    4.  LoRaWAN Architecture  . . . . . . . . . . . . . . . . . . . .   5
@@ -88,7 +88,7 @@ Table of Contents
      5.2.  Rule ID management  . . . . . . . . . . . . . . . . . . .   9
      5.3.  IID computation . . . . . . . . . . . . . . . . . . . . .   9
      5.4.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .   9
-     5.5.  DTag  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     5.5.  DTag  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
        5.5.1.  Uplink fragmentation: From device to SCHC gateway . .  10
        5.5.2.  Downlink fragmentation: From SCHC gateway to device .  13
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  17
@@ -97,8 +97,22 @@ Table of Contents
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  18
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  18
-   Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+     A.1.  Uplink - Compression example - No fragmentation . . . . .  18
+     A.2.  Uplink - Compression and fragmentation example  . . . . .  18
+     A.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+
+
+
+
+
+
+
+Sornin, et al.          Expires October 28, 2019                [Page 2]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
 1.  Introduction
 
@@ -106,14 +120,6 @@ Table of Contents
    [I-D.ietf-lpwan-ipv6-static-context-hc] describes generic header
    compression and fragmentation techniques that can be used on all
    LPWAN (Low Power Wide Area Networks) technologies defined in
-
-
-
-Sornin, et al.          Expires October 21, 2019                [Page 2]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
    [RFC8376].  Even though those technologies share a great number of
    common features like star-oriented topologies, network architecture,
    devices with mostly quite predictable communications, etc; they do
@@ -156,19 +162,20 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    Static Context Header Compression (SCHC) avoids context
    synchronization, which is the most bandwidth-consuming operation in
    other header compression mechanisms such as RoHC [RFC5795].  Based on
+
+
+
+Sornin, et al.          Expires October 28, 2019                [Page 3]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
    the fact that the nature of data flows is highly predictable in LPWAN
    networks, some static contexts may be stored on the Device (Dev).
    The contexts must be stored in both ends, and it can either be
    learned by a provisioning protocol or by out-of-band means or it can
    be pre-provisioned, etc.  The way the context is learned on both
    sides is out of the scope of this document.
-
-
-
-Sornin, et al.          Expires October 21, 2019                [Page 3]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
 
         Dev                                                 App
    +--------------+                                  +--------------+
@@ -214,14 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019                [Page 4]
+Sornin, et al.          Expires October 28, 2019                [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 21, 2019                [Page 5]
+Sornin, et al.          Expires October 28, 2019                [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 21, 2019                [Page 6]
+Sornin, et al.          Expires October 28, 2019                [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -382,14 +382,14 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    o  *Unconfirmed messages*: The sender does not ask the receiver to
       acknowledge the message.
 
+   As SCHC defines its own acknowledgment mechanisms, SCHC does not
+   require to use confirmed messages.
 
 
 
 
 
-
-
-Sornin, et al.          Expires October 21, 2019                [Page 7]
+Sornin, et al.          Expires October 28, 2019                [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -416,12 +416,12 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    This field (FPort) is 8-bit long and the values from 1 to 223 can be
    used.  It allows LoRaWAN network and application to identify data.
 
-   A fragmentation session with application payload transfered from
+   A fragmentation session with application payload transferred from
    device to server, is called uplink fragmentation session.  It uses
-   FPortUpShort or FPortUpLong for data uplink and SCHC control
+   FPortUpShort or FPortUpDefault for data uplink and SCHC control
    downlinks.
    The other way, a fragmentation session with application payload
-   transfered from server to device, is called downlink fragmentation
+   transferred from server to device, is called downlink fragmentation
    session.  It uses FPortDown for uplink and downlinks.
 
    FPorts can use arbitrary values inside the allowed FPort range and
@@ -431,7 +431,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    o  FPortUpShort = 20
 
-   o  FPortUpLong = 21
+   o  FPortUpDefault = 21
 
    o  FPortDown = 22
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-Sornin, et al.          Expires October 21, 2019                [Page 8]
+Sornin, et al.          Expires October 28, 2019                [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
@@ -458,20 +458,17 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 5.2.  Rule ID management
 
-   SCHC-over-LoRAWAN SHOULD support encoding RuleID on 6 bits for uplink
-   (64 possible rules) and 5 bits for downlinks (32 possible rules).
+   SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64
+   possible rules).
 
-   The RuleID 0 is reserved for fragmentation in both directions.
-   The uplink ruleID 63 is used to tag packets for which SCHC
-   compression was not possible (no matching Rule was found).
-   The downlink ruleID 31 is used to tag packets for which SCHC
-   compression was not possible (no matching Rule was found).
+   The RuleID 0 is reserved for fragmentation in both directions.  The
+   RuleID 63 is used to tag packets for which SCHC compression was not
+   possible (no matching Rule was found).
 
-   The remaining RuleIDs are available for header compression.  RuleIDs
-   are independent.  The same RuleID may have different meanings on the
-   uplink and downlink paths, at the exception of rules 0.  A RuleID
-   different from 0 means that the fragmentation is not used, thus the
-   packet should be send to C/D layer.
+   The remaining RuleIDs are available for compression.  RuleIDs are
+   shared between uplink and downlink sessions.  A RuleID different from
+   0 means that the fragmentation is not used, thus the packet should be
+   send to C/D layer.
 
 5.3.  IID computation
 
@@ -495,24 +492,21 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    fragmentation sessions and are successively described in the next
    sections.
 
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019                [Page 9]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
 5.5.  DTag
 
    A LoRaWAN device cannot interleave several fragmented SCHC datagrams.
    This one bit field is used to distinguish two consecutive
    fragmentation sessions.
 
-   _Note_: While it is used to recover faster from transmitions erros,
+
+
+
+Sornin, et al.          Expires October 28, 2019                [Page 9]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
+   _Note_: While it is used to recover faster from transmission errors,
    it SHALL not be considered as the only way to distinguish two
    fragmentation sessions.
 
@@ -525,7 +519,7 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    o  *FPortUpShort*: SCHC header is only one byte.  Used when
       compression is required and payload size is less than 381 bytes.
 
-   o  *FPortUpLong*: SCHC header is two bytes.  Used for all other
+   o  *FPortUpDefault*: SCHC header is two bytes.  Used for all other
       cases: no fragmentation required or payload size is between 382
       and 1524 byte.  TODO": shorst is = long with 1 window and ruleId
       is FPort Both rules share common parameters:
@@ -554,14 +548,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
       slot of end-device if tiles are missing.
       If this ACK is not received the end-device sends an all-0 (or an
       all-1) fragment with no payload to request an ACK retransmission.
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 10]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
       The periodicity between retransmission of the all-0/all-1
       fragments is device/application specific and may be different for
       each device (not specified).  The SCHC gateway implements an
@@ -569,7 +555,14 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
       timer is 12 hours.  This value is mainly driven by application
       requirements and may be changed by the application.
 
-   The following fields are differents:
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 10]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
+   The following fields are different:
 
    o  RuleID size
 
@@ -608,23 +601,22 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
          Figure 6: ACK format for All-1 windows, failed mic check.
 
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 11]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
-5.5.1.2.  FPortUpLong - 2 bytes header
+5.5.1.2.  FPortUpDefault - 2 bytes header
 
    o  *RuleID*: size is 6 bits (64 possible rules, 62 available for
       user)
 
    o  *Window index*: encoded on W = 2 bits.  So 4 windows are
       available.
+
+
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 11]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
    With this set of parameters, the SCHC fragment header overhead is 2
    bytes (16 bits).
@@ -645,9 +637,9 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    *Last fragment (All-1)*
 
-   | RuleID | DTag  | W      | FCN=All-1 | MIC     |
-   + ------ + ----- + ------ + --------- + ------- +
-   | 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits |
+| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload                 |
++ ------ + ----- + ------ + --------- + ------- + ----------------------- +
+| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Remaining tiles, if any |
 
 
       Figure 8: All-1 fragment detailed format for the last fragment.
@@ -663,17 +655,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    *All-1 ACK*
 
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 12]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
 | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
@@ -682,6 +663,16 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
         Figure 10: ACK format for All-1 windows, failed MIC check.
 
    *Receiver-Abort*
+
+
+
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 12]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
    | RuleID | DTag  | W = b'11 | C = 1 | b'111111 | 0xFF (all 1's) |
    + ------ + ----- + -------- + ------+--------- + ---------------+
@@ -708,12 +699,12 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    o  *SCHC fragmentation reliability mode*: ACK-Always.
 
-   o  *RuleID*: size is 5 bits (32 possible rules, 31 for user).
+   o  *RuleID*: size is 6 bits (64 possible rules, 63 for user).
 
    o  *Window index*: encoded on W=1 bit, as per
       [I-D.ietf-lpwan-ipv6-static-context-hc].
 
-   o  *DTag*: size is 1 bit.
+   o  *DTag*: Not used, so its size is 0 bit.
 
    o  *FCN*: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1
       tile (FCN=All-1 is reserved for SCHC).
@@ -722,13 +713,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
       reverse representation of the polynomial used e.g. in the Ethernet
       standard [RFC3385]), as per
       [I-D.ietf-lpwan-ipv6-static-context-hc].
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 13]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
 
    o  *MAX_ACK_REQUESTS*: 8
 
@@ -739,11 +723,18 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    used for SCHC-over-LoRaWAN protocol.  It might be set by the Network
    Server for other purposes in but not SCHC needs.
 
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 13]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
    *Regular fragments*
 
-   | RuleID | DTag  | W     | FCN = b'0 | Payload |
-   + ------ + ----- + ----- + --------- + ------- +
-   | 5 bits | 1 bit | 1 bit | 1 bits    | X bytes |
+   | RuleID | W     | FCN = b'0 | Payload |
+   + ------ + ----- + --------- + ------- +
+   | 6 bits | 1 bit | 1 bits    | X bytes |
 
 
      Figure 13: All fragments but the last one.  Header size 1 byte (8
@@ -751,48 +742,49 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
    *Last fragment (All-1)*
 
-| RuleID | DTag  | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + ----- + --------- + ------- + ------- + ------------ +
-| 5 bits | 1 bit | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
+   | RuleID | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
+   + ------ + ----- + --------- + ------- + ------- + ------------ +
+   | 6 bits | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
 
 
      Figure 14: All-1 SCHC ACK detailed format for the last fragment.
 
    *All-0 acknowledge*
 
-   | RuleID | DTag  | W     | Encoded bitmap |
-   + ------ + ----- + ----- + -------------- +
-   | 5 bits | 1 bit | 1 bit | 1 bit          |
+   | RuleID | W     | Encoded bitmap |
+   + ------ + ----- + -------------- +
+   | 6 bits | 1 bit | 1 bit          |
 
 
                  Figure 15: ACK format for All-0 windows.
 
    *All-1 acknowledge*
 
-   | RuleID | DTag  | W     | C = b'1 |
-   + ------ + ----- + ----- + ------- +
-   | 5 bits | 1 bit | 1 bit | 1 bit   |
+   | RuleID | W     | C = b'1 |
+   + ------ + ----- + ------- +
+   | 6 bits | 1 bit | 1 bit   |
 
 
          Figure 16: ACK format for All-1 windows, MIC is correct.
 
    *Receiver-Abort*
 
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 14]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
-   | RuleID | DTag  | W     | C = b'0 | b'11111111 |
-   + ------ + ----- + ----- + ------- + ---------- +
-   | 5 bits | 1 bit | 1 bit | 1 bits  | 8 bits     |
+   | RuleID | W    | C = b'0 | b'11111111 |
+   + ------ + ----- + ------- + ---------- +
+   | 6 bits | 1 bit | 1 bits  | 8 bits     |
 
 
      Figure 17: Receiver-Abort packet (following an all-1 packet with
                               incorrect MIC).
+
+
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 14]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
    Class A and classB&C end-devices do not manage retransmissions and
    timers in the same way.
@@ -834,14 +826,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    message.  The fragmentation receiver (device) does not implement
    retransmission timer and inactivity timer.
 
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 15]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
    The fragmentation sender (the SCHC gateway) implements an inactivity
    timer with default duration of 12 hours.  Once a fragmentation
    session is started, if the SCHC gateway has not received any ACK or
@@ -850,6 +834,13 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    context.  For devices with very low transmission rates (example 1
    packet a day in normal operation) , that duration may be extended,
    but this is application specific.
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 15]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
 5.5.2.2.  Class B or C end-devices
 
@@ -889,15 +880,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    The retransmission timer is used by the SCHC gateway (the sender),
    the optimal value is very much application specific but here are some
    recommended default values.
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 16]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
    For classB end-devices, this timer trigger is a function of the
    periodicity of the classB ping slots.  The recommended value is equal
    to 3 times the classB ping slot periodicity.  For classC end-devices
@@ -908,6 +890,13 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    context in-case it receives nothing from the SCHC gateway over an
    extended period of time.  The recommended value is 12 hours for both
    classB&C end-devices.
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 16]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
 6.  Security considerations
 
@@ -945,15 +934,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
               Networks", RFC 4944, DOI 10.17487/RFC4944, September 2007,
               <https://www.rfc-editor.org/info/rfc4944>.
 
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 17]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
-
-
    [RFC5795]  Sandlund, K., Pelletier, G., and L-E. Jonsson, "The RObust
               Header Compression (ROHC) Framework", RFC 5795,
               DOI 10.17487/RFC5795, March 2010,
@@ -966,6 +946,13 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    [RFC8376]  Farrell, S., Ed., "Low-Power Wide Area Network (LPWAN)
               Overview", RFC 8376, DOI 10.17487/RFC8376, May 2018,
               <https://www.rfc-editor.org/info/rfc8376>.
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 17]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
 
 8.2.  Informative References
 
@@ -983,6 +970,106 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 Appendix A.  Examples
 
+A.1.  Uplink - Compression example - No fragmentation
+
+   Figure 18 is representing an applicative payload going through SCHC,
+   no fragmentation required
+
+An applicative payload of 78 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  38 bytes |
+
+
+The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+fragmentation. The payload will be transmitted through FPortUpDefault
+
+
+| LoRaWAN Header | RuleID | Compression residue |  Payload  |
++ -------------- + ------ + ------------------- + --------- +
+|       XXXX     |   1    |       18 bits       |  38 bytes |
+
+
+       Figure 18: Uplink example: compression without fragmentation
+
+A.2.  Uplink - Compression and fragmentation example
+
+   Figure 19 is representing an applicative payload going through SCHC,
+   with fragmentation.
+
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
+An applicative payload of 478 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       | 138 bytes |
+
+
+The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload.
+SCHC header is 2 bytes so 2 tiles are send in first fragment.
+
+| LoRaWAN Header |  FOpts  | RuleID | DTag  |   W    |  FCN   | 2 tiles |
++ -------------- + ------- + ------ + ----- + ------ + ------ + ------- +
+|       XXXX     | 2 bytes |   0    |   0   |   0    |  126   | 6 bytes |
+
+Content of the two tiles is:
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  3 bytes  |
+
+
+Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   | 80 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + --------- +
+|       XXXX     |   0    |   0   |   0    |  124   | 240 bytes |
+
+
+Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
+transmitted, last tile is only 2 bytes.
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + ----- + --------- +
+|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |
+
+
+All packets have been received by the SCHC gateway, computed MIC is correct so
+the following ACK is send to the device:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  C  |
++ -------------- + ------ + ----- + ------ + --- +
+|       XXXX     |   0    |   0   |   0    |  1  |
+
+
+         Figure 19: Uplink example: compression and fragmentation
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 19]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
+A.3.  Downlink
+
+   TODO
+
 Appendix B.  Note
 
 Authors' Addresses
@@ -994,20 +1081,6 @@ Authors' Addresses
    France
 
    Email: nsornin@semtech.com
-
-
-
-
-
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 18]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
    Michael Coracin
@@ -1037,6 +1110,18 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    Email: ivaylo@ackl.io
 
 
+
+
+
+
+
+
+
+Sornin, et al.          Expires October 28, 2019               [Page 20]
+
+Internet-Draft              SCHC-over-LoRaWAN                 April 2019
+
+
    Alper Yegin
    Actility
    .
@@ -1053,17 +1138,6 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
    France
 
    Email: j.catalano@kerlink.fr
-
-
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 19]
-
-Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
    Vincent AUDEBERT
@@ -1099,22 +1173,4 @@ Internet-Draft              SCHC-over-LoRaWAN                 April 2019
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Sornin, et al.          Expires October 21, 2019               [Page 20]
+Sornin, et al.          Expires October 28, 2019               [Page 21]
