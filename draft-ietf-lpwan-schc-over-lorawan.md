@@ -343,10 +343,10 @@ The LoRaWAN MAC layers features a frame port field in all frames. This field
 (FPort) is 8-bit long and the values from 1 to 223 can be used. It allows
 LoRaWAN network and application to identify data.
 
-A fragmentation session with application payload transfered from device
+A fragmentation session with application payload transferred from device
 to server, is called uplink fragmentation session. It uses FPortUpShort or
 FPortUpLong for data uplink and SCHC control downlinks.  
-The other way, a fragmentation session with application payload transfered
+The other way, a fragmentation session with application payload transferred
 from server to device, is called downlink fragmentation session. It uses
 FPortDown for uplink and downlinks.
 
@@ -371,7 +371,7 @@ fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
 
-SCHC-over-LoRAWAN SHOULD support encoding RuleID on 6 bits for uplink
+SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits for uplink
 (64 possible rules) and 5 bits for downlinks (32 possible rules).  
 
 The RuleID 0 is reserved for fragmentation in both directions.  
@@ -411,7 +411,7 @@ fragmentation sessions and are successively described in the next sections.
 A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This one
 bit field is used to distinguish two consecutive fragmentation sessions.
 
-_Note_: While it is used to recover faster from transmitions erros, it SHALL
+_Note_: While it is used to recover faster from transmission errors, it SHALL
 not be considered as the only way to distinguish two fragmentation sessions.
 
 ### Uplink fragmentation: From device to SCHC gateway
@@ -449,7 +449,7 @@ Both rules share common parameters:
   timer is 12 hours. This value is mainly driven by application requirements and may
   be changed by the application.
 
-The following fields are differents:
+The following fields are different:
 
 * RuleID size
 * Window index size W
