@@ -374,18 +374,14 @@ fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
 
-SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits for uplink
-(64 possible rules) and 5 bits for downlinks (32 possible rules).  
+SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64 possible rules).  
 
-The RuleID 0 is reserved for fragmentation in both directions.  
-The uplink ruleID 63 is used to tag packets for which SCHC compression was not
-possible (no matching Rule was found).  
-The downlink ruleID 31 is used to tag packets for which SCHC compression was
-not possible (no matching Rule was found).  
+The RuleID 0 is reserved for fragmentation in both directions.  The RuleID 63
+is used to tag packets for which SCHC compression was not possible (no matching
+Rule was found).
 
-The remaining RuleIDs are available for compression. RuleIDs are independent.
-The same RuleID may have different meanings on the uplink and downlink paths,
-at the exception of rules 0. A RuleID different from 0 means that the
+The remaining RuleIDs are available for compression. RuleIDs are shared between
+uplink and downlink sessions.  A RuleID different from 0 means that the
 fragmentation is not used, thus the packet should be send to C/D layer.  
 
 ## IID computation
@@ -584,9 +580,9 @@ In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 
 * **SCHC fragmentation reliability mode**: ACK-Always.
-* **RuleID**: size is 5 bits (32 possible rules, 31 for user).
+* **RuleID**: size is 6 bits (64 possible rules, 63 for user).
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
-* **DTag**: size is 1 bit.
+* **DTag**: Not used, so its size is 0 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
 * **MIC calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
@@ -605,9 +601,9 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN = b'0 | Payload |
-+ ------ + ----- + ----- + --------- + ------- +
-| 5 bits | 1 bit | 1 bit | 1 bits    | X bytes |
+| RuleID | W     | FCN = b'0 | Payload |
++ ------ + ----- + --------- + ------- +
+| 6 bits | 1 bit | 1 bits    | X bytes |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 1 byte (8 bits).'}
@@ -617,9 +613,9 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | DTag  | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + ----- + --------- + ------- + ------- + ------------ +
-| 5 bits | 1 bit | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
+| RuleID | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
++ ------ + ----- + --------- + ------- + ------- + ------------ +
+| 6 bits | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC ACK detailed format for the last fragment.'}
@@ -628,9 +624,9 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | DTag  | W     | Encoded bitmap |
-+ ------ + ----- + ----- + -------------- +
-| 5 bits | 1 bit | 1 bit | 1 bit          |
+| RuleID | W     | Encoded bitmap |
++ ------ + ----- + -------------- +
+| 6 bits | 1 bit | 1 bit          |
 
 ~~~~
 {: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows.'}
@@ -640,9 +636,9 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | DTag  | W     | C = b’1 |
-+ ------ + ----- + ----- + ------- +
-| 5 bits | 1 bit | 1 bit | 1 bit   |
+| RuleID | W     | C = b’1 |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct.'}
@@ -652,9 +648,9 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | DTag  | W     | C = b'0 | b’11111111 |
-+ ------ + ----- + ----- + ------- + ---------- +
-| 5 bits | 1 bit | 1 bit | 1 bits  | 8 bits     |
+| RuleID | W    | C = b'0 | b’11111111 |
++ ------ + ----- + ------- + ---------- +
+| 6 bits | 1 bit | 1 bits  | 8 bits     |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an all-1 packet with incorrect MIC).'}
