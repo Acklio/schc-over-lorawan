@@ -521,9 +521,9 @@ payload size less than 382 bytes.
 
 ~~~~
 
-| RuleID | DTag  | W      | FCN=All-1 | MIC     |
-+ ------ + ----- + ------ + --------- + ------- +
-| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits |
+| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload                 |
++ ------ + ----- + ------ + --------- + ------- + ----------------------- +
+| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Remaining tiles, if any |
 
 ~~~~
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
