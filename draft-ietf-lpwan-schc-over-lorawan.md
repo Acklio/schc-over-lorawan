@@ -348,7 +348,7 @@ LoRaWAN network and application to identify data.
 
 A fragmentation session with application payload transferred from device
 to server, is called uplink fragmentation session. It uses FPortUpShort or
-FPortUpLong for data uplink and SCHC control downlinks.  
+FPortUpDefault for data uplink and SCHC control downlinks.  
 The other way, a fragmentation session with application payload transferred
 from server to device, is called downlink fragmentation session. It uses
 FPortDown for uplink and downlinks.
@@ -359,7 +359,7 @@ downlink SCHC ports must be different.
 In order to improve interoperability, it is recommended to use:
 
 * FPortUpShort = 20
-* FPortUpLong = 21
+* FPortUpDefault = 21
 * FPortDown = 22
 
 Those are recommended values and are application defined. Also application can
@@ -424,7 +424,7 @@ Two fragmentation rules are defined regarding the FPort:
 
 * **FPortUpShort**: SCHC header is only one byte. Used when compression is
   required and payload size is less than 381 bytes.
-* **FPortUpLong**: SCHC header is two bytes. Used for all other cases: no
+* **FPortUpDefault**: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
 TODO": shorst is = long with 1 window and  ruleId is FPort
 Both rules share common parameters:
@@ -492,7 +492,7 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 ~~~~
 {: #Fig-fragmentation-header-short-all1-ack title='ACK format for All-1 windows, failed mic check.'}
 
-#### FPortUpLong - 2 bytes header
+#### FPortUpDefault - 2 bytes header
 
 * **RuleID**: size is 6 bits (64 possible rules, 62 available for user)
 * **Window index**: encoded on W = 2 bits. So 4 windows are available.
@@ -780,7 +780,7 @@ payload.
 
 The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
 LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
-fragmentation. The payload will be transmitted through FPportUpLong
+fragmentation. The payload will be transmitted through FPortUpDefault
 
 
 | LoRaWAN Header | RuleID | Compression residue |  Payload  |
