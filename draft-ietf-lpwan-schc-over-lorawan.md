@@ -760,4 +760,92 @@ TBD
 
 # Examples
 
+## Uplink - Compression example - No fragmentation
+{{Fig-example-uplink-no-fragmentation}} is representing an applicative payload
+going through SCHC, no fragmentation required
+
+~~~~
+
+An applicative payload of 78 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
+payload.  
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  38 bytes |
+
+
+The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+fragmentation. The payload will be transmitted through FPportUpLong
+
+
+| LoRaWAN Header | RuleID | Compression residue |  Payload  |
++ -------------- + ------ + ------------------- + --------- +
+|       XXXX     |   1    |       18 bits       |  38 bytes |
+
+~~~~
+{: #Fig-example-uplink-no-fragmentation title='Uplink example: compression without fragmentation'}
+
+## Uplink - Compression and fragmentation example
+
+{{Fig-example-uplink-fragmentation-long}} is representing  an applicative payload
+going through SCHC, with fragmentation.
+
+~~~~
+
+An applicative payload of 478 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       | 138 bytes |
+
+
+The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload.  
+SCHC header is 2 bytes so 2 tiles are send in first fragment.
+
+| LoRaWAN Header |  FOpts  | RuleID | DTag  |   W    |  FCN   | 2 tiles |
++ -------------- + ------- + ------ + ----- + ------ + ------ + ------- +
+|       XXXX     | 2 bytes |   0    |   0   |   0    |  126   | 6 bytes |
+
+Content of the two tiles is:
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  3 bytes  |
+
+
+Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   | 80 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + --------- +
+|       XXXX     |   0    |   0   |   0    |  124   | 240 bytes |
+
+
+Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
+transmitted, last tile is only 2 bytes.
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + ----- + --------- +
+|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |
+
+
+All packets have been received by the SCHC gateway, computed MIC is correct so
+the following ACK is send to the device:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  C  |
++ -------------- + ------ + ----- + ------ + --- +
+|       XXXX     |   0    |   0   |   0    |  1  |
+
+~~~~
+{: #Fig-example-uplink-fragmentation-long title='Uplink example: compression and fragmentation'}
+
+## Downlink
+
+TODO
+
 # Note
