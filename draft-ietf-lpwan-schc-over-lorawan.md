@@ -322,6 +322,9 @@ direction and reciprocally on the downlink direction.
 * **Unconfirmed messages**:
   The sender does not ask the receiver to acknowledge the message.
 
+As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use
+confirmed messages.
+
 ## LoRaWAN MAC Frames
 
 * **JoinRequest**:
