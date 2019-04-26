@@ -383,11 +383,10 @@ possible (no matching Rule was found).
 The downlink ruleID 31 is used to tag packets for which SCHC compression was
 not possible (no matching Rule was found).  
 
-The remaining RuleIDs are available for header compression. RuleIDs are
-independent. The same RuleID may have different meanings on the uplink and
-downlink paths, at the exception of rules 0. A RuleID different from 0 means
-that the fragmentation is not used, thus the packet should be send to C/D
-layer.  
+The remaining RuleIDs are available for compression. RuleIDs are independent.
+The same RuleID may have different meanings on the uplink and downlink paths,
+at the exception of rules 0. A RuleID different from 0 means that the
+fragmentation is not used, thus the packet should be send to C/D layer.  
 
 ## IID computation
 
