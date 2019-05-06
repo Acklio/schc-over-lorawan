@@ -474,16 +474,16 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 {: #Fig-fragmentation-header-short-all0 title='All fragment except the last one. Header size is 8 bits (1 byte).'}
 
 
-**All-1 ACK**
+**SCHC ACK**
 
 ~~~~
 
-| DTag  | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ----- + ----- + ------------------------- + ------------ +
-| 1 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
+| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-short-all1-ack title='ACK format for All-1 windows, failed mic check.'}
+{: #Fig-fragmentation-header-short-schc-ack title='SCHC ACK format, failed mic check.'}
 
 #### FPortUpDefault - 2 bytes header
 
@@ -513,36 +513,23 @@ payload size less than 382 bytes.
 
 ~~~~
 
-| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload                 |
-+ ------ + ----- + ------ + --------- + ------- + ----------------------- +
-| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Remaining tiles, if any |
+| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload           |
++ ------ + ----- + ------ + --------- + ------- + ----------------- +
+| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
 
 ~~~~
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
 
-
-**Windows ACK (All-0 ACK)**
-
-~~~~
-
-| RuleID | DTag  | W      | Encoded bitmap | Padding (0s) |
-+ ------ + ----- + ------ + -------------- + ------------ +
-| 6 bits | 1 bit | 2 bits | 0 to 127 bits  |  6 to 0 bits |
-
-~~~~
-{: #Fig-fragmentation-header-all0-ack title='ACK format for All-0 windows.'}
-
-
-**All-1 ACK**
+**SCHC ACK**
 
 ~~~~
 
-| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
+| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) |
++ ------ + ----- + ----- + ----- + ------------------------- +
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
 
 ~~~~
-{: #Fig-fragmentation-header-long-all1-ack title='ACK format for All-1 windows, failed MIC check.'}
+{: #Fig-fragmentation-header-long-schc-ack title='SCHC formats, failed MIC check.'}
 
 
 **Receiver-Abort**
@@ -610,26 +597,14 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + --------- + ------- + ------- + ------------ +
-| 6 bits | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
+| RuleID | W     | FCN = b'1 | MIC     | Payload           |
++ ------ + ----- + --------- + ------- + ----------------- +
+| 6 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC ACK detailed format for the last fragment.'}
 
-**All-0 acknowledge**
-
-~~~~
-
-| RuleID | W     | Encoded bitmap |
-+ ------ + ----- + -------------- +
-| 6 bits | 1 bit | 1 bit          |
-
-~~~~
-{: #Fig-fragmentation-header-downlink-all0-ack title='ACK format for All-0 windows.'}
-
-
-**All-1 acknowledge**
+**SCHC acknowledge**
 
 ~~~~
 
@@ -638,7 +613,7 @@ purposes in but not SCHC needs.
 | 6 bits | 1 bit | 1 bit   |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-all1-ack title='ACK format for All-1 windows, MIC is correct.'}
+{: #Fig-fragmentation-downlink-header-schc-ack title='SCHC ACK format, MIC is correct.'}
 
 
 **Receiver-Abort**
@@ -719,11 +694,11 @@ datagram) and if the MIC is correct, the device shall transmit the ACK with the
 current fragmentation session has succeeded and its context can be cleared.
 
 If the retransmission timer elapses and the SCHC gateway has not received the
-All-1 ACK it retransmits the last fragment with the payload (not an ACK-request
+SCHC ACK it retransmits the last fragment with the payload (not an ACK-request
 without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS
 times before aborting.
 
-The device SHALL keep the All-1 ACK message in memory until it receives a
+The device SHALL keep the SCHC ACK message in memory until it receives a
 downlink from the SCHC gateway different from the last (FCN>0 and different
 DTag) fragment indicating that the SCHC gateway has received the ACK message.
 
