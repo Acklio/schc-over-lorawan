@@ -414,14 +414,14 @@ not be considered as the only way to distinguish two fragmentation sessions.
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.  
-Two fragmentation rules are defined regarding the FPort:
+Two fragmentation rules are defined regarding the **FPort**:
 
 * **FPortUpShort**: SCHC header is only one byte. Used when fragmentation is
   required and payload size is less than 381 bytes.
 * **FPortUpDefault**: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
-TODO": shorst is = long with 1 window and  ruleId is FPort
-Both rules share common parameters:
+
+**Both rules share common parameters:**
 
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
 * **DTag**: size is 1 bit.
@@ -445,7 +445,7 @@ Both rules share common parameters:
   recommended duration of this timer is 12 hours. This value is mainly driven
   by application requirements and may be changed by the application.
 
-The following fields are different:
+**The following fields are different:**
 
 * RuleID size
 * Window index size W
@@ -775,6 +775,7 @@ payload.
 |   1    |       18 bits       | 138 bytes |
 
 
+Given the size of the payload, FPortUpDefault will be used.  
 The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
 LoRaWAN protocol: 9 bytes are available for SCHC payload.  
 SCHC header is 2 bytes so 2 tiles are send in first fragment.
