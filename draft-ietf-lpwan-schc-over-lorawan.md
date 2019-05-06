@@ -416,7 +416,7 @@ In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.  
 Two fragmentation rules are defined regarding the FPort:
 
-* **FPortUpShort**: SCHC header is only one byte. Used when compression is
+* **FPortUpShort**: SCHC header is only one byte. Used when fragmentation is
   required and payload size is less than 381 bytes.
 * **FPortUpDefault**: SCHC header is two bytes. Used for all other cases: no
   fragmentation required or payload size is between 382 and 1524 byte.
@@ -433,17 +433,17 @@ Both rules share common parameters:
 * **MAX_ACK_REQUESTS**: 8
 * **Tile**: size is 3 bytes (24 bits)
 * **Retransmission and inactivity timers**:
-  LoRaWAN end-devices do not implement a "retransmission timer". At the end of a
-  window the ACK corresponding to this window is transmitted by the network
-  gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of
-  end-device if tiles are missing.  
-  If this ACK is not received the end-device sends an all-0 (or an all-1) fragment
-  with no payload to request an ACK retransmission. The periodicity between
-  retransmission of the all-0/all-1 fragments is device/application specific
-  and may be different for each device (not specified). The SCHC gateway
-  implements an "inactivity timer". The default recommended duration of this
-  timer is 12 hours. This value is mainly driven by application requirements and may
-  be changed by the application.
+  LoRaWAN end-devices do not implement a "retransmission timer". At the end of
+  a window or a fragmentation session, corresponding ACK(s) is (are)
+  transmitted by the network gateway (LoRaWAN application server) in the RX1 or
+  RX2 receive slot of end-device.  
+  If this ACK is not received the end-device sends an all-0 (or an all-1)
+  fragment with no payload to request an SCHC ACK retransmission. The
+  periodicity between retransmission of the all-0/all-1 fragments is
+  device/application specific and may be different for each device (not
+  specified). The SCHC gateway implements an "inactivity timer". The default
+  recommended duration of this timer is 12 hours. This value is mainly driven
+  by application requirements and may be changed by the application.
 
 The following fields are different:
 
@@ -453,8 +453,7 @@ The following fields are different:
 
 #### FPortUpShort - 1 byte header
 In that case RuleID size is 0, the rule is the FPort=FPortUpShort and only
-fragmented payload can be transported.  
-In order to minimise ACK, windows size is set to 0.
+fragmented payload can be transported.
 
 * **RuleID**: size is 0 bit in SCHC header, not used.
 * **Window index**: encoded on W = 0 bit, not used
@@ -664,12 +663,12 @@ uplink.  Therefore there cannot be a concept of "retransmission timer" for an
 SCHC gateway. The SCHC gateway cannot initiate communication to a classA
 end-device.
 
-The device replies with an ACK fragment to every single fragment received from
+The device replies with an ACK message to every single fragment received from
 the SCHC gateway (because the window size is 1). Following the reception of a
 FCN=0 fragment (fragment that is not the last fragment of the packet or
 ACK-request, but the end of a window), the device MUST transmit the SCHC ACK
 fragment until it receives the fragment of the next window. The device shall
-transmit up to MAX_ACK_REQUESTS ACK fragments before aborting. The device
+transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device
 should transmit those ACK as soon as possible while taking into consideration
 potential local radio regulation on duty-cycle, to progress the fragmentation
 session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
@@ -702,11 +701,11 @@ but this is application specific.
 #### Class B or C end-devices
 
 Class B&C end-devices can receive in scheduled RX slots or in RX slots following
-the transmission of an uplink. The device replies with an ACK fragment to
+the transmission of an uplink. The device replies with an ACK message to
 every single fragment received from the SCHC gateway (because the window size
 is 1). Following the reception of a FCN=0 fragment (fragment that is not the
 last fragment of the packet or ACK-request), the device MUST always transmit
-the corresponding SCHC ACK fragment even if that fragment has already been
+the corresponding SCHC ACK message even if that fragment has already been
 received.  
 The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this
 ACK, it proceeds to send the next window fragment. If the retransmission timer
