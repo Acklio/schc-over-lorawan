@@ -487,7 +487,7 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 
 #### FPortUpDefault - 2 bytes header
 
-* **RuleID**: size is 6 bits (64 possible rules, 62 available for user)
+* **RuleID**: size is 6 bits (64 possible rules, 62 available for compression)
 * **Window index**: encoded on W = 2 bits. So 4 windows are available.
 
 With this set of parameters, the SCHC fragment header overhead is 2 bytes
@@ -564,7 +564,7 @@ In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 
 * **SCHC fragmentation reliability mode**: ACK-Always.
-* **RuleID**: size is 6 bits (64 possible rules, 63 for user).
+* **RuleID**: size is 6 bits (64 possible rules, 62 for compression).
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **DTag**: Not used, so its size is 0 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
