@@ -154,20 +154,19 @@ out of the scope of this document.
 
 
 ~~~~
-     Dev                                                 App
-+--------------+                                  +--------------+
-|APP1 APP2 APP3|                                  |APP1 APP2 APP3|
-|              |                                  |              |
-|      UDP     |                                  |     UDP      |
-|     IPv6     |                                  |    IPv6      |
-|              |                                  |              |
-|   SCHC C/D   |                                  |              |
-|   (context)  |                                  |              |
-+-------+------+                                  +-------+------+
-         |   +--+     +----+     +---------+              .
-         +~~ |RG| === |NGW | === |SCHC C/D |... Internet ..
-             +--+     +----+     |(context)|
-                                 +---------+
+        Dev                                               App
++----------------+                                +----+ +----+ +----+
+| App1 App2 App3 |                                |App1| |App2| |App3|
+|                |                                |    | |    | |    |
+|       UDP      |                                |UDP | |UDP | |UDP |
+|      IPv6      |                                |IPv6| |IPv6| |IPv6|   
+|                |                                |    | |    | |    |  
+|SCHC C/D and F/R|                                |    | |    | |    |
++--------+-------+                                +----+ +----+ +----+
+         |  +--+     +----+    +----+    +----+     .      .      .
+         +~ |RG| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+            +--+     +----+    |F/R |    |C/D |
+                               +----+    +----+
 ~~~~
 {: #Fig-archi title='Architecture'}
 
@@ -193,20 +192,19 @@ Server or any third party software. {{Fig-archi}} can be map in LoRaWAN
 terminology to:
 
 ~~~~
-     Dev                                                            App
-+--------------+                                             +--------------+
-|APP1 APP2 APP3|                                             |APP1 APP2 APP3|
-|              |                                             |              |
-|      UDP     |                                             |     UDP      |
-|     IPv6     |                                             |    IPv6      |
-|              |                                             |              |
-|   SCHC C/D   |                                             |              |
-|   (context)  |                                             |              |
-+-------+------+                                             +-------+------+
-        |    +-------+     +-------+     +-----------+               .
-        +~~~ |Gateway| === |Network| === |Application|... Internet ...
-             +-------+     |Server |     |   Server  |
-                           +-------+     +-----------+
+        Dev                                                         App
++----------------+                                          +----+ +----+ +----+
+| App1 App2 App3 |                                          |App1| |App2| |App3|
+|                |                                          |    | |    | |    |
+|       UDP      |                                          |UDP | |UDP | |UDP |
+|      IPv6      |                                          |IPv6| |IPv6| |IPv6|   
+|                |                                          |    | |    | |    |  
+|SCHC C/D and F/R|                                          |    | |    | |    |
++--------+-------+                                          +----+ +----+ +----+
+         |  +-------+     +-------+    +----------------+     .      .      .
+         +~ |Gateway| === |Network| == |Application     |...... Internet ....
+            +-------+     |server |    |server F/R - C/D|
+                          +-------+    +----------------+
 ~~~~
 {: #Fig-archi-lorawan title='Architecture'}
 
