@@ -315,7 +315,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Sornin, N., Ed., Coracin, M., Gimenez, O., Petrov, I., Yegin, A., Catalano, J., Audebert, V., and M. Le Gourrierec" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-04-26" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-05-06" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
 
@@ -339,7 +339,7 @@ ul.toc li {
 <td class="right">O. Gimenez</td>
 </tr>
 <tr>
-<td class="left">Expires: October 28, 2019</td>
+<td class="left">Expires: November 7, 2019</td>
 <td class="right">Semtech</td>
 </tr>
 <tr>
@@ -384,7 +384,7 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">April 26, 2019</td>
+<td class="right">May 06, 2019</td>
 </tr>
 
     	
@@ -401,7 +401,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on October 28, 2019.</p>
+<p>This Internet-Draft will expire on November 7, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -491,20 +491,19 @@ ul.toc li {
 <div id="rfc.figure.1"></div>
 <div id="Fig-archi"></div>
 <pre>
-     Dev                                                 App
-+--------------+                                  +--------------+
-|APP1 APP2 APP3|                                  |APP1 APP2 APP3|
-|              |                                  |              |
-|      UDP     |                                  |     UDP      |
-|     IPv6     |                                  |    IPv6      |
-|              |                                  |              |
-|   SCHC C/D   |                                  |              |
-|   (context)  |                                  |              |
-+-------+------+                                  +-------+------+
-         |   +--+     +----+     +---------+              .
-         +~~ |RG| === |NGW | === |SCHC C/D |... Internet ..
-             +--+     +----+     |(context)|
-                                 +---------+
+        Dev                                               App
++----------------+                                +----+ +----+ +----+
+| App1 App2 App3 |                                |App1| |App2| |App3|
+|                |                                |    | |    | |    |
+|       UDP      |                                |UDP | |UDP | |UDP |
+|      IPv6      |                                |IPv6| |IPv6| |IPv6|   
+|                |                                |    | |    | |    |  
+|SCHC C/D and F/R|                                |    | |    | |    |
++--------+-------+                                +----+ +----+ +----+
+         |  +--+     +----+    +----+    +----+     .      .      .
+         +~ |RG| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+            +--+     +----+    |F/R |    |C/D |
+                               +----+    +----+
 </pre>
 <p class="figure">Figure 1: Architecture</p>
 <p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows are compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size. Resulting information is sent on a layer two (L2) frame to a LPWAN Radio Network (RG) which forwards the frame to a Network Gateway (NGW).  The NGW sends the data to a SCHC C/D for decompression which shares the same rules with the Dev. The SCHC C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC C/D. The SCHC C/D in both sides must share the same set of Rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
@@ -513,20 +512,19 @@ ul.toc li {
 <div id="rfc.figure.2"></div>
 <div id="Fig-archi-lorawan"></div>
 <pre>
-     Dev                                                            App
-+--------------+                                             +--------------+
-|APP1 APP2 APP3|                                             |APP1 APP2 APP3|
-|              |                                             |              |
-|      UDP     |                                             |     UDP      |
-|     IPv6     |                                             |    IPv6      |
-|              |                                             |              |
-|   SCHC C/D   |                                             |              |
-|   (context)  |                                             |              |
-+-------+------+                                             +-------+------+
-        |    +-------+     +-------+     +-----------+               .
-        +~~~ |Gateway| === |Network| === |Application|... Internet ...
-             +-------+     |Server |     |   Server  |
-                           +-------+     +-----------+
+        Dev                                                         App
++----------------+                                          +----+ +----+ +----+
+| App1 App2 App3 |                                          |App1| |App2| |App3|
+|                |                                          |    | |    | |    |
+|       UDP      |                                          |UDP | |UDP | |UDP |
+|      IPv6      |                                          |IPv6| |IPv6| |IPv6|   
+|                |                                          |    | |    | |    |  
+|SCHC C/D and F/R|                                          |    | |    | |    |
++--------+-------+                                          +----+ +----+ +----+
+         |  +-------+     +-------+    +----------------+     .      .      .
+         +~ |Gateway| === |Network| == |Application     |...... Internet ....
+            +-------+     |server |    |server F/R - C/D|
+                          +-------+    +----------------+
 </pre>
 <p class="figure">Figure 2: Architecture</p>
 <h1 id="rfc.section.4">
@@ -645,14 +643,19 @@ ul.toc li {
 <h1 id="rfc.section.5.5.1">
 <a href="#rfc.section.5.5.1">5.5.1.</a> <a href="#uplink-fragmentation-from-device-to-schc-gateway" id="uplink-fragmentation-from-device-to-schc-gateway">Uplink fragmentation: From device to SCHC gateway</a>
 </h1>
-<p id="rfc.section.5.5.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.<br> Two fragmentation rules are defined regarding the FPort:</p>
+<p id="rfc.section.5.5.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.<br> Two fragmentation rules are defined regarding the <strong>FPort</strong>:</p>
 <p></p>
 
 <ul>
 <li>
-<strong>FPortUpShort</strong>: SCHC header is only one byte. Used when compression is required and payload size is less than 381 bytes.</li>
+<strong>FPortUpShort</strong>: SCHC header is only one byte. Used when fragmentation is required and payload size is less than 381 bytes.</li>
 <li>
-<strong>FPortUpDefault</strong>: SCHC header is two bytes. Used for all other cases: no fragmentation required or payload size is between 382 and 1524 byte.  TODO&#8221;: shorst is = long with 1 window and  ruleId is FPort Both rules share common parameters:</li>
+<strong>FPortUpDefault</strong>: SCHC header is two bytes. Used for all other cases: no fragmentation required or payload size is between 382 and 1524 byte.</li>
+</ul>
+<p><strong>Both rules share common parameters:</strong></p>
+<p></p>
+
+<ul>
 <li>
 <strong>SCHC fragmentation reliability mode</strong>: <samp>ACK-on-Error</samp>
 </li>
@@ -667,9 +670,9 @@ ul.toc li {
 <li>
 <strong>Tile</strong>: size is 3 bytes (24 bits)</li>
 <li>
-<strong>Retransmission and inactivity timers</strong>: LoRaWAN end-devices do not implement a &#8220;retransmission timer&#8221;. At the end of a window the ACK corresponding to this window is transmitted by the network gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of end-device if tiles are missing.<br> If this ACK is not received the end-device sends an all-0 (or an all-1) fragment with no payload to request an ACK retransmission. The periodicity between retransmission of the all-0/all-1 fragments is device/application specific and may be different for each device (not specified). The SCHC gateway implements an &#8220;inactivity timer&#8221;. The default recommended duration of this timer is 12 hours. This value is mainly driven by application requirements and may be changed by the application.</li>
+<strong>Retransmission and inactivity timers</strong>: LoRaWAN end-devices do not implement a &#8220;retransmission timer&#8221;. At the end of a window or a fragmentation session, corresponding ACK(s) is (are) transmitted by the network gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of end-device.<br> If this ACK is not received the end-device sends an all-0 (or an all-1) fragment with no payload to request an SCHC ACK retransmission. The periodicity between retransmission of the all-0/all-1 fragments is device/application specific and may be different for each device (not specified). The SCHC gateway implements an &#8220;inactivity timer&#8221;. The default recommended duration of this timer is 12 hours. This value is mainly driven by application requirements and may be changed by the application.</li>
 </ul>
-<p id="rfc.section.5.5.1.p.3">The following fields are different:</p>
+<p><strong>The following fields are different:</strong></p>
 <p></p>
 
 <ul>
@@ -679,7 +682,7 @@ ul.toc li {
 <h1 id="rfc.section.5.5.1.1">
 <a href="#rfc.section.5.5.1.1">5.5.1.1.</a> <a href="#fportupshort-1-byte-header" id="fportupshort-1-byte-header">FPortUpShort - 1 byte header</a>
 </h1>
-<p id="rfc.section.5.5.1.1.p.1">In that case RuleID size is 0, the rule is the FPort=FPortUpShort and only fragmented payload can be transported.<br> In order to minimise ACK, windows size is set to 0.</p>
+<p id="rfc.section.5.5.1.1.p.1">In that case RuleID size is 0, the rule is the FPort=FPortUpShort and only fragmented payload can be transported.</p>
 <p></p>
 
 <ul>
@@ -699,16 +702,16 @@ ul.toc li {
 
 </pre>
 <p class="figure">Figure 5: All fragment except the last one. Header size is 8 bits (1 byte).</p>
-<p><strong>All-1 ACK</strong></p>
+<p><strong>SCHC ACK</strong></p>
 <div id="rfc.figure.6"></div>
-<div id="Fig-fragmentation-header-short-all1-ack"></div>
+<div id="Fig-fragmentation-header-short-schc-ack"></div>
 <pre>
-| DTag  | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ----- + ----- + ------------------------- + ------------ +
-| 1 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
+| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 </pre>
-<p class="figure">Figure 6: ACK format for All-1 windows, failed mic check.</p>
+<p class="figure">Figure 6: SCHC ACK format, failed mic check.</p>
 <h1 id="rfc.section.5.5.1.2">
 <a href="#rfc.section.5.5.1.2">5.5.1.2.</a> <a href="#fportupdefault-2-bytes-header" id="fportupdefault-2-bytes-header">FPortUpDefault - 2 bytes header</a>
 </h1>
@@ -716,7 +719,7 @@ ul.toc li {
 
 <ul>
 <li>
-<strong>RuleID</strong>: size is 6 bits (64 possible rules, 62 available for user)</li>
+<strong>RuleID</strong>: size is 6 bits (64 possible rules, 62 available for compression)</li>
 <li>
 <strong>Window index</strong>: encoded on W = 2 bits. So 4 windows are available.</li>
 </ul>
@@ -736,34 +739,24 @@ ul.toc li {
 <div id="rfc.figure.8"></div>
 <div id="Fig-fragmentation-header-all1"></div>
 <pre>
-| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload                 |
-+ ------ + ----- + ------ + --------- + ------- + ----------------------- +
-| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Remaining tiles, if any |
+| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload           |
++ ------ + ----- + ------ + --------- + ------- + ----------------- +
+| 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
 
 </pre>
 <p class="figure">Figure 8: All-1 fragment detailed format for the last fragment.</p>
-<p><strong>Windows ACK (All-0 ACK)</strong></p>
+<p><strong>SCHC ACK</strong></p>
 <div id="rfc.figure.9"></div>
-<div id="Fig-fragmentation-header-all0-ack"></div>
+<div id="Fig-fragmentation-header-long-schc-ack"></div>
 <pre>
-| RuleID | DTag  | W      | Encoded bitmap | Padding (0s) |
-+ ------ + ----- + ------ + -------------- + ------------ +
-| 6 bits | 1 bit | 2 bits | 0 to 127 bits  |  6 to 0 bits |
+| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) |
++ ------ + ----- + ----- + ----- + ------------------------- +
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
 
 </pre>
-<p class="figure">Figure 9: ACK format for All-0 windows.</p>
-<p><strong>All-1 ACK</strong></p>
-<div id="rfc.figure.10"></div>
-<div id="Fig-fragmentation-header-long-all1-ack"></div>
-<pre>
-| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 6 to 0 bits  |
-
-</pre>
-<p class="figure">Figure 10: ACK format for All-1 windows, failed MIC check.</p>
+<p class="figure">Figure 9: SCHC formats, failed MIC check.</p>
 <p><strong>Receiver-Abort</strong></p>
-<div id="rfc.figure.11"></div>
+<div id="rfc.figure.10"></div>
 <div id="Fig-fragmentation-receiver-abort"></div>
 <pre>
 | RuleID | DTag  | W = b&#8217;11 | C = 1 | b&#8217;111111 | 0xFF (all 1's) |
@@ -771,9 +764,9 @@ ul.toc li {
 | 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
 
 </pre>
-<p class="figure">Figure 11: Receiver-Abort format.</p>
+<p class="figure">Figure 10: Receiver-Abort format.</p>
 <p><strong>SCHC acknowledge request</strong></p>
-<div id="rfc.figure.12"></div>
+<div id="rfc.figure.11"></div>
 <div id="Fig-fragmentation-schc-ack-req"></div>
 <pre>
 | RuleID | DTag  | W      | FCN = b&#8217;0000000 |
@@ -782,7 +775,7 @@ ul.toc li {
 
 
 </pre>
-<p class="figure">Figure 12: SCHC ACK REQ format.</p>
+<p class="figure">Figure 11: SCHC ACK REQ format.</p>
 <h1 id="rfc.section.5.5.2">
 <a href="#rfc.section.5.5.2">5.5.2.</a> <a href="#downlink-fragmentation-from-schc-gateway-to-device" id="downlink-fragmentation-from-schc-gateway-to-device">Downlink fragmentation: From SCHC gateway to device</a>
 </h1>
@@ -793,7 +786,7 @@ ul.toc li {
 <li>
 <strong>SCHC fragmentation reliability mode</strong>: ACK-Always.</li>
 <li>
-<strong>RuleID</strong>: size is 6 bits (64 possible rules, 63 for user).</li>
+<strong>RuleID</strong>: size is 6 bits (64 possible rules, 62 for compression).</li>
 <li>
 <strong>Window index</strong>: encoded on W=1 bit, as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
 <li>
@@ -808,7 +801,7 @@ ul.toc li {
 <p id="rfc.section.5.5.2.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU minus header (1 byte)</p>
 <p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD not be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other purposes in but not SCHC needs.</p>
 <p><strong>Regular fragments</strong></p>
-<div id="rfc.figure.13"></div>
+<div id="rfc.figure.12"></div>
 <div id="Fig-fragmentation-downlink-header-all0"></div>
 <pre>
 | RuleID | W     | FCN = b'0 | Payload |
@@ -816,39 +809,29 @@ ul.toc li {
 | 6 bits | 1 bit | 1 bits    | X bytes |
 
 </pre>
-<p class="figure">Figure 13: All fragments but the last one. Header size 1 byte (8 bits).</p>
+<p class="figure">Figure 12: All fragments but the last one. Header size 1 byte (8 bits).</p>
 <p><strong>Last fragment (All-1)</strong></p>
-<div id="rfc.figure.14"></div>
+<div id="rfc.figure.13"></div>
 <div id="Fig-fragmentation-downlink-header-all1"></div>
 <pre>
-| RuleID | W     | FCN = b'1 | MIC     | Payload | Padding (0s) |
-+ ------ + ----- + --------- + ------- + ------- + ------------ +
-| 6 bits | 1 bit | 1 bits    | 32 bits | X bytes | 0 to 7 bits  |
+| RuleID | W     | FCN = b'1 | MIC     | Payload           |
++ ------ + ----- + --------- + ------- + ----------------- +
+| 6 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
 
 </pre>
-<p class="figure">Figure 14: All-1 SCHC ACK detailed format for the last fragment.</p>
-<p><strong>All-0 acknowledge</strong></p>
-<div id="rfc.figure.15"></div>
-<div id="Fig-fragmentation-header-downlink-all0-ack"></div>
-<pre>
-| RuleID | W     | Encoded bitmap |
-+ ------ + ----- + -------------- +
-| 6 bits | 1 bit | 1 bit          |
-
-</pre>
-<p class="figure">Figure 15: ACK format for All-0 windows.</p>
-<p><strong>All-1 acknowledge</strong></p>
-<div id="rfc.figure.16"></div>
-<div id="Fig-fragmentation-downlink-header-all1-ack"></div>
+<p class="figure">Figure 13: All-1 SCHC ACK detailed format for the last fragment.</p>
+<p><strong>SCHC acknowledge</strong></p>
+<div id="rfc.figure.14"></div>
+<div id="Fig-fragmentation-downlink-header-schc-ack"></div>
 <pre>
 | RuleID | W     | C = b&#8217;1 |
 + ------ + ----- + ------- +
 | 6 bits | 1 bit | 1 bit   |
 
 </pre>
-<p class="figure">Figure 16: ACK format for All-1 windows, MIC is correct.</p>
+<p class="figure">Figure 14: SCHC ACK format, MIC is correct.</p>
 <p><strong>Receiver-Abort</strong></p>
-<div id="rfc.figure.17"></div>
+<div id="rfc.figure.15"></div>
 <div id="Fig-fragmentation-downlink-header-abort"></div>
 <pre>
 | RuleID | W    | C = b'0 | b&#8217;11111111 |
@@ -856,23 +839,23 @@ ul.toc li {
 | 6 bits | 1 bit | 1 bits  | 8 bits     |
 
 </pre>
-<p class="figure">Figure 17: Receiver-Abort packet (following an all-1 packet with incorrect MIC).</p>
-<p id="rfc.section.5.5.2.p.10">Class A and classB&amp;C end-devices do not manage retransmissions and timers in the same way.</p>
+<p class="figure">Figure 15: Receiver-Abort packet (following an all-1 packet with incorrect MIC).</p>
+<p id="rfc.section.5.5.2.p.9">Class A and classB&amp;C end-devices do not manage retransmissions and timers in the same way.</p>
 <h1 id="rfc.section.5.5.2.1">
 <a href="#rfc.section.5.5.2.1">5.5.2.1.</a> <a href="#classa-end-devices" id="classa-end-devices">ClassA end-devices</a>
 </h1>
 <p id="rfc.section.5.5.2.1.p.1">Class A end-devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for an SCHC gateway. The SCHC gateway cannot initiate communication to a classA end-device.</p>
-<p id="rfc.section.5.5.2.1.p.2">The device replies with an ACK fragment to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request, but the end of a window), the device MUST transmit the SCHC ACK fragment until it receives the fragment of the next window. The device shall transmit up to MAX_ACK_REQUESTS ACK fragments before aborting. The device should transmit those ACK as soon as possible while taking into consideration potential local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
+<p id="rfc.section.5.5.2.1.p.2">The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request, but the end of a window), the device MUST transmit the SCHC ACK fragment until it receives the fragment of the next window. The device shall transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit those ACK as soon as possible while taking into consideration potential local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
 <p id="rfc.section.5.5.2.1.p.3">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the &#8220;MIC is correct&#8221; indicator bit set (C=1). This message might be lost therefore the SCHC gateway may request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink, on SCHC FPortDown from the SCHC gateway different from an ACK-request: it indicates that the SCHC gateway has received the ACK message.</p>
 <p id="rfc.section.5.5.2.1.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and the MIC is NOT correct, the device shall transmit a Receiver-Abort fragment. The device SHALL keep this Abort message in memory until it receives a downlink, on SCHC FPortDown, from the SCHC gateway different from an ACK-request indicating that the SCHC gateway has received the Abort message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
 <p id="rfc.section.5.5.2.1.p.5">The fragmentation sender (the SCHC gateway) implements an inactivity timer with default duration of 12 hours. Once a fragmentation session is started, if the SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after the last message from the device was received, the SCHC gateway may flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
 <h1 id="rfc.section.5.5.2.2">
 <a href="#rfc.section.5.5.2.2">5.5.2.2.</a> <a href="#class-b-or-c-end-devices" id="class-b-or-c-end-devices">Class B or C end-devices</a>
 </h1>
-<p id="rfc.section.5.5.2.2.p.1">Class B&amp;C end-devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink. The device replies with an ACK fragment to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding SCHC ACK fragment even if that fragment has already been received.<br> The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this ACK, it proceeds to send the next window fragment. If the retransmission timer elapses and the SCHC gateway has not received the ACK of the current window it retransmits the last fragment. The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.5.2.2.p.1">Class B&amp;C end-devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink. The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding SCHC ACK message even if that fragment has already been received.<br> The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this ACK, it proceeds to send the next window fragment. If the retransmission timer elapses and the SCHC gateway has not received the ACK of the current window it retransmits the last fragment. The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
 <p id="rfc.section.5.5.2.2.p.2">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the MIC is correct, the device shall transmit the ACK with the &#8220;MIC is correct&#8221; indicator bit set. If the SCHC gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
-<p id="rfc.section.5.5.2.2.p.3">If the retransmission timer elapses and the SCHC gateway has not received the All-1 ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
-<p id="rfc.section.5.5.2.2.p.4">The device SHALL keep the All-1 ACK message in memory until it receives a downlink from the SCHC gateway different from the last (FCN&gt;0 and different DTag) fragment indicating that the SCHC gateway has received the ACK message.</p>
+<p id="rfc.section.5.5.2.2.p.3">If the retransmission timer elapses and the SCHC gateway has not received the SCHC ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.5.2.2.p.4">The device SHALL keep the SCHC ACK message in memory until it receives a downlink from the SCHC gateway different from the last (FCN&gt;0 and different DTag) fragment indicating that the SCHC gateway has received the ACK message.</p>
 <p id="rfc.section.5.5.2.2.p.5">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and if the MIC is NOT correct, the device shall transmit a Receiver-Abort fragment.  The retransmission timer is used by the SCHC gateway (the sender), the optimal value is very much application specific but here are some recommended default values.<br> For classB end-devices, this timer trigger is a function of the periodicity of the classB ping slots. The recommended value is equal to 3 times the classB ping slot periodicity. For classC end-devices which are nearly constantly receiving, the recommended value is 30 seconds. This means that the end-device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the end-device to flush the context in-case it receives nothing from the SCHC gateway over an extended period of time. The recommended value is 12 hours for both classB&amp;C end-devices.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
@@ -943,8 +926,8 @@ ul.toc li {
 <h1 id="rfc.appendix.A.1">
 <a href="#rfc.appendix.A.1">A.1.</a> <a href="#uplink-compression-example-no-fragmentation" id="uplink-compression-example-no-fragmentation">Uplink - Compression example - No fragmentation</a>
 </h1>
-<p><a href="#Fig-example-uplink-no-fragmentation" class="xref">Figure 18</a> is representing an applicative payload going through SCHC, no fragmentation required</p>
-<div id="rfc.figure.18"></div>
+<p><a href="#Fig-example-uplink-no-fragmentation" class="xref">Figure 16</a> is representing an applicative payload going through SCHC, no fragmentation required</p>
+<div id="rfc.figure.16"></div>
 <div id="Fig-example-uplink-no-fragmentation"></div>
 <pre>
 An applicative payload of 78 bytes is passed to SCHC compression layer using
@@ -967,12 +950,12 @@ fragmentation. The payload will be transmitted through FPortUpDefault
 |       XXXX     |   1    |       18 bits       |  38 bytes |
 
 </pre>
-<p class="figure">Figure 18: Uplink example: compression without fragmentation</p>
+<p class="figure">Figure 16: Uplink example: compression without fragmentation</p>
 <h1 id="rfc.appendix.A.2">
 <a href="#rfc.appendix.A.2">A.2.</a> <a href="#uplink-compression-and-fragmentation-example" id="uplink-compression-and-fragmentation-example">Uplink - Compression and fragmentation example</a>
 </h1>
-<p><a href="#Fig-example-uplink-fragmentation-long" class="xref">Figure 19</a> is representing  an applicative payload going through SCHC, with fragmentation.</p>
-<div id="rfc.figure.19"></div>
+<p><a href="#Fig-example-uplink-fragmentation-long" class="xref">Figure 17</a> is representing  an applicative payload going through SCHC, with fragmentation.</p>
+<div id="rfc.figure.17"></div>
 <div id="Fig-example-uplink-fragmentation-long"></div>
 <pre>
 An applicative payload of 478 bytes is passed to SCHC compression layer using
@@ -985,6 +968,7 @@ payload.
 |   1    |       18 bits       | 138 bytes |
 
 
+Given the size of the payload, FPortUpDefault will be used.  
 The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
 LoRaWAN protocol: 9 bytes are available for SCHC payload.  
 SCHC header is 2 bytes so 2 tiles are send in first fragment.
@@ -1022,7 +1006,7 @@ the following ACK is send to the device:
 |       XXXX     |   0    |   0   |   0    |  1  |
 
 </pre>
-<p class="figure">Figure 19: Uplink example: compression and fragmentation</p>
+<p class="figure">Figure 17: Uplink example: compression and fragmentation</p>
 <h1 id="rfc.appendix.A.3">
 <a href="#rfc.appendix.A.3">A.3.</a> <a href="#downlink" id="downlink">Downlink</a>
 </h1>
