@@ -344,12 +344,13 @@ The LoRaWAN MAC layers features a frame port field in all frames. This field
 (FPort) is 8-bit long and the values from 1 to 223 can be used. It allows
 LoRaWAN network and application to identify data.
 
-A fragmentation session with application payload transferred from device
-to server, is called uplink fragmentation session. It uses FPortUpShort or
-FPortUpDefault for data uplink and SCHC control downlinks.  
+A fragmentation session with application payload transferred from device to
+server, is called uplink fragmentation session. It uses FPortUpShort or
+FPortUpDefault for data uplink and its associated SCHC control downlinks.  
 The other way, a fragmentation session with application payload transferred
 from server to device, is called downlink fragmentation session. It uses
-FPortDown for uplink and downlinks.
+FPortDown for data downlink and its associated SCHC control uplinks.
+
 
 FPorts can use arbitrary values inside the allowed FPort range and must be
 shared by the end-device, the Network Server and SCHC gateway. The uplink and
@@ -367,7 +368,7 @@ device is required to communicate with.
 
 The only uplink messages using the FPortDown port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
-only downlink messages using the FPortUpShort or FPortUpShort ports are the
+only downlink messages using the FPortUpShort or FPortUpDefault ports are the
 fragmentation SCHC control messages of an uplink fragmentation session.
 
 ## Rule ID management
