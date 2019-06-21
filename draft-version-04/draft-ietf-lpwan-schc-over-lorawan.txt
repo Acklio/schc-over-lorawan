@@ -5,7 +5,7 @@
 lpwan Working Group                                       N. Sornin, Ed.
 Internet-Draft                                                M. Coracin
 Intended status: Informational                                O. Gimenez
-Expires: November 28, 2019                                       Semtech
+Expires: December 23, 2019                                       Semtech
                                                                I. Petrov
                                                                   Acklio
                                                                 A. Yegin
@@ -16,7 +16,7 @@ Expires: November 28, 2019                                       Semtech
                                                                  EDF R&D
                                                         M. Le Gourrierec
                                                                 SagemCom
-                                                            May 27, 2019
+                                                           June 21, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -49,13 +49,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 28, 2019.
+   This Internet-Draft will expire on December 23, 2019.
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 1]
+Sornin, et al.          Expires December 23, 2019               [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 2]
+Sornin, et al.          Expires December 23, 2019               [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 1.  Introduction
@@ -160,22 +160,21 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
    specification [I-D.ietf-lpwan-ipv6-static-context-hc].
 
    Static Context Header Compression (SCHC) avoids context
-   synchronization, which is the most bandwidth-consuming operation in
-   other header compression mechanisms such as RoHC [RFC5795].  Based on
+   synchronization, based on the fact that the nature of data flows is
+   highly predictable in LPWAN networks, some static contexts may be
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 3]
+Sornin, et al.          Expires December 23, 2019               [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-   the fact that the nature of data flows is highly predictable in LPWAN
-   networks, some static contexts may be stored on the Device (Dev).
-   The contexts must be stored in both ends, and it can either be
-   learned by a provisioning protocol or by out-of-band means or it can
-   be pre-provisioned, etc.  The way the context is learned on both
-   sides is out of the scope of this document.
+   stored on the Device (Dev).  The contexts must be stored in both
+   ends, and it can either be learned by a provisioning protocol or by
+   out-of-band means or it can be pre-provisioned, etc.  The way the
+   context is learned on both sides is out of the scope of this
+   document.
 
           Dev                                               App
   +----------------+                                +----+ +----+ +----+
@@ -195,21 +194,23 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
    Figure 1 represents the architecture for compression/decompression,
    it is based on [RFC8376] terminology.  The Device is sending
-   applications flows using IPv6 or IPv6/UDP protocols.  These flows are
-   compressed by an Static Context Header Compression Compressor/
-   Decompressor (SCHC C/D) to reduce headers size.  Resulting
-   information is sent on a layer two (L2) frame to a LPWAN Radio
-   Network (RG) which forwards the frame to a Network Gateway (NGW).
-   The NGW sends the data to a SCHC C/D for decompression which shares
-   the same rules with the Dev. The SCHC C/D can be located on the
-   Network Gateway (NGW) or in another place as long as a tunnel is
-   established between the NGW and the SCHC C/D.  The SCHC C/D in both
-   sides must share the same set of Rules.  After decompression, the
-   packet can be sent on the Internet to one or several LPWAN
-   Application Servers (App).
+   applications flows using IPv6 or IPv6/UDP protocols.  These flow
+   might be fragemented (SCHC F/R), and compressed by an Static Context
+   Header Compression Compressor/Decompressor (SCHC C/D) to reduce
+   headers size.
+   Resulting information is sent on a layer two (L2) frame to a LPWAN
+   Radio Network (RG) which forwards the frame to a Network Gateway
+   (NGW).  The NGW sends the data to a SCHC F/R for defragmentation, if
+   required, then C/D for decompression which shares the same rules with
+   the device.  The SCHC F/R and C/D can be located on the Network
+   Gateway (NGW) or in another place as long as a tunnel is established
+   between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D.  The
+   SCHC C/D in both sides must share the same set of Rules.  After
+   decompression, the packet can be sent on the Internet to one or
+   several LPWAN Application Servers (App).
 
-   The SCHC C/D process is bidirectional, so the same principles can be
-   applied in the other direction.
+   The SCHC F/R and SCHC C/D process is bidirectional, so the same
+   principles can be applied in the other direction.
 
    In a LoRaWAN network, the RG is called a Gateway, the NGW is Network
    Server, and the SCHC C/D is an Application Server.  It can be
@@ -220,10 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-
-Sornin, et al.          Expires November 28, 2019               [Page 4]
+Sornin, et al.          Expires December 23, 2019               [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
         Dev                                                         App
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 5]
+Sornin, et al.          Expires December 23, 2019               [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
        ()   ()   ()       |                      +------+
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 6]
+Sornin, et al.          Expires December 23, 2019               [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
       not transmitting.  ClassC end-devices can receive downlinks at any
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 7]
+Sornin, et al.          Expires December 23, 2019               [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 4.4.  LoRaWAN MAC Frames
@@ -418,11 +418,12 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
    A fragmentation session with application payload transferred from
    device to server, is called uplink fragmentation session.  It uses
-   FPortUpShort or FPortUpDefault for data uplink and SCHC control
-   downlinks.
+   FPortUpShort or FPortUpDefault for data uplink and its associated
+   SCHC control downlinks.
    The other way, a fragmentation session with application payload
    transferred from server to device, is called downlink fragmentation
-   session.  It uses FPortDown for uplink and downlinks.
+   session.  It uses FPortDown for data downlink and its associated SCHC
+   control uplinks.
 
    FPorts can use arbitrary values inside the allowed FPort range and
    must be shared by the end-device, the Network Server and SCHC
@@ -444,26 +445,25 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-
-Sornin, et al.          Expires November 28, 2019               [Page 8]
+Sornin, et al.          Expires December 23, 2019               [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    The only uplink messages using the FPortDown port are the
    fragmentation SCHC control messages of a downlink fragmentation
    session (ex ACKs).  Similarly, the only downlink messages using the
-   FPortUpShort or FPortUpShort ports are the fragmentation SCHC control
-   messages of an uplink fragmentation session.
+   FPortUpShort or FPortUpDefault ports are the fragmentation SCHC
+   control messages of an uplink fragmentation session.
 
 5.2.  Rule ID management
 
    SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64
    possible rules).
 
-   The RuleID 0 is reserved for fragmentation in both directions.  The
-   RuleID 63 is used to tag packets for which SCHC compression was not
-   possible (no matching Rule was found).
+   The RuleID 0 is reserved for fragmentation.  The RuleID 63 is used to
+   tag packets for which SCHC compression was not possible (no matching
+   Rule was found).
 
    The remaining RuleIDs are available for compression.  RuleIDs are
    shared between uplink and downlink sessions.  A RuleID different from
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019               [Page 9]
+Sornin, et al.          Expires December 23, 2019               [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    _Note_: While it is used to recover faster from transmission errors,
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 10]
+Sornin, et al.          Expires December 23, 2019              [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
       duration of this timer is 12 hours.  This value is mainly driven
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 11]
+Sornin, et al.          Expires December 23, 2019              [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    With this set of parameters, the SCHC fragment header overhead is 2
@@ -669,9 +669,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 12]
+Sornin, et al.          Expires December 23, 2019              [Page 12]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    | RuleID | DTag  | W      | FCN = b'0000000 |
@@ -725,9 +725,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 13]
+Sornin, et al.          Expires December 23, 2019              [Page 13]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    | RuleID | W     | FCN = b'0 | Payload |
@@ -781,9 +781,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 14]
+Sornin, et al.          Expires December 23, 2019              [Page 14]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    Following the reception of a FCN=0 fragment (fragment that is not the
@@ -837,9 +837,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 15]
+Sornin, et al.          Expires December 23, 2019              [Page 15]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    the retransmission timer elapses and the SCHC gateway has not
@@ -893,9 +893,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 16]
+Sornin, et al.          Expires December 23, 2019              [Page 16]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 7.  Acknowledgements
@@ -949,9 +949,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 17]
+Sornin, et al.          Expires December 23, 2019              [Page 17]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    [I-D.ietf-lpwan-ipv6-static-context-hc]
@@ -1005,9 +1005,9 @@ rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 18]
+Sornin, et al.          Expires December 23, 2019              [Page 18]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 payload.
@@ -1061,9 +1061,9 @@ the following ACK is send to the device:
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 19]
+Sornin, et al.          Expires December 23, 2019              [Page 19]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 A.3.  Downlink
@@ -1117,9 +1117,9 @@ Authors' Addresses
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 20]
+Sornin, et al.          Expires December 23, 2019              [Page 20]
 
-Internet-Draft              SCHC-over-LoRaWAN                   May 2019
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    Alper Yegin
@@ -1173,4 +1173,4 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2019
 
 
 
-Sornin, et al.          Expires November 28, 2019              [Page 21]
+Sornin, et al.          Expires December 23, 2019              [Page 21]

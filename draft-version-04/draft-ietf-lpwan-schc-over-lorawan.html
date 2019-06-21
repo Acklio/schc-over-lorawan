@@ -315,7 +315,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Sornin, N., Ed., Coracin, M., Gimenez, O., Petrov, I., Yegin, A., Catalano, J., Audebert, V., and M. Le Gourrierec" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-05-27" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-06-21" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
 
@@ -339,7 +339,7 @@ ul.toc li {
 <td class="right">O. Gimenez</td>
 </tr>
 <tr>
-<td class="left">Expires: November 28, 2019</td>
+<td class="left">Expires: December 23, 2019</td>
 <td class="right">Semtech</td>
 </tr>
 <tr>
@@ -384,7 +384,7 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">May 27, 2019</td>
+<td class="right">June 21, 2019</td>
 </tr>
 
     	
@@ -401,7 +401,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 28, 2019.</p>
+<p>This Internet-Draft will expire on December 23, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -487,7 +487,7 @@ ul.toc li {
 <a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
 </h1>
 <p id="rfc.section.3.p.1">This section contains a short overview of Static Context Header Compression (SCHC). For a detailed description, refer to the full specification <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</p>
-<p id="rfc.section.3.p.2">Static Context Header Compression (SCHC) avoids context synchronization, which is the most bandwidth-consuming operation in other header compression mechanisms such as RoHC <a href="#RFC5795" class="xref">[RFC5795]</a>. Based on the fact that the nature of data flows is highly predictable in LPWAN networks, some static contexts may be stored on the Device (Dev). The contexts must be stored in both ends, and it can either be learned by a provisioning protocol or by out-of-band means or it can be pre-provisioned, etc. The way the context is learned on both sides is out of the scope of this document.</p>
+<p id="rfc.section.3.p.2">Static Context Header Compression (SCHC) avoids context synchronization, based on the fact that the nature of data flows is highly predictable in LPWAN networks, some static contexts may be stored on the Device (Dev). The contexts must be stored in both ends, and it can either be learned by a provisioning protocol or by out-of-band means or it can be pre-provisioned, etc. The way the context is learned on both sides is out of the scope of this document.</p>
 <div id="rfc.figure.1"></div>
 <div id="Fig-archi"></div>
 <pre>
@@ -506,8 +506,8 @@ ul.toc li {
                                +----+    +----+
 </pre>
 <p class="figure">Figure 1: Architecture</p>
-<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows are compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size. Resulting information is sent on a layer two (L2) frame to a LPWAN Radio Network (RG) which forwards the frame to a Network Gateway (NGW).  The NGW sends the data to a SCHC C/D for decompression which shares the same rules with the Dev. The SCHC C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC C/D. The SCHC C/D in both sides must share the same set of Rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
-<p id="rfc.section.3.p.4">The SCHC C/D process is bidirectional, so the same principles can be applied in the other direction.</p>
+<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flow might be fragemented (SCHC F/R), and compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size.<br> Resulting information is sent on a layer two (L2) frame to a LPWAN Radio Network (RG) which forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if required, then C/D for decompression which shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides must share the same set of Rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
+<p id="rfc.section.3.p.4">The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can be applied in the other direction.</p>
 <p id="rfc.section.3.p.5">In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server, and the SCHC C/D is an Application Server. It can be provided by the Network Server or any third party software. <a href="#Fig-archi" class="xref">Figure 1</a> can be map in LoRaWAN terminology to:</p>
 <div id="rfc.figure.2"></div>
 <div id="Fig-archi-lorawan"></div>
@@ -609,7 +609,7 @@ ul.toc li {
 <a href="#rfc.section.5.1">5.1.</a> <a href="#lorawan-fport" id="lorawan-fport">LoRaWAN FPort</a>
 </h1>
 <p id="rfc.section.5.1.p.1">The LoRaWAN MAC layers features a frame port field in all frames. This field (FPort) is 8-bit long and the values from 1 to 223 can be used. It allows LoRaWAN network and application to identify data.</p>
-<p id="rfc.section.5.1.p.2">A fragmentation session with application payload transferred from device to server, is called uplink fragmentation session. It uses FPortUpShort or FPortUpDefault for data uplink and SCHC control downlinks.<br> The other way, a fragmentation session with application payload transferred from server to device, is called downlink fragmentation session. It uses FPortDown for uplink and downlinks.</p>
+<p id="rfc.section.5.1.p.2">A fragmentation session with application payload transferred from device to server, is called uplink fragmentation session. It uses FPortUpShort or FPortUpDefault for data uplink and its associated SCHC control downlinks.<br> The other way, a fragmentation session with application payload transferred from server to device, is called downlink fragmentation session. It uses FPortDown for data downlink and its associated SCHC control uplinks.</p>
 <p id="rfc.section.5.1.p.3">FPorts can use arbitrary values inside the allowed FPort range and must be shared by the end-device, the Network Server and SCHC gateway. The uplink and downlink SCHC ports must be different.<br> In order to improve interoperability, it is recommended to use:</p>
 <p></p>
 
@@ -619,12 +619,12 @@ ul.toc li {
 <li>FPortDown = 22</li>
 </ul>
 <p id="rfc.section.5.1.p.5">Those are recommended values and are application defined. Also application can have multiple fragmentation session between a device and one or several SCHC gateways. A set of three FPort values is required for each gateway instance the device is required to communicate with.</p>
-<p id="rfc.section.5.1.p.6">The only uplink messages using the FPortDown port are the fragmentation SCHC control messages of a downlink fragmentation session (ex ACKs). Similarly, the only downlink messages using the FPortUpShort or FPortUpShort ports are the fragmentation SCHC control messages of an uplink fragmentation session.</p>
+<p id="rfc.section.5.1.p.6">The only uplink messages using the FPortDown port are the fragmentation SCHC control messages of a downlink fragmentation session (ex ACKs). Similarly, the only downlink messages using the FPortUpShort or FPortUpDefault ports are the fragmentation SCHC control messages of an uplink fragmentation session.</p>
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
 </h1>
 <p id="rfc.section.5.2.p.1">SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64 possible rules).</p>
-<p id="rfc.section.5.2.p.2">The RuleID 0 is reserved for fragmentation in both directions.  The RuleID 63 is used to tag packets for which SCHC compression was not possible (no matching Rule was found).</p>
+<p id="rfc.section.5.2.p.2">The RuleID 0 is reserved for fragmentation.  The RuleID 63 is used to tag packets for which SCHC compression was not possible (no matching Rule was found).</p>
 <p id="rfc.section.5.2.p.3">The remaining RuleIDs are available for compression. RuleIDs are shared between uplink and downlink sessions.  A RuleID different from 0 means that the fragmentation is not used, thus the packet should be send to C/D layer.</p>
 <h1 id="rfc.section.5.3">
 <a href="#rfc.section.5.3">5.3.</a> <a href="#iid-computation" id="iid-computation">IID computation</a>
