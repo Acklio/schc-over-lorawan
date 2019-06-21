@@ -143,14 +143,12 @@ This section contains a short overview of Static Context Header Compression
 (SCHC). For a detailed description, refer to the full specification
 {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
-Static Context Header Compression (SCHC) avoids context synchronization, which
-is the most bandwidth-consuming operation in other header compression
-mechanisms such as RoHC {{RFC5795}}. Based on the fact that the nature of data
-flows is highly predictable in LPWAN networks, some static contexts may be
-stored on the Device (Dev). The contexts must be stored in both ends, and it
-can either be learned by a provisioning protocol or by out-of-band means or it
-can be pre-provisioned, etc. The way the context is learned on both sides is
-out of the scope of this document.
+Static Context Header Compression (SCHC) avoids context synchronization, based
+on the fact that the nature of data flows is highly predictable in LPWAN
+networks, some static contexts may be stored on the Device (Dev). The contexts
+must be stored in both ends, and it can either be learned by a provisioning
+protocol or by out-of-band means or it can be pre-provisioned, etc. The way the
+context is learned on both sides is out of the scope of this document.
 
 
 ~~~~
@@ -171,20 +169,22 @@ out of the scope of this document.
 {: #Fig-archi title='Architecture'}
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
-based on {{RFC8376}} terminology. The Device is sending
-applications flows using IPv6 or IPv6/UDP protocols. These flows are compressed
-by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to
-reduce headers size. Resulting information is sent on a layer two (L2) frame to
-a LPWAN Radio Network (RG) which forwards the frame to a Network Gateway (NGW).
-The NGW sends the data to a SCHC C/D for decompression which shares the same
-rules with the Dev. The SCHC C/D can be located on the Network Gateway (NGW) or
-in another place as long as a tunnel is established between the NGW and the
+based on {{RFC8376}} terminology. The Device is sending applications flows
+using IPv6 or IPv6/UDP protocols. These flow might be fragemented (SCHC F/R),
+and compressed by an Static Context Header Compression Compressor/Decompressor
+(SCHC C/D) to reduce headers size.  
+Resulting information is sent on a layer two (L2) frame to a LPWAN Radio
+Network (RG) which forwards the frame to a Network Gateway (NGW). The NGW sends
+the data to a SCHC F/R for defragmentation, if required, then C/D for
+decompression which shares the same rules with the device. The SCHC F/R and C/D
+can be located on the Network Gateway (NGW) or in another place as long as a
+tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and
 SCHC C/D. The SCHC C/D in both sides must share the same set of Rules. After
 decompression, the packet can be sent on the Internet to one or several LPWAN
 Application Servers (App).
 
-The SCHC C/D process is bidirectional, so the same principles can be applied in
-the other direction.
+The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can
+be applied in the other direction.
 
 In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
 and the SCHC C/D is an Application Server. It can be provided by the Network
@@ -375,9 +375,8 @@ fragmentation SCHC control messages of an uplink fragmentation session.
 
 SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64 possible rules).  
 
-The RuleID 0 is reserved for fragmentation in both directions.  The RuleID 63
-is used to tag packets for which SCHC compression was not possible (no matching
-Rule was found).
+The RuleID 0 is reserved for fragmentation.  The RuleID 63 is used to tag
+packets for which SCHC compression was not possible (no matching Rule was found).
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID different from 0 means that the
