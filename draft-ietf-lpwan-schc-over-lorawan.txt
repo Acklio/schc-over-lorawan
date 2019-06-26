@@ -2,18 +2,11 @@
 
 
 
-lpwan Working Group                                       N. Sornin, Ed.
-Internet-Draft                                                M. Coracin
-Intended status: Informational                                   Semtech
-Expires: December 7, 2019                                      I. Petrov
-                                                                  Acklio
-                                                                A. Yegin
-                                                                Actility
-                                                             J. Catalano
-                                                                 Kerlink
-                                                             V. Audebert
-                                                                 EDF R&D
-                                                           June 05, 2019
+lpwan Working Group                                      O. Gimenez, Ed.
+Internet-Draft                                                   Semtech
+Intended status: Informational                            I. Petrov, Ed.
+Expires: December 28, 2019                                        Acklio
+                                                           June 26, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -29,7 +22,7 @@ Abstract
 
    This document provides the adaptation of SCHC for use in LoRaWAN
    networks, and provides elements such as efficient parameterization
-   and modes of operation.
+   and modes of operation.  This is called a profile.
 
 Status of This Memo
 
@@ -46,17 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 7, 2019.
-
-
-
-
-
-
-Sornin, et al.          Expires December 7, 2019                [Page 1]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
+   This Internet-Draft will expire on December 28, 2019.
 
 Copyright Notice
 
@@ -67,6 +50,14 @@ Copyright Notice
    Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 1]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
@@ -78,26 +69,31 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Static Context Header Compression Overview  . . . . . . . . .   3
-   4.  LoRaWAN Architecture  . . . . . . . . . . . . . . . . . . . .   4
-     4.1.  Device classes (A, B, C) and interactions . . . . . . . .   5
-     4.2.  Device addressing . . . . . . . . . . . . . . . . . . . .   6
+   4.  LoRaWAN Architecture  . . . . . . . . . . . . . . . . . . . .   5
+     4.1.  End-Device classes (A, B, C) and interactions . . . . . .   6
+     4.2.  End-Device addressing . . . . . . . . . . . . . . . . . .   7
      4.3.  General Message Types . . . . . . . . . . . . . . . . . .   7
-     4.4.  LoRaWAN MAC Frames  . . . . . . . . . . . . . . . . . . .   7
-   5.  SCHC over LoRaWAN . . . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  Rule ID management  . . . . . . . . . . . . . . . . . . .   7
-     5.2.  IID computation . . . . . . . . . . . . . . . . . . . . .   8
-     5.3.  No compression packets are sent using Rule ID 7.  . . . .   8
-     5.4.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .   8
-       5.4.1.  Uplink fragmentation: From device to gateway  . . . .   8
-       5.4.2.  Downlinks: From gateway to device . . . . . . . . . .   9
-   6.  Security considerations . . . . . . . . . . . . . . . . . . .  13
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  13
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  14
-   Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+     4.4.  LoRaWAN MAC Frames  . . . . . . . . . . . . . . . . . . .   8
+   5.  SCHC-over-LoRaWAN . . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  LoRaWAN FPort . . . . . . . . . . . . . . . . . . . . . .   8
+     5.2.  Rule ID management  . . . . . . . . . . . . . . . . . . .   9
+     5.3.  IID computation . . . . . . . . . . . . . . . . . . . . .   9
+     5.4.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .   9
+     5.5.  DTag  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+       5.5.1.  Uplink fragmentation: From device to SCHC gateway . .  10
+       5.5.2.  Downlink fragmentation: From SCHC gateway to device .  13
+   6.  Security considerations . . . . . . . . . . . . . . . . . . .  16
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  18
+     A.1.  Uplink - Compression example - No fragmentation . . . . .  18
+     A.2.  Uplink - Compression and fragmentation example  . . . . .  19
+     A.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -105,19 +101,18 @@ Table of Contents
    [I-D.ietf-lpwan-ipv6-static-context-hc] describes generic header
    compression and fragmentation techniques that can be used on all
    LPWAN (Low Power Wide Area Networks) technologies defined in
-   [I-D.ietf-lpwan-overview].  Even though those technologies share a
+   [RFC8376].  Even though those technologies share a great number of
+   common features like star-oriented topologies, network architecture,
+   devices with mostly quite predictable communications, etc; they do
+   have some slight differences in respect of payload sizes,
+   reactiveness, etc.
 
 
 
-Sornin, et al.          Expires December 7, 2019                [Page 2]
+Gimenez & Petrov        Expires December 28, 2019               [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
-
-   great number of common features like start-oriented topologies,
-   network architecture, devices with mostly quite predictable
-   communications, etc; they do have some slight differences in respect
-   of payload sizes, reactiveness, etc.
 
    SCHC gives a generic framework that enables those devices to
    communicate with other Internet networks.  However, for efficient
@@ -137,10 +132,10 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    document.  For all other definitions, please look up the SCHC
    specification [I-D.ietf-lpwan-ipv6-static-context-hc].
 
-   o DevEUI: an IEEE EUI-64 identifier used to identify the device
+   o DevEUI: an IEEE EUI-64 identifier used to identify the end-device
    during the procedure while joining the network (Join Procedure)
 
-   o DevAddr: a 32-bit non-unique identifier assigned to a device
+   o DevAddr: a 32-bit non-unique identifier assigned to a end-device
    statically or dynamically after a Join Procedure (depending on the
    activation mode)
 
@@ -153,85 +148,111 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    specification [I-D.ietf-lpwan-ipv6-static-context-hc].
 
    Static Context Header Compression (SCHC) avoids context
-   synchronization, which is the most bandwidth-consuming operation in
-   other header compression mechanisms such as RoHC [RFC5795].  Based on
-   the fact that the nature of data flows is highly predictable in LPWAN
-   networks, some static contexts may be stored on the Device (Dev).
-   The contexts must be stored in both ends, and it can either be
-   learned by a provisioning protocol or by out of band means or it can
-   be pre-provisioned, etc.  The way the context is learned on both
-   sides is out of the scope of this document.
+   synchronization, based on the fact that the nature of data flows is
+   highly predictable in LPWAN networks, some static contexts may be
+   stored on the Device (Dev).  The contexts must be stored in both
+   ends, and it can either be learned by a provisioning protocol or by
+   out-of-band means or it can be pre-provisioned, etc.  The way the
+   context is learned on both sides is out of the scope of this
+   document.
 
 
 
 
-Sornin, et al.          Expires December 7, 2019                [Page 3]
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-        Dev                                                 App
-   +--------------+                                  +--------------+
-   |APP1 APP2 APP3|                                  |APP1 APP2 APP3|
-   |              |                                  |              |
-   |      UDP     |                                  |     UDP      |
-   |     IPv6     |                                  |    IPv6      |
-   |              |                                  |              |
-   |   SCHC C/D   |                                  |              |
-   |   (context)  |                                  |              |
-   +-------+------+                                  +-------+------+
-            |   +--+     +----+     +---------+              .
-            +~~ |RG| === |NGW | === |SCHC C/D |... Internet ..
-                +--+     +----+     |(context)|
-                                    +---------+
+          Dev                                               App
+  +----------------+                                +----+ +----+ +----+
+  | App1 App2 App3 |                                |App1| |App2| |App3|
+  |                |                                |    | |    | |    |
+  |       UDP      |                                |UDP | |UDP | |UDP |
+  |      IPv6      |                                |IPv6| |IPv6| |IPv6|
+  |                |                                |    | |    | |    |
+  |SCHC C/D and F/R|                                |    | |    | |    |
+  +--------+-------+                                +----+ +----+ +----+
+           |  +--+     +----+    +----+    +----+     .      .      .
+           +~ |RG| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+              +--+     +----+    |F/R |    |C/D |
+                                 +----+    +----+
 
                           Figure 1: Architecture
 
    Figure 1 represents the architecture for compression/decompression,
-   it is based on [I-D.ietf-lpwan-overview] terminology.  The Device is
-   sending applications flows using IPv6 or IPv6/UDP protocols.  These
-   flows are compressed by an Static Context Header Compression
-   Compressor/Decompressor (SCHC C/D) to reduce headers size.  Resulting
-   information is sent on a layer two (L2) frame to a LPWAN Radio
-   Network (RG) which forwards the frame to a Network Gateway (NGW).
-   The NGW sends the data to a SCHC C/D for decompression which shares
-   the same rules with the Dev. The SCHC C/D can be located on the
-   Network Gateway (NGW) or in another place as long as a tunnel is
-   established between the NGW and the SCHC C/D.  The SCHC C/D in both
-   sides must share the same set of Rules.  After decompression, the
-   packet can be sent on the Internet to one or several LPWAN
-   Application Servers (App).
+   it is based on [RFC8376] terminology.  The Device is sending
+   applications flows using IPv6 or IPv6/UDP protocols.  These flow
+   might be fragemented (SCHC F/R), and compressed by an Static Context
+   Header Compression Compressor/Decompressor (SCHC C/D) to reduce
+   headers size.  Resulting information is sent on a layer two (L2)
+   frame to a LPWAN Radio Network (RG) which forwards the frame to a
+   Network Gateway (NGW).  The NGW sends the data to a SCHC F/R for
+   defragmentation, if required, then C/D for decompression which shares
+   the same rules with the device.  The SCHC F/R and C/D can be located
+   on the Network Gateway (NGW) or in another place as long as a tunnel
+   is established between the NGW and the SCHC F/R, then SCHC F/R and
+   SCHC C/D.  The SCHC C/D in both sides must share the same set of
+   Rules.  After decompression, the packet can be sent on the Internet
+   to one or several LPWAN Application Servers (App).
 
-   The SCHC C/D process is bidirectional, so the same principles can be
-   applied in the other direction.
+   The SCHC F/R and SCHC C/D process is bidirectional, so the same
+   principles can be applied in the other direction.
 
    In a LoRaWAN network, the RG is called a Gateway, the NGW is Network
-   Server, and the SCHC C/D can be embedded in different places, for
-   example in the Network Server and/or the Application Server.
-
-   Next steps for this section: detailed overview of the LoRaWAN
-   architecture and its mapping to the SCHC architecture.
-
-4.  LoRaWAN Architecture
-
-   An overview of LoRaWAN [lora-alliance-spec] protocol and architecture
-   is described in [I-D.ietf-lpwan-overview].  Mapping between the LPWAN
-   architecture entities as described in
+   Server, and the SCHC C/D is an Application Server.  It can be
+   provided by the Network Server or any third party software.  Figure 1
+   can be map in LoRaWAN terminology to:
 
 
 
 
-Sornin, et al.          Expires December 7, 2019                [Page 4]
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-   [I-D.ietf-lpwan-ipv6-static-context-hc] and the ones in
-   [lora-alliance-spec] is as follows:
+        Dev                                                         App
++----------------+                                          +----+ +----+ +----+
+| App1 App2 App3 |                                          |App1| |App2| |App3|
+|                |                                          |    | |    | |    |
+|       UDP      |                                          |UDP | |UDP | |UDP |
+|      IPv6      |                                          |IPv6| |IPv6| |IPv6|
+|                |                                          |    | |    | |    |
+|SCHC C/D and F/R|                                          |    | |    | |    |
++--------+-------+                                          +----+ +----+ +----+
+         |  +-------+     +-------+    +----------------+     .      .      .
+         +~ |Gateway| === |Network| == |Application     |...... Internet ....
+            +-------+     |server |    |server F/R - C/D|
+                          +-------+    +----------------+
+
+                          Figure 2: Architecture
+
+4.  LoRaWAN Architecture
+
+   An overview of LoRaWAN [lora-alliance-spec] protocol and architecture
+   is described in [RFC8376].  Mapping between the LPWAN architecture
+   entities as described in [I-D.ietf-lpwan-ipv6-static-context-hc] and
+   the ones in [lora-alliance-spec] is as follows:
 
    o Devices (Dev) are the end-devices or hosts (e.g. sensors,
    actuators, etc.).  There can be a very high density of devices per
-   radio gateway.  This entity maps to the LoRaWAN End-device.
+   radio gateway (LoRaWAN gateway).  This entity maps to the LoRaWAN
+   End-Device.
 
    o The Radio Gateway (RGW), which is the end point of the constrained
    link.  This entity maps to the LoRaWAN Gateway.
@@ -244,6 +265,22 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    applications.  This entity maps to the LoRaWAN Join Server.
 
    o Application Server (App).  The same terminology is used in LoRaWAN.
+   In that case, the application server will be the SCHC gateway, doing
+   C/D and F/R.
+
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 5]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
        ()   ()   ()       |                      +------+
         ()  () () ()     / \       +---------+   | Join |
@@ -254,441 +291,648 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
        End-Devices  Gateways     Network Server
 
 
-                       Figure 2: LPWAN Architecture
+                       Figure 3: LPWAN Architecture
 
-   SCHC C/D (Compressor/Decompressor) and SCHC Fragmentation are
-   performed on the LoRaWAN End-device and the Application Server.
-   While the point-to-point link between the End-device and the
-   Application Server constitutes single IP hop, the ultimate end-point
-   of the IP communication may be an Internet node beyond the
-   Application Server.  In other words, the LoRaWAN Application Server
-   acts as the first hop IP router for the End-device.  Note that the
-   Application Server and Network Server may be co-located, which
-   effectively turns the Network/Application Server into the first hop
-   IP router.
+   SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/
+   Reassembly) are performed on the LoRaWAN End-Device and the
+   Application Server (called SCHC gateway).  While the point-to-point
+   link between the End-Device and the Application Server constitutes
+   single IP hop, the ultimate end-point of the IP communication may be
+   an Internet node beyond the Application Server.  In other words, the
+   LoRaWAN Application Server (SCHC gateway) acts as the first hop IP
+   router for the End-Device.  The Application Server and Network Server
+   may be co-located, which effectively turns the Network/Application
+   Server into the first hop IP router.
 
-4.1.  Device classes (A, B, C) and interactions
+4.1.  End-Device classes (A, B, C) and interactions
 
-   The LoRaWAN MAC layer supports 3 classes of devices named A,B and C.
-   All devices implement the classA, some devices implement classA+B or
-   class A+C.  ClassB and classC are mutually exclusive.
+   The LoRaWAN MAC layer supports 3 classes of end-devices named A, B
+   and C.  All end-devices implement the classA, some end-devices
+   implement classA+B or class A+C.  ClassB and classC are mutually
+   exclusive.
 
-
-
-
-
-Sornin, et al.          Expires December 7, 2019                [Page 5]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
-   o  *ClassA*: The classA is the simplest class of devices.  The device
-      is allowed to transmit at any time, randomly selecting a
-      communication channel.  The network may reply with a downlink in
+   o  *ClassA*: The classA is the simplest class of end-devices.  The
+      end-device is allowed to transmit at any time, randomly selecting
+      a communication channel.  The network may reply with a downlink in
       one of the 2 receive windows immediately following the uplinks.
       Therefore, the network cannot initiate a downlink, it has to wait
-      for the next uplink from the device to get a downlink opportunity.
-      The classA is the lowest power device class.
+      for the next uplink from the end-device to get a downlink
+      opportunity.  The classA is the lowest power end-device class.
 
-   o  *ClassB*: classB devices implement all the functionalities of
-      classA devices, but also schedule periodic listen windows.
-      Therefore, as opposed the classA devices, classB devices can
-      receive downlink that are initiated by the network and not
+   o  *ClassB*: classB end-devices implement all the functionalities of
+      classA end-devices, but also schedule periodic listen windows.
+      Therefore, as opposed the classA end-devices, classB end-devices
+      can receive downlink that are initiated by the network and not
       following an uplink.  There is a trade-off between the periodicity
       of those scheduled classB listen windows and the power consumption
-      of the device.  The lower the downlink latency, the higher the
+      of the end-device.  The lower the downlink latency, the higher the
       power consumption.
 
-   o  *ClassC*: classC devices implement all the functionalities of
-      classA devices, but keep their receiver open whenever they are not
-      transmitting.  ClassC devices can receive downlinks at any time at
-      the expense of a higher power consumption.  Battery powered
-      devices can only operate in classC for a limited amount of time
-      (for example for a firmware upgrade over the air).  Most of the
-      classC devices are main powered (for example Smart Plugs).
-
-4.2.  Device addressing
-
-   LoRaWAN devices use a 32bits network address (devAddr) to communicate
-   with the network over the air.  However that address might be reused
-   several time on the same network at the same time for different
-   devices.  Devices using the same devAddr are distinguish by the
-   network server based on the cryptographic signature appended to every
-   single LoRaWAN MAC frame, as all devices use different security keys.
-   To communicate with the SCHC gateway the network server MUST identify
-   the devices by a unique 64bits device ID called the devEUI.  Unlike
-   devAddr, devEUI is guaranteed to be unique for every single device
-   across all networks.  The devEUI is assigned to the device during the
-   manufacturing process by the device's manufacturer.  The devEUI is
-   built like an Ethernet MAC address by concatenating the
-   manufacturer's IEEE 24bits OUI field with a 40bits serial number.
-   The network server translates the devAddr into a devEUI in the uplink
-   direction and reciprocally on the downlink direction.
+   o  *ClassC*: classC end-devices implement all the functionalities of
+      classA end-devices, but keep their receiver open whenever they are
 
 
 
-
-
-
-
-
-
-Sornin, et al.          Expires December 7, 2019                [Page 6]
+Gimenez & Petrov        Expires December 28, 2019               [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-    +--------+         +---------------+        +--------------------+
-    | device | <=====> | Network Server| <====> | Application Server |
-    +--------+ devAddr +---------------+ devEUI +--------------------+
+      not transmitting.  ClassC end-devices can receive downlinks at any
+      time at the expense of a higher power consumption.  Battery
+      powered end-devices can only operate in classC for a limited
+      amount of time (for example for a firmware upgrade over-the-air).
+      Most of the classC end-devices are main powered (for example Smart
+      Plugs).
+
+4.2.  End-Device addressing
+
+   LoRaWAN end-devices use a 32 bits network address (devAddr) to
+   communicate with the network over-the-air.  However, that address
+   might be reused several time on the same network at the same time for
+   different end-devices.  End-devices using the same devAddr are
+   distinguish by the Network Server based on the cryptographic
+   signature appended to every single LoRaWAN MAC frame, as all end-
+   devices use different security keys.  To communicate with the SCHC
+   gateway the Network Server MUST identify the end-devices by a unique
+   64bits device ID called the devEUI.  Unlike devAddr, devEUI is
+   guaranteed to be unique for every single end-device across all
+   networks.  The devEUI is assigned to the end-device during the
+   manufacturing process by the end-device's manufacturer.  It is built
+   like an Ethernet MAC address by concatenating the manufacturer's IEEE
+   OUI field with a vendor unique number.  ex: 24bits OUI is
+   concatenated with a 40 bits serial number.  The Network Server
+   translates the devAddr into a devEUI in the uplink direction and
+   reciprocally on the downlink direction.
+
++--------+         +----------+        +---------+            +----------+
+| End-   | <=====> | Network  | <====> | SCHC    | <========> | Internet |
+| Device | devAddr | Server   | devEUI | Gateway |  IPv6/UDP  |          |
++--------+         +----------+        +---------+            +----------+
 
 
-                        Figure 3: LoRaWAN addresses
+                        Figure 4: LoRaWAN addresses
 
 4.3.  General Message Types
 
-   o  Confirmed messages:
+   o  *Confirmed messages*: The sender asks the receiver to acknowledge
+      the message.
 
-   o  Unconfirmed messages:
+   o  *Unconfirmed messages*: The sender does not ask the receiver to
+      acknowledge the message.
+
+   As SCHC defines its own acknowledgment mechanisms, SCHC does not
+   require to use confirmed messages.
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 7]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
 4.4.  LoRaWAN MAC Frames
 
-   o  JoinRequest
+   o  *JoinRequest*: This message is used by a end-device to join a
+      network.  It contains the end-device's unique identifier devEUI
+      and a random nonce that will be used for session key derivation.
 
-   o  JoinAccept
+   o  *JoinAccept*: To on-board a end-device, the Network Server
+      responds to the JoinRequest end-device's message with a JoinAccept
+      message.  That message is encrypted with the end-device's AppKey
+      and contains (amongst other fields) the major network's settings
+      and a network random nonce used to derive the session keys.
 
-   o  Data
+   o  *Data*
 
-5.  SCHC over LoRaWAN
+5.  SCHC-over-LoRaWAN
 
-5.1.  Rule ID management
+5.1.  LoRaWAN FPort
 
-   The LoRaWAN MAC layers features a port field in all frames.  This
-   port field (FPort) is 8bit long and the values from 1 to 220 can be
-   used.  SCHC over LoRaWAN uses 2 contiguous FPort value to separate
-   the uplink SCHC traffic from the downlink and avoid any confusion.
-   Those FPorts are called FPortUp and FPortDwn.  Those FPorts can use
-   arbitrary values inside the allowed Fport range but must be shared by
-   the end-device and SCHC gateway.
+   The LoRaWAN MAC layers features a frame port field in all frames.
+   This field (FPort) is 8-bit long and the values from 1 to 223 can be
+   used.  It allows LoRaWAN network and application to identify data.
 
-   SCHC over LoRAWAN SHOULD support encoding RuleID on 3 bits, there are
-   therefore 8 possible RuleIds on both uplink and downlink direction.
+   A fragmentation session with application payload transferred from
+   device to server, is called uplink fragmentation session.  It uses
+   FPortUpShort or FPortUpDefault for data uplink and its associated
+   SCHC control downlinks.  The other way, a fragmentation session with
+   application payload transferred from server to device, is called
+   downlink fragmentation session.  It uses FPortDown for data downlink
+   and its associated SCHC control uplinks.
 
-   The RuleID 0 is reserved for fragmentation in both directions.  The 7
-   remaining RuleIDs are available for IPV6 header compression.  Uplink
-   (on FPortUp) and downlink (on FportDwn) RuleIDs are independent.  The
-   same RuleID may have different meanings on the uplink and downlink
-   paths.
+   FPorts can use arbitrary values inside the allowed FPort range and
+   must be shared by the end-device, the Network Server and SCHC
+   gateway.  The uplink and downlink SCHC ports must be different.  In
+   order to improve interoperability, it is recommended to use:
 
-   The only uplink messages using the FportDwn port are the
-   fragmentation SCHC ACKs messages of a downlink fragmentation session.
-   Similarly, the only downlink messages using the FportUp port are the
-   fragmentation SCHC ACKs messages of an uplink fragmentation session
+   o  FPortUpShort = 20
+
+   o  FPortUpDefault = 21
+
+   o  FPortDown = 22
+
+   Those are recommended values and are application defined.  Also
+   application can have multiple fragmentation session between a device
+   and one or several SCHC gateways.  A set of three FPort values is
+   required for each gateway instance the device is required to
+   communicate with.
 
 
 
 
 
-Sornin, et al.          Expires December 7, 2019                [Page 7]
+Gimenez & Petrov        Expires December 28, 2019               [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-5.2.  IID computation
+   The only uplink messages using the FPortDown port are the
+   fragmentation SCHC control messages of a downlink fragmentation
+   session (ex ACKs).  Similarly, the only downlink messages using the
+   FPortUpShort or FPortUpDefault ports are the fragmentation SCHC
+   control messages of an uplink fragmentation session.
 
-   TBD (To discuss with the SCHC authors).
+5.2.  Rule ID management
 
-5.3.  No compression packets are sent using Rule ID 7.
+   SCHC-over-LoRaWAN SHOULD support encoding RuleID on 6 bits (64
+   possible rules).
+
+   The RuleID 0 is reserved for fragmentation.  The RuleID 63 is used to
+   tag packets for which SCHC compression was not possible (no matching
+   Rule was found).
+
+   The remaining RuleIDs are available for compression.  RuleIDs are
+   shared between uplink and downlink sessions.  A RuleID different from
+   0 means that the fragmentation is not used, thus the packet should be
+   send to C/D layer.
+
+5.3.  IID computation
+
+   As LoRaWAN network uses unique EUI-64 per end-device, the Interface
+   IDentifier is the LoRaWAN DevEUI.  It is compliant with [RFC4291] and
+   IID starting with binary 000 must enforce the 64-bits rule.  TODO:
+   Derive IID from DevEUI with privacy constraints ? Ask working group ?
 
 5.4.  Fragmentation
 
-   The L2 word size used by LoRaWAN is 1 octet (8 bits).  The SCHC
-   fragmentation over LoRaWAN exclusively uses the ACK-always mode.  A
-   LoRaWAN device cannot support simultaneous interleaved fragmentation
+   The L2 word size used by LoRaWAN is 1 byte (8 bits).  The SCHC
+   fragmentation over LoRaWAN uses the ACK-on-Error for uplink
+   fragmentation and Ack-Always for downlink fragmentation.  A LoRaWAN
+   end-device cannot support simultaneous interleaved fragmentation
    sessions in the same direction (uplink or downlink).  This means that
-   only a single fragmented IPV6 datagram may be transmitted and/or
-   received by the device at a given moment.  The fragmentation
-   parameters are different for uplink and downlink fragmentation
-   sessions and are successively described in the next sections.
+   only a single fragmented IPv6 datagram may be transmitted and/or
+   received by the end-device at a given moment.
 
-5.4.1.  Uplink fragmentation: From device to gateway
+   The fragmentation parameters are different for uplink and downlink
+   fragmentation sessions and are successively described in the next
+   sections.
 
-   In that case the device is the fragmentation transmitter, and the
-   SCHC gateway the fragmentation receiver.
+5.5.  DTag
 
-   o  SCHC fragmentation reliability mode : "ACK_ALWAYS"
-
-   o  Window size: 8, the FCN field is encoded on 3 bits
-
-   o  DTag : 1bit. this field is used to clearly separate two
-      consecutive fragmentation sessions.  A LoRaWAN device cannot
-      interleave several fragmented SCHC datagrams.
-
-   o  MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the
-      reverse representation of the polynomial used e.g. in the Ethernet
-      standard [RFC3385])
-
-   o  Retransmission Timer and inactivity Timer: LoRaWAN devices do not
-      implement a "retransmission timer".  At the end of a window the
-      ACK corresponding to this window is transmitted by the network
-      gateway in the RX1 or RX2 receive slot of the device.  If this ACK
-      is not received the device sends an all-0 (or an all-1) fragment
-      with no payload to request an ACK retransmission.  The periodicity
-      between retransmission of the all-0/all-1 fragments is device/
-      application specific and may be different for each device (not
-      specified).  The gateway implements an "inactivity timer".  The
-      default recommended duration of this timer is 12h.  This value is
-      mainly driven by application requirements and may be changed.
+   A LoRaWAN device cannot interleave several fragmented SCHC datagrams.
+   This one bit field is used to distinguish two consecutive
+   fragmentation sessions.
 
 
 
 
 
-
-Sornin, et al.          Expires December 7, 2019                [Page 8]
+Gimenez & Petrov        Expires December 28, 2019               [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-   | RuleID | DTag  | W     | FCN    | Payload |
-   + ------ + ----- + ----- | ------ + ------- +
-   | 3 bits | 1 bit | 1 bit | 3 bits |         |
+   _Note_: While it is used to recover faster from transmission errors,
+   it SHALL not be considered as the only way to distinguish two
+   fragmentation sessions.
+
+5.5.1.  Uplink fragmentation: From device to SCHC gateway
+
+   In that case the device is the fragmentation transmitter, and the
+   SCHC gateway the fragmentation receiver.  Two fragmentation rules are
+   defined regarding the *FPort*:
+
+   o  *FPortUpShort*: SCHC header is only one byte.  Used when
+      fragmentation is required and payload size is less than 381 bytes.
+
+   o  *FPortUpDefault*: SCHC header is two bytes.  Used for all other
+      cases: no fragmentation required or payload size is between 382
+      and 1524 byte.
+
+   *Both rules share common parameters:*
+
+   o  *SCHC fragmentation reliability mode*: "ACK-on-Error"
+
+   o  *DTag*: size is 1 bit.
+
+   o  *FCN*: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE =
+      127 tiles are allowed in a window (FCN=All-1 is reserved for
+      SCHC).
+
+   o  *MIC calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
+      reverse representation of the polynomial used e.g. in the Ethernet
+      standard [RFC3385]) as suggested in
+      [I-D.ietf-lpwan-ipv6-static-context-hc].
+
+   o  *MAX_ACK_REQUESTS*: 8
+
+   o  *Tile*: size is 3 bytes (24 bits)
+
+   o  *Retransmission and inactivity timers*: LoRaWAN end-devices do not
+      implement a "retransmission timer".  At the end of a window or a
+      fragmentation session, corresponding ACK(s) is (are) transmitted
+      by the network gateway (LoRaWAN application server) in the RX1 or
+      RX2 receive slot of end-device.  If this ACK is not received the
+      end-device sends an all-0 (or an all-1) fragment with no payload
+      to request an SCHC ACK retransmission.  The periodicity between
+      retransmission of the all-0/all-1 fragments is device/application
+      specific and may be different for each device (not specified).
+      The SCHC gateway implements an "inactivity timer".  The default
+      recommended duration of this timer is 12 hours.  This value is
 
 
-    Figure 4: All fragment except the last one.  Header size is 8 bits.
-
-   | RuleID | DTag  | W     | FCN    | MIC     | Payload |
-   + ------ + ----- + ----- | ------ + ------- + ------- +
-   | 3 bits | 1 bit | 1 bit | 3 bits | 32 bits |         |
 
 
-      Figure 5: All-1 fragment detailed format for the last fragment.
-                          Header size is 8 bits.
-
-   The format of an all-0 or all-1 acknowledge is:
-
-   | RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
-   + ------ + ----- + ----- | -------------- + ------------ +
-   | 3 bits | 1 bit | 1 bit | 3 or 8 bits    | 0 or 3 bits  |
+Gimenez & Petrov        Expires December 28, 2019              [Page 10]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-   Figure 6: ACK format for All-0 windows.  Header size is 1 or 2 bytes.
+      mainly driven by application requirements and may be changed by
+      the application.
+
+   *The following fields are different:*
+
+   o  RuleID size
+
+   o  Window index size W
+
+5.5.1.1.  FPortUpShort - 1 byte header
+
+   In that case RuleID size is 0, the rule is the FPort=FPortUpShort and
+   only fragmented payload can be transported.
+
+   o  *RuleID*: size is 0 bit in SCHC header, not used.
+
+   o  *Window index*: encoded on W = 0 bit, not used
+
+   With this set of parameters, the SCHC fragment header overhead is 1
+   byte (8 bits).  MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
+
+   *Regular fragments*
+
+   | DTag  | FCN    | Payload |
+   + ----- + ------ + ------- +
+   | 1 bit | 7 bits |         |
+
+
+   Figure 5: All fragment except the last one.  Header size is 8 bits (1
+                                  byte).
+
+   *SCHC ACK*
 
 | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
 + ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 3 bits | 1 bit | 1 bit | 1 bit | 2 or 8 bits               | 0 or 2 bits  |
+| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 
-   Figure 7: ACK format for All-1 windows.  Header size is 1 or 2 bytes.
+               Figure 6: SCHC ACK format, failed mic check.
 
-5.4.2.  Downlinks: From gateway to device
+5.5.1.2.  FPortUpDefault - 2 bytes header
+
+   o  *RuleID*: size is 6 bits (64 possible rules, 62 available for
+      compression)
+
+   o  *Window index*: encoded on W = 2 bits.  So 4 windows are
+      available.
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 11]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   With this set of parameters, the SCHC fragment header overhead is 2
+   bytes (16 bits).  MTU is: _4 windows * 127 tiles * 3 bytes per tile =
+   1524 bytes_
+
+   _Note_: Even if it is less efficient, this rule can also be used for
+   fragmented payload size less than 382 bytes.
+
+   *Regular fragments*
+
+   | RuleID | DTag  | W      | FCN    | Payload |
+   + ------ + ----- + ------ + ------ + ------- +
+   | 6 bits | 1 bit | 2 bits | 7 bits |         |
+
+
+    Figure 7: All fragment except the last one.  Header size is 16 bits
+                                (2 bytes).
+
+   *Last fragment (All-1)*
+
+   | RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload           |
+   + ------ + ----- + ------ + --------- + ------- + ----------------- +
+   | 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
+
+
+      Figure 8: All-1 fragment detailed format for the last fragment.
+
+   *SCHC ACK*
+
+   | RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) |
+   + ------ + ----- + ----- + ----- + ------------------------- +
+   | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
+
+
+                 Figure 9: SCHC formats, failed MIC check.
+
+   *Receiver-Abort*
+
+   | RuleID | DTag  | W = b'11 | C = 1 | b'111111 | 0xFF (all 1's) |
+   + ------ + ----- + -------- + ------+--------- + ---------------+
+   | 6 bits | 1 bit | 2 bits   | 1 bit | 6 bits   | 8 bits         |
+
+
+                     Figure 10: Receiver-Abort format.
+
+   *SCHC acknowledge request*
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 12]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   | RuleID | DTag  | W      | FCN = b'0000000 |
+   + ------ + ----- + ------ + --------------- +
+   | 6 bits | 1 bit | 2 bits | 7 bits          |
+
+
+
+                      Figure 11: SCHC ACK REQ format.
+
+5.5.2.  Downlink fragmentation: From SCHC gateway to device
 
    In that case the device is the fragmentation receiver, and the SCHC
    gateway the fragmentation transmitter.  The following fields are
    common to all devices.
 
-   o  SCHC fragmentation reliability mode : ACK_ALWAYS
+   o  *SCHC fragmentation reliability mode*: ACK-Always.
 
-   o  Window size : 1 , The FCN field is encoded on 1 bits
+   o  *RuleID*: size is 6 bits (64 possible rules, 62 for compression).
 
-   o  DTag : 1bit.  This field is used to clearly separate two
-      consecutive fragmentation sessions.  A LoRaWAN device cannot
-      interleave several fragmented SCHC datagrams.
+   o  *Window index*: encoded on W=1 bit, as per
+      [I-D.ietf-lpwan-ipv6-static-context-hc].
 
-   o  MIC calculation algorithm: CRC32 using 0xEDB88320 (i.e. the
+   o  *DTag*: Not used, so its size is 0 bit.
+
+   o  *FCN*: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1
+      tile (FCN=All-1 is reserved for SCHC).
+
+   o  *MIC calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
       reverse representation of the polynomial used e.g. in the Ethernet
-      standard [RFC3385])
+      standard [RFC3385]), as per
+      [I-D.ietf-lpwan-ipv6-static-context-hc].
+
+   o  *MAX_ACK_REQUESTS*: 8
+
+   As only 1 tile is used, its size can change for each downlink, and
+   will be maximum available MTU minus header (1 byte)
+
+   _Note_: The Fpending bit included in LoRaWAN protocol SHOULD not be
+   used for SCHC-over-LoRaWAN protocol.  It might be set by the Network
+   Server for other purposes in but not SCHC needs.
+
+   *Regular fragments*
 
 
 
-Sornin, et al.          Expires December 7, 2019                [Page 9]
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-   o  MAX_ACK_REQUESTS : 8
-
-   | RuleID | DTag  | W     | FCN    | Payload           |
-   + ------ + ----- + ----- | ------ + ------- + ------- +
-   | 3 bits | 1 bit | 1 bit | 1 bits | X bytes + 2 bits  |
+   | RuleID | W     | FCN = b'0 | Payload |
+   + ------ + ----- + --------- + ------- +
+   | 6 bits | 1 bit | 1 bits    | X bytes |
 
 
-     Figure 8: All fragments but the last one.  Header size is 6 bits.
+     Figure 12: All fragments but the last one.  Header size 1 byte (8
+                                  bits).
 
-  | RuleID | DTag  | W     | FCN    | MIC     | Payload | Padding (0s) |
-  + ------ + ----- + ----- | ------ + ------- + ------- + ------------ +
-  | 3 bits | 1 bit | 1 bit | 1 bits | 32 bits | X bytes | 0 to 7 bits  |
+   *Last fragment (All-1)*
 
-
-      Figure 9: All-1 Fragment Detailed Format for the Last Fragment.
-                          Header size is 6 bits.
-
-   The format of an all-0 or all-1 acknowledge is:
-
-   | RuleID | DTag  | W     | Encoded bitmap | Padding (0s) |
-   + ------ + ----- + ----- | -------------- + ------------ +
-   | 3 bits | 1 bit | 1 bit | 1 bit          | 2 bits       |
+   | RuleID | W     | FCN = b'1 | MIC     | Payload           |
+   + ------ + ----- + --------- + ------- + ----------------- +
+   | 6 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
 
 
-     Figure 10: ACK format for All-0 windows.  Header size is 8 bits.
+     Figure 13: All-1 SCHC ACK detailed format for the last fragment.
 
-   | RuleID | DTag  | W     | C = 1 | Padding (0s) |
-   + ------ + ----- + ----- + ----- + ------------ +
-   | 3 bits | 1 bit | 1 bit | 1 bit | 2 bits       |
+   *SCHC acknowledge*
 
-
-   Figure 11: ACK format for All-1 windows, MIC is correct.  Header size
-                                is 8 bits.
-
-   | RuleID | DTag  | W     | b'111  | 0xFF (all 1's) |
-   + ------ + ----- + ----- + ------ + -------------- +
-   | 3 bits | 1 bit | 1 bit | 3 bits | 8 bits         |
+   | RuleID | W     | C = b'1 |
+   + ------ + ----- + ------- +
+   | 6 bits | 1 bit | 1 bit   |
 
 
-     Figure 12: Receiver ABORT packet (following an all-1 packet with
-                 incorrect MIC).  Header size is 16 bits.
+                Figure 14: SCHC ACK format, MIC is correct.
 
-   Class A and classB&C devices do not manage retransmissions and timers
-   in the same way.
+   *Receiver-Abort*
 
-
-
-
+   | RuleID | W    | C = b'0 | b'11111111 |
+   + ------ + ----- + ------- + ---------- +
+   | 6 bits | 1 bit | 1 bits  | 8 bits     |
 
 
+     Figure 15: Receiver-Abort packet (following an all-1 packet with
+                              incorrect MIC).
 
-Sornin, et al.          Expires December 7, 2019               [Page 10]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+   Class A and classB&C end-devices do not manage retransmissions and
+   timers in the same way.
 
+5.5.2.1.  ClassA end-devices
 
-5.4.2.1.  Class A devices
-
-   Class A devices can only receive in an RX slot following the
+   Class A end-devices can only receive in an RX slot following the
    transmission of an uplink.  Therefore there cannot be a concept of
-   "retransmission timer" for a gateway talking to classA devices for
-   downlink fragmentation.
+   "retransmission timer" for an SCHC gateway.  The SCHC gateway cannot
+   initiate communication to a classA end-device.
 
-   The device replies with an ACK fragment to every single fragment
-   received from the gateway (because the window size is 1).  Following
-   the reception of a FCN=0 fragment (fragment that is not the last
-   fragment of the packet or ACK-request), the device MUST transmit the
-   ACK fragment until it receives the fragment of the next window.  The
-   device shall transmit up to MAX_ACK_REQUESTS ACK fragments before
-   aborting.  The device should transmit those ACK as soon as possible
-   while taking into consideration eventual local radio regulation on
-   duty-cycle, to progress the fragmentation session as quickly as
-   possible.  The ACK bitmap is 1 bit long and is always 1.
+   The device replies with an ACK message to every single fragment
+   received from the SCHC gateway (because the window size is 1).
 
-   Following the reception of a FCN=1 fragment (the last fragment of a
-   datagram) and if the MIC is correct, the device shall transmit the
-   ACK with the "MIC is correct" indicator bit set.  This message might
-   be lost therefore the gateway may request a retransmission of this
-   ACK in the next downlink.  The device SHALL keep this ACK message in
-   memory until it receives a downlink from the gateway different from
-   an ACK-request indicating that the gateway has received the ACK
-   message.
 
-   Following the reception of a FCN=1 fragment (the last fragment of a
-   datagram) and if the MIC is NOT correct, the device shall transmit a
-   receiver-ABORT fragment.  The device SHALL keep this ABORT message in
-   memory until it receives a downlink from the gateway different from
-   an ACK-request indicating that the gateway has received the ABORT
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 14]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   Following the reception of a FCN=0 fragment (fragment that is not the
+   last fragment of the packet or ACK-request, but the end of a window),
+   the device MUST transmit the SCHC ACK fragment until it receives the
+   fragment of the next window.  The device shall transmit up to
+   MAX_ACK_REQUESTS ACK messages before aborting.  The device should
+   transmit those ACK as soon as possible while taking into
+   consideration potential local radio regulation on duty-cycle, to
+   progress the fragmentation session as quickly as possible.  The ACK
+   bitmap is 1 bit long and is always 1.
+
+   Following the reception of a FCN=All-1 fragment (the last fragment of
+   a datagram) and if the MIC is correct, the device shall transmit the
+   ACK with the "MIC is correct" indicator bit set (C=1).  This message
+   might be lost therefore the SCHC gateway may request a retransmission
+   of this ACK in the next downlink.  The device SHALL keep this ACK
+   message in memory until it receives a downlink, on SCHC FPortDown
+   from the SCHC gateway different from an ACK-request: it indicates
+   that the SCHC gateway has received the ACK message.
+
+   Following the reception of a FCN=All-1 fragment (the last fragment of
+   a datagram), if all fragments have been received and the MIC is NOT
+   correct, the device shall transmit a Receiver-Abort fragment.  The
+   device SHALL keep this Abort message in memory until it receives a
+   downlink, on SCHC FPortDown, from the SCHC gateway different from an
+   ACK-request indicating that the SCHC gateway has received the Abort
    message.  The fragmentation receiver (device) does not implement
    retransmission timer and inactivity timer.
 
-   The fragmentation sender (the gateway) implements an inactivity timer
-   with default duration 12 hours.  Once a fragmentation session is
-   started, if the gateway has not received any ACK or receiver-ABORT
-   message 12 hours after the last message from the device was received,
-   the gateway may flush the fragmentation context.  For devices with
-   very low transmission rates (example 1 packet a day in normal
-   operation) , that duration may be extended, but this is application
-   specific.
+   The fragmentation sender (the SCHC gateway) implements an inactivity
+   timer with default duration of 12 hours.  Once a fragmentation
+   session is started, if the SCHC gateway has not received any ACK or
+   Receiver-Abort message 12 hours after the last message from the
+   device was received, the SCHC gateway may flush the fragmentation
+   context.  For devices with very low transmission rates (example 1
+   packet a day in normal operation) , that duration may be extended,
+   but this is application specific.
+
+5.5.2.2.  Class B or C end-devices
+
+   Class B&C end-devices can receive in scheduled RX slots or in RX
+   slots following the transmission of an uplink.  The device replies
+   with an ACK message to every single fragment received from the SCHC
+   gateway (because the window size is 1).  Following the reception of a
+   FCN=0 fragment (fragment that is not the last fragment of the packet
+   or ACK-request), the device MUST always transmit the corresponding
+   SCHC ACK message even if that fragment has already been received.
+   The ACK bitmap is 1 bit long and is always 1.  If the SCHC gateway
+   receives this ACK, it proceeds to send the next window fragment.  If
 
 
 
-
-
-
-
-
-Sornin, et al.          Expires December 7, 2019               [Page 11]
+Gimenez & Petrov        Expires December 28, 2019              [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-5.4.2.2.  Class B or C devices
+   the retransmission timer elapses and the SCHC gateway has not
+   received the ACK of the current window it retransmits the last
+   fragment.  The SCHC gateway tries retransmitting up to
+   MAX_ACK_REQUESTS times before aborting.
 
-   Class B&C devices can receive in scheduled RX slots or in RX slots
-   following the transmission of an uplink.  The device replies with an
-   ACK fragment to every single fragment received from the gateway
-   (because the window size is 1).  Following the reception of a FCN=0
-   fragment (fragment that is not the last fragment of the packet or
-   ACK-request), the device MUST always transmit the corresponding ACK
-   fragment even if that fragment has already been received.  The ACK
-   bitmap is 1 bit long and is always 1.  If the gateway receives this
-   ACK, it proceeds to send the next window fragment If the
-   retransmission timer elapses and the gateway has not received the ACK
-   of the current window it retransmits the last fragment.  The gateway
-   tries retransmitting up to MAX_ACK_REQUESTS times before aborting.
-
-   Following the reception of a FCN=1 fragment (the last fragment of a
-   datagram) and if the MIC is correct, the device shall transmit the
-   ACK with the "MIC is correct" indicator bit set.  If the gateway
+   Following the reception of a FCN=All-1 fragment (the last fragment of
+   a datagram) and if the MIC is correct, the device shall transmit the
+   ACK with the "MIC is correct" indicator bit set.  If the SCHC gateway
    receives this ACK, the current fragmentation session has succeeded
    and its context can be cleared.
 
-   If the retransmission timer elapses and the gateway has not received
-   the all-1 ACK it retransmits the last fragment with the payload (not
-   an ACK-request without payload).  The gateway tries retransmitting up
-   to MAX_ACK_REQUESTS times before aborting.
+   If the retransmission timer elapses and the SCHC gateway has not
+   received the SCHC ACK it retransmits the last fragment with the
+   payload (not an ACK-request without payload).  The SCHC gateway tries
+   retransmitting up to MAX_ACK_REQUESTS times before aborting.
 
-   The device SHALL keep the all-1 ACK message in memory until it
-   receives a downlink from the gateway different from the last (FCN=1)
-   fragment indicating that the gateway has received the ACK message.
-   Following the reception of a FCN=1 fragment (the last fragment of a
-   datagram) and if the MIC is NOT correct, the device shall transmit a
-   receiver-ABORT fragment.  The retransmission timer is used by the
-   gateway (the sender), the optimal value is very much application
-   specific but here are some recommended default values.  For classB
-   devices, this timer trigger is a function of the periodicity of the
-   classB ping slots.  The recommended value is equal to 3 times the
-   classB ping slot periodicity.  For classC devices which are nearly
-   constantly receiving, the recommended value is 30 seconds.  This
-   means that the device shall try to transmit the ACK within 30 seconds
-   of the reception of each fragment.  The inactivity timer is
-   implemented by the device to flush the context in-case it receives
-   nothing from the gateway over an extended period of time.  The
-   recommended value is 12 hours for both classB&C devices.
+   The device SHALL keep the SCHC ACK message in memory until it
+   receives a downlink from the SCHC gateway different from the last
+   (FCN>0 and different DTag) fragment indicating that the SCHC gateway
+   has received the ACK message.
 
-
-
-
-
-
-
-
-Sornin, et al.          Expires December 7, 2019               [Page 12]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
+   Following the reception of a FCN=All-1 fragment (the last fragment of
+   a datagram), if all fragments have been received and if the MIC is
+   NOT correct, the device shall transmit a Receiver-Abort fragment.
+   The retransmission timer is used by the SCHC gateway (the sender),
+   the optimal value is very much application specific but here are some
+   recommended default values.  For classB end-devices, this timer
+   trigger is a function of the periodicity of the classB ping slots.
+   The recommended value is equal to 3 times the classB ping slot
+   periodicity.  For classC end-devices which are nearly constantly
+   receiving, the recommended value is 30 seconds.  This means that the
+   end-device shall try to transmit the ACK within 30 seconds of the
+   reception of each fragment.  The inactivity timer is implemented by
+   the end-device to flush the context in-case it receives nothing from
+   the SCHC gateway over an extended period of time.  The recommended
+   value is 12 hours for both classB&C end-devices.
 
 6.  Security considerations
 
-   As this document is only providing parameters that are expected to be
+   This document is only providing parameters that are expected to be
    better suited for LoRaWAN networks for
    [I-D.ietf-lpwan-ipv6-static-context-hc].  As such, this parameters
    does not contribute to any new security issues in addition of those
    identified in [I-D.ietf-lpwan-ipv6-static-context-hc].
 
-7.  Acknowledgements
 
-   TBD
 
-8.  References
 
-8.1.  Normative References
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 16]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+Acknowledgements
+
+   Thanks to all those listed in the Contributors section for the
+   excellent text, insightful discussions, reviews and suggestions.
+
+Contributors
+
+   Contributors ordered by family name.
+
+   o  ins: V.  Audebert name: Vincent AUDEBERT org: EDF R&D street: 7 bd
+      Gaspard Monge city: 91120 PALAISEAU country: FRANCE email:
+      vincent.audebert@edf.fr
+
+   o  ins: J.  Catalano name: Julien Catalano org: Kerlink street: 1 rue
+      Jacqueline Auriol city: 35235 Thorigne-Fouillard country: France
+      email: j.catalano@kerlink.fr
+
+   o  ins: M.  Coracin name: Michael Coracin org: Semtech street: 14
+      Chemin des Clos city: Meylan country: France email:
+      mcoracin@semtech.com
+
+   o  ins: M.  Le Gourrierec name: Marc Le Gourrierec org: SagemCom
+      street: 250 Route de l'Empereur city: 92500 Rueil Malmaison
+      country: FRANCE email: marc.legourrierec@sagemcom.com
+
+   o  ins: N.  Sornin name: Nicolas Sornin org: Semtech street: 14
+      Chemin des Clos city: Meylan country: France email:
+      nsornin@semtech.com
+
+   o  ins: A.  Yegin name: Alper Yegin org: Actility street: .  city:
+      Paris, Paris country: France email: alper.yegin@actility.com
+
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -700,6 +944,19 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
               Cyclic Redundancy Check (CRC)/Checksum Considerations",
               RFC 3385, DOI 10.17487/RFC3385, September 2002,
               <https://www.rfc-editor.org/info/rfc3385>.
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 17]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
+              Architecture", RFC 4291, DOI 10.17487/RFC4291, February
+              2006, <https://www.rfc-editor.org/info/rfc4291>.
 
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -715,20 +972,11 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
               Interface Identifiers", RFC 7136, DOI 10.17487/RFC7136,
               February 2014, <https://www.rfc-editor.org/info/rfc7136>.
 
-8.2.  Informative References
+   [RFC8376]  Farrell, S., Ed., "Low-Power Wide Area Network (LPWAN)
+              Overview", RFC 8376, DOI 10.17487/RFC8376, May 2018,
+              <https://www.rfc-editor.org/info/rfc8376>.
 
-
-
-
-
-
-
-
-
-Sornin, et al.          Expires December 7, 2019               [Page 13]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
+9.2.  Informative References
 
    [I-D.ietf-lpwan-ipv6-static-context-hc]
               Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and J.
@@ -737,41 +985,144 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
               ipv6-static-context-hc-18 (work in progress), December
               2018.
 
-   [I-D.ietf-lpwan-overview]
-              Farrell, S., "LPWAN Overview", draft-ietf-lpwan-
-              overview-10 (work in progress), February 2018.
-
    [lora-alliance-spec]
-              Alliance, L., "LoRaWAN Specification Version V1.0.2",
-              <http://portal.lora-
-              alliance.org/DesktopModules/Inventures_Document/
-              FileDownload.aspx?ContentID=1398>.
+              Alliance, L., "LoRaWAN Specification Version V1.0.3",
+              <https://lora-alliance.org/sites/default/files/2018-07/
+              lorawan1.0.3.pdf>.
 
 Appendix A.  Examples
+
+A.1.  Uplink - Compression example - No fragmentation
+
+   Figure 16 is representing an applicative payload going through SCHC,
+   no fragmentation required
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+An applicative payload of 78 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  38 bytes |
+
+
+The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+fragmentation. The payload will be transmitted through FPortUpDefault
+
+
+| LoRaWAN Header | RuleID | Compression residue |  Payload  |
++ -------------- + ------ + ------------------- + --------- +
+|       XXXX     |   1    |       18 bits       |  38 bytes |
+
+
+       Figure 16: Uplink example: compression without fragmentation
+
+A.2.  Uplink - Compression and fragmentation example
+
+   Figure 17 is representing an applicative payload going through SCHC,
+   with fragmentation.
+
+An applicative payload of 478 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       | 138 bytes |
+
+
+Given the size of the payload, FPortUpDefault will be used.
+The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload.
+SCHC header is 2 bytes so 2 tiles are send in first fragment.
+
+| LoRaWAN Header |  FOpts  | RuleID | DTag  |   W    |  FCN   | 2 tiles |
++ -------------- + ------- + ------ + ----- + ------ + ------ + ------- +
+|       XXXX     | 2 bytes |   0    |   0   |   0    |  126   | 6 bytes |
+
+Content of the two tiles is:
+| RuleID | Compression residue |  Payload  |
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 19]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
++ ------ + ------------------- + --------- +
+|   1    |       18 bits       |  3 bytes  |
+
+
+Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   | 80 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + --------- +
+|       XXXX     |   0    |   0   |   0    |  124   | 240 bytes |
+
+
+Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
+transmitted, last tile is only 2 bytes.
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  |
++ -------------- + ------ + ----- + ------ + ------ + ----- + --------- +
+|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |
+
+
+All packets have been received by the SCHC gateway, computed MIC is correct so
+the following ACK is send to the device:
+
+| LoRaWAN Header | RuleID | DTag  |   W    |  C  |
++ -------------- + ------ + ----- + ------ + --- +
+|       XXXX     |   0    |   0   |   0    |  1  |
+
+
+         Figure 17: Uplink example: compression and fragmentation
+
+A.3.  Downlink
+
+   TODO
 
 Appendix B.  Note
 
 Authors' Addresses
 
-   Nicolas Sornin (editor)
+   Olivier Gimenez (editor)
    Semtech
    14 Chemin des Clos
    Meylan
    France
 
-   Email: nsornin@semtech.com
+   Email: ogimenez@semtech.com
 
 
-   Michael Coracin
-   Semtech
-   14 Chemin des Clos
-   Meylan
-   France
-
-   Email: mcoracin@semtech.com
 
 
-   Ivaylo Petrov
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 20]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   Ivaylo Petrov (editor)
    Acklio
    2bis rue de la Chataigneraie
    35510 Cesson-Sevigne Cedex
@@ -781,36 +1132,6 @@ Authors' Addresses
 
 
 
-Sornin, et al.          Expires December 7, 2019               [Page 14]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
-   Alper Yegin
-   Actility
-   .
-   Paris, Paris
-   France
-
-   Email: alper.yegin@actility.com
-
-
-   Julien Catalano
-   Kerlink
-   1 rue Jacqueline Auriol
-   35235 Thorigne-Fouillard
-   France
-
-   Email: j.catalano@kerlink.fr
-
-
-   Vincent AUDEBERT
-   EDF R&D
-   7 bd Gaspard Monge
-   91120 PALAISEAU
-   FRANCE
-
-   Email: vincent.audebert@edf.fr
 
 
 
@@ -837,4 +1158,19 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 7, 2019               [Page 15]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 21]
