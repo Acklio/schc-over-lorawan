@@ -2,21 +2,11 @@
 
 
 
-lpwan Working Group                                       N. Sornin, Ed.
-Internet-Draft                                                M. Coracin
-Intended status: Informational                                O. Gimenez
-Expires: December 23, 2019                                       Semtech
-                                                               I. Petrov
-                                                                  Acklio
-                                                                A. Yegin
-                                                                Actility
-                                                             J. Catalano
-                                                                 Kerlink
-                                                             V. Audebert
-                                                                 EDF R&D
-                                                        M. Le Gourrierec
-                                                                SagemCom
-                                                           June 21, 2019
+lpwan Working Group                                      O. Gimenez, Ed.
+Internet-Draft                                                   Semtech
+Intended status: Informational                            I. Petrov, Ed.
+Expires: December 28, 2019                                        Acklio
+                                                           June 26, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -49,14 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 23, 2019.
-
-
-
-Sornin, et al.          Expires December 23, 2019               [Page 1]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
+   This Internet-Draft will expire on December 28, 2019.
 
 Copyright Notice
 
@@ -67,6 +50,14 @@ Copyright Notice
    Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 1]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
@@ -75,7 +66,7 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Static Context Header Compression Overview  . . . . . . . . .   3
    4.  LoRaWAN Architecture  . . . . . . . . . . . . . . . . . . . .   5
@@ -92,27 +83,17 @@ Table of Contents
        5.5.1.  Uplink fragmentation: From device to SCHC gateway . .  10
        5.5.2.  Downlink fragmentation: From SCHC gateway to device .  13
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  16
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  17
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  18
      A.1.  Uplink - Compression example - No fragmentation . . . . .  18
-     A.2.  Uplink - Compression and fragmentation example  . . . . .  18
+     A.2.  Uplink - Compression and fragmentation example  . . . . .  19
      A.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . . . .  20
    Appendix B.  Note . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
-
-
-
-
-
-
-
-Sornin, et al.          Expires December 23, 2019               [Page 2]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
 
 1.  Introduction
 
@@ -125,6 +106,13 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    devices with mostly quite predictable communications, etc; they do
    have some slight differences in respect of payload sizes,
    reactiveness, etc.
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 2]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
    SCHC gives a generic framework that enables those devices to
    communicate with other Internet networks.  However, for efficient
@@ -162,19 +150,25 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    Static Context Header Compression (SCHC) avoids context
    synchronization, based on the fact that the nature of data flows is
    highly predictable in LPWAN networks, some static contexts may be
-
-
-
-Sornin, et al.          Expires December 23, 2019               [Page 3]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
    stored on the Device (Dev).  The contexts must be stored in both
    ends, and it can either be learned by a provisioning protocol or by
    out-of-band means or it can be pre-provisioned, etc.  The way the
    context is learned on both sides is out of the scope of this
    document.
+
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 3]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
           Dev                                               App
   +----------------+                                +----+ +----+ +----+
@@ -197,17 +191,16 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    applications flows using IPv6 or IPv6/UDP protocols.  These flow
    might be fragemented (SCHC F/R), and compressed by an Static Context
    Header Compression Compressor/Decompressor (SCHC C/D) to reduce
-   headers size.
-   Resulting information is sent on a layer two (L2) frame to a LPWAN
-   Radio Network (RG) which forwards the frame to a Network Gateway
-   (NGW).  The NGW sends the data to a SCHC F/R for defragmentation, if
-   required, then C/D for decompression which shares the same rules with
-   the device.  The SCHC F/R and C/D can be located on the Network
-   Gateway (NGW) or in another place as long as a tunnel is established
-   between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D.  The
-   SCHC C/D in both sides must share the same set of Rules.  After
-   decompression, the packet can be sent on the Internet to one or
-   several LPWAN Application Servers (App).
+   headers size.  Resulting information is sent on a layer two (L2)
+   frame to a LPWAN Radio Network (RG) which forwards the frame to a
+   Network Gateway (NGW).  The NGW sends the data to a SCHC F/R for
+   defragmentation, if required, then C/D for decompression which shares
+   the same rules with the device.  The SCHC F/R and C/D can be located
+   on the Network Gateway (NGW) or in another place as long as a tunnel
+   is established between the NGW and the SCHC F/R, then SCHC F/R and
+   SCHC C/D.  The SCHC C/D in both sides must share the same set of
+   Rules.  After decompression, the packet can be sent on the Internet
+   to one or several LPWAN Application Servers (App).
 
    The SCHC F/R and SCHC C/D process is bidirectional, so the same
    principles can be applied in the other direction.
@@ -221,7 +214,14 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 4]
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 5]
+Gimenez & Petrov        Expires December 28, 2019               [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 6]
+Gimenez & Petrov        Expires December 28, 2019               [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -353,18 +353,17 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    different end-devices.  End-devices using the same devAddr are
    distinguish by the Network Server based on the cryptographic
    signature appended to every single LoRaWAN MAC frame, as all end-
-   devices use different security keys.
-   To communicate with the SCHC gateway the Network Server MUST identify
-   the end-devices by a unique 64bits device ID called the devEUI.
-   Unlike devAddr, devEUI is guaranteed to be unique for every single
-   end-device across all networks.
-   The devEUI is assigned to the end-device during the manufacturing
-   process by the end-device's manufacturer.  It is built like an
-   Ethernet MAC address by concatenating the manufacturer's IEEE OUI
-   field with a vendor unique number.  ex: 24bits OUI is concatenated
-   with a 40 bits serial number.  The Network Server translates the
-   devAddr into a devEUI in the uplink direction and reciprocally on the
-   downlink direction.
+   devices use different security keys.  To communicate with the SCHC
+   gateway the Network Server MUST identify the end-devices by a unique
+   64bits device ID called the devEUI.  Unlike devAddr, devEUI is
+   guaranteed to be unique for every single end-device across all
+   networks.  The devEUI is assigned to the end-device during the
+   manufacturing process by the end-device's manufacturer.  It is built
+   like an Ethernet MAC address by concatenating the manufacturer's IEEE
+   OUI field with a vendor unique number.  ex: 24bits OUI is
+   concatenated with a 40 bits serial number.  The Network Server
+   translates the devAddr into a devEUI in the uplink direction and
+   reciprocally on the downlink direction.
 
 +--------+         +----------+        +---------+            +----------+
 | End-   | <=====> | Network  | <====> | SCHC    | <========> | Internet |
@@ -389,7 +388,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 7]
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -419,16 +419,15 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    A fragmentation session with application payload transferred from
    device to server, is called uplink fragmentation session.  It uses
    FPortUpShort or FPortUpDefault for data uplink and its associated
-   SCHC control downlinks.
-   The other way, a fragmentation session with application payload
-   transferred from server to device, is called downlink fragmentation
-   session.  It uses FPortDown for data downlink and its associated SCHC
-   control uplinks.
+   SCHC control downlinks.  The other way, a fragmentation session with
+   application payload transferred from server to device, is called
+   downlink fragmentation session.  It uses FPortDown for data downlink
+   and its associated SCHC control uplinks.
 
    FPorts can use arbitrary values inside the allowed FPort range and
    must be shared by the end-device, the Network Server and SCHC
-   gateway.  The uplink and downlink SCHC ports must be different.
-   In order to improve interoperability, it is recommended to use:
+   gateway.  The uplink and downlink SCHC ports must be different.  In
+   order to improve interoperability, it is recommended to use:
 
    o  FPortUpShort = 20
 
@@ -445,7 +444,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 8]
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -473,15 +473,14 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 5.3.  IID computation
 
    As LoRaWAN network uses unique EUI-64 per end-device, the Interface
-   IDentifier is the LoRaWAN DevEUI.
-   It is compliant with [RFC4291] and IID starting with binary 000 must
-   enforce the 64-bits rule.  TODO: Derive IID from DevEUI with privacy
-   constraints ? Ask working group ?
+   IDentifier is the LoRaWAN DevEUI.  It is compliant with [RFC4291] and
+   IID starting with binary 000 must enforce the 64-bits rule.  TODO:
+   Derive IID from DevEUI with privacy constraints ? Ask working group ?
 
 5.4.  Fragmentation
 
-   The L2 word size used by LoRaWAN is 1 byte (8 bits).
-   The SCHC fragmentation over LoRaWAN uses the ACK-on-Error for uplink
+   The L2 word size used by LoRaWAN is 1 byte (8 bits).  The SCHC
+   fragmentation over LoRaWAN uses the ACK-on-Error for uplink
    fragmentation and Ack-Always for downlink fragmentation.  A LoRaWAN
    end-device cannot support simultaneous interleaved fragmentation
    sessions in the same direction (uplink or downlink).  This means that
@@ -501,7 +500,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019               [Page 9]
+
+Gimenez & Petrov        Expires December 28, 2019               [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -513,8 +513,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 5.5.1.  Uplink fragmentation: From device to SCHC gateway
 
    In that case the device is the fragmentation transmitter, and the
-   SCHC gateway the fragmentation receiver.
-   Two fragmentation rules are defined regarding the *FPort*:
+   SCHC gateway the fragmentation receiver.  Two fragmentation rules are
+   defined regarding the *FPort*:
 
    o  *FPortUpShort*: SCHC header is only one byte.  Used when
       fragmentation is required and payload size is less than 381 bytes.
@@ -546,24 +546,24 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
       implement a "retransmission timer".  At the end of a window or a
       fragmentation session, corresponding ACK(s) is (are) transmitted
       by the network gateway (LoRaWAN application server) in the RX1 or
-      RX2 receive slot of end-device.
-      If this ACK is not received the end-device sends an all-0 (or an
-      all-1) fragment with no payload to request an SCHC ACK
-      retransmission.  The periodicity between retransmission of the
-      all-0/all-1 fragments is device/application specific and may be
-      different for each device (not specified).  The SCHC gateway
-      implements an "inactivity timer".  The default recommended
+      RX2 receive slot of end-device.  If this ACK is not received the
+      end-device sends an all-0 (or an all-1) fragment with no payload
+      to request an SCHC ACK retransmission.  The periodicity between
+      retransmission of the all-0/all-1 fragments is device/application
+      specific and may be different for each device (not specified).
+      The SCHC gateway implements an "inactivity timer".  The default
+      recommended duration of this timer is 12 hours.  This value is
 
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 10]
+Gimenez & Petrov        Expires December 28, 2019              [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-      duration of this timer is 12 hours.  This value is mainly driven
-      by application requirements and may be changed by the application.
+      mainly driven by application requirements and may be changed by
+      the application.
 
    *The following fields are different:*
 
@@ -581,8 +581,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    o  *Window index*: encoded on W = 0 bit, not used
 
    With this set of parameters, the SCHC fragment header overhead is 1
-   byte (8 bits).
-   MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
+   byte (8 bits).  MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 
    *Regular fragments*
 
@@ -613,14 +612,15 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 11]
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
    With this set of parameters, the SCHC fragment header overhead is 2
-   bytes (16 bits).
-   MTU is: _4 windows * 127 tiles * 3 bytes per tile = 1524 bytes_
+   bytes (16 bits).  MTU is: _4 windows * 127 tiles * 3 bytes per tile =
+   1524 bytes_
 
    _Note_: Even if it is less efficient, this rule can also be used for
    fragmented payload size less than 382 bytes.
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 12]
+Gimenez & Petrov        Expires December 28, 2019              [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 13]
+Gimenez & Petrov        Expires December 28, 2019              [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 14]
+Gimenez & Petrov        Expires December 28, 2019              [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 15]
+Gimenez & Petrov        Expires December 28, 2019              [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
@@ -868,17 +868,16 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
    NOT correct, the device shall transmit a Receiver-Abort fragment.
    The retransmission timer is used by the SCHC gateway (the sender),
    the optimal value is very much application specific but here are some
-   recommended default values.
-   For classB end-devices, this timer trigger is a function of the
-   periodicity of the classB ping slots.  The recommended value is equal
-   to 3 times the classB ping slot periodicity.  For classC end-devices
-   which are nearly constantly receiving, the recommended value is 30
-   seconds.  This means that the end-device shall try to transmit the
-   ACK within 30 seconds of the reception of each fragment.  The
-   inactivity timer is implemented by the end-device to flush the
-   context in-case it receives nothing from the SCHC gateway over an
-   extended period of time.  The recommended value is 12 hours for both
-   classB&C end-devices.
+   recommended default values.  For classB end-devices, this timer
+   trigger is a function of the periodicity of the classB ping slots.
+   The recommended value is equal to 3 times the classB ping slot
+   periodicity.  For classC end-devices which are nearly constantly
+   receiving, the recommended value is 30 seconds.  This means that the
+   end-device shall try to transmit the ACK within 30 seconds of the
+   reception of each fragment.  The inactivity timer is implemented by
+   the end-device to flush the context in-case it receives nothing from
+   the SCHC gateway over an extended period of time.  The recommended
+   value is 12 hours for both classB&C end-devices.
 
 6.  Security considerations
 
@@ -893,18 +892,47 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 16]
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
-7.  Acknowledgements
+Acknowledgements
 
-   TBD
+   Thanks to all those listed in the Contributors section for the
+   excellent text, insightful discussions, reviews and suggestions.
 
-8.  References
+Contributors
 
-8.1.  Normative References
+   Contributors ordered by family name.
+
+   o  ins: V.  Audebert name: Vincent AUDEBERT org: EDF R&D street: 7 bd
+      Gaspard Monge city: 91120 PALAISEAU country: FRANCE email:
+      vincent.audebert@edf.fr
+
+   o  ins: J.  Catalano name: Julien Catalano org: Kerlink street: 1 rue
+      Jacqueline Auriol city: 35235 Thorigne-Fouillard country: France
+      email: j.catalano@kerlink.fr
+
+   o  ins: M.  Coracin name: Michael Coracin org: Semtech street: 14
+      Chemin des Clos city: Meylan country: France email:
+      mcoracin@semtech.com
+
+   o  ins: M.  Le Gourrierec name: Marc Le Gourrierec org: SagemCom
+      street: 250 Route de l'Empereur city: 92500 Rueil Malmaison
+      country: FRANCE email: marc.legourrierec@sagemcom.com
+
+   o  ins: N.  Sornin name: Nicolas Sornin org: Semtech street: 14
+      Chemin des Clos city: Meylan country: France email:
+      nsornin@semtech.com
+
+   o  ins: A.  Yegin name: Alper Yegin org: Actility street: .  city:
+      Paris, Paris country: France email: alper.yegin@actility.com
+
+9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -916,6 +944,15 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
               Cyclic Redundancy Check (CRC)/Checksum Considerations",
               RFC 3385, DOI 10.17487/RFC3385, September 2002,
               <https://www.rfc-editor.org/info/rfc3385>.
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 17]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
               Architecture", RFC 4291, DOI 10.17487/RFC4291, February
@@ -939,20 +976,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
               Overview", RFC 8376, DOI 10.17487/RFC8376, May 2018,
               <https://www.rfc-editor.org/info/rfc8376>.
 
-8.2.  Informative References
-
-
-
-
-
-
-
-
-
-Sornin, et al.          Expires December 23, 2019              [Page 17]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
+9.2.  Informative References
 
    [I-D.ietf-lpwan-ipv6-static-context-hc]
               Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and J.
@@ -972,6 +996,19 @@ A.1.  Uplink - Compression example - No fragmentation
 
    Figure 16 is representing an applicative payload going through SCHC,
    no fragmentation required
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
 
 An applicative payload of 78 bytes is passed to SCHC compression layer using
 rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
@@ -1002,14 +1039,6 @@ A.2.  Uplink - Compression and fragmentation example
 
 An applicative payload of 478 bytes is passed to SCHC compression layer using
 rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
-
-
-
-Sornin, et al.          Expires December 23, 2019              [Page 18]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
 payload.
 
 
@@ -1029,6 +1058,14 @@ SCHC header is 2 bytes so 2 tiles are send in first fragment.
 
 Content of the two tiles is:
 | RuleID | Compression residue |  Payload  |
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 19]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
 + ------ + ------------------- + --------- +
 |   1    |       18 bits       |  3 bytes  |
 
@@ -1058,14 +1095,6 @@ the following ACK is send to the device:
 
          Figure 17: Uplink example: compression and fragmentation
 
-
-
-
-Sornin, et al.          Expires December 23, 2019              [Page 19]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
 A.3.  Downlink
 
    TODO
@@ -1074,25 +1103,7 @@ Appendix B.  Note
 
 Authors' Addresses
 
-   Nicolas Sornin (editor)
-   Semtech
-   14 Chemin des Clos
-   Meylan
-   France
-
-   Email: nsornin@semtech.com
-
-
-   Michael Coracin
-   Semtech
-   14 Chemin des Clos
-   Meylan
-   France
-
-   Email: mcoracin@semtech.com
-
-
-   Olivier Gimenez
+   Olivier Gimenez (editor)
    Semtech
    14 Chemin des Clos
    Meylan
@@ -1101,7 +1112,17 @@ Authors' Addresses
    Email: ogimenez@semtech.com
 
 
-   Ivaylo Petrov
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 20]
+
+Internet-Draft              SCHC-over-LoRaWAN                  June 2019
+
+
+   Ivaylo Petrov (editor)
    Acklio
    2bis rue de la Chataigneraie
    35510 Cesson-Sevigne Cedex
@@ -1117,45 +1138,6 @@ Authors' Addresses
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 20]
-
-Internet-Draft              SCHC-over-LoRaWAN                  June 2019
-
-
-   Alper Yegin
-   Actility
-   .
-   Paris, Paris
-   France
-
-   Email: alper.yegin@actility.com
-
-
-   Julien Catalano
-   Kerlink
-   1 rue Jacqueline Auriol
-   35235 Thorigne-Fouillard
-   France
-
-   Email: j.catalano@kerlink.fr
-
-
-   Vincent AUDEBERT
-   EDF R&D
-   7 bd Gaspard Monge
-   91120 PALAISEAU
-   FRANCE
-
-   Email: vincent.audebert@edf.fr
-
-
-   Marc Le Gourrierec
-   SagemCom
-   250 Route de l'Empereur
-   92500 Rueil Malmaison
-   FRANCE
-
-   Email: marc.legourrierec@sagemcom.com
 
 
 
@@ -1173,4 +1155,22 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2019
 
 
 
-Sornin, et al.          Expires December 23, 2019              [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov        Expires December 28, 2019              [Page 21]
