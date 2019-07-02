@@ -747,13 +747,13 @@ going through SCHC, no fragmentation required
 ~~~~
 
 An applicative payload of 78 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
+rule 1, allowing to compress it to 40 bytes and 5 bits: 21 bits residue + 38 bytes
 payload.
 
 
-| RuleID | Compression residue |  Payload  |
-+ ------ + ------------------- + --------- +
-|   1    |       18 bits       |  38 bytes |
+| RuleID | Compression residue |  Payload  | Padding=0b000 |
++ ------ + ------------------- + --------- + ------------- +
+|   1    |       21 bits       |  38 bytes |    3 bits     |
 
 
 The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
@@ -761,9 +761,9 @@ LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
 fragmentation. The payload will be transmitted through FPortUpDefault
 
 
-| LoRaWAN Header | RuleID | Compression residue |  Payload  |
-+ -------------- + ------ + ------------------- + --------- +
-|       XXXX     |   1    |       18 bits       |  38 bytes |
+| LoRaWAN Header | RuleID | Compression residue |  Payload  | Padding=b’000 |
++ -------------- + ------ + ------------------- + --------- + ------------- +
+|       XXXX     |   1    |       21 bits       |  38 bytes |    3 bits     |
 
 ~~~~
 {: #Fig-example-uplink-no-fragmentation title='Uplink example: compression without fragmentation'}
