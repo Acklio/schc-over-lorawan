@@ -437,9 +437,9 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 
 ~~~~
 
-| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
+| DTag  | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ----- + ----- + ------------------------- + ------------ +
+| 1 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 ~~~~
 {: #Fig-fragmentation-header-short-schc-ack title='SCHC ACK format, failed mic check.'}
