@@ -827,6 +827,89 @@ the following ACK is send to the device:
 
 ## Downlink
 
-TODO
+
+~~~~
+
+An applicative payload of 43 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 24 bytes and 5 bits: 21 bits residue + 22 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       21 bits       |  18 bytes |
+
+
+The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload => it has to be fragmented.
+
+
+| LoRaWAN Header |  FOpts  | RuleID |   W    |  FCN   | 1 tile  |
++ -------------- + ------- + ------ + ------ + ------ + ------- +
+|       XXXX     | 2 bytes |   0    |   0    |   0    | 8 bytes |
+
+Content of the two tiles is:
+| RuleID | Compression residue |        Payload     |
++ ------ + ------------------- + ------------------ +
+|   1    |       21 bits       |  2 bytes + 5 bits  |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 0 | C = b’1 |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The second downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   1    |   0    | 10 bytes |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 1 | C = b’1 |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The third downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   0    |   0    | 10 bytes |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 0 |  C = 1  |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The last downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   1    |   1    | 2 bytes  |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 1 |  C = 1  |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+~~~~
+{: #Fig-example-downlink-fragmentation title='Downlink example: compression and fragmentation'}
 
 # Note
