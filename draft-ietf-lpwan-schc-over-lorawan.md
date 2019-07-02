@@ -776,13 +776,13 @@ going through SCHC, with fragmentation.
 ~~~~
 
 An applicative payload of 478 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
+rule 1, allowing to compress it to 440 bytes: 21 bits residue + 138 bytes
 payload.
 
 
 | RuleID | Compression residue |  Payload  |
 + ------ + ------------------- + --------- +
-|   1    |       18 bits       | 138 bytes |
+|   1    |       21 bits       | 138 bytes |
 
 
 Given the size of the payload, FPortUpDefault will be used.
@@ -795,9 +795,9 @@ SCHC header is 2 bytes so 2 tiles are send in first fragment.
 |       XXXX     | 2 bytes |   0    |   0   |   0    |  126   | 6 bytes |
 
 Content of the two tiles is:
-| RuleID | Compression residue |  Payload  |
-+ ------ + ------------------- + --------- +
-|   1    |       18 bits       |  3 bytes  |
+| RuleID | Compression residue |  Payload           |
++ ------ + ------------------- + ------------------ +
+|   1    |       21 bits       |  2 bytes + 5 bits  |
 
 
 Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
@@ -808,11 +808,11 @@ Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
 
 
 Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
-transmitted, last tile is only 2 bytes.
+transmitted, last tile is only 2 bytes. Padding is added for the remaining 6 bits.
 
-| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  |
-+ -------------- + ------ + ----- + ------ + ------ + ----- + --------- +
-|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  | Padding=b’000 |
++ -------------- + ------ + ----- + ------ + ------ + ----- + --------- + ---------------- +
+|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |     3 bits       |
 
 
 All packets have been received by the SCHC gateway, computed MIC is correct so
