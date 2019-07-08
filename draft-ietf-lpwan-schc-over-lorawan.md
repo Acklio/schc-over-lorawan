@@ -437,9 +437,9 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 
 ~~~~
 
-| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) | Padding (0s) |
-+ ------ + ----- + ----- + ----- + ------------------------- + ------------ +
-| 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
+| DTag  | C     | Encoded bitmap (if C = 0) | Padding (0s) |
++ ----- + ----- + ------------------------- + ------------ +
+| 1 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 ~~~~
 {: #Fig-fragmentation-header-short-schc-ack title='SCHC ACK format, failed mic check.'}
@@ -747,13 +747,13 @@ going through SCHC, no fragmentation required
 ~~~~
 
 An applicative payload of 78 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 40 bytes: 2 bytes residue + 38 bytes
+rule 1, allowing to compress it to 40 bytes and 5 bits: 21 bits residue + 38 bytes
 payload.
 
 
-| RuleID | Compression residue |  Payload  |
-+ ------ + ------------------- + --------- +
-|   1    |       18 bits       |  38 bytes |
+| RuleID | Compression residue |  Payload  | Padding=0b000 |
++ ------ + ------------------- + --------- + ------------- +
+|   1    |       21 bits       |  38 bytes |    3 bits     |
 
 
 The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
@@ -761,9 +761,9 @@ LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
 fragmentation. The payload will be transmitted through FPortUpDefault
 
 
-| LoRaWAN Header | RuleID | Compression residue |  Payload  |
-+ -------------- + ------ + ------------------- + --------- +
-|       XXXX     |   1    |       18 bits       |  38 bytes |
+| LoRaWAN Header | RuleID | Compression residue |  Payload  | Padding=b’000 |
++ -------------- + ------ + ------------------- + --------- + ------------- +
+|       XXXX     |   1    |       21 bits       |  38 bytes |    3 bits     |
 
 ~~~~
 {: #Fig-example-uplink-no-fragmentation title='Uplink example: compression without fragmentation'}
@@ -776,13 +776,13 @@ going through SCHC, with fragmentation.
 ~~~~
 
 An applicative payload of 478 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 440 bytes: 18 bits residue + 138 bytes
+rule 1, allowing to compress it to 440 bytes: 21 bits residue + 138 bytes
 payload.
 
 
 | RuleID | Compression residue |  Payload  |
 + ------ + ------------------- + --------- +
-|   1    |       18 bits       | 138 bytes |
+|   1    |       21 bits       | 138 bytes |
 
 
 Given the size of the payload, FPortUpDefault will be used.
@@ -795,9 +795,9 @@ SCHC header is 2 bytes so 2 tiles are send in first fragment.
 |       XXXX     | 2 bytes |   0    |   0   |   0    |  126   | 6 bytes |
 
 Content of the two tiles is:
-| RuleID | Compression residue |  Payload  |
-+ ------ + ------------------- + --------- +
-|   1    |       18 bits       |  3 bytes  |
+| RuleID | Compression residue |  Payload           |
++ ------ + ------------------- + ------------------ +
+|   1    |       21 bits       |  2 bytes + 5 bits  |
 
 
 Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
@@ -808,11 +808,11 @@ Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
 
 
 Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
-transmitted, last tile is only 2 bytes.
+transmitted, last tile is only 2 bytes. Padding is added for the remaining 6 bits.
 
-| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  |
-+ -------------- + ------ + ----- + ------ + ------ + ----- + --------- +
-|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  | Padding=b’000 |
++ -------------- + ------ + ----- + ------ + ------ + ----- + --------- + ---------------- +
+|       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |     3 bits       |
 
 
 All packets have been received by the SCHC gateway, computed MIC is correct so
@@ -827,6 +827,89 @@ the following ACK is send to the device:
 
 ## Downlink
 
-TODO
+
+~~~~
+
+An applicative payload of 43 bytes is passed to SCHC compression layer using
+rule 1, allowing to compress it to 24 bytes and 5 bits: 21 bits residue + 22 bytes
+payload.
+
+
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       21 bits       |  18 bytes |
+
+
+The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload => it has to be fragmented.
+
+
+| LoRaWAN Header |  FOpts  | RuleID |   W    |  FCN   | 1 tile  |
++ -------------- + ------- + ------ + ------ + ------ + ------- +
+|       XXXX     | 2 bytes |   0    |   0    |   0    | 8 bytes |
+
+Content of the two tiles is:
+| RuleID | Compression residue |        Payload     |
++ ------ + ------------------- + ------------------ +
+|   1    |       21 bits       |  2 bytes + 5 bits  |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 0 | C = b’1 |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The second downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   1    |   0    | 10 bytes |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 1 | C = b’1 |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The third downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   0    |   0    | 10 bytes |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 0 |  C = 1  |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+
+The last downlink is send, no FOpts:
+
+
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
++ -------------- + ------ + ------ + ------ + -------- +
+|       XXXX     |   0    |   1    |   1    | 2 bytes  |
+
+
+The receiver answers with an SCHC ACK
+
+
+| RuleID | W = 1 |  C = 1  |
++ ------ + ----- + ------- +
+| 6 bits | 1 bit | 1 bit   |
+
+~~~~
+{: #Fig-example-downlink-fragmentation title='Downlink example: compression and fragmentation'}
 
 # Note
