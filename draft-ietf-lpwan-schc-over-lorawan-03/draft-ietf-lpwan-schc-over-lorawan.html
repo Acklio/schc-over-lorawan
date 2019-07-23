@@ -316,7 +316,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Gimenez, O., Ed. and I. Petrov, Ed." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-07-16" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-07-23" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility, so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
 
@@ -340,12 +340,12 @@ ul.toc li {
 <td class="right">I. Petrov, Ed.</td>
 </tr>
 <tr>
-<td class="left">Expires: January 17, 2020</td>
+<td class="left">Expires: January 24, 2020</td>
 <td class="right">Acklio</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">July 16, 2019</td>
+<td class="right">July 23, 2019</td>
 </tr>
 
     	
@@ -362,7 +362,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on January 17, 2020.</p>
+<p>This Internet-Draft will expire on January 24, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -611,9 +611,9 @@ ul.toc li {
 
 <ul>
 <li>
-<strong>FPortUpShort</strong>: SCHC header is only one byte. Used when fragmentation is required and payload size is less than or equil to 381 bytes.</li>
+<strong>FPortUpShort</strong>: SCHC header is only one byte. Used when fragmentation is required and payload size is less than or equal to 381 bytes.</li>
 <li>
-<strong>FPortUpDefault</strong>: SCHC header is two bytes. Used for all other cases: no fragmentation required or payload size is between 382 and 1524 byte.</li>
+<strong>FPortUpDefault</strong>: SCHC header is two bytes. Used for all cases: no fragmentation required or any payload size up to 1524 byte (included).</li>
 </ul>
 <p><strong>Both rules share common parameters:</strong></p>
 <p></p>
@@ -634,6 +634,8 @@ ul.toc li {
 <strong>Tile</strong>: size is 3 bytes (24 bits)</li>
 <li>
 <strong>Retransmission and inactivity timers</strong>: LoRaWAN end-devices do not implement a &#8220;retransmission timer&#8221;. At the end of a window or a fragmentation session, corresponding ACK(s) is (are) transmitted by the network gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of end-device.  If this ACK is not received the end-device sends an all-0 (or an all-1) fragment with no payload to request an SCHC ACK retransmission. The periodicity between retransmission of the all-0/all-1 fragments is device/application specific and may be different for each device (not specified). The SCHC gateway implements an &#8220;inactivity timer&#8221;. The default recommended duration of this timer is 12 hours. This value is mainly driven by application requirements and may be changed by the application.</li>
+<li>
+<strong>Last tile</strong>: Last tile can be carried in the All-1 fragment.</li>
 </ul>
 <p><strong>The following fields are different:</strong></p>
 <p></p>
@@ -885,7 +887,7 @@ ul.toc li {
 <tr>
 <td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
 <td class="top">
-<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-19">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-19, July 2019.</td>
+<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-20">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-20, July 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="lora-alliance-spec">[lora-alliance-spec]</b></td>

@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: January 17, 2020                                         Acklio
-                                                           July 16, 2019
+Expires: January 24, 2020                                         Acklio
+                                                           July 23, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 17, 2020.
+   This Internet-Draft will expire on January 24, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 1]
+Gimenez & Petrov        Expires January 24, 2020                [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 2]
+Gimenez & Petrov        Expires January 24, 2020                [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 3]
+Gimenez & Petrov        Expires January 24, 2020                [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 4]
+Gimenez & Petrov        Expires January 24, 2020                [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 5]
+Gimenez & Petrov        Expires January 24, 2020                [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 6]
+Gimenez & Petrov        Expires January 24, 2020                [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 7]
+Gimenez & Petrov        Expires January 24, 2020                [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 8]
+Gimenez & Petrov        Expires January 24, 2020                [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020                [Page 9]
+Gimenez & Petrov        Expires January 24, 2020                [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -517,12 +517,12 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    defined regarding the *FPort*:
 
    o  *FPortUpShort*: SCHC header is only one byte.  Used when
-      fragmentation is required and payload size is less than or equil
+      fragmentation is required and payload size is less than or equal
       to 381 bytes.
 
-   o  *FPortUpDefault*: SCHC header is two bytes.  Used for all other
-      cases: no fragmentation required or payload size is between 382
-      and 1524 byte.
+   o  *FPortUpDefault*: SCHC header is two bytes.  Used for all cases:
+      no fragmentation required or any payload size up to 1524 byte
+      (included).
 
    *Both rules share common parameters:*
 
@@ -557,13 +557,15 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 10]
+Gimenez & Petrov        Expires January 24, 2020               [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
       mainly driven by application requirements and may be changed by
       the application.
+
+   o  *Last tile*: Last tile can be carried in the All-1 fragment.
 
    *The following fields are different:*
 
@@ -607,16 +609,17 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    o  *RuleID*: size is 6 bits (64 possible rules, 62 available for
       compression)
 
-   o  *Window index*: encoded on W = 2 bits.  So 4 windows are
-      available.
 
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 11]
+Gimenez & Petrov        Expires January 24, 2020               [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
+
+   o  *Window index*: encoded on W = 2 bits.  So 4 windows are
+      available.
 
    With this set of parameters, the SCHC fragment header overhead is 2
    bytes (16 bits).  MTU is: _4 windows * 127 tiles * 3 bytes per tile =
@@ -666,10 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-
-
-
-Gimenez & Petrov        Expires January 17, 2020               [Page 12]
+Gimenez & Petrov        Expires January 24, 2020               [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 13]
+Gimenez & Petrov        Expires January 24, 2020               [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 14]
+Gimenez & Petrov        Expires January 24, 2020               [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 15]
+Gimenez & Petrov        Expires January 24, 2020               [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 16]
+Gimenez & Petrov        Expires January 24, 2020               [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -949,7 +949,7 @@ Contributors
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 17]
+Gimenez & Petrov        Expires January 24, 2020               [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -982,7 +982,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
               Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and J.
               Zuniga, "Static Context Header Compression (SCHC) and
               fragmentation for LPWAN, application to UDP/IPv6", draft-
-              ietf-lpwan-ipv6-static-context-hc-19 (work in progress),
+              ietf-lpwan-ipv6-static-context-hc-20 (work in progress),
               July 2019.
 
    [lora-alliance-spec]
@@ -1005,7 +1005,7 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 18]
+Gimenez & Petrov        Expires January 24, 2020               [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1061,7 +1061,7 @@ Content of the two tiles is:
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 19]
+Gimenez & Petrov        Expires January 24, 2020               [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1117,7 +1117,7 @@ LoRaWAN protocol: 9 bytes are available for SCHC payload => it has to be fragmen
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 20]
+Gimenez & Petrov        Expires January 24, 2020               [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1173,7 +1173,7 @@ The last downlink is send, no FOpts:
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 21]
+Gimenez & Petrov        Expires January 24, 2020               [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1229,4 +1229,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov        Expires January 17, 2020               [Page 22]
+Gimenez & Petrov        Expires January 24, 2020               [Page 22]
