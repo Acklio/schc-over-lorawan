@@ -777,13 +777,13 @@ going through SCHC, with fragmentation.
 ~~~~
 
 An applicative payload of 478 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 440 bytes: 21 bits residue + 138 bytes
+rule 1, allowing to compress it to 442 bytes and 5 bits: 21 bits residue + 440 bytes
 payload.
 
 
 | RuleID | Compression residue |  Payload  |
 + ------ + ------------------- + --------- +
-|   1    |       21 bits       | 138 bytes |
+|   1    |       21 bits       | 438 bytes |
 
 
 Given the size of the payload, FPortUpDefault will be used.
@@ -832,13 +832,13 @@ the following ACK is send to the device:
 ~~~~
 
 An applicative payload of 43 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 24 bytes and 5 bits: 21 bits residue + 22 bytes
+rule 1, allowing to compress it to 30 bytes and 5 bits: 21 bits residue + 28 bytes
 payload.
 
 
 | RuleID | Compression residue |  Payload  |
 + ------ + ------------------- + --------- +
-|   1    |       21 bits       |  18 bytes |
+|   1    |       21 bits       |  28 bytes |
 
 
 The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
@@ -852,7 +852,7 @@ LoRaWAN protocol: 9 bytes are available for SCHC payload => it has to be fragmen
 Content of the two tiles is:
 | RuleID | Compression residue |        Payload     |
 + ------ + ------------------- + ------------------ +
-|   1    |       21 bits       |  2 bytes + 5 bits  |
+|   1    |       21 bits       |  5 bytes + 5 bits  |
 
 
 The receiver answers with an SCHC ACK
@@ -898,9 +898,9 @@ The receiver answers with an SCHC ACK
 The last downlink is send, no FOpts:
 
 
-| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  |
-+ -------------- + ------ + ------ + ------ + -------- +
-|       XXXX     |   0    |   1    |   1    | 2 bytes  |
+| LoRaWAN Header | RuleID |   W    |  FCN   |  1 tile  | Padding=b’000 |
++ -------------- + ------ + ------ + ------ + -------- + ------------- +
+|       XXXX     |   0    |   1    |   1    | 2 bytes  |    3 bits     |
 
 
 The receiver answers with an SCHC ACK
