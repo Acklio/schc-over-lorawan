@@ -377,8 +377,8 @@ Two fragmentation rules are defined regarding the **FPort**:
 
 * **FPortUpShort**: SCHC header is only one byte. Used when fragmentation is
   required and payload size is less than or equal to 381 bytes.
-* **FPortUpDefault**: SCHC header is two bytes. Used for all other cases: no
-  fragmentation required or payload size is between 382 and 1524 byte.
+* **FPortUpDefault**: SCHC header is two bytes. Used for all cases: no
+  fragmentation required or any payload size up to 1524 byte (included).
 
 **Both rules share common parameters:**
 
