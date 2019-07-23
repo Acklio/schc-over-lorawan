@@ -403,6 +403,7 @@ Two fragmentation rules are defined regarding the **FPort**:
   specified). The SCHC gateway implements an "inactivity timer". The default
   recommended duration of this timer is 12 hours. This value is mainly driven
   by application requirements and may be changed by the application.
+* **Last tile**: Last tile can be carried in the All-1 fragment.
 
 **The following fields are different:**
 
