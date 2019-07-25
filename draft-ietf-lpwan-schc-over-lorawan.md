@@ -783,7 +783,7 @@ payload.
 
 | RuleID | Compression residue |  Payload  |
 + ------ + ------------------- + --------- +
-|   1    |       21 bits       | 438 bytes |
+|   1    |       21 bits       | 440 bytes |
 
 
 Given the size of the payload, FPortUpDefault will be used.
