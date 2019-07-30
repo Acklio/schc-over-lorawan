@@ -94,6 +94,9 @@ all other definitions, please look up the SCHC specification
   o  DevAddr: a 32-bit non-unique identifier assigned to a end-device statically or
      dynamically after a Join Procedure (depending on the activation mode)
 
+  o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
+     fragmentation-reassembly process
+
   o  TBD: all significant LoRaWAN-related terms.
 
 # Static Context Header Compression Overview
@@ -120,10 +123,10 @@ context is learned on both sides is out of the scope of this document.
 |                |                                |    | |    | |    |
 |SCHC C/D and F/R|                                |    | |    | |    |
 +--------+-------+                                +----+ +----+ +----+
-         |  +--+     +----+    +----+    +----+     .      .      .
-         +~ |RG| === |NGW | == |SCHC| == |SCHC|...... Internet ....
-            +--+     +----+    |F/R |    |C/D |
-                               +----+    +----+
+         |  +---+     +----+    +----+    +----+     .      .      .
+         +~ |RGW| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+            +---+     +----+    |F/R |    |C/D |
+                                +----+    +----+
 ~~~~
 {: #Fig-archi title='Architecture'}
 
@@ -133,8 +136,8 @@ using IPv6 or IPv6/UDP protocols. These flow might be fragemented (SCHC F/R),
 and compressed by an Static Context Header Compression Compressor/Decompressor
 (SCHC C/D) to reduce headers size.
 Resulting information is sent on a layer two (L2) frame to a LPWAN Radio
-Network (RG) which forwards the frame to a Network Gateway (NGW). The NGW sends
-the data to a SCHC F/R for defragmentation, if required, then C/D for
+Network Gateway (RGW) which forwards the frame to a Network Gateway (NGW). The
+NGW sends the data to a SCHC F/R for defragmentation, if required, then C/D for
 decompression which shares the same rules with the device. The SCHC F/R and C/D
 can be located on the Network Gateway (NGW) or in another place as long as a
 tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and
@@ -386,7 +389,7 @@ Two fragmentation rules are defined regarding the **FPort**:
 * **DTag**: size is 1 bit.
 * **FCN**: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles
   are allowed in a window (FCN=All-1 is reserved for SCHC).
-* **MIC calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
+* **RCS calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
   [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **MAX_ACK_REQUESTS**: 8
@@ -443,7 +446,7 @@ MTU is: _127 tiles * 3 bytes per tile = 381 bytes_
 | 1 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-short-schc-ack title='SCHC ACK format, failed mic check.'}
+{: #Fig-fragmentation-header-short-schc-ack title='SCHC ACK format, failed RCS check.'}
 
 #### FPortUpDefault - 2 bytes header
 
@@ -473,7 +476,7 @@ payload size less than 382 bytes.
 
 ~~~~
 
-| RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload           |
+| RuleID | DTag  | W      | FCN=All-1 | RCS     | Payload           |
 + ------ + ----- + ------ + --------- + ------- + ----------------- +
 | 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
 
@@ -489,7 +492,7 @@ payload size less than 382 bytes.
 | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
 
 ~~~~
-{: #Fig-fragmentation-header-long-schc-ack title='SCHC formats, failed MIC check.'}
+{: #Fig-fragmentation-header-long-schc-ack title='SCHC formats, failed RCS check.'}
 
 
 **Receiver-Abort**
@@ -529,7 +532,7 @@ fragmentation transmitter. The following fields are common to all devices.
 * **DTag**: Not used, so its size is 0 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
-* **MIC calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
+* **RCS calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
   [RFC3385]), as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **MAX_ACK_REQUESTS**: 8
@@ -557,7 +560,7 @@ purposes in but not SCHC needs.
 
 ~~~~
 
-| RuleID | W     | FCN = b'1 | MIC     | Payload           |
+| RuleID | W     | FCN = b'1 | RCS     | Payload           |
 + ------ + ----- + --------- + ------- + ----------------- +
 | 6 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
 
@@ -573,7 +576,7 @@ purposes in but not SCHC needs.
 | 6 bits | 1 bit | 1 bit   |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-schc-ack title='SCHC ACK format, MIC is correct.'}
+{: #Fig-fragmentation-downlink-header-schc-ack title='SCHC ACK format, RCS is correct.'}
 
 
 **Receiver-Abort**
@@ -585,7 +588,7 @@ purposes in but not SCHC needs.
 | 6 bits | 1 bit | 1 bits  | 8 bits     |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an all-1 packet with incorrect MIC).'}
+{: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an all-1 packet with incorrect RCS).'}
 
 
 Class A and classB&C end-devices do not manage retransmissions and timers in the
@@ -609,15 +612,15 @@ potential local radio regulation on duty-cycle, to progress the fragmentation
 session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram) and if the MIC is correct, the device shall transmit the ACK with
-the "MIC is correct" indicator bit set (C=1). This message might be lost
+datagram) and if the RCS is correct, the device shall transmit the ACK with
+the "RCS is correct" indicator bit set (C=1). This message might be lost
 therefore the SCHC gateway may request a retransmission of this ACK in the next
 downlink. The device SHALL keep this ACK message in memory until it receives
 a downlink, on SCHC FPortDown from the SCHC gateway different from an
 ACK-request: it indicates that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received and the MIC is NOT correct,
+datagram), if all fragments have been received and the RCS is NOT correct,
 the device shall transmit a Receiver-Abort fragment. The device SHALL keep
 this Abort message in memory until it receives a downlink, on SCHC FPortDown,
 from the SCHC gateway different from an ACK-request indicating that the SCHC
@@ -649,8 +652,8 @@ retransmits the last fragment. The SCHC gateway tries retransmitting up to
 MAX_ACK_REQUESTS times before aborting.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram) and if the MIC is correct, the device shall transmit the ACK with the
-“MIC is correct” indicator bit set. If the SCHC gateway receives this ACK, the
+datagram) and if the RCS is correct, the device shall transmit the ACK with the
+RCS is correct” indicator bit set. If the SCHC gateway receives this ACK, the
 current fragmentation session has succeeded and its context can be cleared.
 
 If the retransmission timer elapses and the SCHC gateway has not received the
@@ -663,7 +666,7 @@ downlink from the SCHC gateway different from the last (FCN>0 and different
 DTag) fragment indicating that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received and if the MIC is NOT correct,
+datagram), if all fragments have been received and if the RCS is NOT correct,
 the device shall transmit a Receiver-Abort fragment.  The retransmission
 timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.
@@ -811,12 +814,12 @@ Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
 Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
 transmitted, last tile is only 2 bytes. Padding is added for the remaining 6 bits.
 
-| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  | Padding=b’000 |
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  RCS  | 65 tiles  | Padding=b’000 |
 + -------------- + ------ + ----- + ------ + ------ + ----- + --------- + ---------------- +
 |       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |     3 bits       |
 
 
-All packets have been received by the SCHC gateway, computed MIC is correct so
+All packets have been received by the SCHC gateway, computed RCS is correct so
 the following ACK is send to the device:
 
 | LoRaWAN Header | RuleID | DTag  |   W    |  C  |
