@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: January 26, 2020                                         Acklio
-                                                           July 25, 2019
+Expires: January 31, 2020                                         Acklio
+                                                           July 30, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 26, 2020.
+   This Internet-Draft will expire on January 31, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 1]
+Gimenez & Petrov        Expires January 31, 2020                [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 2]
+Gimenez & Petrov        Expires January 31, 2020                [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -139,6 +139,9 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    statically or dynamically after a Join Procedure (depending on the
    activation mode)
 
+   o RCS: Reassembly Check Sequence.  Used to verify the integrity of
+   the fragmentation-reassembly process
+
    o TBD: all significant LoRaWAN-related terms.
 
 3.  Static Context Header Compression Overview
@@ -162,10 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-
-
-
-Gimenez & Petrov        Expires January 26, 2020                [Page 3]
+Gimenez & Petrov        Expires January 31, 2020                [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -179,10 +179,10 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
   |                |                                |    | |    | |    |
   |SCHC C/D and F/R|                                |    | |    | |    |
   +--------+-------+                                +----+ +----+ +----+
-           |  +--+     +----+    +----+    +----+     .      .      .
-           +~ |RG| === |NGW | == |SCHC| == |SCHC|...... Internet ....
-              +--+     +----+    |F/R |    |C/D |
-                                 +----+    +----+
+           |  +---+     +----+    +----+    +----+     .      .      .
+           +~ |RGW| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+              +---+     +----+    |F/R |    |C/D |
+                                  +----+    +----+
 
                           Figure 1: Architecture
 
@@ -192,8 +192,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    might be fragemented (SCHC F/R), and compressed by an Static Context
    Header Compression Compressor/Decompressor (SCHC C/D) to reduce
    headers size.  Resulting information is sent on a layer two (L2)
-   frame to a LPWAN Radio Network (RG) which forwards the frame to a
-   Network Gateway (NGW).  The NGW sends the data to a SCHC F/R for
+   frame to a LPWAN Radio Network Gateway (RGW) which forwards the frame
+   to a Network Gateway (NGW).  The NGW sends the data to a SCHC F/R for
    defragmentation, if required, then C/D for decompression which shares
    the same rules with the device.  The SCHC F/R and C/D can be located
    on the Network Gateway (NGW) or in another place as long as a tunnel
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 4]
+Gimenez & Petrov        Expires January 31, 2020                [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 5]
+Gimenez & Petrov        Expires January 31, 2020                [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 6]
+Gimenez & Petrov        Expires January 31, 2020                [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 7]
+Gimenez & Petrov        Expires January 31, 2020                [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 8]
+Gimenez & Petrov        Expires January 31, 2020                [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020                [Page 9]
+Gimenez & Petrov        Expires January 31, 2020                [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -534,7 +534,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
       127 tiles are allowed in a window (FCN=All-1 is reserved for
       SCHC).
 
-   o  *MIC calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
+   o  *RCS calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
       reverse representation of the polynomial used e.g. in the Ethernet
       standard [RFC3385]) as suggested in
       [I-D.ietf-lpwan-ipv6-static-context-hc].
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 10]
+Gimenez & Petrov        Expires January 31, 2020               [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -602,7 +602,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    | 1 bit | 1 bit | 0 to 127 bits             | 7 or 0 bits  |
 
 
-               Figure 6: SCHC ACK format, failed mic check.
+               Figure 6: SCHC ACK format, failed RCS check.
 
 5.5.1.2.  FPortUpDefault - 2 bytes header
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 11]
+Gimenez & Petrov        Expires January 31, 2020               [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -640,7 +640,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
    *Last fragment (All-1)*
 
-   | RuleID | DTag  | W      | FCN=All-1 | MIC     | Payload           |
+   | RuleID | DTag  | W      | FCN=All-1 | RCS     | Payload           |
    + ------ + ----- + ------ + --------- + ------- + ----------------- +
    | 6 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
 
@@ -654,7 +654,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    | 6 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
 
 
-                 Figure 9: SCHC formats, failed MIC check.
+                 Figure 9: SCHC formats, failed RCS check.
 
    *Receiver-Abort*
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 12]
+Gimenez & Petrov        Expires January 31, 2020               [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -700,7 +700,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    o  *FCN*: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1
       tile (FCN=All-1 is reserved for SCHC).
 
-   o  *MIC calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
+   o  *RCS calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
       reverse representation of the polynomial used e.g. in the Ethernet
       standard [RFC3385]), as per
       [I-D.ietf-lpwan-ipv6-static-context-hc].
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 13]
+Gimenez & Petrov        Expires January 31, 2020               [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -740,7 +740,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
    *Last fragment (All-1)*
 
-   | RuleID | W     | FCN = b'1 | MIC     | Payload           |
+   | RuleID | W     | FCN = b'1 | RCS     | Payload           |
    + ------ + ----- + --------- + ------- + ----------------- +
    | 6 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
 
@@ -754,7 +754,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    | 6 bits | 1 bit | 1 bit   |
 
 
-                Figure 14: SCHC ACK format, MIC is correct.
+                Figure 14: SCHC ACK format, RCS is correct.
 
    *Receiver-Abort*
 
@@ -764,7 +764,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
      Figure 15: Receiver-Abort packet (following an all-1 packet with
-                              incorrect MIC).
+                              incorrect RCS).
 
    Class A and classB&C end-devices do not manage retransmissions and
    timers in the same way.
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 14]
+Gimenez & Petrov        Expires January 31, 2020               [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -797,8 +797,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    bitmap is 1 bit long and is always 1.
 
    Following the reception of a FCN=All-1 fragment (the last fragment of
-   a datagram) and if the MIC is correct, the device shall transmit the
-   ACK with the "MIC is correct" indicator bit set (C=1).  This message
+   a datagram) and if the RCS is correct, the device shall transmit the
+   ACK with the "RCS is correct" indicator bit set (C=1).  This message
    might be lost therefore the SCHC gateway may request a retransmission
    of this ACK in the next downlink.  The device SHALL keep this ACK
    message in memory until it receives a downlink, on SCHC FPortDown
@@ -806,7 +806,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    that the SCHC gateway has received the ACK message.
 
    Following the reception of a FCN=All-1 fragment (the last fragment of
-   a datagram), if all fragments have been received and the MIC is NOT
+   a datagram), if all fragments have been received and the RCS is NOT
    correct, the device shall transmit a Receiver-Abort fragment.  The
    device SHALL keep this Abort message in memory until it receives a
    downlink, on SCHC FPortDown, from the SCHC gateway different from an
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 15]
+Gimenez & Petrov        Expires January 31, 2020               [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -848,8 +848,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    MAX_ACK_REQUESTS times before aborting.
 
    Following the reception of a FCN=All-1 fragment (the last fragment of
-   a datagram) and if the MIC is correct, the device shall transmit the
-   ACK with the "MIC is correct" indicator bit set.  If the SCHC gateway
+   a datagram) and if the RCS is correct, the device shall transmit the
+   ACK with the RCS is correct" indicator bit set.  If the SCHC gateway
    receives this ACK, the current fragmentation session has succeeded
    and its context can be cleared.
 
@@ -864,7 +864,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
    has received the ACK message.
 
    Following the reception of a FCN=All-1 fragment (the last fragment of
-   a datagram), if all fragments have been received and if the MIC is
+   a datagram), if all fragments have been received and if the RCS is
    NOT correct, the device shall transmit a Receiver-Abort fragment.
    The retransmission timer is used by the SCHC gateway (the sender),
    the optimal value is very much application specific but here are some
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 16]
+Gimenez & Petrov        Expires January 31, 2020               [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -949,7 +949,7 @@ Contributors
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 17]
+Gimenez & Petrov        Expires January 31, 2020               [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1005,7 +1005,7 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 18]
+Gimenez & Petrov        Expires January 31, 2020               [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1061,7 +1061,7 @@ Content of the two tiles is:
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 19]
+Gimenez & Petrov        Expires January 31, 2020               [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1080,12 +1080,12 @@ Next transmission MTU is 242 bytes, no FOpts. 80 tiles are transmitted:
 Next transmission MTU is 242 bytes, no FOpts. All 65 remaining tiles are
 transmitted, last tile is only 2 bytes. Padding is added for the remaining 6 bits.
 
-| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  MIC  | 65 tiles  | Padding=b'000 |
+| LoRaWAN Header | RuleID | DTag  |   W    |  FCN   |  RCS  | 65 tiles  | Padding=b'000 |
 + -------------- + ------ + ----- + ------ + ------ + ----- + --------- + ---------------- +
 |       XXXX     |   0    |   0   |   0    |  127   | CRC32 | 194 bytes |     3 bits       |
 
 
-All packets have been received by the SCHC gateway, computed MIC is correct so
+All packets have been received by the SCHC gateway, computed RCS is correct so
 the following ACK is send to the device:
 
 | LoRaWAN Header | RuleID | DTag  |   W    |  C  |
@@ -1117,7 +1117,7 @@ LoRaWAN protocol: 9 bytes are available for SCHC payload => it has to be fragmen
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 20]
+Gimenez & Petrov        Expires January 31, 2020               [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1173,7 +1173,7 @@ The last downlink is send, no FOpts:
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 21]
+Gimenez & Petrov        Expires January 31, 2020               [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN                  July 2019
 
@@ -1229,4 +1229,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov        Expires January 26, 2020               [Page 22]
+Gimenez & Petrov        Expires January 31, 2020               [Page 22]
