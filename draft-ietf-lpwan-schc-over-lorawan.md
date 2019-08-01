@@ -221,29 +221,29 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
 ## End-Device classes (A, B, C) and interactions
 
-The LoRaWAN MAC layer supports 3 classes of end-devices named A, B and C.
-All end-devices implement the classA, some end-devices implement classA+B or class
-A+C. ClassB and classC are mutually exclusive.
+The LoRaWAN MAC layer supports 3 classes of end-devices named A, B and C.  All
+end-devices implement the Class A, some end-devices MAY implement Class B or
+class C. Class B and Class C are mutually exclusive.
 
-* **ClassA**: The classA is the simplest class of end-devices. The end-device is
+* **Class A**: The Class A is the simplest class of end-devices. The end-device is
   allowed to transmit at any time, randomly selecting a communication channel.
   The network may reply with a downlink in one of the 2 receive windows
   immediately following the uplinks. Therefore, the network cannot initiate a
   downlink, it has to wait for the next uplink from the end-device to get a
-  downlink opportunity. The classA is the lowest power end-device class.
-* **ClassB**: classB end-devices implement all the functionalities of classA
+  downlink opportunity. The Class A is the lowest power end-device class.
+* **Class B**: Class B end-devices implement all the functionalities of Class A
   end-devices, but also schedule periodic listen windows. Therefore, as opposed the
-  classA end-devices, classB end-devices can receive downlink that are initiated by the
+  Class A end-devices, Class B end-devices can receive downlink that are initiated by the
   network and not following an uplink. There is a trade-off between the
-  periodicity of those scheduled classB listen windows and the power
+  periodicity of those scheduled Class B listen windows and the power
   consumption of the end-device. The lower the downlink latency, the higher the
   power consumption.
-* **ClassC**: classC end-devices implement all the functionalities of classA
+* **Class C**: Class C end-devices implement all the functionalities of Class A
   end-devices, but keep their receiver open whenever they are not transmitting.
-  ClassC end-devices can receive downlinks at any time at the expense of a higher
-  power consumption. Battery powered end-devices can only operate in classC for a
+  Class C end-devices can receive downlinks at any time at the expense of a higher
+  power consumption. Battery powered end-devices can only operate in Class C for a
   limited amount of time (for example for a firmware upgrade over-the-air).
-  Most of the classC end-devices are mains powered (for example Smart Plugs).
+  Most of the Class C end-devices are mains powered (for example Smart Plugs).
 
 ## End-Device addressing
 
@@ -602,14 +602,14 @@ session.
 {: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an all-1 packet with incorrect RCS).'}
 
 
-Class A and classB&C end-devices do not manage retransmissions and timers in the
-same way.
+Class A and Class B/Class C end-devices do not manage retransmissions and
+timers in the same way.
 
-#### ClassA end-devices
+#### Class A end-devices
 
 Class A end-devices can only receive in an RX slot following the transmission of an
 uplink.  Therefore there cannot be a concept of "retransmission timer" for an
-SCHC gateway. The SCHC gateway cannot initiate communication to a classA
+SCHC gateway. The SCHC gateway cannot initiate communication to a Class A
 end-device.
 
 The device replies with an ACK message to every single fragment received from
@@ -647,15 +647,15 @@ fragmentation context.  For devices with very low transmission rates
 but this is application specific.
 
 
-#### Class B or C end-devices
+#### Class B or Class C end-devices
 
-Class B&C end-devices can receive in scheduled RX slots or in RX slots following
-the transmission of an uplink. The device replies with an ACK message to
-every single fragment received from the SCHC gateway (because the window size
-is 1). Following the reception of a FCN=0 fragment (fragment that is not the
-last fragment of the packet or ACK-request), the device MUST always transmit
-the corresponding SCHC ACK message even if that fragment has already been
-received.
+Class B and Class C end-devices can receive in scheduled RX slots or in RX
+slots following the transmission of an uplink. The device replies with an ACK
+message to every single fragment received from the SCHC gateway (because the
+window size is 1). Following the reception of a FCN=0 fragment (fragment that
+is not the last fragment of the packet or ACK-request), the device MUST always
+transmit the corresponding SCHC ACK message even if that fragment has already
+been received.
 The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this
 ACK, it proceeds to send the next window fragment. If the retransmission timer
 elapses and the SCHC gateway has not received the ACK of the current window it
@@ -681,14 +681,14 @@ datagram), if all fragments have been received and if the RCS is NOT correct,
 the device SHALL transmit a Receiver-Abort fragment.  The retransmission
 timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.
-For classB end-devices, this timer trigger is a function of the periodicity of the
-classB ping slots. The RECOMMENDED value is equal to 3 times the classB ping
-slot periodicity. For classC end-devices which are nearly constantly receiving,
+For Class B end-devices, this timer trigger is a function of the periodicity of the
+Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping
+slot periodicity. For Class C end-devices which are nearly constantly receiving,
 the RECOMMENDED value is 30 seconds. This means that the end-device shall try to
 transmit the ACK within 30 seconds  of the reception of each fragment.  The
 inactivity timer is implemented by the end-device to flush the context in-case it
 receives nothing from the SCHC gateway over an extended period of time. The
-RECOMMENDED value is 12 hours for both classB&C end-devices.
+RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 
 # Security considerations
 
