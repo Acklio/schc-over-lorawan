@@ -108,7 +108,7 @@ This section contains a short overview of Static Context Header Compression
 Static Context Header Compression (SCHC) avoids context synchronization, based
 on the fact that the nature of data flows is highly predictable in LPWAN
 networks, some static contexts may be stored on the Device (Dev). The contexts
-must be stored in both ends, and it can either be learned by a provisioning
+MUST be stored in both ends, and it can either be learned by a provisioning
 protocol or by out-of-band means or it can be pre-provisioned, etc. The way the
 context is learned on both sides is out of the scope of this document.
 
@@ -132,18 +132,17 @@ context is learned on both sides is out of the scope of this document.
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
 based on {{RFC8376}} terminology. The Device is sending applications flows
-using IPv6 or IPv6/UDP protocols. These flow might be fragemented (SCHC F/R),
-and compressed by an Static Context Header Compression Compressor/Decompressor
-(SCHC C/D) to reduce headers size.
-Resulting information is sent on a layer two (L2) frame to a LPWAN Radio
-Network Gateway (RGW) which forwards the frame to a Network Gateway (NGW). The
-NGW sends the data to a SCHC F/R for defragmentation, if required, then C/D for
-decompression which shares the same rules with the device. The SCHC F/R and C/D
-can be located on the Network Gateway (NGW) or in another place as long as a
-tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and
-SCHC C/D. The SCHC C/D in both sides must share the same set of Rules. After
-decompression, the packet can be sent on the Internet to one or several LPWAN
-Application Servers (App).
+using IPv6 or IPv6/UDP protocols. These flow might be compressed by an Static
+Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
+size and fragmented (SCHC F/R).  Resulting information is sent on a layer two
+(L2) frame to a LPWAN Radio Gateway (RGW) which forwards the frame to a Network
+Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if
+required, then C/D for decompression which shares the same rules with the
+device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
+another place as long as a tunnel is established between the NGW and the SCHC
+F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same
+set of Rules. After decompression, the packet can be sent on the Internet to
+one or several LPWAN Application Servers (App).
 
 The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can
 be applied in the other direction.
@@ -168,7 +167,7 @@ terminology to:
             +-------+     |server |    |server F/R - C/D|
                           +-------+    +----------------+
 ~~~~
-{: #Fig-archi-lorawan title='Architecture'}
+{: #Fig-archi-lorawan title='SCHC Architecture mapped to LoRaWAN'}
 
 
 #LoRaWAN Architecture
@@ -244,24 +243,24 @@ A+C. ClassB and classC are mutually exclusive.
   ClassC end-devices can receive downlinks at any time at the expense of a higher
   power consumption. Battery powered end-devices can only operate in classC for a
   limited amount of time (for example for a firmware upgrade over-the-air).
-  Most of the classC end-devices are main powered (for example Smart Plugs).
+  Most of the classC end-devices are mains powered (for example Smart Plugs).
 
 ## End-Device addressing
 
-LoRaWAN end-devices use a 32 bits network address (devAddr) to communicate with
+LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with
 the network over-the-air. However, that address might be reused several time
 on the same network at the same time for different end-devices. End-devices using the
 same devAddr are distinguish by the Network Server based on the cryptographic
 signature appended to every single LoRaWAN MAC frame, as all end-devices use
 different security keys.
 To communicate with the SCHC gateway the Network Server MUST identify the
-end-devices by a unique 64bits device ID called the devEUI. Unlike devAddr,
-devEUI is guaranteed to be unique for every single end-device across all
-networks.
+end-devices by a unique 64-bit device identifier called the devEUI. Unlike
+devAddr, devEUI is guaranteed to be unique for every single end-device across
+all networks.
 The devEUI is assigned to the end-device during the manufacturing process by the
 end-device's manufacturer. It is built like an Ethernet MAC address by
 concatenating the manufacturer's IEEE OUI field with a vendor unique number.
-ex: 24bits OUI is concatenated with a 40 bits serial number.
+e.g.: 24-bit OUI is concatenated with a 40-bit serial number.
 The Network Server translates the devAddr into a devEUI in the uplink
 direction and reciprocally on the downlink direction.
 
@@ -322,13 +321,13 @@ transferred from server to device, is called downlink fragmentation session. It
 uses another range of FPorts for data downlink and its associated SCHC control
 uplinks, named FPortsDown in this document.
 
-FPorts can use arbitrary values inside the allowed FPort range and must be
+FPorts can use arbitrary values inside the allowed FPort range and MUST be
 shared by the end-device, the Network Server and SCHC gateway. The uplink and
-downlink SCHC ports must be different. Mechanism to share those FPorts values is
+downlink SCHC ports MUST be different. Mechanism to share those FPorts values is
 out-of-scope of this document.
 
 Application can have multiple fragmentation session between a device and one or
-several SCHC gateways. A set of FPort values is required for each gateway
+several SCHC gateways. A set of FPort values is REQUIRED for each gateway
 instance the device is required to communicate with.
 
 The only uplink messages using the FPortsDown port are the fragmentation SCHC
@@ -348,7 +347,7 @@ SHOULD be reserved to tag packets for which SCHC compression was not possible
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID not in FPortsUp nor FPortsDown ranges
-means that the fragmentation is not used, thus the packet should be send to C/D
+means that the fragmentation is not used, thus the packet SHOULD be send to C/D
 layer.
 
 ## IID computation
@@ -356,7 +355,8 @@ layer.
 As LoRaWAN network uses unique EUI-64 per end-device, the Interface IDentifier is
 the LoRaWAN DevEUI.
 It is compliant with [RFC4291] and IID starting with binary 000 must enforce
-the 64-bits rule.
+the 64-bit rule.
+
 TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?
 
 ## Compression {#Comp}
@@ -394,7 +394,7 @@ A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This one
 bit field is used to distinguish two consecutive fragmentation sessions.
 
 _Note_: While it is used to recover faster from transmission errors, it SHALL
-not be considered as the only way to distinguish two fragmentation sessions.
+NOT be considered as the only way to distinguish two fragmentation sessions.
 
 ### Uplink fragmentation: From device to SCHC gateway
 
@@ -425,10 +425,10 @@ fragment.
   If this ACK is not received the end-device sends an all-0 (or an all-1)
   fragment with no payload to request an SCHC ACK retransmission. The
   periodicity between retransmission of the all-0/all-1 fragments is
-  device/application specific and may be different for each device (not
+  device/application specific and MAY be different for each device (not
   specified). The SCHC gateway implements an "inactivity timer". The default
-  recommended duration of this timer is 12 hours. This value is mainly driven
-  by application requirements and may be changed by the application.
+  RECOMMENDED duration of this timer is 12 hours. This value is mainly driven
+  by application requirements and MAY be changed by the application.
 * **Last tile**: Last tile can be carried in the All-1 fragment.
 
 
@@ -535,7 +535,7 @@ fragment.
 As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU.
 
-_Note_: The Fpending bit included in LoRaWAN protocol SHOULD not be used for
+_Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other
 purposes in but not SCHC needs.
 
@@ -616,24 +616,24 @@ The device replies with an ACK message to every single fragment received from
 the SCHC gateway (because the window size is 1). Following the reception of a
 FCN=0 fragment (fragment that is not the last fragment of the packet or
 ACK-request, but the end of a window), the device MUST transmit the SCHC ACK
-fragment until it receives the fragment of the next window. The device shall
+fragment until it receives the fragment of the next window. The device SHALL
 transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device
 should transmit those ACK as soon as possible while taking into consideration
 potential local radio regulation on duty-cycle, to progress the fragmentation
 session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram) and if the RCS is correct, the device shall transmit the ACK with
+datagram) and if the RCS is correct, the device SHALL transmit the ACK with
 the "RCS is correct" indicator bit set (C=1). This message might be lost
-therefore the SCHC gateway may request a retransmission of this ACK in the next
+therefore the SCHC gateway MAY request a retransmission of this ACK in the next
 downlink. The device SHALL keep this ACK message in memory until it receives
-a downlink, on SCHC FPortDown from the SCHC gateway different from an
+a downlink, on SCHC FPortsDown from the SCHC gateway different from an
 ACK-request: it indicates that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received and the RCS is NOT correct,
-the device shall transmit a Receiver-Abort fragment. The device SHALL keep
-this Abort message in memory until it receives a downlink, on SCHC FPortDown,
+datagram), if all fragments have been received and the RCS is not correct,
+the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep
+this Abort message in memory until it receives a downlink, on SCHC FPortsDown,
 from the SCHC gateway different from an ACK-request indicating that the SCHC
 gateway has received the Abort message.  The fragmentation receiver (device)
 does not implement retransmission timer and inactivity timer.
@@ -641,7 +641,7 @@ does not implement retransmission timer and inactivity timer.
 The fragmentation sender (the SCHC gateway) implements an inactivity timer with
 default duration of 12 hours. Once a fragmentation session is started, if the
 SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after
-the last message from the device was received, the SCHC gateway may flush the
+the last message from the device was received, the SCHC gateway MAY flush the
 fragmentation context.  For devices with very low transmission rates
 (example 1 packet a day in normal operation) , that duration may be extended,
 but this is application specific.
@@ -663,7 +663,7 @@ retransmits the last fragment. The SCHC gateway tries retransmitting up to
 MAX_ACK_REQUESTS times before aborting.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram) and if the RCS is correct, the device shall transmit the ACK with the
+datagram) and if the RCS is correct, the device SHALL transmit the ACK with the
 RCS is correct” indicator bit set. If the SCHC gateway receives this ACK, the
 current fragmentation session has succeeded and its context can be cleared.
 
@@ -678,17 +678,17 @@ DTag) fragment indicating that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and if the RCS is NOT correct,
-the device shall transmit a Receiver-Abort fragment.  The retransmission
+the device SHALL transmit a Receiver-Abort fragment.  The retransmission
 timer is used by the SCHC gateway (the sender), the optimal value is very much
 application specific but here are some recommended default values.
 For classB end-devices, this timer trigger is a function of the periodicity of the
-classB ping slots. The recommended value is equal to 3 times the classB ping
+classB ping slots. The RECOMMENDED value is equal to 3 times the classB ping
 slot periodicity. For classC end-devices which are nearly constantly receiving,
-the recommended value is 30 seconds. This means that the end-device shall try to
+the RECOMMENDED value is 30 seconds. This means that the end-device shall try to
 transmit the ACK within 30 seconds  of the reception of each fragment.  The
 inactivity timer is implemented by the end-device to flush the context in-case it
 receives nothing from the SCHC gateway over an extended period of time. The
-recommended value is 12 hours for both classB&C end-devices.
+RECOMMENDED value is 12 hours for both classB&C end-devices.
 
 # Security considerations
 
