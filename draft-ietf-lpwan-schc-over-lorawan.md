@@ -310,7 +310,7 @@ confirmed messages.
 
 The LoRaWAN MAC layer features a frame port field in all frames. This field
 (FPort) is 8-bit long and the values from 1 to 223 can be used. It allows
-LoRaWAN network and application to identify data.
+LoRaWAN networks and applications to identify data.
 
 The FPort field is part of the SCHC Packet or the SCHC Fragment, as shown in
 {{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate
