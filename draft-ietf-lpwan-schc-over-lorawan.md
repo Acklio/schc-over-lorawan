@@ -522,7 +522,7 @@ LoRaWAN payload. MTU is: _4 windows * 127 tiles * 3 bytes per tile = 1524 bytes_
 In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
-fragment as described in {{Fig-frag-schc-fragment}}.
+fragment as described in {{Fig-lorawan-schc-payload}}.
 
 * **SCHC fragmentation reliability mode**: ACK-Always.
 * **RuleID**: size is 8 bits in SCHC header.
