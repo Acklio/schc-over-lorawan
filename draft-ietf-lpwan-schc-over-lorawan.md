@@ -387,7 +387,6 @@ as per [](#Fig-fragmentation-receiver-abort).
 SCHC C/D RuleID size SHOULD be 8 bits to fit the LoRaWAN FPort field. RuleIDs
 matching FPortsUp and FPortsDown are reserved for SCHC Fragmentation.
 
-
 ## Fragmentation {#Frag}
 
 The L2 word size used by LoRaWAN is 1 byte (8 bits).
@@ -402,11 +401,9 @@ The fragmentation parameters are different for uplink and downlink
 fragmentation sessions and are successively described in the next sections.
 
 ## DTag
-A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This one
-bit field is used to distinguish two consecutive fragmentation sessions.
 
-_Note_: While it is used to recover faster from transmission errors, it SHALL
-NOT be considered as the only way to distinguish two fragmentation sessions.
+A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This
+field is not used and its size is 0.
 
 ### Uplink fragmentation: From device to SCHC gateway
 
@@ -419,7 +416,7 @@ fragment as per [](#Fig-fragmentation-receiver-abort).
 * SCHC header is two bytes, including FPort byte.
 * **RuleID**: Recommended size is 8 bits in SCHC header.
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
-* **DTag**: size is 1 bit.
+* **DTag**: Size is 0 bit, not used
 * **FCN**: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 64 tiles
   are allowed in a window
 * **Window index**: encoded on W = 2 bits. So 4 windows are available.
@@ -450,11 +447,11 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  |  LoRaWAN payload                  |
-+ ------ + --------------------------------- +
-| RuleID | DTag  | W      | FCN    | Payload |
-+ ------ + ----- + ------ + ------ + ------- +
-| 8 bits | 1 bit | 2 bits | 7 bits |         |
+| FPort  |  LoRaWAN payload          |
++ ------ + ------------------------- +
+| RuleID |   W    | FCN    | Payload |
++ ------ + ------ + ------ + ------- +
+| 8 bits | 2 bits | 7 bits |         |
 
 ~~~~
 {: #Fig-fragmentation-header-long-all0 title='All fragment except the last one. SCHC header size is 18 bits, including LoRaWAN FPort.'}
@@ -464,11 +461,11 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                          |
-+ ------ + -------------------------------------------------------- +
-| RuleID | DTag  | W      | FCN=All-1 | RCS     | Payload           |
-+ ------ + ----- + ------ + --------- + ------- + ----------------- +
-| 8 bits | 1 bit | 2 bits | 7 bits    | 32 bits | Last tile, if any |
+| FPort  | LoRaWAN payload                                  |
++ ------ + ------------------------------------------------ +
+| RuleID |   W    | FCN=All-1 |  RCS    | Payload           |
++ ------ + ------ + --------- + ------- + ----------------- +
+| 8 bits | 2 bits | 7 bits    | 32 bits | Last tile, if any |
 
 ~~~~
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
@@ -477,11 +474,11 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                   |
-+ ------ + ------------------------------------------------- +
-| RuleID | DTag  | W     | C     | Encoded bitmap (if C = 0) |
-+ ------ + ----- + ----- + ----- + ------------------------- +
-| 8 bits | 1 bit | 2 bit | 1 bit | 0 to 127 bits             |
+| FPort  | LoRaWAN payload                           |
++ ------ + ----------------------------------------- +
+| RuleID |   W   | C     | Encoded bitmap (if C = 0) |
++ ------ + ----- + ----- + ------------------------- +
+| 8 bits | 2 bit | 1 bit | 0 to 127 bits             |
 
 ~~~~
 {: #Fig-fragmentation-header-long-schc-ack title='SCHC formats, failed RCS check.'}
@@ -491,12 +488,12 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                     |
-+ ------ + --------------------------------------------------- +
-| RuleID | DTag  | W = b'11 | C = 1 | b'1111 | 0xFF (all 1's)  |
-+ ------ + ----- + -------- + ------+------- + ----------------+
-| 8 bits | 1 bit | 2 bits   | 1 bit | 4 bits | 8 bits          |
-                     next L2 Word boundary ->| <-- L2 Word --> |
+| FPort  | LoRaWAN payload                             |
++ ------ + ------------------------------------------- +
+| RuleID | W = b'11 | C = 1 | b'1111 | 0xFF (all 1's)  |
++ ------ + -------- + ------+------- + ----------------+
+| 8 bits |  2 bits  | 1 bit | 4 bits | 8 bits          |
+             next L2 Word boundary ->| <-- L2 Word --> |
 
 ~~~~
 {: #Fig-fragmentation-receiver-abort title='Receiver-Abort format.'}
@@ -506,11 +503,11 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  | LoRaWAN payload                  |
-+------- +--------------------------------- +
-| RuleID | DTag  | W      | FCN = b'0000000 |
-+ ------ + ----- + ------ + --------------- +
-| 8 bits | 1 bit | 2 bits | 7 bits          |
+| FPort  | LoRaWAN payload          |
++------- +------------------------- +
+| RuleID | W      | FCN = b'0000000 |
++ ------ + ------ + --------------- +
+| 8 bits | 2 bits | 7 bits          |
 
 
 ~~~~
@@ -528,7 +525,7 @@ fragment as described in {{Fig-lorawan-schc-payload}}.
 * **SCHC fragmentation reliability mode**: ACK-Always.
 * **RuleID**: Recommended size is 8 bits in SCHC header.
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
-* **DTag**: Not used, so its size is 0 bit.
+* **DTag**: Size is 0 bit, not used
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
 * **RCS calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
@@ -669,10 +666,6 @@ If the retransmission timer elapses and the SCHC gateway has not received the
 SCHC ACK it retransmits the last fragment with the payload (not an ACK-request
 without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS
 times before aborting.
-
-The device SHALL keep the SCHC ACK message in memory until it receives a
-downlink from the SCHC gateway different from the last (FCN>0 and different
-DTag) fragment indicating that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and if the RCS is NOT correct,
