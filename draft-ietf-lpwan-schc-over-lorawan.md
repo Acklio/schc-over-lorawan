@@ -336,38 +336,39 @@ uplinks, named FPortsDown in this document.
 
 FPorts can use arbitrary values inside the allowed FPort range and MUST be
 shared by the end-device, the Network Server and SCHC gateway. The uplink and
-downlink fragmentation FPorts MUST be different. Mechanism to share those FPorts
-values is out-of-scope of this document. In order to improve interoperability,
-it is RECOMMENDED to use:
+downlink fragmentation FPorts MUST be different.
 
-* RuleID = b'TBC (8-bit) for uplink fragmentation, named FPortUp
-* RuleID = b'TBC (8-bit) for downlink fragmentation, named FPortDown
-* 8-bit RuleIDs for compression, in the range [1;223] except values previously
-  defined RuleID fragmentation.
+## Rule ID management
 
-Application can have multiple fragmentation sessions between a device and one or
-several SCHC gateways. A set of FPort values is REQUIRED for each gateway
-instance the device is required to communicate with.
+RuleID minimum length MUST be minimum 8-bits, and RECOMMENDED length is 8-bits.
+RuleID MSB is encoded in the LoRaWAN FPort as described in
+{{Fig-lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
+range [1;223], it implies that RuledID MSB SHOULD be insidethis range.
+Application MAY reserve some FPort values for other needs.
+
+A RuleID SHOULD be reserved to tag packets for which SCHC compression was not
+possible (no matching Rule was found). RuleIDs FPortsUp and FPortsDown are
+reserved for fragmentation, in order to improve interoperability RECOMMENDED
+values are:
+
+* RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp
+* RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown
+* RuleID = 22 (8-bit) for which SCHC compression was not possible
+
+The remaining RuleIDs are available for compression. RuleIDs are shared between
+uplink and downlink sessions.  A RuleID not FPortsUp or FPortsDown means that
+the fragmentation is not used, thus the packet SHOULD be send to C/D layer.
 
 The only uplink messages using the FPortsDown port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
 only downlink messages using the FPortsUp ports are the fragmentation SCHC
 control messages of an uplink fragmentation session.
 
-## Rule ID management
+Application can have multiple fragmentation sessions between a device and one
+or several SCHC gateways.  A set of FPort values is REQUIRED for each gateway
+instance the device is required to communicate with.
 
-RuleID is encoded in the LoRaWAN FPort for SCHC C/D. LoRaWAN supports up to 222
-application FPorts in range [1;223]. SCHC-over-LoRaWAN defines FPort ranges
-dedicated to SCHC F/R. Application MAY reserve some FPort values for other needs.
-A RuleID SHOULD be reserved to tag packets for which SCHC compression was not
-possible (no matching Rule was found), the RECOMMANDED value is b'TBC (8-bit).
-
-RuleIDs FPortsUp and FPortsDown are reserved for fragmentation.
-
-The remaining RuleIDs are available for compression. RuleIDs are shared between
-uplink and downlink sessions.  A RuleID not FPortsUp nr FPortsDown means that
-the fragmentation is not used, thus the packet SHOULD be send to C/D
-layer.
+Mechanism to share those RuleID values is out-of-scope of this document
 
 ## IID computation
 
@@ -416,7 +417,7 @@ SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as per [](#Fig-fragmentation-receiver-abort).
 
 * SCHC header is two bytes, including FPort byte.
-* **RuleID**: size is 8 bits in SCHC header.
+* **RuleID**: Recommended size is 8 bits in SCHC header.
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
 * **DTag**: size is 1 bit.
 * **FCN**: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles
@@ -525,7 +526,7 @@ SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as described in {{Fig-lorawan-schc-payload}}.
 
 * **SCHC fragmentation reliability mode**: ACK-Always.
-* **RuleID**: size is 8 bits in SCHC header.
+* **RuleID**: Recommended size is 8 bits in SCHC header.
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **DTag**: Not used, so its size is 0 bit.
 * **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
