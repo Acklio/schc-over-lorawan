@@ -405,6 +405,10 @@ fragmentation sessions and are successively described in the next sections.
 A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This
 field is not used and its size is 0.
 
+## Padding
+
+All padding bits SHOULD be 0.
+
 ### Uplink fragmentation: From device to SCHC gateway
 
 In that case the device is the fragmentation transmitter, and the SCHC gateway
