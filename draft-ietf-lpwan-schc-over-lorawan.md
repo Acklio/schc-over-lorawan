@@ -420,14 +420,14 @@ fragment as per [](#Fig-fragmentation-receiver-abort).
 * **RuleID**: Recommended size is 8 bits in SCHC header.
 * **SCHC fragmentation reliability mode**: `ACK-on-Error`
 * **DTag**: size is 1 bit.
-* **FCN**: The FCN field is encoded on N = 7 bits, so WINDOW_SIZE = 127 tiles
-  are allowed in a window (FCN=All-1 is reserved for SCHC).
+* **FCN**: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 64 tiles
+  are allowed in a window
 * **Window index**: encoded on W = 2 bits. So 4 windows are available.
 * **RCS calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
   [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **MAX_ACK_REQUESTS**: 8
-* **Tile**: size is 3 bytes (24 bits)
+* **Tile**: size is 5 bytes
 * **Retransmission and inactivity timers**:
   LoRaWAN end-devices do not implement a "retransmission timer". At the end of
   a window or a fragmentation session, corresponding ACK(s) is (are)
@@ -444,7 +444,7 @@ fragment as per [](#Fig-fragmentation-receiver-abort).
 
 With this set of parameters, the SCHC fragment header is 18 bits,
 including FPort; payload overhead will be 10 bits as FPort is already a part of
-LoRaWAN payload. MTU is: _4 windows * 127 tiles * 3 bytes per tile = 1524 bytes_
+LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 **Regular fragments**
 
