@@ -296,8 +296,9 @@ ul.toc li {
 <link href="#rfc.section.5.4" rel="Chapter" title="5.4 Compression">
 <link href="#rfc.section.5.5" rel="Chapter" title="5.5 Fragmentation">
 <link href="#rfc.section.5.6" rel="Chapter" title="5.6 DTag">
-<link href="#rfc.section.5.6.1" rel="Chapter" title="5.6.1 Uplink fragmentation: From device to SCHC gateway">
-<link href="#rfc.section.5.6.2" rel="Chapter" title="5.6.2 Downlink fragmentation: From SCHC gateway to device">
+<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Padding">
+<link href="#rfc.section.5.7.1" rel="Chapter" title="5.7.1 Uplink fragmentation: From device to SCHC gateway">
+<link href="#rfc.section.5.7.2" rel="Chapter" title="5.7.2 Downlink fragmentation: From SCHC gateway to device">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security considerations">
 <link href="#rfc.acknowledgements" rel="Chapter">
 <link href="#rfc.contributors" rel="Chapter">
@@ -411,9 +412,11 @@ ul.toc li {
 </li>
 <li>5.6.   <a href="#rfc.section.5.6">DTag</a>
 </li>
-<ul><li>5.6.1.   <a href="#rfc.section.5.6.1">Uplink fragmentation: From device to SCHC gateway</a>
+<li>5.7.   <a href="#rfc.section.5.7">Padding</a>
 </li>
-<li>5.6.2.   <a href="#rfc.section.5.6.2">Downlink fragmentation: From SCHC gateway to device</a>
+<ul><li>5.7.1.   <a href="#rfc.section.5.7.1">Uplink fragmentation: From device to SCHC gateway</a>
+</li>
+<li>5.7.2.   <a href="#rfc.section.5.7.2">Downlink fragmentation: From SCHC gateway to device</a>
 </li>
 </ul></ul><li>6.   <a href="#rfc.section.6">Security considerations</a>
 </li>
@@ -631,10 +634,14 @@ ul.toc li {
 <a href="#rfc.section.5.6">5.6.</a> <a href="#dtag" id="dtag">DTag</a>
 </h1>
 <p id="rfc.section.5.6.p.1">A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This field is not used and its size is 0.</p>
-<h1 id="rfc.section.5.6.1">
-<a href="#rfc.section.5.6.1">5.6.1.</a> <a href="#uplink-fragmentation-from-device-to-schc-gateway" id="uplink-fragmentation-from-device-to-schc-gateway">Uplink fragmentation: From device to SCHC gateway</a>
+<h1 id="rfc.section.5.7">
+<a href="#rfc.section.5.7">5.7.</a> <a href="#padding" id="padding">Padding</a>
 </h1>
-<p id="rfc.section.5.6.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.  A single fragmentation rule is defined.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC fragment as per <a href="#Fig-fragmentation-receiver-abort" class="xref">Figure 9</a>.</p>
+<p id="rfc.section.5.7.p.1">All padding bits SHOULD be 0.</p>
+<h1 id="rfc.section.5.7.1">
+<a href="#rfc.section.5.7.1">5.7.1.</a> <a href="#uplink-fragmentation-from-device-to-schc-gateway" id="uplink-fragmentation-from-device-to-schc-gateway">Uplink fragmentation: From device to SCHC gateway</a>
+</h1>
+<p id="rfc.section.5.7.1.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver.  A single fragmentation rule is defined.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC fragment as per <a href="#Fig-fragmentation-receiver-abort" class="xref">Figure 9</a>.</p>
 <p></p>
 
 <ul>
@@ -661,7 +668,7 @@ ul.toc li {
 <li>
 <strong>Last tile</strong>: Last tile can be carried in the All-1 fragment.</li>
 </ul>
-<p id="rfc.section.5.6.1.p.3">With this set of parameters, the SCHC fragment header is 18 bits, including FPort; payload overhead will be 10 bits as FPort is already a part of LoRaWAN payload. MTU is: <em>4 windows * 64 tiles * 5 bytes per tile = 1280 bytes</em></p>
+<p id="rfc.section.5.7.1.p.3">With this set of parameters, the SCHC fragment header is 18 bits, including FPort; payload overhead will be 10 bits as FPort is already a part of LoRaWAN payload. MTU is: <em>4 windows * 64 tiles * 5 bytes per tile = 1280 bytes</em></p>
 <p><strong>Regular fragments</strong></p>
 <div id="rfc.figure.6"></div>
 <div id="Fig-fragmentation-header-long-all0"></div>
@@ -724,10 +731,10 @@ ul.toc li {
 
 </pre>
 <p class="figure">Figure 10: SCHC ACK REQ format.</p>
-<h1 id="rfc.section.5.6.2">
-<a href="#rfc.section.5.6.2">5.6.2.</a> <a href="#downlink-fragmentation-from-schc-gateway-to-device" id="downlink-fragmentation-from-schc-gateway-to-device">Downlink fragmentation: From SCHC gateway to device</a>
+<h1 id="rfc.section.5.7.2">
+<a href="#rfc.section.5.7.2">5.7.2.</a> <a href="#downlink-fragmentation-from-schc-gateway-to-device" id="downlink-fragmentation-from-schc-gateway-to-device">Downlink fragmentation: From SCHC gateway to device</a>
 </h1>
-<p id="rfc.section.5.6.2.p.1">In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation transmitter. The following fields are common to all devices.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC fragment as described in <a href="#Fig-lorawan-schc-payload" class="xref">Figure 5</a>.</p>
+<p id="rfc.section.5.7.2.p.1">In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation transmitter. The following fields are common to all devices.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC fragment as described in <a href="#Fig-lorawan-schc-payload" class="xref">Figure 5</a>.</p>
 <p></p>
 
 <ul>
@@ -746,7 +753,7 @@ ul.toc li {
 <li>
 <strong>MAX_ACK_REQUESTS</strong>: 8</li>
 </ul>
-<p id="rfc.section.5.6.2.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
+<p id="rfc.section.5.7.2.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
 <p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other purposes in but not SCHC needs.</p>
 <p><strong>Regular fragments</strong></p>
 <div id="rfc.figure.11"></div>
@@ -798,22 +805,22 @@ ul.toc li {
 
 </pre>
 <p class="figure">Figure 14: Receiver-Abort packet (following an all-1 packet with incorrect RCS).</p>
-<p id="rfc.section.5.6.2.p.9">Class A and Class B or Class C end-devices do not manage retransmissions and timers in the same way.</p>
-<h1 id="rfc.section.5.6.2.1">
-<a href="#rfc.section.5.6.2.1">5.6.2.1.</a> <a href="#class-a-end-devices" id="class-a-end-devices">Class A end-devices</a>
+<p id="rfc.section.5.7.2.p.9">Class A and Class B or Class C end-devices do not manage retransmissions and timers in the same way.</p>
+<h1 id="rfc.section.5.7.2.1">
+<a href="#rfc.section.5.7.2.1">5.7.2.1.</a> <a href="#class-a-end-devices" id="class-a-end-devices">Class A end-devices</a>
 </h1>
-<p id="rfc.section.5.6.2.1.p.1">Class A end-devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for an SCHC gateway. The SCHC gateway cannot initiate communication to a Class A end-device.</p>
-<p id="rfc.section.5.6.2.1.p.2">The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request, but the end of a window), the device MUST transmit the SCHC ACK fragment until it receives the fragment of the next window. The device SHALL transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit those ACK as soon as possible while taking into consideration potential local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
-<p id="rfc.section.5.6.2.1.p.3">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the &#8220;RCS is correct&#8221; indicator bit set (C=1). This message might be lost therefore the SCHC gateway MAY request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink, on SCHC FPortsDown from the SCHC gateway different from an ACK-request: it indicates that the SCHC gateway has received the ACK message.</p>
-<p id="rfc.section.5.6.2.1.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and the RCS is not correct, the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep this Abort message in memory until it receives a downlink, on SCHC FPortsDown, from the SCHC gateway different from an ACK-request indicating that the SCHC gateway has received the Abort message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
-<p id="rfc.section.5.6.2.1.p.5">The fragmentation sender (the SCHC gateway) implements an inactivity timer with default duration of 12 hours. Once a fragmentation session is started, if the SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after the last message from the device was received, the SCHC gateway MAY flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
-<h1 id="rfc.section.5.6.2.2">
-<a href="#rfc.section.5.6.2.2">5.6.2.2.</a> <a href="#class-b-or-class-c-end-devices" id="class-b-or-class-c-end-devices">Class B or Class C end-devices</a>
+<p id="rfc.section.5.7.2.1.p.1">Class A end-devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for an SCHC gateway. The SCHC gateway cannot initiate communication to a Class A end-device.</p>
+<p id="rfc.section.5.7.2.1.p.2">The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request, but the end of a window), the device MUST transmit the SCHC ACK fragment until it receives the fragment of the next window. The device SHALL transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit those ACK as soon as possible while taking into consideration potential local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
+<p id="rfc.section.5.7.2.1.p.3">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the &#8220;RCS is correct&#8221; indicator bit set (C=1). This message might be lost therefore the SCHC gateway MAY request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink, on SCHC FPortsDown from the SCHC gateway different from an ACK-request: it indicates that the SCHC gateway has received the ACK message.</p>
+<p id="rfc.section.5.7.2.1.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and the RCS is not correct, the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep this Abort message in memory until it receives a downlink, on SCHC FPortsDown, from the SCHC gateway different from an ACK-request indicating that the SCHC gateway has received the Abort message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
+<p id="rfc.section.5.7.2.1.p.5">The fragmentation sender (the SCHC gateway) implements an inactivity timer with default duration of 12 hours. Once a fragmentation session is started, if the SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after the last message from the device was received, the SCHC gateway MAY flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
+<h1 id="rfc.section.5.7.2.2">
+<a href="#rfc.section.5.7.2.2">5.7.2.2.</a> <a href="#class-b-or-class-c-end-devices" id="class-b-or-class-c-end-devices">Class B or Class C end-devices</a>
 </h1>
-<p id="rfc.section.5.6.2.2.p.1">Class B and Class C end-devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink. The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding SCHC ACK message even if that fragment has already been received.  The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this ACK, it proceeds to send the next window fragment. If the retransmission timer elapses and the SCHC gateway has not received the ACK of the current window it retransmits the last fragment. The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
-<p id="rfc.section.5.6.2.2.p.2">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the RCS is correct&#8221; indicator bit set. If the SCHC gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
-<p id="rfc.section.5.6.2.2.p.3">If the retransmission timer elapses and the SCHC gateway has not received the SCHC ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
-<p id="rfc.section.5.6.2.2.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and if the RCS is NOT correct, the device SHALL transmit a Receiver-Abort fragment.  The retransmission timer is used by the SCHC gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For Class B end-devices, this timer trigger is a function of the periodicity of the Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping slot periodicity. For Class C end-devices which are nearly constantly receiving, the RECOMMENDED value is 30 seconds. This means that the end-device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the end-device to flush the context in-case it receives nothing from the SCHC gateway over an extended period of time. The RECOMMENDED value is 12 hours for both Class B and Class C end-devices.</p>
+<p id="rfc.section.5.7.2.2.p.1">Class B and Class C end-devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink. The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or ACK-request), the device MUST always transmit the corresponding SCHC ACK message even if that fragment has already been received.  The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this ACK, it proceeds to send the next window fragment. If the retransmission timer elapses and the SCHC gateway has not received the ACK of the current window it retransmits the last fragment. The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.7.2.2.p.2">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the RCS is correct&#8221; indicator bit set. If the SCHC gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
+<p id="rfc.section.5.7.2.2.p.3">If the retransmission timer elapses and the SCHC gateway has not received the SCHC ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.7.2.2.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and if the RCS is NOT correct, the device SHALL transmit a Receiver-Abort fragment.  The retransmission timer is used by the SCHC gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For Class B end-devices, this timer trigger is a function of the periodicity of the Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping slot periodicity. For Class C end-devices which are nearly constantly receiving, the RECOMMENDED value is 30 seconds. This means that the end-device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the end-device to flush the context in-case it receives nothing from the SCHC gateway over an extended period of time. The RECOMMENDED value is 12 hours for both Class B and Class C end-devices.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>

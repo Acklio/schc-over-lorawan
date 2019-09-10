@@ -83,8 +83,9 @@ Table of Contents
      5.4.  Compression . . . . . . . . . . . . . . . . . . . . . . .  10
      5.5.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .  10
      5.6.  DTag  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-       5.6.1.  Uplink fragmentation: From device to SCHC gateway . .  10
-       5.6.2.  Downlink fragmentation: From SCHC gateway to device .  13
+     5.7.  Padding . . . . . . . . . . . . . . . . . . . . . . . . .  10
+       5.7.1.  Uplink fragmentation: From device to SCHC gateway . .  10
+       5.7.2.  Downlink fragmentation: From SCHC gateway to device .  13
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  16
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  16
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
@@ -105,7 +106,6 @@ Table of Contents
    compression and fragmentation techniques that can be used on all
    LPWAN (Low Power Wide Area Networks) technologies defined in
    [RFC8376].  Even though those technologies share a great number of
-   common features like star-oriented topologies, network architecture,
 
 
 
@@ -114,6 +114,7 @@ Gimenez, et al.          Expires March 13, 2020                 [Page 2]
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
+   common features like star-oriented topologies, network architecture,
    devices with mostly quite predictable communications, etc; they do
    have some slight differences in respect of payload sizes,
    reactiveness, etc.
@@ -160,8 +161,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    stored on the Device (Dev).  The contexts MUST be stored in both
    ends, and it can either be learned by a provisioning protocol or by
    out-of-band means or it can be pre-provisioned, etc.  The way the
-   context is learned on both sides is out of the scope of this
-   document.
+
 
 
 
@@ -169,6 +169,9 @@ Gimenez, et al.          Expires March 13, 2020                 [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
+
+   context is learned on both sides is out of the scope of this
+   document.
 
           Dev                                               App
   +----------------+                                +----+ +----+ +----+
@@ -209,9 +212,6 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    Server, and the SCHC C/D is an Application Server.  It can be
    provided by the Network Server or any third party software.  Figure 1
    can be map in LoRaWAN terminology to:
-
-
-
 
 
 
@@ -534,7 +534,11 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    A LoRaWAN device cannot interleave several fragmented SCHC datagrams.
    This field is not used and its size is 0.
 
-5.6.1.  Uplink fragmentation: From device to SCHC gateway
+5.7.  Padding
+
+   All padding bits SHOULD be 0.
+
+5.7.1.  Uplink fragmentation: From device to SCHC gateway
 
    In that case the device is the fragmentation transmitter, and the
    SCHC gateway the fragmentation receiver.  A single fragmentation rule
@@ -549,11 +553,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
    o  *DTag*: Size is 0 bit, not used
 
-   o  *FCN*: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 64
-      tiles are allowed in a window
 
-   o  *Window index*: encoded on W = 2 bits.  So 4 windows are
-      available.
 
 
 
@@ -561,6 +561,12 @@ Gimenez, et al.          Expires March 13, 2020                [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
+
+   o  *FCN*: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 64
+      tiles are allowed in a window
+
+   o  *Window index*: encoded on W = 2 bits.  So 4 windows are
+      available.
 
    o  *RCS calculation algorithm*: CRC32 using 0xEDB88320 (i.e. the
       reverse representation of the polynomial used e.g. in the Ethernet
@@ -604,12 +610,6 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
     Figure 6: All fragment except the last one.  SCHC header size is 18
                       bits, including LoRaWAN FPort.
 
-   *Last fragment (All-1)*
-
-
-
-
-
 
 
 
@@ -617,6 +617,8 @@ Gimenez, et al.          Expires March 13, 2020                [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
+
+   *Last fragment (All-1)*
 
    | FPort  | LoRaWAN payload                                  |
    + ------ + ------------------------------------------------ +
@@ -667,14 +669,12 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-
-
 Gimenez, et al.          Expires March 13, 2020                [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
-5.6.2.  Downlink fragmentation: From SCHC gateway to device
+5.7.2.  Downlink fragmentation: From SCHC gateway to device
 
    In that case the device is the fragmentation receiver, and the SCHC
    gateway the fragmentation transmitter.  The following fields are
@@ -767,7 +767,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    Class A and Class B or Class C end-devices do not manage
    retransmissions and timers in the same way.
 
-5.6.2.1.  Class A end-devices
+5.7.2.1.  Class A end-devices
 
    Class A end-devices can only receive in an RX slot following the
    transmission of an uplink.  Therefore there cannot be a concept of
@@ -821,7 +821,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    packet a day in normal operation) , that duration may be extended,
    but this is application specific.
 
-5.6.2.2.  Class B or Class C end-devices
+5.7.2.2.  Class B or Class C end-devices
 
    Class B and Class C end-devices can receive in scheduled RX slots or
    in RX slots following the transmission of an uplink.  The device
