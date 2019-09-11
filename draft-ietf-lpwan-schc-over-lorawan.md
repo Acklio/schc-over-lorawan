@@ -160,19 +160,20 @@ Server or any third party software. {{Fig-archi}} can be map in LoRaWAN
 terminology to:
 
 ~~~~
-        Dev                                                         App
-+----------------+                                          +----+ +----+ +----+
-| App1 App2 App3 |                                          |App1| |App2| |App3|
-|                |                                          |    | |    | |    |
-|       UDP      |                                          |UDP | |UDP | |UDP |
-|      IPv6      |                                          |IPv6| |IPv6| |IPv6|
-|                |                                          |    | |    | |    |
-|SCHC C/D and F/R|                                          |    | |    | |    |
-+--------+-------+                                          +----+ +----+ +----+
-         |  +-------+     +-------+    +----------------+     .      .      .
-         +~ |Gateway| === |Network| == |Application     |...... Internet ....
-            +-------+     |server |    |server F/R - C/D|
-                          +-------+    +----------------+
+       Dev                                                  App
++--------------+                                    +----+ +----+ +----+
+|App1 App2 App3|                                    |App1| |App2| |App3|
+|              |                                    |    | |    | |    |
+|      UDP     |                                    |UDP | |UDP | |UDP |
+|     IPv6     |                                    |IPv6| |IPv6| |IPv6|
+|              |                                    |    | |    | |    |
+|SCHC C/D & F/R|                                    |    | |    | |    |
++-------+------+                                    +----+ +----+ +----+
+        |  +-------+     +-------+    +-----------+    .      .      .
+        +~ |Gateway| === |Network| == |Application|..... Internet ....
+           +-------+     |server |    |server     |
+                         +-------+    | F/R - C/D |
+                                      +-----------+
 ~~~~
 {: #Fig-archi-lorawan title='SCHC Architecture mapped to LoRaWAN'}
 
@@ -327,12 +328,12 @@ as a part of the ruleId field.
 {: #Fig-lorawan-schc-payload title='SCHC payload in LoRaWAN'}
 
 A fragmentation session with application payload transferred from device to
-server, is called uplink fragmentation session. It uses a range of FPorts for
-data uplink and its associated SCHC control downlinks, named FPortsUp in this
-document. The other way, a fragmentation session with application payload
-transferred from server to device, is called downlink fragmentation session. It
-uses another range of FPorts for data downlink and its associated SCHC control
-uplinks, named FPortsDown in this document.
+server, is called uplink fragmentation session. It uses a FPort for data uplink
+and its associated SCHC control downlinks, named FPortUp in this document. The
+other way, a fragmentation session with application payload transferred from
+server to device, is called downlink fragmentation session. It uses another
+FPort for data downlink and its associated SCHC control uplinks, named FPortDown
+in this document.
 
 FPorts can use arbitrary values inside the allowed FPort range and MUST be
 shared by the end-device, the Network Server and SCHC gateway. The uplink and
@@ -340,14 +341,14 @@ downlink fragmentation FPorts MUST be different.
 
 ## Rule ID management
 
-RuleID minimum length MUST be minimum 8-bits, and RECOMMENDED length is 8-bits.
+RuleID minimum length MUST be 8 bits, and RECOMMENDED length is 8 bits.
 RuleID MSB is encoded in the LoRaWAN FPort as described in
 {{Fig-lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
-range [1;223], it implies that RuledID MSB SHOULD be insidethis range.
+range [1;223], it implies that RuledID MSB SHOULD be inside this range.
 Application MAY reserve some FPort values for other needs.
 
 A RuleID SHOULD be reserved to tag packets for which SCHC compression was not
-possible (no matching Rule was found). RuleIDs FPortsUp and FPortsDown are
+possible (no matching Rule was found). RuleIDs FPortUp and FPortDown are
 reserved for fragmentation, in order to improve interoperability RECOMMENDED
 values are:
 
@@ -356,19 +357,19 @@ values are:
 * RuleID = 22 (8-bit) for which SCHC compression was not possible
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
-uplink and downlink sessions.  A RuleID not FPortsUp or FPortsDown means that
+uplink and downlink sessions.  A RuleID not FPortUp or FPortDown means that
 the fragmentation is not used, thus the packet SHOULD be send to C/D layer.
 
-The only uplink messages using the FPortsDown port are the fragmentation SCHC
+The only uplink messages using the FPortDown port are the fragmentation SCHC
 control messages of a downlink fragmentation session (ex ACKs). Similarly, the
-only downlink messages using the FPortsUp ports are the fragmentation SCHC
+only downlink messages using the FPortUp port are the fragmentation SCHC
 control messages of an uplink fragmentation session.
 
 Application can have multiple fragmentation sessions between a device and one
 or several SCHC gateways.  A set of FPort values is REQUIRED for each gateway
 instance the device is required to communicate with.
 
-Mechanism to share those RuleID values is out-of-scope of this document
+Mechanism to share those RuleID values is out-of-scope of this document.
 
 ## IID computation
 
@@ -379,13 +380,17 @@ the 64-bit rule.
 
 TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?
 
+## Padding
+
+All padding bits MUST be 0.
+
 ## Compression {#Comp}
 
 SCHC C/D MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC packet
-as per [](#Fig-fragmentation-receiver-abort).
+as per {{Fig-lorawan-schc-payload}}.
 
 SCHC C/D RuleID size SHOULD be 8 bits to fit the LoRaWAN FPort field. RuleIDs
-matching FPortsUp and FPortsDown are reserved for SCHC Fragmentation.
+matching FPortUp and FPortDown are reserved for SCHC Fragmentation.
 
 ## Fragmentation {#Frag}
 
@@ -400,14 +405,10 @@ moment.
 The fragmentation parameters are different for uplink and downlink
 fragmentation sessions and are successively described in the next sections.
 
-## DTag
+### DTag
 
 A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This
 field is not used and its size is 0.
-
-## Padding
-
-All padding bits SHOULD be 0.
 
 ### Uplink fragmentation: From device to SCHC gateway
 
@@ -415,7 +416,7 @@ In that case the device is the fragmentation transmitter, and the SCHC gateway
 the fragmentation receiver.
 A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
-fragment as per [](#Fig-fragmentation-receiver-abort).
+fragment as per {{Fig-lorawan-schc-payload}}.
 
 * SCHC header is two bytes, including FPort byte.
 * **RuleID**: Recommended size is 8 bits in SCHC header.
@@ -443,8 +444,8 @@ fragment as per [](#Fig-fragmentation-receiver-abort).
   by application requirements and MAY be changed by the application.
 * **Last tile**: Last tile can be carried in the All-1 fragment.
 
-With this set of parameters, the SCHC fragment header is 18 bits,
-including FPort; payload overhead will be 10 bits as FPort is already a part of
+With this set of parameters, the SCHC fragment header is 16 bits,
+including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 **Regular fragments**
@@ -455,10 +456,10 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 + ------ + ------------------------- +
 | RuleID |   W    | FCN    | Payload |
 + ------ + ------ + ------ + ------- +
-| 8 bits | 2 bits | 7 bits |         |
+| 8 bits | 2 bits | 6 bits |         |
 
 ~~~~
-{: #Fig-fragmentation-header-long-all0 title='All fragment except the last one. SCHC header size is 18 bits, including LoRaWAN FPort.'}
+{: #Fig-fragmentation-header-long-all0 title='All fragment except the last one. SCHC header size is 16 bits, including LoRaWAN FPort.'}
 
 
 **Last fragment (All-1)**
@@ -469,7 +470,7 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 + ------ + ------------------------------------------------ +
 | RuleID |   W    | FCN=All-1 |  RCS    | Payload           |
 + ------ + ------ + --------- + ------- + ----------------- +
-| 8 bits | 2 bits | 7 bits    | 32 bits | Last tile, if any |
+| 8 bits | 2 bits | 6 bits    | 32 bits | Last tile, if any |
 
 ~~~~
 {: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
@@ -492,12 +493,12 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 ~~~~
 
-| FPort  | LoRaWAN payload                             |
-+ ------ + ------------------------------------------- +
-| RuleID | W = b'11 | C = 1 | b'1111 | 0xFF (all 1's)  |
-+ ------ + -------- + ------+------- + ----------------+
-| 8 bits |  2 bits  | 1 bit | 4 bits | 8 bits          |
-             next L2 Word boundary ->| <-- L2 Word --> |
+| FPort  | LoRaWAN payload                              |
++ ------ + -------------------------------------------- +
+| RuleID | W = b'11 | C = 1 | b'11111 | 0xFF (all 1's)  |
++ ------ + -------- + ------+-------- + ----------------+
+| 8 bits |  2 bits  | 1 bit | 5 bits  | 8 bits          |
+              next L2 Word boundary ->| <-- L2 Word --> |
 
 ~~~~
 {: #Fig-fragmentation-receiver-abort title='Receiver-Abort format.'}
@@ -509,9 +510,9 @@ LoRaWAN payload. MTU is: _4 windows * 64 tiles * 5 bytes per tile = 1280 bytes_
 
 | FPort  | LoRaWAN payload          |
 +------- +------------------------- +
-| RuleID | W      | FCN = b'0000000 |
+| RuleID | W      | FCN = b'000000  |
 + ------ + ------ + --------------- +
-| 8 bits | 2 bits | 7 bits          |
+| 8 bits | 2 bits | 6 bits          |
 
 
 ~~~~
@@ -530,7 +531,7 @@ fragment as described in {{Fig-lorawan-schc-payload}}.
 * **RuleID**: Recommended size is 8 bits in SCHC header.
 * **Window index**: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * **DTag**: Size is 0 bit, not used
-* **FCN**: The FCN field is encoded on N=1 bits, so WINDOW_SIZE = 1 tile
+* **FCN**: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
 * **RCS calculation algorithm**: CRC32 using 0xEDB88320 (i.e. the reverse
   representation of the polynomial used e.g. in the Ethernet standard
@@ -555,7 +556,7 @@ purposes in but not SCHC needs.
 | 8 bits | 1 bit | 1 bit     | X bytes         |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 1 byte (8 bits), including LoraWAN FPort.'}
+{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 10 bits, including LoraWAN FPort.'}
 
 
 **Last fragment (All-1)**
@@ -626,13 +627,13 @@ datagram) and if the RCS is correct, the device SHALL transmit the ACK with
 the "RCS is correct" indicator bit set (C=1). This message might be lost
 therefore the SCHC gateway MAY request a retransmission of this ACK in the next
 downlink. The device SHALL keep this ACK message in memory until it receives
-a downlink, on SCHC FPortsDown from the SCHC gateway different from an
+a downlink, on SCHC FPortDown from the SCHC gateway different from an
 ACK-request: it indicates that the SCHC gateway has received the ACK message.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram), if all fragments have been received and the RCS is not correct,
 the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep
-this Abort message in memory until it receives a downlink, on SCHC FPortsDown,
+this Abort message in memory until it receives a downlink, on SCHC FPortDown,
 from the SCHC gateway different from an ACK-request indicating that the SCHC
 gateway has received the Abort message.  The fragmentation receiver (device)
 does not implement retransmission timer and inactivity timer.
@@ -663,7 +664,7 @@ MAX_ACK_REQUESTS times before aborting.
 
 Following the reception of a FCN=All-1 fragment (the last fragment of a
 datagram) and if the RCS is correct, the device SHALL transmit the ACK with the
-RCS is correct” indicator bit set. If the SCHC gateway receives this ACK, the
+"RCS is correct" indicator bit set. If the SCHC gateway receives this ACK, the
 current fragmentation session has succeeded and its context can be cleared.
 
 If the retransmission timer elapses and the SCHC gateway has not received the
@@ -689,7 +690,7 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 
 This document is only providing parameters that are expected to be better
 suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
-such, this parameters does not contribute to any new security issues in
+such, this document does not contribute to any new security issues in
 addition of those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
 # Acknowledgements
@@ -750,8 +751,8 @@ going through SCHC, no fragmentation required
 ~~~~
 
 An applicative payload of 78 bytes is passed to SCHC compression layer
-using rule 1, allowing to compress it to 40 bytes and 5 bits: 1 byte ruleId,
-21 bits residue + 37 bytes payload.
+using rule 1, allowing to compress it to 40 bytes and 5 bits: 1 byte
+ruleID, 21 bits residue + 37 bytes payload.
 
 
 | RuleID | Compression residue |  Payload  | Padding=b'000 |
@@ -764,11 +765,12 @@ LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
 fragmentation. The payload will be transmitted through FPort = 1
 
 
-| LoRaWAN Header                      | LoRaWAN payload (40 bytes)                      |
-+ ----------------------------------- + ----------------------------------------------- +
-|                |  FOpts  | RuleID=1 | Compression residue |  Payload  | Padding=b'000 |
-+ -------------- + ------- + -------- + ------------------- + --------- + ------------- +
-|       XXXX     | 2 bytes | 1 byte   |       21 bits       |  37 bytes |    3 bits     |
+| LoRaWAN Header            | LoRaWAN payload (40 bytes)              |
++ ------------------------- + --------------------------------------- +
+|      |  FOpts  | RuleID=1 | Compression | Payload   | Padding=b'000 |
+|      |         |          | residue     |           |               |
++ ---- + ------- + -------- + ----------- + --------- + ------------- +
+| XXXX | 2 bytes | 1 byte   | 21 bits     |  37 bytes |    3 bits     |
 
 ~~~~
 {: #Fig-example-uplink-no-fragmentation title='Uplink example: compression without fragmentation'}
@@ -781,8 +783,8 @@ going through SCHC, with fragmentation.
 ~~~~
 
 An applicative payload of 478 bytes is passed to SCHC compression layer
-using rule 1, allowing to compress it to 282 bytes and 5 bits: 1 byte ruleId,
-21 bits residue + 279 bytes payload.
+using rule 1, allowing to compress it to 282 bytes and 5 bits: 1 byte
+ruleID, 21 bits residue + 279 bytes payload.
 
 
 | RuleID | Compression residue |  Payload  |
@@ -791,8 +793,9 @@ using rule 1, allowing to compress it to 282 bytes and 5 bits: 1 byte ruleId,
 
 
 The current LoRaWAN MTU is 11 bytes, although 2 bytes FOpts are used by
-LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort field.
-SCHC header is 2 bytes (including FPort) so 1 tile is send in first fragment.
+LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort
+field.  SCHC header is 2 bytes (including FPort) so 1 tile is send in
+first fragment.
 
 | LoRaWAN Header                        | LoRaWAN payload (6 bytes) |
 + ------------------------------------- + ------------------------- +
@@ -816,14 +819,15 @@ Next transmission MTU is 242 bytes, no FOpts. 48 tiles are transmitted:
 |       XXXX     | 1 byte     | 0   0 |   61   | 240 bytes  |
 
 
-Next transmission MTU is 242 bytes, no FOpts. All 66 remaining tiles are
-transmitted, last tile is only 2 bytes. Padding is added for the remaining 3 bits.
+Next transmission MTU is 242 bytes, no FOpts. All 8 remaining tiles are
+transmitted, last tile is only 2 bytes + 5 bits. Padding is added for
+the remaining 3 bits.
 
-| LoRaWAN Header              | LoRaWAN payload (39 bytes)                         |
-+ -------------- + -----------+ -------------------------------------------------- +
-|                | RuleID=20  |   W   |  FCN   |      8 tiles      | Padding=b'000 |
-+ -------------- + ---------- + ----- + ------ + ----------------- + ------------- +
-|       XXXX     | 1 byte     | 0   0 |   13   | 37 bytes + 5 bits |    3 bits     |
+| LoRaWAN Header    | LoRaWAN payload (39 bytes)                      |
++ ---- + -----------+ ----------------------------------------------- +
+|      | RuleID=20  | W  |  FCN   |      8 tiles      | Padding=b'000 |
++ ---- + ---------- + -- + ------ + ----------------- + ------------- +
+| XXXX | 1 byte     | 00 |   13   | 37 bytes + 5 bits |    3 bits     |
 
 
 All packets have been received by the SCHC gateway, computed RCS is
@@ -843,9 +847,9 @@ correct so the following ACK is send to the device:
 
 ~~~~
 
-An applicative payload of 443 bytes is passed to SCHC compression layer using
-rule 1, allowing to compress it to 130 bytes and 5 bits: 1 byte ruleId,
-21 bits residue + 127 bytes payload.
+An applicative payload of 443 bytes is passed to SCHC compression layer
+using rule 1, allowing to compress it to 130 bytes and 5 bits: 1 byte
+ruleId, 21 bits residue + 127 bytes payload.
 
 
 | RuleID | Compression residue |  Payload  |
@@ -853,21 +857,21 @@ rule 1, allowing to compress it to 130 bytes and 5 bits: 1 byte ruleId,
 |   1    |       21 bits       | 127 bytes |
 
 
-The current LoRaWAN MTU is 50 bytes, no FOpts are used by
-LoRaWAN protocol: 48 bytes are available for SCHC payload + FPort field => it
+The current LoRaWAN MTU is 50 bytes, no FOpts are used by LoRaWAN
+protocol: 48 bytes are available for SCHC payload + FPort field => it
 has to be fragmented.
 
 
-| LoRaWAN Header              | LoRaWAN payload (50 bytes)                    |
-+ -------------- + ---------- + --------------------------------------------- +
-|                | RuleID=21  |  W  | FCN |     1 tile     | Padding=b'000000 |
-+ -------------- + ---------- + --- + --- + -------------- + ---------------- +
-|       XXXX     | 1 byte     |  0  |  0  |    49 bytes    |      6 bits      |
+| LoRaWAN Header    | LoRaWAN payload (50 bytes)                    |
++ ---- + ---------- + --------------------------------------------- +
+|      | RuleID=21  |  W  | FCN |     1 tile     | Padding=b'000000 |
++ ---- + ---------- + --- + --- + -------------- + ---------------- +
+| XXXX | 1 byte     |  0  |  0  |    49 bytes    |      6 bits      |
 
 Content of the tile is:
 | RuleID | Compression residue |        Payload     |
 + ------ + ------------------- + ------------------ +
-|   1    |       21 bits       |  4 bytes + 3 bits  |
+|   1    |       21 bits       | 45 bytes + 3 bits  |
 
 
 The receiver answers with an SCHC ACK
@@ -882,11 +886,11 @@ The receiver answers with an SCHC ACK
 The second downlink is send, two FOpts:
 
 
-| LoRaWAN Header                        | LoRaWAN payload (48 bytes)                    |
-+ ------------------------------------- + -------------------------- + ---------------- +
-|                |  FOpts  | RuleID=21  |  W  | FCN |    1 tile      | Padding=b'000000 |
-+ -------------- + ------- + ---------- + --- + --- + -------------- + ---------------- +
-|       XXXX     | 2 bytes | 1 byte     |  1  |  0  |   47 bytes     |      6 bits      |
+| LoRaWAN Header              | LoRaWAN payload (48 bytes)            |
++ --------------------------- + ------------------ + ---------------- +
+|      |  FOpts  | RuleID=21  | W | FCN | 1 tile   | Padding=b'000000 |
++ ---- + ------- + ---------- + - + --- + -------- + ---------------- +
+| XXXX | 2 bytes | 1 byte     | 1 |  0  | 47 bytes |      6 bits      |
 
 
 The receiver answers with an SCHC ACK
@@ -901,11 +905,11 @@ The receiver answers with an SCHC ACK
 The last downlink is send, no FOpts:
 
 
-| LoRaWAN Header              | LoRaWAN payload (33 bytes)                       |
-+ -------------- + ---------- + ------------------------------------------------ +
-|                | RuleID=21  |  W  | FCN |     1 tile             | Padding=b'0 |
-+ -------------- + ---------- + --- + --- + ---------------------- + ----------- +
-|       XXXX     | 1 byte     |  0  |  1  |    32 bytes + 5 bits   | 1 bit       |
+| LoRaWAN Header    | LoRaWAN payload (33 bytes)                      |
++ ---- + ---------- + ----------------------------------------------- +
+|      | RuleID=21  |  W  | FCN |    1 tile             | Padding=b'0 |
++ ---- + ---------- + --- + --- + --------------------- + ----------- +
+| XXXX | 1 byte     |  0  |  1  |   32 bytes + 5 bits   | 1 bit       |
 
 
 The receiver answers with an SCHC ACK
