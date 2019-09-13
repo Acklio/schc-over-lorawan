@@ -857,7 +857,7 @@ ruleId, 21 bits residue + 127 bytes payload.
 |   1    |       21 bits       | 127 bytes |
 
 
-The current LoRaWAN MTU is 50 bytes, no FOpts are used by LoRaWAN
+The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
 protocol: 48 bytes are available for SCHC payload + FPort field => it
 has to be fragmented.
 
