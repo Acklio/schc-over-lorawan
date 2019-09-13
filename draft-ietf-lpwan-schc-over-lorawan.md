@@ -862,16 +862,16 @@ protocol: 48 bytes are available for SCHC payload + FPort field => it
 has to be fragmented.
 
 
-| LoRaWAN Header    | LoRaWAN payload (50 bytes)                    |
+| LoRaWAN Header    | LoRaWAN payload (51 bytes)                    |
 + ---- + ---------- + --------------------------------------------- +
 |      | RuleID=21  |  W  | FCN |     1 tile     | Padding=b'000000 |
 + ---- + ---------- + --- + --- + -------------- + ---------------- +
-| XXXX | 1 byte     |  0  |  0  |    49 bytes    |      6 bits      |
+| XXXX | 1 byte     |  0  |  0  |    50 bytes    |      6 bits      |
 
 Content of the tile is:
 | RuleID | Compression residue |        Payload     |
 + ------ + ------------------- + ------------------ +
-|   1    |       21 bits       | 45 bytes + 3 bits  |
+|   1    |       21 bits       | 46 bytes + 3 bits  |
 
 
 The receiver answers with an SCHC ACK
@@ -886,11 +886,11 @@ The receiver answers with an SCHC ACK
 The second downlink is send, two FOpts:
 
 
-| LoRaWAN Header              | LoRaWAN payload (48 bytes)            |
+| LoRaWAN Header              | LoRaWAN payload (49 bytes)            |
 + --------------------------- + ------------------ + ---------------- +
 |      |  FOpts  | RuleID=21  | W | FCN | 1 tile   | Padding=b'000000 |
 + ---- + ------- + ---------- + - + --- + -------- + ---------------- +
-| XXXX | 2 bytes | 1 byte     | 1 |  0  | 47 bytes |      6 bits      |
+| XXXX | 2 bytes | 1 byte     | 1 |  0  | 48 bytes |      6 bits      |
 
 
 The receiver answers with an SCHC ACK
