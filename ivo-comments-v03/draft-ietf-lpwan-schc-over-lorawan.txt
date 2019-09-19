@@ -5,10 +5,10 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: March 21, 2020                                           Acklio
+Expires: March 22, 2020                                           Acklio
                                                              J. Catalano
                                                                  Kerlink
-                                                      September 18, 2019
+                                                      September 19, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 21, 2020.
+   This Internet-Draft will expire on March 22, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 1]
+Gimenez, et al.          Expires March 22, 2020                 [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 2]
+Gimenez, et al.          Expires March 22, 2020                 [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 3]
+Gimenez, et al.          Expires March 22, 2020                 [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 4]
+Gimenez, et al.          Expires March 22, 2020                 [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 5]
+Gimenez, et al.          Expires March 22, 2020                 [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 6]
+Gimenez, et al.          Expires March 22, 2020                 [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 7]
+Gimenez, et al.          Expires March 22, 2020                 [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 8]
+Gimenez, et al.          Expires March 22, 2020                 [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -456,7 +456,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    bits.  RuleID MSB is encoded in the LoRaWAN FPort as described in
    Section 5.1.  LoRaWAN supports up to 223 application FPorts in the
    range [1;223] as defined in section 4.3.2 of [lora-alliance-spec], it
-   implies that RuledID MSB SHOULD be inside this range.  An application
+   implies that RuleID MSB SHOULD be inside this range.  An application
    MAY reserve some FPort values for other needs as long as they don't
    conflict with FPorts used for SCHC C/D and SCHC F/R.
 
@@ -487,8 +487,8 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
    REQUIRED for each NGW instance the device is required to communicate
    with.
 
-   The mechanism for sharing those RuleID values is out-of-scope of this
-   document.
+   The mechanism for sharing those RuleID values is outside the scope of
+   this document.
 
 5.3.  IID computation
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                 [Page 9]
+Gimenez, et al.          Expires March 22, 2020                 [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 10]
+Gimenez, et al.          Expires March 22, 2020                [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 11]
+Gimenez, et al.          Expires March 22, 2020                [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 12]
+Gimenez, et al.          Expires March 22, 2020                [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 13]
+Gimenez, et al.          Expires March 22, 2020                [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 14]
+Gimenez, et al.          Expires March 22, 2020                [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 15]
+Gimenez, et al.          Expires March 22, 2020                [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -893,7 +893,7 @@ Acknowledgements
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 16]
+Gimenez, et al.          Expires March 22, 2020                [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -949,7 +949,7 @@ Contributors
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 17]
+Gimenez, et al.          Expires March 22, 2020                [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1005,7 +1005,7 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 18]
+Gimenez, et al.          Expires March 22, 2020                [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1061,7 +1061,7 @@ first fragment.
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 19]
+Gimenez, et al.          Expires March 22, 2020                [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1117,7 +1117,7 @@ A.3.  Downlink
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 20]
+Gimenez, et al.          Expires March 22, 2020                [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 21]
+Gimenez, et al.          Expires March 22, 2020                [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1229,7 +1229,7 @@ Authors' Addresses
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 22]
+Gimenez, et al.          Expires March 22, 2020                [Page 22]
 
 Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
@@ -1285,4 +1285,4 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2019
 
 
 
-Gimenez, et al.          Expires March 21, 2020                [Page 23]
+Gimenez, et al.          Expires March 22, 2020                [Page 23]
