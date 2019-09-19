@@ -374,7 +374,7 @@ An application can have multiple fragmentation sessions between a device and one
 or several SCHC gateways.  A set of FPort values is REQUIRED for each NGW
 instance the device is required to communicate with.
 
-The mechanism for sharing those RuleID values is out-of-scope of this document.
+The mechanism for sharing those RuleID values is outside the scope of this document.
 
 ## IID computation
 
