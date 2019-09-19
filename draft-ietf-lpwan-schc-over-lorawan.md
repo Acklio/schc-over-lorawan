@@ -347,7 +347,7 @@ RuleID minimum length MUST be 8 bits, and RECOMMENDED length is 8 bits.
 RuleID MSB is encoded in the LoRaWAN FPort as described in
 {{lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
 the range \[1;223\] as defined in section 4.3.2 of {{lora-alliance-spec}}, it implies
-that RuledID MSB SHOULD be inside this range. An application MAY reserve some
+that RuleID MSB SHOULD be inside this range. An application MAY reserve some
 FPort values for other needs as long as they don't conflict with FPorts used
 for SCHC C/D and SCHC F/R.
 
