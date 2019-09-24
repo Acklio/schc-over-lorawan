@@ -371,7 +371,7 @@ only downlink messages using the FPortUp port are the fragmentation SCHC
 control messages of an uplink fragmentation session.
 
 An application can have multiple fragmentation sessions between a device and one
-or several SCHC gateways.  A set of FPort values is REQUIRED for each NGW
+or several SCHC gateways.  A set of FPort values is REQUIRED for each SHCH gateway
 instance the device is required to communicate with.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
@@ -422,7 +422,8 @@ the fragmentation receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as per {{lorawan-schc-payload}}.
 
-* SCHC header is two bytes (the FPort byte + 1 additional byte).
+* Minimum SCHC header is two bytes (the FPort byte + 1 additional byte) and the
+  RECOMMENDED header size is two bytes.
 * RuleID: Recommended size is 8 bits in SCHC header.
 * SCHC fragmentation reliability mode: `ACK-on-Error`
 * DTag: Size is 0 bit, not used
