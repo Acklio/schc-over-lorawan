@@ -341,7 +341,7 @@ FPorts can use arbitrary values inside the allowed FPort range and MUST be
 shared by the end-device, the Network Server and SCHC gateway prior to the
 communication. The uplink and downlink fragmentation FPorts MUST be different.
 
-## Rule ID management
+## Rule ID management  {#rule-id-management}
 
 RuleID minimum length MUST be 8 bits, and RECOMMENDED length is 8 bits.
 RuleID MSB is encoded in the LoRaWAN FPort as described in
@@ -412,8 +412,11 @@ fragmentation sessions and are successively described in the next sections.
 
 ### DTag
 
-A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This
-field is not used and its size is 0.
+A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same
+FPort.  This field is not used and its size is 0.
+
+Note: The device can still have several parallel fragmentation sessions with one
+or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
 
 ### Uplink fragmentation: From device to SCHC gateway
 
