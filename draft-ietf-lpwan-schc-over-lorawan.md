@@ -371,7 +371,7 @@ only downlink messages using the FPortUp port are the fragmentation SCHC
 control messages of an uplink fragmentation session.
 
 An application can have multiple fragmentation sessions between a device and one
-or several SCHC gateways.  A set of FPort values is REQUIRED for each SHCH gateway
+or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway
 instance the device is required to communicate with.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
