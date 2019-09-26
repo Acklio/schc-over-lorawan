@@ -443,13 +443,14 @@ fragment as per {{lorawan-schc-payload}}.
   a window or a fragmentation session, corresponding ACK(s) is (are)
   transmitted by the network gateway (LoRaWAN application server) in the RX1 or
   RX2 receive slot of end-device.
-  If this ACK is not received the end-device sends an all-0 (or an all-1)
-  fragment with no payload to request an SCHC ACK retransmission. The
-  periodicity between retransmission of the all-0/all-1 fragments is
-  device/application specific and MAY be different for each device (not
-  specified). The SCHC gateway implements an "inactivity timer". The default
-  RECOMMENDED duration of this timer is 12 hours. This value is mainly driven
-  by application requirements and MAY be changed by the application.
+  If this ACK is not received by the end-device at the end of its RX windows,
+  it sends an all-0 (or an all-1) fragment with no payload to request an SCHC
+  ACK retransmission. The periodicity between retransmission of the all-0/all-1
+  fragments is device/application specific and MAY be different for each device
+  (not specified). The SCHC gateway implements an "inactivity timer".
+  The default RECOMMENDED duration of this timer is 12 hours. This value is
+  mainly driven by application requirements and MAY be changed by the
+  application.
 * Last tile: The last tile can be carried in the All-1 fragment.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
