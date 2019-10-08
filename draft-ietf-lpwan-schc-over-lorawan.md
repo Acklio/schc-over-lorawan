@@ -341,7 +341,7 @@ FPorts can use arbitrary values inside the allowed FPort range and MUST be
 shared by the end-device, the Network Server and SCHC gateway prior to the
 communication. The uplink and downlink fragmentation FPorts MUST be different.
 
-## Rule ID management
+## Rule ID management  {#rule-id-management}
 
 RuleID minimum length MUST be 8 bits, and RECOMMENDED length is 8 bits.
 RuleID MSB is encoded in the LoRaWAN FPort as described in
@@ -371,7 +371,7 @@ only downlink messages using the FPortUp port are the fragmentation SCHC
 control messages of an uplink fragmentation session.
 
 An application can have multiple fragmentation sessions between a device and one
-or several SCHC gateways.  A set of FPort values is REQUIRED for each SHCH gateway
+or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway
 instance the device is required to communicate with.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
@@ -412,8 +412,11 @@ fragmentation sessions and are successively described in the next sections.
 
 ### DTag
 
-A LoRaWAN device cannot interleave several fragmented SCHC datagrams. This
-field is not used and its size is 0.
+A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same
+FPort.  This field is not used and its size is 0.
+
+Note: The device can still have several parallel fragmentation sessions with one
+or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
 
 ### Uplink fragmentation: From device to SCHC gateway
 
@@ -440,13 +443,14 @@ fragment as per {{lorawan-schc-payload}}.
   a window or a fragmentation session, corresponding ACK(s) is (are)
   transmitted by the network gateway (LoRaWAN application server) in the RX1 or
   RX2 receive slot of end-device.
-  If this ACK is not received the end-device sends an all-0 (or an all-1)
-  fragment with no payload to request an SCHC ACK retransmission. The
-  periodicity between retransmission of the all-0/all-1 fragments is
-  device/application specific and MAY be different for each device (not
-  specified). The SCHC gateway implements an "inactivity timer". The default
-  RECOMMENDED duration of this timer is 12 hours. This value is mainly driven
-  by application requirements and MAY be changed by the application.
+  If this ACK is not received by the end-device at the end of its RX windows,
+  it sends an all-0 (or an all-1) fragment with no payload to request an SCHC
+  ACK retransmission. The periodicity between retransmission of the all-0/all-1
+  fragments is device/application specific and MAY be different for each device
+  (not specified). The SCHC gateway implements an "inactivity timer".
+  The default RECOMMENDED duration of this timer is 12 hours. This value is
+  mainly driven by application requirements and MAY be changed by the
+  application.
 * Last tile: The last tile can be carried in the All-1 fragment.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
