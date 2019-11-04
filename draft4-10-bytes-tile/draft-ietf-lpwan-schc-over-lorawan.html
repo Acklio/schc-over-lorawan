@@ -299,7 +299,6 @@ ul.toc li {
 <link href="#rfc.section.5.6.1" rel="Chapter" title="5.6.1 DTag">
 <link href="#rfc.section.5.6.2" rel="Chapter" title="5.6.2 Uplink fragmentation: From device to SCHC gateway">
 <link href="#rfc.section.5.6.3" rel="Chapter" title="5.6.3 Downlink fragmentation: From SCHC gateway to a device">
-<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Multicast">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security considerations">
 <link href="#rfc.acknowledgements" rel="Chapter">
 <link href="#rfc.contributors" rel="Chapter">
@@ -411,9 +410,7 @@ ul.toc li {
 </li>
 <li>5.6.3.   <a href="#rfc.section.5.6.3">Downlink fragmentation: From SCHC gateway to a device</a>
 </li>
-</ul><li>5.7.   <a href="#rfc.section.5.7">Multicast</a>
-</li>
-</ul><li>6.   <a href="#rfc.section.6">Security considerations</a>
+</ul></ul><li>6.   <a href="#rfc.section.6">Security considerations</a>
 </li>
 <li><a href="#rfc.acknowledgements">Acknowledgements</a>
 </li>
@@ -592,14 +589,13 @@ ul.toc li {
 <a href="#rfc.section.5.2">5.2.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
 </h1>
 <p id="rfc.section.5.2.p.1">RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>. LoRaWAN supports up to 223 application FPorts in the range [1;223] as defined in section 4.3.2 of <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a>, it implies that RuleID MSB SHOULD be inside this range. An application MAY reserve some FPort values for other needs as long as they don&#8217;t conflict with FPorts used for SCHC C/D and SCHC F/R.</p>
-<p id="rfc.section.5.2.p.2">In order to improve interoperability RECOMMENDED fragmentation RuleID values are:</p>
+<p id="rfc.section.5.2.p.2">A RuleID SHOULD be reserved to tag packets for which SCHC compression was not possible (no matching Rule was found). RuleIDs FPortUp and FPortDown are reserved for fragmentation, in order to improve interoperability RECOMMENDED values are:</p>
 <p></p>
 
 <ul>
-<li>RuleID = 20 for uplink fragmentation, named FPortUp</li>
-<li>RuleID = 21 for downlink fragmentation, named FPortDown</li>
-<li>RuleID = 22 for which SCHC compression was not possible (no matching rule was found)</li>
-<li>RuleID = 23 for multicast downlink fragementation</li>
+<li>RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp</li>
+<li>RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown</li>
+<li>RuleID = 22 (8-bit) for which SCHC compression was not possible</li>
 </ul>
 <p id="rfc.section.5.2.p.4">The remaining RuleIDs are available for compression. RuleIDs are shared between uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown means that the fragmentation is not used, thus the packet SHOULD be sent to C/D layer.</p>
 <p id="rfc.section.5.2.p.5">The only uplink messages using the FPortDown port are the fragmentation SCHC control messages of a downlink fragmentation session (ex ACKs). Similarly, the only downlink messages using the FPortUp port are the fragmentation SCHC control messages of an uplink fragmentation session.</p>
@@ -813,23 +809,6 @@ ul.toc li {
 <p id="rfc.section.5.6.3.6.p.2">Following the reception of an FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the &#8220;RCS is correct&#8221; indicator bit set. If the SCHC gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
 <p id="rfc.section.5.6.3.6.p.3">If the retransmission timer elapses and the SCHC gateway has not received the SCHC ACK it retransmits the last fragment with the payload (not an ACK-request without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
 <p id="rfc.section.5.6.3.6.p.4">Following the reception of an FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and if the RCS is NOT correct, the device SHALL transmit a Receiver-Abort fragment.  The retransmission timer is used by the SCHC gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For Class B end-devices, this timer trigger is a function of the periodicity of the Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping slot periodicity. For Class C end-devices which are nearly constantly receiving, the RECOMMENDED value is 30 seconds. This means that the end-device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the end-device to flush the context in-case it receives nothing from the SCHC gateway over an extended period of time. The RECOMMENDED value is 12 hours for both Class B and Class C end-devices.</p>
-<h1 id="rfc.section.5.7">
-<a href="#rfc.section.5.7">5.7.</a> <a href="#multicast" id="multicast">Multicast</a>
-</h1>
-<p id="rfc.section.5.7.p.1">LoRaWAN technology supports multicast for downlink communications: a packet send over LoRaWAN radio link can be received by several devices.  It can be usefull, for example, in case of large binary transfer like firmware upgrade over the air.  As IPv6 is also a multicast technology this feature MAY be used to address a group of devices. For those multicasts communications the SCHC No-ACK mode is used, it the respnsability to the upper layer to ensure data integrity, if required.</p>
-<p id="rfc.section.5.7.p.2">This feature is optionnal and MAY not be implemented by SCHC gateways.</p>
-<p id="rfc.section.5.7.p.3">Profile parameters are:</p>
-<p></p>
-
-<ul>
-<li>RuleID: RECOMMENDED value is 23.</li>
-<li>DTag: Size is 0 bit, not used.</li>
-<li>RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse representation of the polynomial used e.g. in the Ethernet standard <a href="#RFC3385" class="xref">[RFC3385]</a>) as suggested in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
-<li>Inactivity timer: The default RECOMMENDED duration is 12 hours. This value is mainly driven by application requirements and MAY be changed by the application.</li>
-<li>FCN: The FCN field is encoded on N = 1 bits, as recommended in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
-</ul>
-<p id="rfc.section.5.7.p.5">IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a network server and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
-<p id="rfc.section.5.7.p.6">Note: LoRa Alliance defined  <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>
@@ -901,11 +880,6 @@ ul.toc li {
 <td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
 <td class="top">
 <a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-22">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-22, October 2019.</td>
-</tr>
-<tr>
-<td class="reference"><b id="lora-alliance-remote-multicast-set">[lora-alliance-remote-multicast-set]</b></td>
-<td class="top">
-<a>Alliance, L.</a>, "<a href="https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf">LoRaWAN Remote Multicast Setup Specification Version 1.0.0</a>"</td>
 </tr>
 <tr>
 <td class="reference"><b id="lora-alliance-spec">[lora-alliance-spec]</b></td>
