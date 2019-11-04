@@ -84,7 +84,7 @@ Table of Contents
      5.4.  Padding . . . . . . . . . . . . . . . . . . . . . . . . .  10
      5.5.  Compression . . . . . . . . . . . . . . . . . . . . . . .  10
      5.6.  Fragmentation . . . . . . . . . . . . . . . . . . . . . .  10
-       5.6.1.  DTag  . . . . . . . . . . . . . . . . . . . . . . . .  10
+       5.6.1.  DTag  . . . . . . . . . . . . . . . . . . . . . . . .  11
        5.6.2.  Uplink fragmentation: From device to SCHC gateway . .  11
        5.6.3.  Downlink fragmentation: From SCHC gateway to a device  13
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  17
@@ -410,12 +410,21 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 4.5.  Unicast and multicast technology
 
-   LoRaWAN technology supports unicast for uplink and downlink
-   communications, but also multicast for downlink data: a packet send
-   over LoRaWAN radio link can be received by several devices.  It can
-   be useful, for example, in case of large binary transfer like
-   firmware upgrade over the air.  As IPv6 is also a multicast
-   technology this feature MAY be used to address a group of devices.
+   LoRaWAN technology supports unicast downlinks, but also multicast: a
+   packet send over LoRaWAN radio link can be received by several
+   devices.  It is useful to address many end-devices with same content,
+   either a large binary file (firmware upgrade), or same command (e.g:
+   lighting control).  As IPv6 is also a multicast technology this
+   feature MAY be used to address a group of devices.
+
+   _Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].
+   LoRaWAN multicast group definition in a network server and the
+   relation between those groups and IPv6 groupID are out of scope of
+   this document.
+
+   _Note 2_: LoRa Alliance defined [lora-alliance-remote-multicast-set]
+   as RECOMMENDED way to setup multicast groups on devices and create a
+   synchronized reception window.
 
 5.  SCHC-over-LoRaWAN
 
@@ -430,6 +439,17 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    the FPort field with the LoRaWAN payload to retrieve their payload as
    it is used as a part of the ruleId field.
 
+
+
+
+
+
+
+Gimenez, et al.            Expires May 7, 2020                  [Page 8]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
    | FPort | LoRaWAN payload  |
    + ------------------------ +
    |       SCHC payload       |
@@ -442,14 +462,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    FPort for data uplink and its associated SCHC control downlinks,
    named FPortUp in this document.  The other way, a fragmentation
    session with application payload transferred from server to device,
-
-
-
-Gimenez, et al.            Expires May 7, 2020                  [Page 8]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
-
    is called downlink fragmentation session.  It uses another FPort for
    data downlink and its associated SCHC control uplinks, named
    FPortDown in this document.
@@ -486,6 +498,14 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
    The only uplink messages using the FPortDown port are the
    fragmentation SCHC control messages of a downlink fragmentation
+
+
+
+Gimenez, et al.            Expires May 7, 2020                  [Page 9]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
    session (ex ACKs).  Similarly, the only downlink messages using the
    FPortUp port are the fragmentation SCHC control messages of an uplink
    fragmentation session.
@@ -497,14 +517,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
    The mechanism for sharing those RuleID values is outside the scope of
    this document.
-
-
-
-
-Gimenez, et al.            Expires May 7, 2020                  [Page 9]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
 
 5.3.  IID computation
 
@@ -542,6 +554,14 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    fragmentation sessions and are successively described in the next
    sections.
 
+
+
+
+Gimenez, et al.            Expires May 7, 2020                 [Page 10]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
 5.6.1.  DTag
 
    A LoRaWAN device cannot interleave several fragmented SCHC datagrams
@@ -550,17 +570,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    Note: The device can still have several parallel fragmentation
    sessions with one or more SCHC gateway(s) thanks to distinct sets of
    FPorts, cf Section 5.2
-
-
-
-
-
-
-
-Gimenez, et al.            Expires May 7, 2020                 [Page 10]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
 
 5.6.2.  Uplink fragmentation: From device to SCHC gateway
 
@@ -601,6 +610,14 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
       an all-1) fragment with no payload to request an SCHC ACK
       retransmission.  The periodicity between retransmission of the
       all-0/all-1 fragments is device/application specific and MAY be
+
+
+
+Gimenez, et al.            Expires May 7, 2020                 [Page 11]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
       different for each device (not specified).  The SCHC gateway
       implements an "inactivity timer".  The default RECOMMENDED
       duration of this timer is 12 hours.  This value is mainly driven
@@ -610,14 +627,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
    With this set of parameters, the SCHC fragment header is 16 bits,
    including FPort; payload overhead will be 8 bits as FPort is already
-
-
-
-Gimenez, et al.            Expires May 7, 2020                 [Page 11]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
-
    a part of LoRaWAN payload.  MTU is: _4 windows * 64 tiles * 5 bytes
    per tile = 1280 bytes_
 
@@ -655,6 +664,16 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
                  Figure 8: SCHC formats, failed RCS check.
 
+
+
+
+
+
+Gimenez, et al.            Expires May 7, 2020                 [Page 12]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
 5.6.2.4.  Receiver-Abort
 
    | FPort  | LoRaWAN payload                              |
@@ -666,13 +685,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
                      Figure 9: Receiver-Abort format.
-
-
-
-Gimenez, et al.            Expires May 7, 2020                 [Page 12]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
 
 5.6.2.5.  SCHC acknowledge request
 
@@ -698,7 +710,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
       *  Unicast downlinks: ACK-Always.
 
       *  Multicast downlinks: No-ACK, reliability has be be ensured by
-         the upper layer.  This feature is optional and MAY not be
+         the upper layer.  This feature is OPTIONAL and may not be
          implemented by SCHC gateway.
 
    o  RuleID: Recommended size is 8 bits in SCHC header.
@@ -711,6 +723,13 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    o  FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
       (FCN=All-1 is reserved for SCHC).
 
+
+
+Gimenez, et al.            Expires May 7, 2020                 [Page 13]
+
+Internet-Draft              SCHC-over-LoRaWAN              November 2019
+
+
    o  RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the
       reverse representation of the polynomial used e.g. in the Ethernet
       standard [RFC3385]), as per
@@ -719,29 +738,11 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    o  MAX_ACK_REQUESTS: 8
 
    As only 1 tile is used, its size can change for each downlink, and
-   will be maximum available MTU for unicast.  For multicast, it has to
-   be the minimum MTU of all devices, RECOMMENDED value is 51.
+   will be maximum available MTU.
 
-
-
-
-Gimenez, et al.            Expires May 7, 2020                 [Page 13]
-
-Internet-Draft              SCHC-over-LoRaWAN              November 2019
-
-
-   _Note 1_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be
+   _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be
    used for SCHC-over-LoRaWAN protocol.  It might be set by the Network
    Server for other purposes but not SCHC needs.
-
-   _Note 2_: IPv6 multicast addresses must be defined as per [RFC4291].
-   LoRaWAN multicast group definition in a network server and the
-   relation between those groups and IPv6 groupID are out of scope of
-   this document.
-
-   _Note 3_: LoRa Alliance defined [lora-alliance-remote-multicast-set]
-   as RECOMMENDED way to setup multicast groups on devices and create a
-   synchronized reception window.
 
 5.6.3.1.  Regular fragments
 
@@ -776,7 +777,6 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
                 Figure 13: SCHC ACK format, RCS is correct.
-
 
 
 

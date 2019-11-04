@@ -580,7 +580,9 @@ ul.toc li {
 <h1 id="rfc.section.4.5">
 <a href="#rfc.section.4.5">4.5.</a> <a href="#unicast-and-multicast-technology" id="unicast-and-multicast-technology">Unicast and multicast technology</a>
 </h1>
-<p id="rfc.section.4.5.p.1">LoRaWAN technology supports unicast for uplink and downlink communications, but also multicast for downlink data: a packet send over LoRaWAN radio link can be received by several devices.  It can be useful, for example, in case of large binary transfer like firmware upgrade over the air.  As IPv6 is also a multicast technology this feature MAY be used to address a group of devices.</p>
+<p id="rfc.section.4.5.p.1">LoRaWAN technology supports unicast downlinks, but also multicast: a packet send over LoRaWAN radio link can be received by several devices.  It is useful to address many end-devices with same content, either a large binary file (firmware upgrade), or same command (e.g: lighting control).  As IPv6 is also a multicast technology this feature MAY be used to address a group of devices.</p>
+<p><em>Note 1</em>: IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a network server and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
+<p><em>Note 2</em>: LoRa Alliance defined  <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#schc-over-lorawan" id="schc-over-lorawan">SCHC-over-LoRaWAN</a>
 </h1>
@@ -742,7 +744,7 @@ ul.toc li {
 <ul>
 <li>SCHC fragmentation reliability mode: <ul>
 <li>Unicast downlinks: ACK-Always.</li>
-<li>Multicast downlinks: No-ACK, reliability has be be ensured by the upper layer. This feature is optional and MAY not be implemented by SCHC gateway.</li>
+<li>Multicast downlinks: No-ACK, reliability has be be ensured by the upper layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.</li>
 </ul>
 </li>
 <li>RuleID: Recommended size is 8 bits in SCHC header.</li>
@@ -752,10 +754,8 @@ ul.toc li {
 <li>RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse representation of the polynomial used e.g. in the Ethernet standard <a href="#RFC3385" class="xref">[RFC3385]</a>), as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
 <li>MAX_ACK_REQUESTS: 8</li>
 </ul>
-<p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU for unicast. For multicast, it has to be the minimum MTU of all devices, RECOMMENDED value is 51.</p>
-<p><em>Note 1</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other purposes but not SCHC needs.</p>
-<p><em>Note 2</em>: IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a network server and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
-<p><em>Note 3</em>: LoRa Alliance defined  <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
+<p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
+<p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other purposes but not SCHC needs.</p>
 <h1 id="rfc.section.5.6.3.1">
 <a href="#rfc.section.5.6.3.1">5.6.3.1.</a> <a href="#regular-fragments-1" id="regular-fragments-1">Regular fragments</a>
 </h1>
