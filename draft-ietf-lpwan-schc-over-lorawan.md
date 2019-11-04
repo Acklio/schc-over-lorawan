@@ -316,12 +316,20 @@ confirmed messages.
 
 ## Unicast and multicast technology
 
-LoRaWAN technology supports unicast for uplink and downlink communications, but
-also multicast for downlink data: a packet send over LoRaWAN radio link can be
-received by several devices.  It can be useful, for example, in case of large
-binary transfer like firmware upgrade over the air.
+LoRaWAN technology supports unicast downlinks, but also multicast: a packet
+send over LoRaWAN radio link can be received by several devices.  It is
+useful to address many end-devices with same content, either a large binary
+file (firmware upgrade), or same command (e.g: lighting control).
 As IPv6 is also a multicast technology this feature MAY be used to address a
 group of devices.
+
+_Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
+multicast group definition in a network server and the relation between those
+groups and IPv6 groupID are out of scope of this document.
+
+_Note 2_: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
+RECOMMENDED way to setup multicast groups on devices and create a synchronized
+reception window.
 
 # SCHC-over-LoRaWAN
 
@@ -553,7 +561,7 @@ fragment as described in {{lorawan-schc-payload}}.
 * SCHC fragmentation reliability mode:
   * Unicast downlinks: ACK-Always.
   * Multicast downlinks: No-ACK, reliability has be be ensured by the upper
-    layer. This feature is optional and MAY not be implemented by SCHC gateway.
+    layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
 * RuleID: Recommended size is 8 bits in SCHC header.
 * Window index (unicast only): encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * DTag: Size is 0 bit, not used
@@ -565,20 +573,11 @@ fragment as described in {{lorawan-schc-payload}}.
 * MAX_ACK_REQUESTS: 8
 
 As only 1 tile is used, its size can change for each downlink, and will be
-maximum available MTU for unicast. For multicast, it has to be the minimum MTU
-of all devices, RECOMMENDED value is 51.
+maximum available MTU.
 
-_Note 1_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
+_Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other
 purposes but not SCHC needs.
-
-_Note 2_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
-multicast group definition in a network server and the relation between those
-groups and IPv6 groupID are out of scope of this document.
-
-_Note 3_: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
-RECOMMENDED way to setup multicast groups on devices and create a synchronized
-reception window.
 
 #### Regular fragments
 
