@@ -1055,9 +1055,9 @@ protocol: 11 bytes are available for SCHC payload + 1 byte FPort field.
 SCHC header is 2 bytes (including FPort) so 1 tile is sent in first
 fragment.
 
-| LoRaWAN Header                        | LoRaWAN payload (11 bytes) |
-+ ------------------------------------- + -------------------------- +
-|                |  FOpts  | RuleID=20  |   W   |  FCN   |  1 tile   |
+| LoRaWAN Header             | LoRaWAN payload (11 bytes) |
++ -------------------------- + -------------------------- +
+|                | RuleID=20 |   W   |  FCN   |  1 tile   |
 
 
 
@@ -1066,8 +1066,8 @@ Gimenez & Petrov           Expires May 7, 2020                 [Page 19]
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
-+ -------------- + ------- + ---------- + ----- + ------ + --------- +
-|       XXXX     | 2 bytes | 1 byte     | 0   0 |   62   | 10 bytes  |
++ -------------- + --------- + ----- + ------ + --------- +
+|       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
 
 
 Content of the tile is:
@@ -1079,12 +1079,6 @@ Content of the tile is:
 Next transmission MTU is 11 bytes, although 2 bytes FOpts are used by
 LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort
 field, a tile does not fit inside so LoRaWAN stack will send only FOpts.
-
-| LoRaWAN Header                        |
-+ ------------------------------------- +
-|                |  FOpts  |  FPort=20  |
-+ -------------- + ------- + ---------- +
-|       XXXX     | 2 bytes | 1 byte     |
 
 Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are transmitted:
 
@@ -1116,13 +1110,17 @@ correct so the following ACK is sent to the device:
 |       XXXX     | 1 byte    | 0   0 | 1 | 5 bits  |
 
 
+         Figure 16: Uplink example: compression and fragmentation
+
+
+
+
+
 
 Gimenez & Petrov           Expires May 7, 2020                 [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
-
-         Figure 16: Uplink example: compression and fragmentation
 
 A.3.  Downlink
 
@@ -1170,6 +1168,8 @@ A.3.  Downlink
  |      |  FOpts  | RuleID=21  | W | FCN | 1 tile   | Padding=b'000000 |
  + ---- + ------- + ---------- + - + --- + -------- + ---------------- +
  | XXXX | 2 bytes | 1 byte     | 1 |  0  | 48 bytes |      6 bits      |
+
+
 
 
 
