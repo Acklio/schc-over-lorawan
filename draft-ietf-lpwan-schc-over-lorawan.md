@@ -29,13 +29,6 @@ author:
   country: France
   email: ivaylo@ackl.io
   role: editor
-- ins: J. Catalano
-  name: Julien Catalano
-  org: Kerlink
-  street: 1 rue Jacqueline Auriol
-  city: 35235 Thorigné-Fouillard
-  country: France
-  email: j.catalano@kerlink.fr
 normative:
   RFC2119:
   RFC8174:
@@ -718,6 +711,13 @@ Contributors ordered by family name.
   city: 91120 PALAISEAU
   country: FRANCE
   email: vincent.audebert@edf.fr
+- ins: J. Catalano
+  name: Julien Catalano
+  org: Kerlink
+  street: 1 rue Jacqueline Auriol
+  city: 35235 Thorigné-Fouillard
+  country: France
+  email: j.catalano@kerlink.fr
 - ins: M. Coracin
   name: Michael Coracin
   org: Semtech
