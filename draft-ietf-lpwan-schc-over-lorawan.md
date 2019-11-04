@@ -312,7 +312,7 @@ confirmed messages.
 ## LoRaWAN FPort {#lorawan-schc-payload}
 
 The LoRaWAN MAC layer features a frame port field in all frames. This field
-(FPort) is 8-bit long and the values from 1 to 223 can be used. It allows
+(FPort) is 8 bits long and the values from 1 to 223 can be used. It allows
 LoRaWAN networks and applications to identify data.
 
 The FPort field is part of the SCHC Packet or the SCHC Fragment, as shown in
@@ -343,8 +343,7 @@ communication. The uplink and downlink fragmentation FPorts MUST be different.
 
 ## Rule ID management  {#rule-id-management}
 
-RuleID minimum length MUST be 8 bits, and RECOMMENDED length is 8 bits.
-RuleID MSB is encoded in the LoRaWAN FPort as described in
+RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in
 {{lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
 the range \[1;223\] as defined in section 4.3.2 of {{lora-alliance-spec}}, it implies
 that RuleID MSB SHOULD be inside this range. An application MAY reserve some
@@ -394,8 +393,7 @@ All padding bits MUST be 0.
 SCHC C/D MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC packet
 as per {{lorawan-schc-payload}}.
 
-SCHC C/D RuleID size SHOULD be 8 bits to fit the LoRaWAN FPort field. RuleIDs
-matching FPortUp and FPortDown are reserved for SCHC Fragmentation.
+RuleIDs matching FPortUp and FPortDown are reserved for SCHC Fragmentation.
 
 ## Fragmentation {#Frag}
 
@@ -427,7 +425,7 @@ fragment as per {{lorawan-schc-payload}}.
 
 * Minimum SCHC header is two bytes (the FPort byte + 1 additional byte) and the
   RECOMMENDED header size is two bytes.
-* RuleID: Recommended size is 8 bits in SCHC header.
+* RuleID: 8 bits stored in LoRaWAN FPort.
 * SCHC fragmentation reliability mode: `ACK-on-Error`
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 64 tiles
@@ -537,7 +535,7 @@ SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as described in {{lorawan-schc-payload}}.
 
 * SCHC fragmentation reliability mode: ACK-Always.
-* RuleID: Recommended size is 8 bits in SCHC header.
+* RuleID: 8 bits stored in LoRaWAN FPort.
 * Window index: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
