@@ -46,6 +46,13 @@ informative:
       name: LoRa Alliance
     date: 07.2018
     target: https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf
+  I-D.ietf-lpwan-ipv6-static-context-hc:
+  lora-alliance-remote-multicast-set:
+    title: LoRaWAN Remote Multicast Setup Specification Version 1.0.0
+    author:
+      name: LoRa Alliance
+    date: 09.2018
+    target: https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf
 
 --- abstract
 
@@ -300,6 +307,23 @@ confirmed messages.
   settings and a network random nonce used to derive the session keys.
 * Data
 
+## Unicast and multicast technology
+
+LoRaWAN technology supports unicast downlinks, but also multicast: a packet
+send over LoRaWAN radio link can be received by several devices.  It is
+useful to address many end-devices with same content, either a large binary
+file (firmware upgrade), or same command (e.g: lighting control).
+As IPv6 is also a multicast technology this feature MAY be used to address a
+group of devices.
+
+_Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
+multicast group definition in a network server and the relation between those
+groups and IPv6 groupID are out of scope of this document.
+
+_Note 2_: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
+RECOMMENDED way to setup multicast groups on devices and create a synchronized
+reception window.
+
 # SCHC-over-LoRaWAN
 
 ## LoRaWAN FPort {#lorawan-schc-payload}
@@ -343,14 +367,12 @@ that RuleID MSB SHOULD be inside this range. An application MAY reserve some
 FPort values for other needs as long as they don't conflict with FPorts used
 for SCHC C/D and SCHC F/R.
 
-A RuleID SHOULD be reserved to tag packets for which SCHC compression was not
-possible (no matching Rule was found). RuleIDs FPortUp and FPortDown are
-reserved for fragmentation, in order to improve interoperability RECOMMENDED
-values are:
+In order to improve interoperability RECOMMENDED fragmentation RuleID values are:
 
 * RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp
 * RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown
-* RuleID = 22 (8-bit) for which SCHC compression was not possible
+* RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching
+rule was found)
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown
@@ -527,9 +549,12 @@ fragmentation transmitter. The following fields are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as described in {{lorawan-schc-payload}}.
 
-* SCHC fragmentation reliability mode: ACK-Always.
+* SCHC fragmentation reliability mode:
+  * Unicast downlinks: ACK-Always.
+  * Multicast downlinks: No-ACK, reliability has be be ensured by the upper
+    layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
 * RuleID: 8 bits stored in LoRaWAN FPort.
-* Window index: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* Window index (unicast only): encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
