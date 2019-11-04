@@ -289,6 +289,7 @@ ul.toc li {
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 End-Device addressing">
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 General Message Types">
 <link href="#rfc.section.4.4" rel="Chapter" title="4.4 LoRaWAN MAC Frames">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 Unicast and multicast technology">
 <link href="#rfc.section.5" rel="Chapter" title="5 SCHC-over-LoRaWAN">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 LoRaWAN FPort">
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 Rule ID management">
@@ -389,6 +390,8 @@ ul.toc li {
 <li>4.3.   <a href="#rfc.section.4.3">General Message Types</a>
 </li>
 <li>4.4.   <a href="#rfc.section.4.4">LoRaWAN MAC Frames</a>
+</li>
+<li>4.5.   <a href="#rfc.section.4.5">Unicast and multicast technology</a>
 </li>
 </ul><li>5.   <a href="#rfc.section.5">SCHC-over-LoRaWAN</a>
 </li>
@@ -566,6 +569,12 @@ ul.toc li {
 <li>JoinAccept: To on-board an end-device, the Network Server responds to the JoinRequest end-device&#8217;s message with a JoinAccept message. That message is encrypted with the end-device&#8217;s AppKey and contains (amongst other fields) the major network&#8217;s settings and a network random nonce used to derive the session keys.</li>
 <li>Data</li>
 </ul>
+<h1 id="rfc.section.4.5">
+<a href="#rfc.section.4.5">4.5.</a> <a href="#unicast-and-multicast-technology" id="unicast-and-multicast-technology">Unicast and multicast technology</a>
+</h1>
+<p id="rfc.section.4.5.p.1">LoRaWAN technology supports unicast downlinks, but also multicast: a packet send over LoRaWAN radio link can be received by several devices.  It is useful to address many end-devices with same content, either a large binary file (firmware upgrade), or same command (e.g: lighting control).  As IPv6 is also a multicast technology this feature MAY be used to address a group of devices.</p>
+<p><em>Note 1</em>: IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a network server and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
+<p><em>Note 2</em>: LoRa Alliance defined  <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#schc-over-lorawan" id="schc-over-lorawan">SCHC-over-LoRaWAN</a>
 </h1>
@@ -589,13 +598,13 @@ ul.toc li {
 <a href="#rfc.section.5.2">5.2.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
 </h1>
 <p id="rfc.section.5.2.p.1">RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>. LoRaWAN supports up to 223 application FPorts in the range [1;223] as defined in section 4.3.2 of <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a>, it implies that RuleID MSB SHOULD be inside this range. An application MAY reserve some FPort values for other needs as long as they don&#8217;t conflict with FPorts used for SCHC C/D and SCHC F/R.</p>
-<p id="rfc.section.5.2.p.2">A RuleID SHOULD be reserved to tag packets for which SCHC compression was not possible (no matching Rule was found). RuleIDs FPortUp and FPortDown are reserved for fragmentation, in order to improve interoperability RECOMMENDED values are:</p>
+<p id="rfc.section.5.2.p.2">In order to improve interoperability RECOMMENDED fragmentation RuleID values are:</p>
 <p></p>
 
 <ul>
 <li>RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp</li>
 <li>RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown</li>
-<li>RuleID = 22 (8-bit) for which SCHC compression was not possible</li>
+<li>RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching rule was found)</li>
 </ul>
 <p id="rfc.section.5.2.p.4">The remaining RuleIDs are available for compression. RuleIDs are shared between uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown means that the fragmentation is not used, thus the packet SHOULD be sent to C/D layer.</p>
 <p id="rfc.section.5.2.p.5">The only uplink messages using the FPortDown port are the fragmentation SCHC control messages of a downlink fragmentation session (ex ACKs). Similarly, the only downlink messages using the FPortUp port are the fragmentation SCHC control messages of an uplink fragmentation session.</p>
@@ -632,7 +641,7 @@ ul.toc li {
 <p></p>
 
 <ul>
-<li>Minimum SCHC header is two bytes (the FPort byte + 1 additional byte) and the RECOMMENDED header size is two bytes.</li>
+<li>SCHC header size is two bytes (the FPort byte + 1 additional byte).</li>
 <li>RuleID: 8 bits stored in LoRaWAN FPort.</li>
 <li>SCHC fragmentation reliability mode: <samp>ACK-on-Error</samp>
 </li>
@@ -725,9 +734,13 @@ ul.toc li {
 <p></p>
 
 <ul>
-<li>SCHC fragmentation reliability mode: ACK-Always.</li>
+<li>SCHC fragmentation reliability mode: <ul>
+<li>Unicast downlinks: ACK-Always.</li>
+<li>Multicast downlinks: No-ACK, reliability has be be ensured by the upper layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.</li>
+</ul>
+</li>
 <li>RuleID: 8 bits stored in LoRaWAN FPort.</li>
-<li>Window index: encoded on W=1 bit, as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
+<li>Window index (unicast only): encoded on W=1 bit, as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
 <li>DTag: Size is 0 bit, not used</li>
 <li>FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile (FCN=All-1 is reserved for SCHC).</li>
 <li>RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse representation of the polynomial used e.g. in the Ethernet standard <a href="#RFC3385" class="xref">[RFC3385]</a>), as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
@@ -880,6 +893,11 @@ ul.toc li {
 <td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
 <td class="top">
 <a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-22">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-22, October 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="lora-alliance-remote-multicast-set">[lora-alliance-remote-multicast-set]</b></td>
+<td class="top">
+<a>Alliance, L.</a>, "<a href="https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf">LoRaWAN Remote Multicast Setup Specification Version 1.0.0</a>"</td>
 </tr>
 <tr>
 <td class="reference"><b id="lora-alliance-spec">[lora-alliance-spec]</b></td>
