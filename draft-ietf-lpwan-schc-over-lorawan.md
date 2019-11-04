@@ -804,11 +804,11 @@ protocol: 11 bytes are available for SCHC payload + 1 byte FPort field.
 SCHC header is 2 bytes (including FPort) so 1 tile is sent in first
 fragment.
 
-| LoRaWAN Header                        | LoRaWAN payload (11 bytes) |
-+ ------------------------------------- + -------------------------- +
-|                |  FOpts  | RuleID=20  |   W   |  FCN   |  1 tile   |
-+ -------------- + ------- + ---------- + ----- + ------ + --------- +
-|       XXXX     | 2 bytes | 1 byte     | 0   0 |   62   | 10 bytes  |
+| LoRaWAN Header             | LoRaWAN payload (11 bytes) |
++ -------------------------- + -------------------------- +
+|                | RuleID=20 |   W   |  FCN   |  1 tile   |
++ -------------- + --------- + ----- + ------ + --------- +
+|       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
 
 
 Content of the tile is:
@@ -820,12 +820,6 @@ Content of the tile is:
 Next transmission MTU is 11 bytes, although 2 bytes FOpts are used by
 LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort
 field, a tile does not fit inside so LoRaWAN stack will send only FOpts.
-
-| LoRaWAN Header                        | 
-+ ------------------------------------- +
-|                |  FOpts  |  FPort=20  |
-+ -------------- + ------- + ---------- +
-|       XXXX     | 2 bytes | 1 byte     |
 
 Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are transmitted:
 
