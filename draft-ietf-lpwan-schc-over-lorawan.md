@@ -314,6 +314,15 @@ confirmed messages.
   settings and a network random nonce used to derive the session keys.
 * Data
 
+## Unicast and multicast technology
+
+LoRaWAN technology supports unicast for uplink and downlink communications, but
+also multicast for downlink data: a packet send over LoRaWAN radio link can be
+received by several devices.  It can be useful, for example, in case of large
+binary transfer like firmware upgrade over the air.
+As IPv6 is also a multicast technology this feature MAY be used to address a
+group of devices.
+
 # SCHC-over-LoRaWAN
 
 ## LoRaWAN FPort {#lorawan-schc-payload}
@@ -364,7 +373,6 @@ In order to improve interoperability RECOMMENDED fragmentation RuleID values are
 * RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown
 * RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching
 rule was found)
-* RuleID = 23 (8-bit) for multicast downlink fragementation
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown
@@ -542,9 +550,12 @@ fragmentation transmitter. The following fields are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as described in {{lorawan-schc-payload}}.
 
-* SCHC fragmentation reliability mode: ACK-Always.
+* SCHC fragmentation reliability mode:
+  * Unicast downlinks: ACK-Always.
+  * Multicast downlinks: No-ACK, reliability has be be ensured by the upper
+    layer. This feature is optional and MAY not be implemented by SCHC gateway.
 * RuleID: Recommended size is 8 bits in SCHC header.
-* Window index: encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* Window index (unicast only): encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
@@ -554,11 +565,20 @@ fragment as described in {{lorawan-schc-payload}}.
 * MAX_ACK_REQUESTS: 8
 
 As only 1 tile is used, its size can change for each downlink, and will be
-maximum available MTU.
+maximum available MTU for unicast. For multicast, it has to be the minimum MTU
+of all devices, RECOMMENDED value is 51.
 
-_Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
+_Note 1_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other
 purposes but not SCHC needs.
+
+_Note 2_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
+multicast group definition in a network server and the relation between those
+groups and IPv6 groupID are out of scope of this document.
+
+_Note 3_: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
+RECOMMENDED way to setup multicast groups on devices and create a synchronized
+reception window.
 
 #### Regular fragments
 
@@ -700,40 +720,6 @@ transmit the ACK within 30 seconds  of the reception of each fragment.  The
 inactivity timer is implemented by the end-device to flush the context in-case it
 receives nothing from the SCHC gateway over an extended period of time. The
 RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
-
-## Multicast
-
-LoRaWAN technology supports multicast for downlink communications: a packet
-send over LoRaWAN radio link can be received by several devices.  It can be
-usefull, for example, in case of large binary transfer like firmware upgrade
-over the air.
-As IPv6 is also a multicast technology this feature MAY be used to address a
-group of devices. For those multicasts communications the SCHC No-ACK mode is
-used, it the respnsability to the upper layer to ensure data integrity, if
-required.
-
-This feature is optionnal and MAY not be implemented by SCHC gateways.
-
-Profile parameters are:
-
-- RuleID: RECOMMENDED value is 23 (8-bit rule size).
-- DTag: Size is 0 bit, not used.
-- RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
-  representation of the polynomial used e.g. in the Ethernet standard
-  [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
-- Inactivity timer: The default RECOMMENDED duration is 12 hours. This value is
-  mainly driven by application requirements and MAY be changed by the
-  application.
-- FCN: The FCN field is encoded on N = 1 bits, as recommended in
-  {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
-
-IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN multicast
-group definition in a network server and the relation between those groups and
-IPv6 groupID are out of scope of this document.
-
-Note: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
-RECOMMENDED way to setup multicast groups on devices and create a synchronized
-reception window.
 
 # Security considerations
 
