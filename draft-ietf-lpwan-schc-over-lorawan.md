@@ -438,8 +438,7 @@ the fragmentation receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 fragment as per {{lorawan-schc-payload}}.
 
-* Minimum SCHC header is two bytes (the FPort byte + 1 additional byte) and the
-  RECOMMENDED header size is two bytes.
+* SCHC header size is two bytes (the FPort byte + 1 additional byte).
 * RuleID: 8 bits stored in LoRaWAN FPort.
 * SCHC fragmentation reliability mode: `ACK-on-Error`
 * DTag: Size is 0 bit, not used
