@@ -728,48 +728,29 @@ insightful discussions, reviews and suggestions.
 
 Contributors ordered by family name.
 
-- ins: V. Audebert
-  name: Vincent AUDEBERT
-  org: EDF R&D
-  street: 7 bd Gaspard Monge
-  city: 91120 PALAISEAU
-  country: FRANCE
-  email: vincent.audebert@edf.fr
-- ins: J. Catalano
-  name: Julien Catalano
-  org: Kerlink
-  street: 1 rue Jacqueline Auriol
-  city: 35235 Thorigné-Fouillard
-  country: France
-  email: j.catalano@kerlink.fr
-- ins: M. Coracin
-  name: Michael Coracin
-  org: Semtech
-  street: 14 Chemin des Clos
-  city: Meylan
-  country: France
-  email: mcoracin@semtech.com
-- ins: M. Le Gourrierec
-  name: Marc Le Gourrierec
-  org: SagemCom
-  street: 250 Route de l'Empereur
-  city: 92500 Rueil Malmaison
-  country: FRANCE
-  email: marc.legourrierec@sagemcom.com
-- ins: N. Sornin
-  name: Nicolas Sornin
-  org: Semtech
-  street: 14 Chemin des Clos
-  city: Meylan
-  country: France
-  email: nsornin@semtech.com
-- ins: A. Yegin
-  name: Alper Yegin
-  org: Actility
-  street: .
-  city: Paris, Paris
-  country: France
-  email: alper.yegin@actility.com
+Vincent Audebert  
+EDF R&D  
+Email: vincent.audebert@edf.fr
+
+Julien Catalano  
+Kerlink  
+Email: j.catalano@kerlink.fr
+
+Michael Coracin  
+Semtech  
+Email: mcoracin@semtech.com
+
+Marc Le Gourrierec  
+Sagemcom  
+Email: marc.legourrierec@sagemcom.com
+
+Nicolas Sornin  
+Semtech  
+Email: nsornin@semtech.com
+
+Alper Yegin  
+Actility  
+Email: alper.yegin@actility.com
 
 --- back
 
@@ -959,4 +940,3 @@ The receiver answers with an SCHC ACK
 ~~~~
 {: #Fig-example-downlink-fragmentation title='Downlink example: compression and fragmentation'}
 
-# Note
