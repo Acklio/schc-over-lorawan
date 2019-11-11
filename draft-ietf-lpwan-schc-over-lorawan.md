@@ -37,6 +37,8 @@ normative:
   RFC7136:
   RFC3385:
   RFC4291:
+  RFC7217:
+  RFC8064:
   RFC8376:
 informative:
   I-D.ietf-lpwan-ipv6-static-context-hc:
@@ -392,12 +394,8 @@ The mechanism for sharing those RuleID values is outside the scope of this docum
 
 ## IID computation
 
-As LoRaWAN network uses unique EUI-64 per end-device, the Interface IDentifier is
-the LoRaWAN DevEUI.
-It is compliant with [RFC4291] and IID starting with binary 000 must enforce
-the 64-bit rule.
-
-TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?
+It is RECOMMENDED to create Interface IDentifier following
+{{I-D.ietf-lpwan-ipv6-static-context-hc}}, [rfc7217] and [rfc8064]
 
 ## Padding
 
