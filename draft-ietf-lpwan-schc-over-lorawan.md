@@ -320,7 +320,7 @@ _Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
 multicast group definition in a network server and the relation between those
 groups and IPv6 groupID are out of scope of this document.
 
-_Note 2_: LoRa Alliance defined  {{lora-alliance-remote-multicast-set}} as
+_Note 2_: LoRa Alliance defined {{lora-alliance-remote-multicast-set}} as
 RECOMMENDED way to setup multicast groups on devices and create a synchronized
 reception window.
 
@@ -550,7 +550,7 @@ fragment as described in {{lorawan-schc-payload}}.
 
 * SCHC fragmentation reliability mode:
   * Unicast downlinks: ACK-Always.
-  * Multicast downlinks: No-ACK, reliability has be be ensured by the upper
+  * Multicast downlinks: No-ACK, reliability has to be ensured by the upper
     layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
 * RuleID: 8 bits stored in LoRaWAN FPort.
 * Window index (unicast only): encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
