@@ -37,8 +37,8 @@ normative:
   RFC7136:
   RFC3385:
   RFC4291:
-  RFC7217:
   RFC8064:
+  RFC8065:
   RFC8376:
 informative:
   I-D.ietf-lpwan-ipv6-static-context-hc:
@@ -109,6 +109,8 @@ all other definitions, please look up the SCHC specification
      fragmentation-reassembly process
 
   o  TBD: all significant LoRaWAN-related terms.
+
+  o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI
 
 # Static Context Header Compression Overview
 
@@ -394,8 +396,44 @@ The mechanism for sharing those RuleID values is outside the scope of this docum
 
 ## IID computation
 
-It is RECOMMENDED to create Interface IDentifier following
-{{I-D.ietf-lpwan-ipv6-static-context-hc}}, [rfc7217] and [rfc8064]
+In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
+created regarding the following algorithm:
+
+1. key = LoRaWAN AppSKey
+2. string = devEui in HEX representation, padded to 128 bits by 0 on the left
+3. output = aes128_encrypt(key, string)
+4. IID = 8 least significant bytes of output
+
+aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006
+Annex B [IEEE802154]. It has been chosen as it is already used by devices for
+LoRaWAN procotol.
+
+As AppSKey is renewed each time a device joins or rejoins a network, the IID
+will change over time; this mitigates privacy, location tracking and
+correlation over time risks. Rejoin periodicity is defined at the application
+level.  
+
+Address scan risk is mitigated thanks to AES-128, which provides enough entropy
+bits of the IID.
+
+Using this algorithm will also ensure that there is not correlation between the
+hardware identifier (IEEE-64 devEUI) and the IID, so an attacker can not use
+manufacturer OUI to target devices.
+
+Exemple with:
+
+* devEui: 0x1122334455667788
+* appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
+
+~~~~
+1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
+2. string: 0x00000000000000001122334455667788
+3. output: 0x3532E559FCCD707F9E1364029125B26D
+3. IID: 0x9E1364029125B26D
+~~~~
+
+{: #Fig-iid-computation-example title='Example of IID computation.'}
+
 
 ## Padding
 
