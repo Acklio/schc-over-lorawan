@@ -525,7 +525,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
    1.  key = LoRaWAN AppSKey
 
    2.  string = devEui in HEX representation, padded to 128 bits by
-       adding 0 as most significant bits
+       adding 0s as most significant bits
 
    3.  output = aes128_encrypt(key, string)
 
