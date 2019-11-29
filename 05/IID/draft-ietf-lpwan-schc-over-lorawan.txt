@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: May 31, 2020                                             Acklio
-                                                       November 28, 2019
+Expires: June 1, 2020                                             Acklio
+                                                       November 29, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 31, 2020.
+   This Internet-Draft will expire on June 1, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 1]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 2]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 3]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 4]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 5]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 6]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 7]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 8]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                  [Page 9]
+Gimenez & Petrov          Expires June 1, 2020                  [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -524,12 +524,12 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
    1.  key = LoRaWAN AppSKey
 
-   2.  string = devEui in HEX representation, padded to 128 bits by 0 on
-       the left
+   2.  string = devEui in HEX representation, padded to 128 bits by
+       adding 0 as most significant bits
 
    3.  output = aes128_encrypt(key, string)
 
-   4.  IID = 8 least significant bytes of output
+   4.  IID = 64 least significant bits of output
 
    aes128_encrypt algorithm is the generic algorithm described in
    IEEE802.15.4/2006 Annex B [IEEE802154].  It has been chosen as it is
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 10]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 11]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 12]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 13]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 14]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 15]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 16]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -949,7 +949,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 17]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1005,7 +1005,7 @@ Contributors
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 18]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 19]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1076,8 +1076,8 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
               Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and J.
               Zuniga, "Static Context Header Compression (SCHC) and
               fragmentation for LPWAN, application to UDP/IPv6", draft-
-              ietf-lpwan-ipv6-static-context-hc-22 (work in progress),
-              October 2019.
+              ietf-lpwan-ipv6-static-context-hc-23 (work in progress),
+              November 2019.
 
    [lora-alliance-remote-multicast-set]
               Alliance, L., "LoRaWAN Remote Multicast Setup
@@ -1117,7 +1117,7 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 20]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1173,7 +1173,7 @@ fragment.
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 21]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1229,7 +1229,7 @@ correct so the following ACK is sent to the device:
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 22]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 22]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1285,7 +1285,7 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 23]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 23]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1341,7 +1341,7 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 24]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 24]
 
 Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
@@ -1397,4 +1397,4 @@ Internet-Draft              SCHC-over-LoRaWAN              November 2019
 
 
 
-Gimenez & Petrov          Expires May 31, 2020                 [Page 25]
+Gimenez & Petrov          Expires June 1, 2020                 [Page 25]

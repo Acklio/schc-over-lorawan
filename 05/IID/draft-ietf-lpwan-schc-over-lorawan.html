@@ -319,7 +319,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Gimenez, O., Ed. and I. Petrov, Ed." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-11-28" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-11-29" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
 
@@ -343,12 +343,12 @@ ul.toc li {
 <td class="right">I. Petrov, Ed.</td>
 </tr>
 <tr>
-<td class="left">Expires: May 31, 2020</td>
+<td class="left">Expires: June 1, 2020</td>
 <td class="right">Acklio</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">November 28, 2019</td>
+<td class="right">November 29, 2019</td>
 </tr>
 
     	
@@ -365,7 +365,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 31, 2020.</p>
+<p>This Internet-Draft will expire on June 1, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -619,9 +619,9 @@ ul.toc li {
 
 <ol>
 <li>key = LoRaWAN AppSKey</li>
-<li>string = devEui in HEX representation, padded to 128 bits by 0 on the left</li>
+<li>string = devEui in HEX representation, padded to 128 bits by adding 0 as most significant bits</li>
 <li>output = aes128_encrypt(key, string)</li>
-<li>IID = 8 least significant bytes of output</li>
+<li>IID = 64 least significant bits of output</li>
 </ol>
 <p id="rfc.section.5.3.p.3">aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006 Annex B [IEEE802154]. It has been chosen as it is already used by devices for LoRaWAN procotol.</p>
 <p id="rfc.section.5.3.p.4">As AppSKey is renewed each time a device joins or rejoins a network, the IID will change over time; this mitigates privacy, location tracking and correlation over time risks. Rejoin periodicity is defined at the application level.</p>
@@ -927,7 +927,7 @@ ul.toc li {
 <tr>
 <td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
 <td class="top">
-<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-22">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-22, October 2019.</td>
+<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-23">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-23, November 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="lora-alliance-remote-multicast-set">[lora-alliance-remote-multicast-set]</b></td>
