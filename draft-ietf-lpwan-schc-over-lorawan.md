@@ -312,7 +312,7 @@ LoRaWAN technology supports unicast downlinks, but also multicast: a packet
 send over LoRaWAN radio link can be received by several devices.  It is
 useful to address many end-devices with same content, either a large binary
 file (firmware upgrade), or same command (e.g: lighting control).
-As IPv6 is also a multicast technology this feature MAY be used to address a
+As IPv6 is also a multicast technology this feature can be used to address a
 group of devices.
 
 _Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
@@ -353,9 +353,10 @@ server to device, is called downlink fragmentation session. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
-FPorts can use arbitrary values inside the allowed FPort range and MUST be
-shared by the end-device, the Network Server and SCHC gateway prior to the
-communication. The uplink and downlink fragmentation FPorts MUST be different.
+FPorts can use arbitrary values inside the FPort range allowed by LoRaWAN and
+MUST be shared by the end-device, the Network Server and SCHC gateway prior to
+the communication. The uplink and downlink fragmentation FPorts MUST be
+different.
 
 ## Rule ID management  {#rule-id-management}
 
@@ -442,20 +443,17 @@ Message, as per {{lorawan-schc-payload}}.
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles
   are allowed in a window
 * Window index: encoded on W = 2 bits. So 4 windows are available.
-* RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
-  representation of the polynomial used e.g. in the Ethernet standard
-  [RFC3385]) as suggested in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * MAX_ACK_REQUESTS: 8
 * Tile: size is 10 bytes
 * Retransmission and inactivity timers:
-  LoRaWAN end-devices do not implement a "retransmission timer". At the end of
+  LoRaWAN end-devices MUST not implement a "retransmission timer". At the end of
   a window or a fragmentation session, corresponding ACK(s) is (are)
   transmitted by the network gateway (LoRaWAN application server) in the RX1 or
   RX2 receive slot of end-device.
   If this ACK is not received by the end-device at the end of its RX windows,
-  it sends an all-0 (or an all-1) fragment with no payload to request an SCHC
-  ACK retransmission. The periodicity between retransmission of the all-0/all-1
-  fragments is device/application specific and MAY be different for each device
+  it sends an SCHC ACK REQ. The periodicity between retransmission of SCHC ACK
+  REQs is device/application specific and MAY be different for each device
   (not specified). The SCHC gateway implements an "inactivity timer".
   The default RECOMMENDED duration of this timer is 12 hours. This value is
   mainly driven by application requirements and MAY be changed by the
@@ -554,9 +552,7 @@ fragment as described in {{lorawan-schc-payload}}.
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
-* RCS calculation algorithm: CRC32 using 0xEDB88320 (i.e. the reverse
-  representation of the polynomial used e.g. in the Ethernet standard
-  [RFC3385]), as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * MAX_ACK_REQUESTS: 8
 
 As only 1 tile is used, its size can change for each downlink, and will be
@@ -570,11 +566,11 @@ purposes but not SCHC needs.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                     |
-+ ------ + ----------------------------------- +
-| RuleID | W     | FCN = b'0 | Payload         |
-+ ------ + ----- + --------- + --------------- +
-| 8 bits | 1 bit | 1 bit     | X bytes         |
+| FPort  | LoRaWAN payload                      |
++ ------ + ------------------------------------ +
+| RuleID | W     | FCN = b'0 | Payload          |
++ ------ + ----- + --------- + ---------------- +
+| 8 bits | 1 bit | 1 bit     | X bytes + 6 bits |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 10 bits, including LoraWAN FPort.'}
