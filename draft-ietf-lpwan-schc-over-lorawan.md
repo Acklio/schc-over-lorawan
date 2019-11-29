@@ -400,7 +400,7 @@ In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
 
 1. key = LoRaWAN AppSKey
-2. string = devEui in HEX representation, padded to 128 bits by adding 0 as
+2. string = devEui in HEX representation, padded to 128 bits by adding 0s as
    most significant bits
 3. output = aes128_encrypt(key, string)
 4. IID = 64 least significant bits of output
