@@ -1,0 +1,1157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Static Context Header Compression (SCHC) over LoRaWAN</title>
+
+  
+<style type="text/css">/*<![CDATA[*/
+
+body {
+  font: 16px "Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 24px;
+  margin: 75px auto;
+  max-width: 624px;
+  padding: 0 5px;
+}
+
+.title, .filename, h1, h2, h3, h4, h5 {
+  font: 16px "Roboto Condensed","Helvetica Neue","Open Sans",Helvetica,Calibri,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: bold;
+  color: #333;
+  line-height: 100%;
+  margin: 1.2em 0 0.3em;
+}
+.title, #rfc\.title h1 { font-size: 32px; }
+h1, section h1, h2, section h2, section h3, nav h2 { font-size: 20px; }
+h3, section h4, h4, section h5 { font-size: 16px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header, table#rfc\.headerblock {
+  width: 100%;
+}
+table.header td, table#rfc\.headerblock td {
+  border: none;
+  background-color: transparent;
+  color: black;
+  padding: 0;
+}
+.filename {
+  display: block;
+  color: rgb(119, 119, 119);
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 100%;
+  margin: 10px 0 32px;
+}
+#rfc\.abstract+p, #rfc\.abstract p {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+samp, tt, code, pre {
+  font: 13.5px Consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure, caption {
+  font-style: italic;
+  margin: 0 1.5em;
+  text-align: left;
+}
+
+address {
+  margin: 16px 2px;
+  line-height: 20px;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn, address b {
+  font-weight: normal;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+hr.noprint {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+p, ol, ul, li {
+  padding: 0;
+}
+p {
+  margin: 0.5em 0;
+}
+ol, ul {
+  margin: 0.2em 0 0.2em 2em;
+}
+li {
+  margin: 0.2em 0;
+}
+address {
+  font-style: normal;
+}
+
+ul.toc ul {
+  margin: 0 0 0 2em;
+}
+ul.toc li {
+  list-style: none;
+  margin: 0;
+}
+
+@media screen and (min-width: 924px) {
+  body {
+    padding-right: 350px;
+  }
+  body>ul.toc, body>#rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 500px);
+    width: 300px;
+    z-index: 1;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  body>#rfc\.toc {
+    top: 55px;
+  }
+  body>ul.toc {
+    top: 100px;
+  }
+
+  ul.toc {
+    margin: 0 0 0 4px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  ul.toc ul {
+    margin-left: 1.2em;
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+  /*]]>*/</style>
+  <meta name="viewport" content="initial-scale=1.0">
+
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.2" rel="Chapter" title="2 Terminology">
+<link href="#rfc.section.3" rel="Chapter" title="3 Static Context Header Compression Overview">
+<link href="#rfc.section.4" rel="Chapter" title="4 LoRaWAN Architecture">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 End-Device classes (A, B, C) and interactions">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 End-Device addressing">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 General Message Types">
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 LoRaWAN MAC Frames">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 Unicast and multicast technology">
+<link href="#rfc.section.5" rel="Chapter" title="5 SCHC-over-LoRaWAN">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 LoRaWAN FPort">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Rule ID management">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 IID computation">
+<link href="#rfc.section.5.4" rel="Chapter" title="5.4 Padding">
+<link href="#rfc.section.5.5" rel="Chapter" title="5.5 Decompression">
+<link href="#rfc.section.5.6" rel="Chapter" title="5.6 Fragmentation">
+<link href="#rfc.section.5.6.1" rel="Chapter" title="5.6.1 DTag">
+<link href="#rfc.section.5.6.2" rel="Chapter" title="5.6.2 Uplink fragmentation: From device to SCHC gateway">
+<link href="#rfc.section.5.6.3" rel="Chapter" title="5.6.3 Downlink fragmentation: From SCHC gateway to a device">
+<link href="#rfc.section.6" rel="Chapter" title="6 Security considerations">
+<link href="#rfc.acknowledgements" rel="Chapter">
+<link href="#rfc.contributors" rel="Chapter">
+<link href="#rfc.references" rel="Chapter" title="9 References">
+<link href="#rfc.references.1" rel="Chapter" title="9.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="9.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Examples">
+<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Uplink - Compression example - No fragmentation">
+<link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 Uplink - Compression and fragmentation example">
+<link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 Downlink">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Note">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.35.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Gimenez, O., Ed. and I. Petrov, Ed." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-11-29" />
+  <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
+  <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">lpwan Working Group</td>
+<td class="right">O. Gimenez, Ed.</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">Semtech</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right">I. Petrov, Ed.</td>
+</tr>
+<tr>
+<td class="left">Expires: June 1, 2020</td>
+<td class="right">Acklio</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">November 29, 2019</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Static Context Header Compression (SCHC) over LoRaWAN<br />
+  <span class="filename">draft-ietf-lpwan-schc-over-lorawan-latest</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.</p>
+<p>This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on June 1, 2020.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Terminology</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Static Context Header Compression Overview</a>
+</li>
+<li>4.   <a href="#rfc.section.4">LoRaWAN Architecture</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">End-Device classes (A, B, C) and interactions</a>
+</li>
+<li>4.2.   <a href="#rfc.section.4.2">End-Device addressing</a>
+</li>
+<li>4.3.   <a href="#rfc.section.4.3">General Message Types</a>
+</li>
+<li>4.4.   <a href="#rfc.section.4.4">LoRaWAN MAC Frames</a>
+</li>
+<li>4.5.   <a href="#rfc.section.4.5">Unicast and multicast technology</a>
+</li>
+</ul><li>5.   <a href="#rfc.section.5">SCHC-over-LoRaWAN</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">LoRaWAN FPort</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Rule ID management</a>
+</li>
+<li>5.3.   <a href="#rfc.section.5.3">IID computation</a>
+</li>
+<li>5.4.   <a href="#rfc.section.5.4">Padding</a>
+</li>
+<li>5.5.   <a href="#rfc.section.5.5">Decompression</a>
+</li>
+<li>5.6.   <a href="#rfc.section.5.6">Fragmentation</a>
+</li>
+<ul><li>5.6.1.   <a href="#rfc.section.5.6.1">DTag</a>
+</li>
+<li>5.6.2.   <a href="#rfc.section.5.6.2">Uplink fragmentation: From device to SCHC gateway</a>
+</li>
+<li>5.6.3.   <a href="#rfc.section.5.6.3">Downlink fragmentation: From SCHC gateway to a device</a>
+</li>
+</ul></ul><li>6.   <a href="#rfc.section.6">Security considerations</a>
+</li>
+<li><a href="#rfc.acknowledgements">Acknowledgements</a>
+</li>
+<li><a href="#rfc.contributors">Contributors</a>
+</li>
+<li>9.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>9.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Examples</a>
+</li>
+<ul><li>A.1.   <a href="#rfc.appendix.A.1">Uplink - Compression example - No fragmentation</a>
+</li>
+<li>A.2.   <a href="#rfc.appendix.A.2">Uplink - Compression and fragmentation example</a>
+</li>
+<li>A.3.   <a href="#rfc.appendix.A.3">Downlink</a>
+</li>
+</ul><li>Appendix B.   <a href="#rfc.appendix.B">Note</a>
+</li>
+<li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#Introduction" id="Introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">The Static Context Header Compression (SCHC) specification <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a> describes generic header compression and fragmentation techniques that can be used on all LPWAN (Low Power Wide Area Networks) technologies defined in <a href="#RFC8376" class="xref">[RFC8376]</a>. Even though those technologies share a great number of common features like star-oriented topologies, network architecture, devices with mostly quite predictable communications, etc; they do have some slight differences in respect of payload sizes, reactiveness, etc.</p>
+<p id="rfc.section.1.p.2">SCHC gives a generic framework that enables those devices to communicate with other Internet networks. However, for efficient performance, some parameters and modes of operation need to be set appropriately for each of the LPWAN technologies.</p>
+<p id="rfc.section.1.p.3">This document describes the efficient parameters and modes of operation when SCHC is used over LoRaWAN networks.</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.2.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
+<p id="rfc.section.2.p.2">This section defines the terminology and acronyms used in this document. For all other definitions, please look up the SCHC specification <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</p>
+<p id="rfc.section.2.p.3">o  DevEUI: an IEEE EUI-64 identifier used to identify the end-device during the procedure while joining the network (Join Procedure)</p>
+<p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to an end-device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
+<p id="rfc.section.2.p.5">o  RCS: Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process</p>
+<p id="rfc.section.2.p.6">o  TBD: all significant LoRaWAN-related terms.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
+</h1>
+<p id="rfc.section.3.p.1">This section contains a short overview of Static Context Header Compression (SCHC). For a detailed description, refer to the full specification <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</p>
+<p id="rfc.section.3.p.2">It defines:</p>
+<p></p>
+
+<ol>
+<li>Compression mechanisms to avoid transport of known data by both sender and receiver over the air. Known data are called &#8220;context&#8221;</li>
+<li>Fragmentation mechanisms to allow SCHC Packet transportation on small, and potentially variable, MTU</li>
+</ol>
+<p id="rfc.section.3.p.4">Context exchange or pre-provisioning is out of scope of this document.</p>
+<div id="rfc.figure.1"></div>
+<div id="Fig-archi"></div>
+<pre>
+        Dev                                               App
++----------------+                                +----+ +----+ +----+
+| App1 App2 App3 |                                |App1| |App2| |App3|
+|                |                                |    | |    | |    |
+|       UDP      |                                |UDP | |UDP | |UDP |
+|      IPv6      |                                |IPv6| |IPv6| |IPv6|
+|                |                                |    | |    | |    |
+|SCHC C/D and F/R|                                |    | |    | |    |
++--------+-------+                                +----+ +----+ +----+
+         |  +---+     +----+    +----+    +----+     .      .      .
+         +~ |RGW| === |NGW | == |SCHC| == |SCHC|...... Internet ....
+            +---+     +----+    |F/R |    |C/D |
+                                +----+    +----+
+</pre>
+<p class="figure">Figure 1: Architecture</p>
+<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flow might be compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size and fragmented (SCHC F/R).  The resulting information is sent on a layer two (L2) frame to an LPWAN Radio Gateway (RGW) which forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if required, then C/D for decompression which shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same set of rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
+<p id="rfc.section.3.p.6">The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can be applied in the other direction.</p>
+<p id="rfc.section.3.p.7">In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server, and the SCHC C/D is an Application Server. It can be provided by the Network Server or any third party software. <a href="#Fig-archi" class="xref">Figure 1</a> can be mapped in LoRaWAN terminology to:</p>
+<div id="rfc.figure.2"></div>
+<div id="Fig-archi-lorawan"></div>
+<pre>
+       Dev                                                  App
++--------------+                                    +----+ +----+ +----+
+|App1 App2 App3|                                    |App1| |App2| |App3|
+|              |                                    |    | |    | |    |
+|      UDP     |                                    |UDP | |UDP | |UDP |
+|     IPv6     |                                    |IPv6| |IPv6| |IPv6|
+|              |                                    |    | |    | |    |
+|SCHC C/D &amp; F/R|                                    |    | |    | |    |
++-------+------+                                    +----+ +----+ +----+
+        |  +-------+     +-------+    +-----------+    .      .      .
+        +~ |Gateway| === |Network| == |Application|..... Internet ....
+           +-------+     |server |    |server     |
+                         +-------+    | F/R - C/D |
+                                      +-----------+
+</pre>
+<p class="figure">Figure 2: SCHC Architecture mapped to LoRaWAN</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#lorawan-architecture" id="lorawan-architecture">LoRaWAN Architecture</a>
+</h1>
+<p id="rfc.section.4.p.1">An overview of LoRaWAN <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a> protocol and architecture is described in <a href="#RFC8376" class="xref">[RFC8376]</a>. The mapping between the LPWAN architecture entities as described in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a> and the ones in <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a> is as follows:</p>
+<p id="rfc.section.4.p.2">o Devices (Dev) are the end-devices or hosts (e.g. sensors, actuators, etc.).  There can be a very high density of devices per radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN End-Device.</p>
+<p id="rfc.section.4.p.3">o The Radio Gateway (RGW), which is the endpoint of the constrained link. This entity maps to the LoRaWAN Gateway.</p>
+<p id="rfc.section.4.p.4">o The Network Gateway (NGW) is the interconnection node between the Radio Gateway and the Internet. This entity maps to the LoRaWAN Network Server.</p>
+<p id="rfc.section.4.p.5">o Application Server (App). The same terminology is used in LoRaWAN.  In that case, the application server will be the SCHC gateway, doing C/D and F/R.</p>
+<div id="rfc.figure.3"></div>
+<div id="Fig-LPWANarchi"></div>
+<pre>
+    ()   ()   ()       |                      +------+
+     ()  () () ()     / \       +---------+   | Join |
+    () () () () ()   /   \======|    ^    |===|Server|  +-----------+
+     () ()  ()      |           | &lt;--|--&gt; |   +------+  |Application|
+    () ()  ()  ()  / \==========|    v    |=============|  Server   |
+     ()  ()  ()   /   \         +---------+             +-----------+
+    End-Devices  Gateways     Network Server
+
+</pre>
+<p class="figure">Figure 3: LPWAN Architecture</p>
+<p id="rfc.section.4.p.6">SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly) are performed on the LoRaWAN End-Device and the Application Server (called SCHC gateway). While the point-to-point link between the End-Device and the Application Server constitutes single IP hop, the ultimate end-point of the IP communication may be an Internet node beyond the Application Server.  In other words, the LoRaWAN Application Server (SCHC gateway) acts as the first hop IP router for the End-Device. The Application Server and Network Server may be co-located, which effectively turns the Network/Application Server into the first hop IP router.</p>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#end-device-classes-a-b-c-and-interactions" id="end-device-classes-a-b-c-and-interactions">End-Device classes (A, B, C) and interactions</a>
+</h1>
+<p id="rfc.section.4.1.p.1">The LoRaWAN MAC layer supports 3 classes of end-devices named A, B and C.  All end-devices implement the Class A, some end-devices may implement Class B or Class C. Class B and Class C are mutually exclusive.</p>
+<p></p>
+
+<ul>
+<li>Class A: The Class A is the simplest class of end-devices. The end-device is allowed to transmit at any time, randomly selecting a communication channel.  The network may reply with a downlink in one of the 2 receive windows immediately following the uplinks. Therefore, the network cannot initiate a downlink, it has to wait for the next uplink from the end-device to get a downlink opportunity. The Class A is the lowest power end-device class.</li>
+<li>Class B: Class B end-devices implement all the functionalities of Class A end-devices, but also schedule periodic listen windows. Therefore, opposed to the Class A end-devices, Class B end-devices can receive downlinks that are initiated by the network and not following an uplink. There is a trade-off between the periodicity of those scheduled Class B listen windows and the power consumption of the end-device. The lower the downlink latency, the higher the power consumption.</li>
+<li>Class C: Class C end-devices implement all the functionalities of Class A end-devices, but keep their receiver open whenever they are not transmitting.  Class C end-devices can receive downlinks at any time at the expense of a higher power consumption. Battery-powered end-devices can only operate in Class C for a limited amount of time (for example for a firmware upgrade over-the-air).  Most of the Class C end-devices are grid powered (for example Smart Plugs).</li>
+</ul>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> <a href="#end-device-addressing" id="end-device-addressing">End-Device addressing</a>
+</h1>
+<p id="rfc.section.4.2.p.1">LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with the network over-the-air, this address might not be unique in a LoRaWAN network; end-devices using the same devAddr are distinguished by the Network Server based on the cryptographic signature appended to every LoRaWAN frame.</p>
+<p id="rfc.section.4.2.p.2">To communicate with the SCHC gateway the Network Server MUST identify the end-devices by a unique 64-bit device identifier called the devEUI.</p>
+<p id="rfc.section.4.2.p.3">The devEUI is assigned to the end-device during the manufacturing process by the end-device&#8217;s manufacturer. It is built like an Ethernet MAC address by concatenating the manufacturer&#8217;s IEEE OUI field with a vendor unique number.  e.g.: 24-bit OUI is concatenated with a 40-bit serial number.  The Network Server translates the devAddr into a devEUI in the uplink direction and reciprocally on the downlink direction.</p>
+<div id="rfc.figure.4"></div>
+<div id="Fig-LoRaWANaddresses"></div>
+<pre>
++--------+         +----------+        +---------+            +----------+
+| End-   | &lt;=====&gt; | Network  | &lt;====&gt; | SCHC    | &lt;========&gt; | Internet |
+| Device | devAddr | Server   | devEUI | Gateway |  IPv6/UDP  |          |
++--------+         +----------+        +---------+            +----------+
+
+</pre>
+<p class="figure">Figure 4: LoRaWAN addresses</p>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#general-message-types" id="general-message-types">General Message Types</a>
+</h1>
+<p></p>
+
+<ul>
+<li>Confirmed messages: The sender asks the receiver to acknowledge the message.</li>
+<li>Unconfirmed messages: The sender does not ask the receiver to acknowledge the message.</li>
+</ul>
+<p id="rfc.section.4.3.p.2">As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use confirmed messages.</p>
+<h1 id="rfc.section.4.4">
+<a href="#rfc.section.4.4">4.4.</a> <a href="#lorawan-mac-frames" id="lorawan-mac-frames">LoRaWAN MAC Frames</a>
+</h1>
+<p></p>
+
+<ul>
+<li>JoinRequest: This message is used by an end-device to join a network. It contains the end-device&#8217;s unique identifier devEUI and a random nonce that will be used for session key derivation.</li>
+<li>JoinAccept: To on-board an end-device, the Network Server responds to the JoinRequest end-device&#8217;s message with a JoinAccept message. That message is encrypted with the end-device&#8217;s AppKey and contains (amongst other fields) the major network&#8217;s settings and a network random nonce used to derive the session keys.</li>
+<li>Data: Application data frame with two levels of AES-128 encryption.  One at application level thanks to the AppSKey, the other at network level with the NwkSKey.</li>
+</ul>
+<h1 id="rfc.section.4.5">
+<a href="#rfc.section.4.5">4.5.</a> <a href="#unicast-and-multicast-technology" id="unicast-and-multicast-technology">Unicast and multicast technology</a>
+</h1>
+<p id="rfc.section.4.5.p.1">LoRaWAN technology supports unicast downlinks, but also multicast: a packet send over LoRaWAN radio link can be received by several devices.  It is useful to address many end-devices with same content, either a large binary file (firmware upgrade), or same command (e.g: lighting control).  As IPv6 is also a multicast technology this feature can be used to address a group of devices.</p>
+<p><em>Note 1</em>: IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a network server and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
+<p><em>Note 2</em>: LoRa Alliance defined <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#schc-over-lorawan" id="schc-over-lorawan">SCHC-over-LoRaWAN</a>
+</h1>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#lorawan-schc-payload" id="lorawan-schc-payload">LoRaWAN FPort</a>
+</h1>
+<p id="rfc.section.5.1.p.1">The LoRaWAN MAC layer features a frame port field in all frames. This field (FPort) is 8 bits long and the values from 1 to 223 can be used. It allows LoRaWAN networks and applications to identify data.</p>
+<p id="rfc.section.5.1.p.2">The FPort field is part of the SCHC Message, as shown in <a href="#Fig-lorawan-schc-payload" class="xref">Figure 5</a>. The SCHC C/D and the SCHC F/R SHALL concatenate the FPort field with the LoRaWAN payload to retrieve their payload as it is used as a part of the RuleID field.</p>
+<div id="rfc.figure.5"></div>
+<div id="Fig-lorawan-schc-payload"></div>
+<pre>
+| FPort | LoRaWAN payload  |
++ ------------------------ +
+|       SCHC payload       |
+
+</pre>
+<p class="figure">Figure 5: SCHC Message in LoRaWAN</p>
+<p id="rfc.section.5.1.p.3">A fragmentation session with application payload transferred from device to server, is called uplink fragmentation session. It uses an FPort for data uplink and its associated SCHC control downlinks, named FPortUp in this document. The other way, a fragmentation session with application payload transferred from server to device, is called downlink fragmentation session. It uses another FPort for data downlink and its associated SCHC control uplinks, named FPortDown in this document.</p>
+<p id="rfc.section.5.1.p.4">FPorts can use arbitrary values inside the FPort range allowed by LoRaWAN and MUST be shared by the end-device, the Network Server and SCHC gateway prior to the communication. The uplink and downlink fragmentation FPorts MUST be different.</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
+</h1>
+<p id="rfc.section.5.2.p.1">RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>. LoRaWAN supports up to 223 application FPorts in the range [1;223] as defined in section 4.3.2 of <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a>, it implies that RuleID MSB SHOULD be inside this range. An application MAY reserve some FPort values for other needs as long as they don&#8217;t conflict with FPorts used for SCHC C/D and SCHC F/R.</p>
+<p id="rfc.section.5.2.p.2">In order to improve interoperability RECOMMENDED fragmentation RuleID values are:</p>
+<p></p>
+
+<ul>
+<li>RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp</li>
+<li>RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown</li>
+<li>RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching rule was found)</li>
+</ul>
+<p id="rfc.section.5.2.p.4">The remaining RuleIDs are available for compression. RuleIDs are shared between uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown means that the fragmentation is not used, thus, on reception, the SCHC Message MUST be sent to the C/D layer.</p>
+<p id="rfc.section.5.2.p.5">The only uplink messages using the FPortDown port are the fragmentation SCHC control messages of a downlink fragmentation session (for example, SCHC ACKs).  Similarly, the only downlink messages using the FPortUp port are the fragmentation SCHC control messages of an uplink fragmentation session.</p>
+<p id="rfc.section.5.2.p.6">An application can have multiple fragmentation sessions between a device and one or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway instance the device is required to communicate with.</p>
+<p id="rfc.section.5.2.p.7">The mechanism for sharing those RuleID values is outside the scope of this document.</p>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> <a href="#iid-computation" id="iid-computation">IID computation</a>
+</h1>
+<p id="rfc.section.5.3.p.1">As LoRaWAN network uses unique EUI-64 per end-device, the Interface IDentifier is the LoRaWAN DevEUI.  It is compliant with <a href="#RFC4291" class="xref">[RFC4291]</a> and IID starting with binary 000 must enforce the 64-bit rule.</p>
+<p id="rfc.section.5.3.p.2">TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?</p>
+<h1 id="rfc.section.5.4">
+<a href="#rfc.section.5.4">5.4.</a> <a href="#padding" id="padding">Padding</a>
+</h1>
+<p id="rfc.section.5.4.p.1">All padding bits MUST be 0.</p>
+<h1 id="rfc.section.5.5">
+<a href="#rfc.section.5.5">5.5.</a> <a href="#Decomp" id="Decomp">Decompression</a>
+</h1>
+<p id="rfc.section.5.5.p.1">SCHC C/D MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC Packet as per <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>.</p>
+<p id="rfc.section.5.5.p.2">RuleIDs matching FPortUp and FPortDown are reserved for SCHC Fragmentation.</p>
+<h1 id="rfc.section.5.6">
+<a href="#rfc.section.5.6">5.6.</a> <a href="#Frag" id="Frag">Fragmentation</a>
+</h1>
+<p id="rfc.section.5.6.p.1">The L2 Word Size used by LoRaWAN is 1 byte (8 bits).  The SCHC fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink fragmentation and Ack-Always mode for downlink fragmentation. A LoRaWAN end-device cannot support simultaneous interleaved fragmentation sessions in the same direction (uplink or downlink).</p>
+<p id="rfc.section.5.6.p.2">The fragmentation parameters are different for uplink and downlink fragmentation sessions and are successively described in the next sections.</p>
+<h1 id="rfc.section.5.6.1">
+<a href="#rfc.section.5.6.1">5.6.1.</a> <a href="#dtag" id="dtag">DTag</a>
+</h1>
+<p id="rfc.section.5.6.1.p.1">A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same FPort.  This field is not used and its size is 0.</p>
+<p id="rfc.section.5.6.1.p.2">Note: The device can still have several parallel fragmentation sessions with one or more SCHC gateway(s) thanks to distinct sets of FPorts, cf <a href="#rule-id-management" class="xref">Section 5.2</a></p>
+<h1 id="rfc.section.5.6.2">
+<a href="#rfc.section.5.6.2">5.6.2.</a> <a href="#uplink-fragmentation-from-device-to-schc-gateway" id="uplink-fragmentation-from-device-to-schc-gateway">Uplink fragmentation: From device to SCHC gateway</a>
+</h1>
+<p id="rfc.section.5.6.2.p.1">In that case the device is the fragmentation transmitter, and the SCHC gateway the fragmentation receiver. A single fragmentation rule is defined.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC Message, as per <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>.</p>
+<p></p>
+
+<ul>
+<li>SCHC header size is two bytes (the FPort byte + 1 additional byte).</li>
+<li>RuleID: 8 bits stored in LoRaWAN FPort.</li>
+<li>SCHC fragmentation reliability mode: <samp>ACK-on-Error</samp>
+</li>
+<li>DTag: Size is 0 bit, not used</li>
+<li>FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles are allowed in a window</li>
+<li>Window index: encoded on W = 2 bits. So 4 windows are available.</li>
+<li>RCS: Use recommended calculation algorithm in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
+<li>MAX_ACK_REQUESTS: 8</li>
+<li>Tile: size is 10 bytes</li>
+<li>Retransmission and inactivity timers: LoRaWAN end-devices MUST not implement a &#8220;retransmission timer&#8221;. At the end of a window or a fragmentation session, corresponding ACK(s) is (are) transmitted by the network gateway (LoRaWAN application server) in the RX1 or RX2 receive slot of end-device.  If this ACK is not received by the end-device at the end of its RX windows, it sends an SCHC ACK REQ. The periodicity between retransmission of SCHC ACK REQs is device/application specific and MAY be different for each device (not specified). The SCHC gateway implements an &#8220;inactivity timer&#8221;.  The default RECOMMENDED duration of this timer is 12 hours. This value is mainly driven by application requirements and MAY be changed by the application.</li>
+<li>Last tile: The last tile can be carried in the All-1 fragment.</li>
+</ul>
+<p id="rfc.section.5.6.2.p.3">With this set of parameters, the SCHC fragment header is 16 bits, including FPort; payload overhead will be 8 bits as FPort is already a part of LoRaWAN payload. MTU is: <em>4 windows * 63 tiles * 10 bytes per tile = 2520 bytes</em></p>
+<h1 id="rfc.section.5.6.2.1">
+<a href="#rfc.section.5.6.2.1">5.6.2.1.</a> <a href="#regular-fragments" id="regular-fragments">Regular fragments</a>
+</h1>
+<div id="rfc.figure.6"></div>
+<div id="Fig-fragmentation-header-long-all0"></div>
+<pre>
+| FPort  |  LoRaWAN payload          |
++ ------ + ------------------------- +
+| RuleID |   W    | FCN    | Payload |
++ ------ + ------ + ------ + ------- +
+| 8 bits | 2 bits | 6 bits |         |
+
+</pre>
+<p class="figure">Figure 6: All fragments except the last one. SCHC header size is 16 bits, including LoRaWAN FPort.</p>
+<h1 id="rfc.section.5.6.2.2">
+<a href="#rfc.section.5.6.2.2">5.6.2.2.</a> <a href="#last-fragment-all-1" id="last-fragment-all-1">Last fragment (All-1)</a>
+</h1>
+<div id="rfc.figure.7"></div>
+<div id="Fig-fragmentation-header-all1"></div>
+<pre>
+| FPort  | LoRaWAN payload                                  |
++ ------ + ------------------------------------------------ +
+| RuleID |   W    | FCN=All-1 |  RCS    | Payload           |
++ ------ + ------ + --------- + ------- + ----------------- +
+| 8 bits | 2 bits | 6 bits    | 32 bits | Last tile, if any |
+
+</pre>
+<p class="figure">Figure 7: All-1 fragment detailed format for the last fragment.</p>
+<h1 id="rfc.section.5.6.2.3">
+<a href="#rfc.section.5.6.2.3">5.6.2.3.</a> <a href="#schc-ack" id="schc-ack">SCHC ACK</a>
+</h1>
+<div id="rfc.figure.8"></div>
+<div id="Fig-fragmentation-header-long-schc-ack"></div>
+<pre>
+| FPort  | LoRaWAN payload                           |
++ ------ + ----------------------------------------- +
+| RuleID |   W   | C     | Encoded bitmap (if C = 0) |
++ ------ + ----- + ----- + ------------------------- +
+| 8 bits | 2 bit | 1 bit | 0 to 63 bits              |
+
+</pre>
+<p class="figure">Figure 8: SCHC ACK format, failed RCS check.</p>
+<h1 id="rfc.section.5.6.2.4">
+<a href="#rfc.section.5.6.2.4">5.6.2.4.</a> <a href="#receiver-abort" id="receiver-abort">Receiver-Abort</a>
+</h1>
+<div id="rfc.figure.9"></div>
+<div id="Fig-fragmentation-receiver-abort"></div>
+<pre>
+| FPort  | LoRaWAN payload                              |
++ ------ + -------------------------------------------- +
+| RuleID | W = b'11 | C = 1 | b'11111 | 0xFF (all 1's)  |
++ ------ + -------- + ------+-------- + ----------------+
+| 8 bits |  2 bits  | 1 bit | 5 bits  | 8 bits          |
+              next L2 Word boundary -&gt;| &lt;-- L2 Word --&gt; |
+
+</pre>
+<p class="figure">Figure 9: Receiver-Abort format.</p>
+<h1 id="rfc.section.5.6.2.5">
+<a href="#rfc.section.5.6.2.5">5.6.2.5.</a> <a href="#schc-acknowledge-request" id="schc-acknowledge-request">SCHC acknowledge request</a>
+</h1>
+<div id="rfc.figure.10"></div>
+<div id="Fig-fragmentation-schc-ack-req"></div>
+<pre>
+| FPort  | LoRaWAN payload          |
++------- +------------------------- +
+| RuleID | W      | FCN = b'000000  |
++ ------ + ------ + --------------- +
+| 8 bits | 2 bits | 6 bits          |
+
+
+</pre>
+<p class="figure">Figure 10: SCHC ACK REQ format.</p>
+<h1 id="rfc.section.5.6.3">
+<a href="#rfc.section.5.6.3">5.6.3.</a> <a href="#downlink-fragmentation-from-schc-gateway-to-a-device" id="downlink-fragmentation-from-schc-gateway-to-a-device">Downlink fragmentation: From SCHC gateway to a device</a>
+</h1>
+<p id="rfc.section.5.6.3.p.1">In that case the device is the fragmentation receiver, and the SCHC gateway the fragmentation transmitter. The following fields are common to all devices.  SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC fragment as described in <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>.</p>
+<p></p>
+
+<ul>
+<li>SCHC fragmentation reliability mode: <ul>
+<li>Unicast downlinks: ACK-Always.</li>
+<li>Multicast downlinks: No-ACK, reliability has to be ensured by the upper layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.</li>
+</ul>
+</li>
+<li>RuleID: 8 bits stored in LoRaWAN FPort.</li>
+<li>Window index (unicast only): encoded on W=1 bit, as per <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
+<li>DTag: Size is 0 bit, not used</li>
+<li>FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile (FCN=All-1 is reserved for SCHC).</li>
+<li>RCS: Use recommended calculation algorithm in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</li>
+<li>MAX_ACK_REQUESTS: 8</li>
+</ul>
+<p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
+<p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other purposes but not SCHC needs.</p>
+<h1 id="rfc.section.5.6.3.1">
+<a href="#rfc.section.5.6.3.1">5.6.3.1.</a> <a href="#regular-fragments-1" id="regular-fragments-1">Regular fragments</a>
+</h1>
+<div id="rfc.figure.11"></div>
+<div id="Fig-fragmentation-downlink-header-all0"></div>
+<pre>
+| FPort  | LoRaWAN payload                      |
++ ------ + ------------------------------------ +
+| RuleID | W     | FCN = b'0 | Payload          |
++ ------ + ----- + --------- + ---------------- +
+| 8 bits | 1 bit | 1 bit     | X bytes + 6 bits |
+
+</pre>
+<p class="figure">Figure 11: All fragments but the last one. Header size 10 bits, including LoraWAN FPort.</p>
+<h1 id="rfc.section.5.6.3.2">
+<a href="#rfc.section.5.6.3.2">5.6.3.2.</a> <a href="#last-fragment-all-1-1" id="last-fragment-all-1-1">Last fragment (All-1)</a>
+</h1>
+<div id="rfc.figure.12"></div>
+<div id="Fig-fragmentation-downlink-header-all1"></div>
+<pre>
+| FPort  | LoRaWAN payload                                 |
++ ------ + ----------------------------------------------- +
+| RuleID | W     | FCN = b'1 | RCS     | Payload           |
++ ------ + ----- + --------- + ------- + ----------------- +
+| 8 bits | 1 bit | 1 bit     | 32 bits | Last tile, if any |
+
+</pre>
+<p class="figure">Figure 12: All-1 SCHC Message: the last fragment.</p>
+<h1 id="rfc.section.5.6.3.3">
+<a href="#rfc.section.5.6.3.3">5.6.3.3.</a> <a href="#schc-acknowledge" id="schc-acknowledge">SCHC acknowledge</a>
+</h1>
+<div id="rfc.figure.13"></div>
+<div id="Fig-fragmentation-downlink-header-schc-ack"></div>
+<pre>
+| FPort  | LoRaWAN payload                    |
++ ------ + ---------------------------------- +
+| RuleID | W     | C = b'1 | Padding b'000000 |
++ ------ + ----- + ------- + ---------------- +
+| 8 bits | 1 bit | 1 bit   | 6 bits           |
+
+</pre>
+<p class="figure">Figure 13: SCHC ACK format, RCS is correct.</p>
+<h1 id="rfc.section.5.6.3.4">
+<a href="#rfc.section.5.6.3.4">5.6.3.4.</a> <a href="#receiver-abort-1" id="receiver-abort-1">Receiver-Abort</a>
+</h1>
+<div id="rfc.figure.14"></div>
+<div id="Fig-fragmentation-downlink-header-abort"></div>
+<pre>
+| FPort  | LoRaWAN payload                                |
++ ------ + ---------------------------------------------- +
+| RuleID | W = b'1 | C = b'1 | b'111111 | 0xFF (all 1's)  |
++ ------ + ------- + ------- + -------- + --------------- +
+| 8 bits | 1 bit   | 1 bits  | 6 bits   | 8 bits          |
+                next L2 Word boundary -&gt;| &lt;-- L2 Word --&gt; |
+
+
+</pre>
+<p class="figure">Figure 14: Receiver-Abort packet (following an All-1 SCHC Fragment with incorrect RCS).</p>
+<p id="rfc.section.5.6.3.4.p.1">Class A and Class B or Class C end-devices do not manage retransmissions and timers in the same way.</p>
+<h1 id="rfc.section.5.6.3.5">
+<a href="#rfc.section.5.6.3.5">5.6.3.5.</a> <a href="#class-a-end-devices" id="class-a-end-devices">Class A end-devices</a>
+</h1>
+<p id="rfc.section.5.6.3.5.p.1">Class A end-devices can only receive in an RX slot following the transmission of an uplink.  Therefore there cannot be a concept of &#8220;retransmission timer&#8221; for an SCHC gateway. The SCHC gateway cannot initiate communication to a Class A end-device.</p>
+<p id="rfc.section.5.6.3.5.p.2">The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of a FCN=0 fragment (fragment that is not the last fragment of the packet or SCHC ACK REQ, but the end of a window), the device MUST transmit the SCHC ACK fragment until it receives the fragment of the next window. The device SHALL transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit those ACK as soon as possible while taking into consideration potential local radio regulation on duty-cycle, to progress the fragmentation session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.</p>
+<p id="rfc.section.5.6.3.5.p.3">Following the reception of an FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the &#8220;RCS is correct&#8221; indicator bit set (C=1). This message might be lost therefore the SCHC gateway MAY request a retransmission of this ACK in the next downlink. The device SHALL keep this ACK message in memory until it receives a downlink, on SCHC FPortDown from the SCHC gateway different from an SCHC ACK REQ: it indicates that the SCHC gateway has received the ACK message.</p>
+<p id="rfc.section.5.6.3.5.p.4">Following the reception of a FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and the RCS is not correct, the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep this Abort message in memory until it receives a downlink, on SCHC FPortDown, from the SCHC gateway different from an SCHC ACK REQ indicating that the SCHC gateway has received the Abort message.  The fragmentation receiver (device) does not implement retransmission timer and inactivity timer.</p>
+<p id="rfc.section.5.6.3.5.p.5">The fragmentation sender (the SCHC gateway) implements an inactivity timer with a default duration of 12 hours. Once a fragmentation session is started, if the SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after the last message from the device was received, the SCHC gateway MAY flush the fragmentation context.  For devices with very low transmission rates (example 1 packet a day in normal operation) , that duration may be extended, but this is application specific.</p>
+<h1 id="rfc.section.5.6.3.6">
+<a href="#rfc.section.5.6.3.6">5.6.3.6.</a> <a href="#class-b-or-class-c-end-devices" id="class-b-or-class-c-end-devices">Class B or Class C end-devices</a>
+</h1>
+<p id="rfc.section.5.6.3.6.p.1">Class B and Class C end-devices can receive in scheduled RX slots or in RX slots following the transmission of an uplink. The device replies with an ACK message to every single fragment received from the SCHC gateway (because the window size is 1). Following the reception of an FCN=0 fragment (fragment that is not the last fragment of the packet or SCHC ACK REQ), the device MUST always transmit the corresponding SCHC ACK message even if that fragment has already been received.  The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this ACK, it proceeds to send the next window fragment. If the retransmission timer elapses and the SCHC gateway has not received the ACK of the current window it retransmits the last fragment. The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.6.3.6.p.2">Following the reception of an FCN=All-1 fragment (the last fragment of a datagram) and if the RCS is correct, the device SHALL transmit the ACK with the &#8220;RCS is correct&#8221; indicator bit set. If the SCHC gateway receives this ACK, the current fragmentation session has succeeded and its context can be cleared.</p>
+<p id="rfc.section.5.6.3.6.p.3">If the retransmission timer elapses and the SCHC gateway has not received the SCHC ACK it retransmits the last fragment with the payload (not an SCHC ACK REQ without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS times before aborting.</p>
+<p id="rfc.section.5.6.3.6.p.4">Following the reception of an FCN=All-1 fragment (the last fragment of a datagram), if all fragments have been received and if the RCS is NOT correct, the device SHALL transmit a Receiver-Abort fragment.  The retransmission timer is used by the SCHC gateway (the sender), the optimal value is very much application specific but here are some recommended default values.  For Class B end-devices, this timer trigger is a function of the periodicity of the Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping slot periodicity. For Class C end-devices which are nearly constantly receiving, the RECOMMENDED value is 30 seconds. This means that the end-device shall try to transmit the ACK within 30 seconds  of the reception of each fragment.  The inactivity timer is implemented by the end-device to flush the context in case it receives nothing from the SCHC gateway over an extended period of time. The RECOMMENDED value is 12 hours for both Class B and Class C end-devices.</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
+</h1>
+<p id="rfc.section.6.p.1">This document is only providing parameters that are expected to be better suited for LoRaWAN networks for <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>. As such, this document does not contribute to any new security issues in addition to those identified in <a href="#I-D.ietf-lpwan-ipv6-static-context-hc" class="xref">[I-D.ietf-lpwan-ipv6-static-context-hc]</a>.</p>
+<h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
+<p id="rfc.section.7.p.1">Thanks to all those listed in the Contributors section for the excellent text, insightful discussions, reviews and suggestions.</p>
+<h1 id="rfc.contributors"><a href="#rfc.contributors">Contributors</a></h1>
+<p id="rfc.section.8.p.1">Contributors ordered by family name.</p>
+<p></p>
+
+<ul>
+<li>ins: V. Audebert name: Vincent AUDEBERT org: EDF R&amp;D street: 7 bd Gaspard Monge city: 91120 PALAISEAU country: FRANCE email: vincent.audebert@edf.fr</li>
+<li>ins: J. Catalano name: Julien Catalano org: Kerlink street: 1 rue Jacqueline Auriol city: 35235 Thorign&#233;-Fouillard country: France email: j.catalano@kerlink.fr</li>
+<li>ins: M. Coracin name: Michael Coracin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: mcoracin@semtech.com</li>
+<li>ins: M. Le Gourrierec name: Marc Le Gourrierec org: SagemCom street: 250 Route de l&#8217;Empereur city: 92500 Rueil Malmaison country: FRANCE email: marc.legourrierec@sagemcom.com</li>
+<li>ins: N. Sornin name: Nicolas Sornin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: nsornin@semtech.com</li>
+<li>ins: A. Yegin name: Alper Yegin org: Actility street: .  city: Paris, Paris country: France email: alper.yegin@actility.com</li>
+</ul>
+<h1 id="rfc.references">
+<a href="#rfc.references">9.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">9.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3385">[RFC3385]</b></td>
+<td class="top">
+<a>Sheinwald, D.</a>, <a>Satran, J.</a>, <a>Thaler, P.</a> and <a>V. Cavanna</a>, "<a href="https://tools.ietf.org/html/rfc3385">Internet Protocol Small Computer System Interface (iSCSI) Cyclic Redundancy Check (CRC)/Checksum Considerations</a>", RFC 3385, DOI 10.17487/RFC3385, September 2002.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4291">[RFC4291]</b></td>
+<td class="top">
+<a>Hinden, R.</a> and <a>S. Deering</a>, "<a href="https://tools.ietf.org/html/rfc4291">IP Version 6 Addressing Architecture</a>", RFC 4291, DOI 10.17487/RFC4291, February 2006.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4944">[RFC4944]</b></td>
+<td class="top">
+<a>Montenegro, G.</a>, <a>Kushalnagar, N.</a>, <a>Hui, J.</a> and <a>D. Culler</a>, "<a href="https://tools.ietf.org/html/rfc4944">Transmission of IPv6 Packets over IEEE 802.15.4 Networks</a>", RFC 4944, DOI 10.17487/RFC4944, September 2007.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5795">[RFC5795]</b></td>
+<td class="top">
+<a>Sandlund, K.</a>, <a>Pelletier, G.</a> and <a>L-E. Jonsson</a>, "<a href="https://tools.ietf.org/html/rfc5795">The RObust Header Compression (ROHC) Framework</a>", RFC 5795, DOI 10.17487/RFC5795, March 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7136">[RFC7136]</b></td>
+<td class="top">
+<a>Carpenter, B.</a> and <a>S. Jiang</a>, "<a href="https://tools.ietf.org/html/rfc7136">Significance of IPv6 Interface Identifiers</a>", RFC 7136, DOI 10.17487/RFC7136, February 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8376">[RFC8376]</b></td>
+<td class="top">
+<a>Farrell, S.</a>, "<a href="https://tools.ietf.org/html/rfc8376">Low-Power Wide Area Network (LPWAN) Overview</a>", RFC 8376, DOI 10.17487/RFC8376, May 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">9.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
+<td class="top">
+<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-23">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-23, November 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="lora-alliance-remote-multicast-set">[lora-alliance-remote-multicast-set]</b></td>
+<td class="top">
+<a>Alliance, L.</a>, "<a href="https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf">LoRaWAN Remote Multicast Setup Specification Version 1.0.0</a>"</td>
+</tr>
+<tr>
+<td class="reference"><b id="lora-alliance-spec">[lora-alliance-spec]</b></td>
+<td class="top">
+<a>Alliance, L.</a>, "<a href="https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf">LoRaWAN Specification Version V1.0.3</a>"</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#examples" id="examples">Examples</a>
+</h1>
+<h1 id="rfc.appendix.A.1">
+<a href="#rfc.appendix.A.1">A.1.</a> <a href="#uplink-compression-example-no-fragmentation" id="uplink-compression-example-no-fragmentation">Uplink - Compression example - No fragmentation</a>
+</h1>
+<p><a href="#Fig-example-uplink-no-fragmentation" class="xref">Figure 15</a> represents an applicative payload going through SCHC over LoRaWAN, no fragmentation required</p>
+<div id="rfc.figure.15"></div>
+<div id="Fig-example-uplink-no-fragmentation"></div>
+<pre>
+An applicative payload of 78 bytes is passed to SCHC compression layer
+using rule 1, allowing to compress it to 40 bytes and 5 bits: 1 byte
+RuleID, 21 bits residue + 37 bytes payload.
+
+SCHC Message:
+| RuleID | Compression residue |  Payload  | Padding=b'000 |
++ ------ + ------------------- + --------- + ------------- +
+|   1    |       21 bits       |  37 bytes |    3 bits     |
+
+
+The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+fragmentation. The payload will be transmitted through FPort = 1
+
+LoRaWAN packet:
+| LoRaWAN Header            | LoRaWAN payload (40 bytes)              |
++ ------------------------- + --------------------------------------- +
+|      |  FOpts  | RuleID=1 | Compression | Payload   | Padding=b'000 |
+|      |         |          | residue     |           |               |
++ ---- + ------- + -------- + ----------- + --------- + ------------- +
+| XXXX | 2 bytes | 1 byte   | 21 bits     |  37 bytes |    3 bits     |
+
+</pre>
+<p class="figure">Figure 15: Uplink example: compression without fragmentation</p>
+<h1 id="rfc.appendix.A.2">
+<a href="#rfc.appendix.A.2">A.2.</a> <a href="#uplink-compression-and-fragmentation-example" id="uplink-compression-and-fragmentation-example">Uplink - Compression and fragmentation example</a>
+</h1>
+<p><a href="#Fig-example-uplink-fragmentation-long" class="xref">Figure 16</a> represents an applicative payload going through SCHC, with fragmentation.</p>
+<div id="rfc.figure.16"></div>
+<div id="Fig-example-uplink-fragmentation-long"></div>
+<pre>
+An applicative payload of 478 bytes is passed to SCHC compression layer
+using rule 1, allowing to compress it to 282 bytes and 5 bits: 1 byte
+RuleID, 21 bits residue + 279 bytes payload.
+
+SCHC Message:
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       21 bits       | 279 bytes |
+
+
+The current LoRaWAN MTU is 11 bytes, 0 bytes FOpts are used by LoRaWAN
+protocol: 11 bytes are available for SCHC payload + 1 byte FPort field.
+SCHC header is 2 bytes (including FPort) so 1 tile is sent in first
+fragment.
+
+LoRaWAN message, containing SCHC Fragment:
+| LoRaWAN Header             | LoRaWAN payload (11 bytes) |
++ -------------------------- + -------------------------- +
+|                | RuleID=20 |   W   |  FCN   |  1 tile   |
++ -------------- + --------- + ----- + ------ + --------- +
+|       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
+
+
+Content of the tile is:
+| RuleID | Compression residue |  Payload          |
++ ------ + ------------------- + ----------------- +
+|   1    |       21 bits       |  6 byte + 3 bits  |
+
+
+Next transmission MTU is 11 bytes, although 2 bytes FOpts are used by
+LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort
+field, a tile does not fit inside so LoRaWAN stack will send only FOpts.
+
+Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are transmitted:
+
+LoRaWAN message, containing SCHC Fragment:
+| LoRaWAN Header                        | LoRaWAN payload (231 bytes) |
++ --------------------------------------+ --------------------------- +
+|                |  FOpts  | RuleID=20  |   W   |  FCN  |  23 tiles   |
++ -------------- + ------- + ---------- + ----- + ----- + ----------- +
+|       XXXX     | 4 bytes |  1 byte    | 0   0 |   61  | 230 bytes   |
+
+
+Next transmission MTU is 242 bytes, no FOpts. All 5 remaining tiles are
+transmitted, the last tile is only 2 bytes + 5 bits. Padding is added for
+the remaining 3 bits.
+
+LoRaWAN message, containing All-1 SCHC Fragment:
+| LoRaWAN Header    | LoRaWAN payload (44 bytes)                                  |
++ ---- + -----------+ ----------------------------------------------------------- +
+|      | RuleID=20  |   W   |  FCN  |   RCS   |     5 tiles       | Padding=b'000 |
++ ---- + ---------- + ----- + ----- + ------- + ----------------- + ------------- +
+| XXXX | 1 byte     | 0   0 |   63  | 4 bytes | 42 bytes + 5 bits |    3 bits     |
+
+
+All packets have been received by the SCHC gateway, computed RCS is
+correct so the following ACK is sent to the device:
+
+LoRaWAN message, containing SCHC ACK:
+| LoRaWAN Header             | LoRaWAN payload     |
++ -------------- + --------- + ------------------- +
+|                | RuleID=20 |   W   | C | Padding |
++ -------------- + --------- + ----- + - + ------- +
+|       XXXX     | 1 byte    | 0   0 | 1 | 5 bits  |
+
+</pre>
+<p class="figure">Figure 16: Uplink example: compression and fragmentation</p>
+<h1 id="rfc.appendix.A.3">
+<a href="#rfc.appendix.A.3">A.3.</a> <a href="#downlink" id="downlink">Downlink</a>
+</h1>
+<div id="rfc.figure.17"></div>
+<div id="Fig-example-downlink-fragmentation"></div>
+<pre>
+An applicative payload of 443 bytes is passed to SCHC compression layer
+using rule 1, allowing to compress it to 130 bytes and 5 bits: 1 byte
+RuleID, 21 bits residue + 127 bytes payload.
+
+SCHC Packet:
+| RuleID | Compression residue |  Payload  |
++ ------ + ------------------- + --------- +
+|   1    |       21 bits       | 127 bytes |
+
+
+The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
+protocol: 51 bytes are available for SCHC payload + FPort field =&gt; it
+has to be fragmented.
+
+LoRaWAN message, containing SCHC Fragment:
+| LoRaWAN Header    | LoRaWAN payload (51 bytes)             |
++ ---- + ---------- + -------------------------------------- +
+|      | RuleID=21  |  W = 0 | FCN = 0 |       1 tile        |
++ ---- + ---------- + ------ + ------- + ------------------- +
+| XXXX | 1 byte     |  1 bit |  1 bit  | 50 bytes and 6 bits |
+
+Content of the tile is:
+| RuleID | Compression residue |        Payload     |
++ ------ + ------------------- + ------------------ +
+|   1    |       21 bits       | 48 bytes and 1 bit |
+
+
+The receiver answers with a SCHC ACK
+
+| LoRaWAN Header   | LoRaWAN payload                  |
++ ---- + --------- + -------------------------------- +
+|      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
++ ---- + --------- + ----- + ----- + ---------------- +
+| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+
+
+The second downlink is sent, two FOpts:
+
+LoRaWAN message, containing SCHC Fragment:
+| LoRaWAN Header              |  LoRaWAN payload (49 bytes)           |
++ --------------------------- + ------------------------------------- +
+|      |  FOpts  | RuleID=21  | W = 1 | FCN = 0 |        1 tile       |
++ ---- + ------- + ---------- + ----- + ------- + ------------------- +
+| XXXX | 2 bytes | 1 byte     | 1 bit |  1 bit  | 48 bytes and 6 bits |
+
+
+The receiver answers with an SCHC ACK
+
+| LoRaWAN Header   | LoRaWAN payload                  |
++ ---- + --------- + -------------------------------- +
+|      | RuleID=21 | W = 1 | C = 1 | Padding=b'000000 |
++ ---- + --------- + ----- + ----- + ---------------- +
+| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+
+
+The last downlink is sent, no FOpts:
+
+LoRaWAN message, containing All-1 SCHC Fragment:
+| LoRaWAN Header   | LoRaWAN payload (33 bytes)                              |
++ ---- + --------- + ------------------------------------------------------- +
+|      | RuleID=21 |  W = 0  | FCN = 1 |      1 tile       | Padding=b'00000 |
++ ---- + --------- + ------- + ------- + ----------------- + --------------- +
+| XXXX | 1 byte    |  1 bit  |  1 bit  | 31 bytes + 1 bits |     5 bits      |
+
+
+The receiver answers with an SCHC ACK
+
+
+| LoRaWAN Header   | LoRaWAN payload                  |
++ ---- + --------- + -------------------------------- +
+|      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
++ ---- + --------- + ----- + ----- + ---------------- +
+| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+
+</pre>
+<p class="figure">Figure 17: Downlink example: compression and fragmentation</p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#note" id="note">Note</a>
+</h1>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Olivier Gimenez</span> (editor)
+	  <span class="n hidden">
+		<span class="family-name">Gimenez</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Semtech</span>
+	<span class="adr">
+	  <span class="vcardline">14 Chemin des Clos</span>
+
+	  <span class="vcardline">
+		<span class="locality">Meylan</span>,  
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline">France</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ogimenez@semtech.com">ogimenez@semtech.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Ivaylo Petrov</span> (editor)
+	  <span class="n hidden">
+		<span class="family-name">Petrov</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Acklio</span>
+	<span class="adr">
+	  <span class="vcardline">1137A Avenue des Champs Blancs</span>
+
+	  <span class="vcardline">
+		<span class="locality">35510 Cesson-Sevigne Cedex</span>,  
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline">France</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ivaylo@ackl.io">ivaylo@ackl.io</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
