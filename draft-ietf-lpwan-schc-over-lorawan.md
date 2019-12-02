@@ -647,14 +647,6 @@ downlink. The device SHALL keep this ACK message in memory until it receives
 a downlink, on SCHC FPortDown from the SCHC gateway different from an
 SCHC ACK REQ: it indicates that the SCHC gateway has received the ACK message.
 
-Following the reception of a FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received and the RCS is not correct,
-the device SHALL transmit a Receiver-Abort fragment. The device SHALL keep
-this Abort message in memory until it receives a downlink, on SCHC FPortDown,
-from the SCHC gateway different from an SCHC ACK REQ indicating that the SCHC
-gateway has received the Abort message.  The fragmentation receiver (device)
-does not implement retransmission timer and inactivity timer.
-
 The fragmentation sender (the SCHC gateway) implements an inactivity timer with
 a default duration of 12 hours. Once a fragmentation session is started, if the
 SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after
