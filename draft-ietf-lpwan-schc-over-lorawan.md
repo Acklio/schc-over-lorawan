@@ -373,7 +373,7 @@ In order to improve interoperability RECOMMENDED fragmentation RuleID values are
 rule was found)
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
-uplink and downlink sessions.  A RuleID different from FPortUp or FPortDown
+uplink and downlink sessions.  A RuleID not in the set(s) of FPortUp or FPortDown
 means that the fragmentation is not used, thus, on reception, the SCHC Message
 MUST be sent to the C/D layer.
 
