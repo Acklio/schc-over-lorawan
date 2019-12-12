@@ -40,8 +40,8 @@ normative:
   RFC8064:
   RFC8065:
   RFC8376:
-informative:
   I-D.ietf-lpwan-ipv6-static-context-hc:
+informative:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
     author:
