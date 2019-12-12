@@ -744,10 +744,10 @@ addition to those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 {:numbered="false"}
 
 Thanks to all those listed in the Contributors section for the excellent text,
-insightful discussions, reviews and suggestions, but also to (in
+insightful discussions, reviews and suggestions, and also to (in
 alphabetical order) Dominique Barthel, Arunprabhu Kandasamy, Rodrigo Muñoz,
-Alexander Pelov, Pascal Thubert for useful design considerations, reviews and
-comments.
+Alexander Pelov, Pascal Thubert, Laurent Toutain for useful design
+considerations, reviews and comments.
 
 # Contributors
 {:numbered="false"}
