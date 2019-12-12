@@ -120,7 +120,7 @@ This section contains a short overview of Static Context Header Compression
 It defines:
 
 1. Compression mechanisms to avoid transport of known data by both
-   sender and receiver over the air. Known data are called "context"
+   sender and receiver over the air. Known data are part of the "context"
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
    potentially variable, MTU
 
@@ -496,7 +496,7 @@ Packet, as per {{lorawan-schc-payload}}.
   mainly driven by application requirements and MAY be changed by the
   application.
 * Last tile: The last tile MUST NOT be carried in the All-1 fragment.
-* Penultimate tile must be equal to the regular size.
+* Penultimate tile MUST be equal to the regular size.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
