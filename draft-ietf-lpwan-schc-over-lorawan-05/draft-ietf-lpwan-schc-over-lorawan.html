@@ -310,16 +310,15 @@ ul.toc li {
 <link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Uplink - Compression example - No fragmentation">
 <link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 Uplink - Compression and fragmentation example">
 <link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 Downlink">
-<link href="#rfc.appendix.B" rel="Chapter" title="B Note">
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.34.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.37.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Gimenez, O., Ed. and I. Petrov, Ed." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-11-11" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-12-12" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies.This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile." />
 
@@ -343,12 +342,12 @@ ul.toc li {
 <td class="right">I. Petrov, Ed.</td>
 </tr>
 <tr>
-<td class="left">Expires: May 14, 2020</td>
+<td class="left">Expires: June 14, 2020</td>
 <td class="right">Acklio</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">November 11, 2019</td>
+<td class="right">December 12, 2019</td>
 </tr>
 
     	
@@ -365,7 +364,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 14, 2020.</p>
+<p>This Internet-Draft will expire on June 14, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -433,9 +432,7 @@ ul.toc li {
 </li>
 <li>A.3.   <a href="#rfc.appendix.A.3">Downlink</a>
 </li>
-</ul><li>Appendix B.   <a href="#rfc.appendix.B">Note</a>
-</li>
-<li><a href="#rfc.authors">Authors' Addresses</a>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
 </li>
 
 
@@ -830,16 +827,12 @@ ul.toc li {
 <p id="rfc.section.7.p.1">Thanks to all those listed in the Contributors section for the excellent text, insightful discussions, reviews and suggestions.</p>
 <h1 id="rfc.contributors"><a href="#rfc.contributors">Contributors</a></h1>
 <p id="rfc.section.8.p.1">Contributors ordered by family name.</p>
-<p></p>
-
-<ul>
-<li>ins: V. Audebert name: Vincent AUDEBERT org: EDF R&amp;D street: 7 bd Gaspard Monge city: 91120 PALAISEAU country: FRANCE email: vincent.audebert@edf.fr</li>
-<li>ins: J. Catalano name: Julien Catalano org: Kerlink street: 1 rue Jacqueline Auriol city: 35235 Thorign&#233;-Fouillard country: France email: j.catalano@kerlink.fr</li>
-<li>ins: M. Coracin name: Michael Coracin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: mcoracin@semtech.com</li>
-<li>ins: M. Le Gourrierec name: Marc Le Gourrierec org: SagemCom street: 250 Route de l&#8217;Empereur city: 92500 Rueil Malmaison country: FRANCE email: marc.legourrierec@sagemcom.com</li>
-<li>ins: N. Sornin name: Nicolas Sornin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: nsornin@semtech.com</li>
-<li>ins: A. Yegin name: Alper Yegin org: Actility street: .  city: Paris, Paris country: France email: alper.yegin@actility.com</li>
-</ul>
+<p id="rfc.section.8.p.2">Vincent Audebert<br> EDF R&amp;D<br> Email: vincent.audebert@edf.fr</p>
+<p id="rfc.section.8.p.3">Julien Catalano<br> Kerlink<br> Email: j.catalano@kerlink.fr</p>
+<p id="rfc.section.8.p.4">Michael Coracin<br> Semtech<br> Email: mcoracin@semtech.com</p>
+<p id="rfc.section.8.p.5">Marc Le Gourrierec<br> Sagemcom<br> Email: marc.legourrierec@sagemcom.com</p>
+<p id="rfc.section.8.p.6">Nicolas Sornin<br> Semtech<br> Email: nsornin@semtech.com</p>
+<p id="rfc.section.8.p.7">Alper Yegin<br> Actility<br> Email: alper.yegin@actility.com</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">9.</a> References</h1>
 <h1 id="rfc.references.1">
@@ -892,7 +885,7 @@ ul.toc li {
 <tr>
 <td class="reference"><b id="I-D.ietf-lpwan-ipv6-static-context-hc">[I-D.ietf-lpwan-ipv6-static-context-hc]</b></td>
 <td class="top">
-<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-22">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-22, October 2019.</td>
+<a>Minaburo, A.</a>, <a>Toutain, L.</a>, <a>Gomez, C.</a>, <a>Barthel, D.</a> and <a>J. Zuniga</a>, "<a href="https://tools.ietf.org/html/draft-ietf-lpwan-ipv6-static-context-hc-24">Static Context Header Compression (SCHC) and fragmentation for LPWAN, application to UDP/IPv6</a>", Internet-Draft draft-ietf-lpwan-ipv6-static-context-hc-24, December 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="lora-alliance-remote-multicast-set">[lora-alliance-remote-multicast-set]</b></td>
@@ -1091,9 +1084,6 @@ The receiver answers with an SCHC ACK
 
 </pre>
 <p class="figure">Figure 17: Downlink example: compression and fragmentation</p>
-<h1 id="rfc.appendix.B">
-<a href="#rfc.appendix.B">Appendix B.</a> <a href="#note" id="note">Note</a>
-</h1>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
