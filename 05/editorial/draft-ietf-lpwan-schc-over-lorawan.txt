@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: June 4, 2020                                             Acklio
-                                                       December 02, 2019
+Expires: June 14, 2020                                            Acklio
+                                                       December 12, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 4, 2020.
+   This Internet-Draft will expire on June 14, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 1]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -89,7 +89,7 @@ Table of Contents
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
    Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
    Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  19
      A.1.  Uplink - Compression example - No fragmentation . . . . .  19
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 2]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 3]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 4]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 5]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 6]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 7]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 8]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -491,21 +491,22 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
       (no matching rule was found)
 
    The remaining RuleIDs are available for compression.  RuleIDs are
-   shared between uplink and downlink sessions.  A RuleID different from
-   FPortUp or FPortDown means that the fragmentation is not used, thus,
-   on reception, the SCHC Message MUST be sent to the C/D layer.
+   shared between uplink and downlink sessions.  A RuleID not in the
+   set(s) of FPortUp or FPortDown means that the fragmentation is not
+   used, thus, on reception, the SCHC Message MUST be sent to the C/D
+   layer.
 
    The only uplink messages using the FPortDown port are the
    fragmentation SCHC control messages of a downlink fragmentation
-   session (for example, SCHC ACKs).  Similarly, the only downlink
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                  [Page 9]
+Gimenez & Petrov          Expires June 14, 2020                 [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
+   session (for example, SCHC ACKs).  Similarly, the only downlink
    messages using the FPortUp port are the fragmentation SCHC control
    messages of an uplink fragmentation session.
 
@@ -556,8 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-
-Gimenez & Petrov          Expires June 4, 2020                 [Page 10]
+Gimenez & Petrov          Expires June 14, 2020                [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 11]
+Gimenez & Petrov          Expires June 14, 2020                [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -623,6 +623,8 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    o  Last tile: The last tile MUST NOT be carried in the All-1
       fragment.
+
+   o  Penultimate tile must be equal to the regular size.
 
    With this set of parameters, the SCHC fragment header is 16 bits,
    including FPort; payload overhead will be 8 bits as FPort is already
@@ -667,9 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-
-
-Gimenez & Petrov          Expires June 4, 2020                 [Page 12]
+Gimenez & Petrov          Expires June 14, 2020                [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 13]
+Gimenez & Petrov          Expires June 14, 2020                [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 14]
+Gimenez & Petrov          Expires June 14, 2020                [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 15]
+Gimenez & Petrov          Expires June 14, 2020                [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 16]
+Gimenez & Petrov          Expires June 14, 2020                [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -909,7 +909,10 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 Acknowledgements
 
    Thanks to all those listed in the Contributors section for the
-   excellent text, insightful discussions, reviews and suggestions.
+   excellent text, insightful discussions, reviews and suggestions, but
+   also to (in alphabetical order) Dominique Barthel, Arunprabhu
+   Kandasamy, Rodrigo Munoz, Alexander Pelov, Pascal Thubert for useful
+   design considerations, reviews and comments.
 
 Contributors
 
@@ -940,19 +943,23 @@ Contributors
 
 9.  References
 
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 14, 2020                [Page 17]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
+
 9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-Gimenez & Petrov          Expires June 4, 2020                 [Page 17]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
 
    [RFC3385]  Sheinwald, D., Satran, J., Thaler, P., and V. Cavanna,
               "Internet Protocol Small Computer System Interface (iSCSI)
@@ -992,23 +999,22 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
               Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and J.
               Zuniga, "Static Context Header Compression (SCHC) and
               fragmentation for LPWAN, application to UDP/IPv6", draft-
-              ietf-lpwan-ipv6-static-context-hc-23 (work in progress),
-              November 2019.
+              ietf-lpwan-ipv6-static-context-hc-24 (work in progress),
+              December 2019.
+
+
+
+
+Gimenez & Petrov          Expires June 14, 2020                [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    [lora-alliance-remote-multicast-set]
               Alliance, L., "LoRaWAN Remote Multicast Setup
               Specification Version 1.0.0", <https://lora-
               alliance.org/sites/default/files/2018-09/
               remote_multicast_setup_v1.0.0.pdf>.
-
-
-
-
-
-Gimenez & Petrov          Expires June 4, 2020                 [Page 18]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
 
    [lora-alliance-spec]
               Alliance, L., "LoRaWAN Specification Version V1.0.3",
@@ -1019,225 +1025,242 @@ Appendix A.  Examples
 
 A.1.  Uplink - Compression example - No fragmentation
 
-   Figure 15 represents an applicative payload going through SCHC over
-   LoRaWAN, no fragmentation required
+   This example represents an applicative payload going through SCHC
+   over LoRaWAN, no fragmentation required
 
-An applicative payload of 78 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer, allowing to compress it to 40 bytes and 5 bits: 1 byte
-RuleID, 21 bits residue + 37 bytes payload.
+   An applicative payload of 78 bytes is passed to SCHC compression
+   layer.  Rule 1 is used by C/D layer, allowing to compress it to 40
+   bytes and 5 bits: 1 byte RuleID, 21 bits residue + 37 bytes payload.
 
-SCHC Message:
-| RuleID | Compression residue |  Payload  | Padding=b'000 |
-+ ------ + ------------------- + --------- + ------------- +
-|   1    |       21 bits       |  37 bytes |    3 bits     |
+   | RuleID | Compression residue |  Payload  | Padding=b'000 |
+   + ------ + ------------------- + --------- + ------------- +
+   |   1    |       21 bits       |  37 bytes |    3 bits     |
 
+                  Figure 15: Uplink example: SCHC Message
 
-The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used by
-LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
-fragmentation. The payload will be transmitted through FPort = 1
+   The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used
+   by LoRaWAN protocol: 49 bytes are available for SCHC payload; no need
+   for fragmentation.  The payload will be transmitted through FPort =
+   1.
 
-LoRaWAN packet:
-| LoRaWAN Header            | LoRaWAN payload (40 bytes)              |
-+ ------------------------- + --------------------------------------- +
-|      |  FOpts  | RuleID=1 | Compression | Payload   | Padding=b'000 |
-|      |         |          | residue     |           |               |
-+ ---- + ------- + -------- + ----------- + --------- + ------------- +
-| XXXX | 2 bytes | 1 byte   | 21 bits     |  37 bytes |    3 bits     |
+ | LoRaWAN Header            | LoRaWAN payload (40 bytes)              |
+ + ------------------------- + --------------------------------------- +
+ |      |  FOpts  | RuleID=1 | Compression | Payload   | Padding=b'000 |
+ |      |         |          | residue     |           |               |
+ + ---- + ------- + -------- + ----------- + --------- + ------------- +
+ | XXXX | 2 bytes | 1 byte   | 21 bits     |  37 bytes |    3 bits     |
 
-
-       Figure 15: Uplink example: compression without fragmentation
+                 Figure 16: Uplink example: LoRaWAN packet
 
 A.2.  Uplink - Compression and fragmentation example
 
-   Figure 16 represents an applicative payload going through SCHC, with
-   fragmentation.
-
-An applicative payload of 478 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer,  allowing to compress it to 282 bytes and 5 bits: 1 byte
-RuleID, 21 bits residue + 279 bytes payload.
-
-SCHC Message:
-| RuleID | Compression residue |  Payload  |
+   This example represents an applicative payload going through SCHC,
+   with fragmentation.
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 19]
+
+
+Gimenez & Petrov          Expires June 14, 2020                [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
-+ ------ + ------------------- + --------- +
-|   1    |       21 bits       | 279 bytes |
+   An applicative payload of 478 bytes is passed to SCHC compression
+   layer.  Rule 1 is used by C/D layer, allowing to compress it to 282
+   bytes and 5 bits: 1 byte RuleID, 21 bits residue + 279 bytes payload.
+
+   | RuleID | Compression residue |  Payload  |
+   + ------ + ------------------- + --------- +
+   |   1    |       21 bits       | 279 bytes |
+
+                  Figure 17: Uplink example: SCHC Message
+
+   The current LoRaWAN MTU is 11 bytes, 0 bytes FOpts are used by
+   LoRaWAN protocol: 11 bytes are available for SCHC payload + 1 byte
+   FPort field.  SCHC header is 2 bytes (including FPort) so 1 tile is
+   sent in first fragment.
+
+   | LoRaWAN Header             | LoRaWAN payload (11 bytes) |
+   + -------------------------- + -------------------------- +
+   |                | RuleID=20 |   W   |  FCN   |  1 tile   |
+   + -------------- + --------- + ----- + ------ + --------- +
+   |       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
+
+                Figure 18: Uplink example: LoRaWAN packet 1
+
+   Content of the tile is:
+   | RuleID | Compression residue |  Payload          |
+   + ------ + ------------------- + ----------------- +
+   |   1    |       21 bits       |  6 byte + 3 bits  |
+
+        Figure 19: Uplink example: LoRaWAN packet 1 - Tile content
+
+   Next transmission MTU is 11 bytes, although 2 bytes FOpts are used by
+   LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte
+   FPort field, a tile does not fit inside so LoRaWAN stack will send
+   only FOpts.
+
+   Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are
+   transmitted:
+
+ | LoRaWAN Header                        | LoRaWAN payload (231 bytes) |
+ + --------------------------------------+ --------------------------- +
+ |                |  FOpts  | RuleID=20  |   W   |  FCN  |  23 tiles   |
+ + -------------- + ------- + ---------- + ----- + ----- + ----------- +
+ |       XXXX     | 4 bytes |  1 byte    | 0   0 |   61  | 230 bytes   |
+
+                Figure 20: Uplink example: LoRaWAN packet 2
 
 
-The current LoRaWAN MTU is 11 bytes, 0 bytes FOpts are used by LoRaWAN
-protocol: 11 bytes are available for SCHC payload + 1 byte FPort field.
-SCHC header is 2 bytes (including FPort) so 1 tile is sent in first
-fragment.
-
-LoRaWAN message, containing SCHC Fragment:
-| LoRaWAN Header             | LoRaWAN payload (11 bytes) |
-+ -------------------------- + -------------------------- +
-|                | RuleID=20 |   W   |  FCN   |  1 tile   |
-+ -------------- + --------- + ----- + ------ + --------- +
-|       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
 
 
-Content of the tile is:
-| RuleID | Compression residue |  Payload          |
-+ ------ + ------------------- + ----------------- +
-|   1    |       21 bits       |  6 byte + 3 bits  |
 
 
-Next transmission MTU is 11 bytes, although 2 bytes FOpts are used by
-LoRaWAN protocol: 9 bytes are available for SCHC payload + 1 byte FPort
-field, a tile does not fit inside so LoRaWAN stack will send only FOpts.
-
-Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are transmitted:
-
-LoRaWAN message, containing SCHC Fragment:
-| LoRaWAN Header                        | LoRaWAN payload (231 bytes) |
-+ --------------------------------------+ --------------------------- +
-|                |  FOpts  | RuleID=20  |   W   |  FCN  |  23 tiles   |
-+ -------------- + ------- + ---------- + ----- + ----- + ----------- +
-|       XXXX     | 4 bytes |  1 byte    | 0   0 |   61  | 230 bytes   |
+Gimenez & Petrov          Expires June 14, 2020                [Page 20]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
-Next transmission MTU is 242 bytes, no FOpts. All 5 remaining tiles are
-transmitted, the last tile is only 2 bytes + 5 bits. Padding is added for
-the remaining 3 bits.
+   Next transmission MTU is 242 bytes, no FOpts.  All 5 remaining tiles
+   are transmitted, the last tile is only 2 bytes + 5 bits.  Padding is
+   added for the remaining 3 bits.
 
-LoRaWAN message, containing last tile:
 | LoRaWAN Header    | LoRaWAN payload (44 bytes)                        |
 + ---- + -----------+ ------------------------------------------------- +
 |      | RuleID=20  |   W   |  FCN  |     5 tiles       | Padding=b'000 |
 + ---- + ---------- + ----- + ----- + ----------------- + ------------- +
 | XXXX | 1 byte     | 0   0 |   38  | 42 bytes + 5 bits |    3 bits     |
 
+                Figure 21: Uplink example: LoRaWAN packet 3
 
+   Then All-1 message can be transmitted:
 
+   | LoRaWAN Header    | LoRaWAN payload (44 bytes) |
+   + ---- + -----------+ -------------------------- +
+   |      | RuleID=20  |   W   |  FCN  |     RCS    |
+   + ---- + ---------- + ----- + ----- + ---------- +
+   | XXXX | 1 byte     | 0   0 |   63  |  4 bytes   |
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 20]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
+        Figure 22: Uplink example: LoRaWAN packet 4 - All-1 message
 
+   All packets have been received by the SCHC gateway, computed RCS is
+   correct so the following ACK is sent to the device by the SCHC
+   receiver:
 
-Then All-1 message can be transmitted:
-LoRaWAN message, containing All-1 SCHC Fragment:
-| LoRaWAN Header    | LoRaWAN payload (44 bytes) |
-+ ---- + -----------+ -------------------------- +
-|      | RuleID=20  |   W   |  FCN  |     RCS    |
-+ ---- + ---------- + ----- + ----- + ---------- +
-| XXXX | 1 byte     | 0   0 |   63  |  4 bytes   |
+   | LoRaWAN Header             | LoRaWAN payload     |
+   + -------------- + --------- + ------------------- +
+   |                | RuleID=20 |   W   | C | Padding |
+   + -------------- + --------- + ----- + - + ------- +
+   |       XXXX     | 1 byte    | 0   0 | 1 | 5 bits  |
 
-
-All packets have been received by the SCHC gateway, computed RCS is
-correct so the following ACK is sent to the device:
-
-LoRaWAN message, containing SCHC ACK:
-| LoRaWAN Header             | LoRaWAN payload     |
-+ -------------- + --------- + ------------------- +
-|                | RuleID=20 |   W   | C | Padding |
-+ -------------- + --------- + ----- + - + ------- +
-|       XXXX     | 1 byte    | 0   0 | 1 | 5 bits  |
-
-
-         Figure 16: Uplink example: compression and fragmentation
+          Figure 23: Uplink example: LoRaWAN packet 5 - SCHC ACK
 
 A.3.  Downlink
 
-An applicative payload of 443 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer, allowing to compress it to 130 bytes and 5 bits: 1 byte
-RuleID, 21 bits residue + 127 bytes payload.
+   An applicative payload of 443 bytes is passed to SCHC compression
+   layer.  Rule 1 is used by C/D layer, allowing to compress it to 130
+   bytes and 5 bits: 1 byte RuleID, 21 bits residue + 127 bytes payload.
 
-SCHC Packet:
-| RuleID | Compression residue |  Payload  |
-+ ------ + ------------------- + --------- +
-|   1    |       21 bits       | 127 bytes |
+   | RuleID | Compression residue |  Payload  |
+   + ------ + ------------------- + --------- +
+   |   1    |       21 bits       | 127 bytes |
 
-
-The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
-protocol: 51 bytes are available for SCHC payload + FPort field => it
-has to be fragmented.
-
-LoRaWAN message, containing SCHC Fragment:
-| LoRaWAN Header    | LoRaWAN payload (51 bytes)             |
-+ ---- + ---------- + -------------------------------------- +
-|      | RuleID=21  |  W = 0 | FCN = 0 |       1 tile        |
-+ ---- + ---------- + ------ + ------- + ------------------- +
-| XXXX | 1 byte     |  1 bit |  1 bit  | 50 bytes and 6 bits |
-
-Content of the tile is:
-| RuleID | Compression residue |        Payload     |
-+ ------ + ------------------- + ------------------ +
+                 Figure 24: Downlink example: SCHC Message
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 21]
+
+
+
+Gimenez & Petrov          Expires June 14, 2020                [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
-|   1    |       21 bits       | 48 bytes and 1 bit |
+   The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
+   protocol: 51 bytes are available for SCHC payload + FPort field => it
+   has to be fragmented.
 
+   | LoRaWAN Header    | LoRaWAN payload (51 bytes)             |
+   + ---- + ---------- + -------------------------------------- +
+   |      | RuleID=21  |  W = 0 | FCN = 0 |       1 tile        |
+   + ---- + ---------- + ------ + ------- + ------------------- +
+   | XXXX | 1 byte     |  1 bit |  1 bit  | 50 bytes and 6 bits |
 
-The receiver answers with a SCHC ACK
+      Figure 25: Downlink example: LoRaWAN packet 1 - SCHC Fragment 1
 
-| LoRaWAN Header   | LoRaWAN payload                  |
-+ ---- + --------- + -------------------------------- +
-|      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
-+ ---- + --------- + ----- + ----- + ---------------- +
-| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+   Content of the tile is:
 
+   | RuleID | Compression residue |        Payload     |
+   + ------ + ------------------- + ------------------ +
+   |   1    |       21 bits       | 48 bytes and 1 bit |
 
-The second downlink is sent, two FOpts:
+        Figure 26: Downlink example: LoRaWAN packet 1: Tile content
 
-LoRaWAN message, containing SCHC Fragment:
-| LoRaWAN Header              |  LoRaWAN payload (49 bytes)           |
-+ --------------------------- + ------------------------------------- +
-|      |  FOpts  | RuleID=21  | W = 1 | FCN = 0 |        1 tile       |
-+ ---- + ------- + ---------- + ----- + ------- + ------------------- +
-| XXXX | 2 bytes | 1 byte     | 1 bit |  1 bit  | 48 bytes and 6 bits |
+   The receiver answers with a SCHC ACK:
 
+   | LoRaWAN Header   | LoRaWAN payload                  |
+   + ---- + --------- + -------------------------------- +
+   |      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
+   + ---- + --------- + ----- + ----- + ---------------- +
+   | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 
-The receiver answers with an SCHC ACK
+         Figure 27: Downlink example: LoRaWAN packet 2 - SCHC ACK
 
-| LoRaWAN Header   | LoRaWAN payload                  |
-+ ---- + --------- + -------------------------------- +
-|      | RuleID=21 | W = 1 | C = 1 | Padding=b'000000 |
-+ ---- + --------- + ----- + ----- + ---------------- +
-| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+   The second downlink is sent, two FOpts:
 
+ | LoRaWAN Header              |  LoRaWAN payload (49 bytes)           |
+ + --------------------------- + ------------------------------------- +
+ |      |  FOpts  | RuleID=21  | W = 1 | FCN = 0 |        1 tile       |
+ + ---- + ------- + ---------- + ----- + ------- + ------------------- +
+ | XXXX | 2 bytes | 1 byte     | 1 bit |  1 bit  | 48 bytes and 6 bits |
 
-The last downlink is sent, no FOpts:
+      Figure 28: Downlink example: LoRaWAN packet 3 - SCHC Fragment 2
 
-LoRaWAN message, containing All-1 SCHC Fragment:
-| LoRaWAN Header   | LoRaWAN payload (33 bytes)                              |
-+ ---- + --------- + ------------------------------------------------------- +
-|      | RuleID=21 |  W = 0  | FCN = 1 |      1 tile       | Padding=b'00000 |
-+ ---- + --------- + ------- + ------- + ----------------- + --------------- +
-| XXXX | 1 byte    |  1 bit  |  1 bit  | 31 bytes + 1 bits |     5 bits      |
-
-
-The receiver answers with an SCHC ACK
-
-
-| LoRaWAN Header   | LoRaWAN payload                  |
-+ ---- + --------- + -------------------------------- +
-|      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
-+ ---- + --------- + ----- + ----- + ---------------- +
+   The receiver answers with an SCHC ACK:
 
 
 
-Gimenez & Petrov          Expires June 4, 2020                 [Page 22]
+
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 14, 2020                [Page 22]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
-| XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+   | LoRaWAN Header   | LoRaWAN payload                  |
+   + ---- + --------- + -------------------------------- +
+   |      | RuleID=21 | W = 1 | C = 1 | Padding=b'000000 |
+   + ---- + --------- + ----- + ----- + ---------------- +
+   | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 
+         Figure 29: Downlink example: LoRaWAN packet 4 - SCHC ACK
 
-        Figure 17: Downlink example: compression and fragmentation
+   The last downlink is sent, no FOpts:
+
+| LoRaWAN Header   | LoRaWAN payload (37 bytes)                                        |
++ ---- + --------- + ----------------------------------------------------------------- +
+|      | RuleID=21 |  W = 0  | FCN = 1 |   RCS   |      1 tile       | Padding=b'00000 |
++ ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
+| XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
+
+        Figure 30: Uplink example: LoRaWAN packet 5 - All-1 message
+
+   The receiver answers to the sender with an SCHC ACK:
+
+   | LoRaWAN Header   | LoRaWAN payload                  |
+   + ---- + --------- + -------------------------------- +
+   |      | RuleID=21 | W = 0 | C = 1 | Padding=b'000000 |
+   + ---- + --------- + ----- + ----- + ---------------- +
+   | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
+
+          Figure 31: Uplink example: LoRaWAN packet 6 - SCHC ACK
 
 Appendix B.  Note
 
@@ -1262,27 +1285,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Gimenez & Petrov          Expires June 4, 2020                 [Page 23]
+Gimenez & Petrov          Expires June 14, 2020                [Page 23]
