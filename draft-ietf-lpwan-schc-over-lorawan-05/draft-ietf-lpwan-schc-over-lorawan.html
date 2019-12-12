@@ -453,6 +453,7 @@ ul.toc li {
 <p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to an end-device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
 <p id="rfc.section.2.p.5">o  RCS: Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process</p>
 <p id="rfc.section.2.p.6">o  TBD: all significant LoRaWAN-related terms.</p>
+<p id="rfc.section.2.p.7">o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
 </h1>
@@ -610,10 +611,34 @@ ul.toc li {
 <h1 id="rfc.section.5.3">
 <a href="#rfc.section.5.3">5.3.</a> <a href="#iid-computation" id="iid-computation">IID computation</a>
 </h1>
-<p id="rfc.section.5.3.p.1">As LoRaWAN network uses unique EUI-64 per end-device, the Interface IDentifier is the LoRaWAN DevEUI.  It is compliant with <a href="#RFC4291" class="xref">[RFC4291]</a> and IID starting with binary 000 must enforce the 64-bit rule.</p>
-<p id="rfc.section.5.3.p.2">TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?</p>
+<p id="rfc.section.5.3.p.1">In order to mitigate risks described in <a href="#RFC8064" class="xref">[RFC8064]</a> and <a href="#RFC8065" class="xref">[RFC8065]</a> IID MUST be created regarding the following algorithm:</p>
+<p></p>
+
+<ol>
+<li>key = LoRaWAN AppSKey</li>
+<li>string = devEui in HEX representation, padded to 128 bits by adding 0s as most significant bits</li>
+<li>output = aes128_encrypt(key, string)</li>
+<li>IID = 64 least significant bits of output</li>
+</ol>
+<p id="rfc.section.5.3.p.3">aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006 Annex B [IEEE802154]. It has been chosen as it is already used by devices for LoRaWAN procotol.</p>
+<p id="rfc.section.5.3.p.4">As AppSKey is renewed each time a device joins or rejoins a network, the IID will change over time; this mitigates privacy, location tracking and correlation over time risks. Rejoin periodicity is defined at the application level.</p>
+<p id="rfc.section.5.3.p.5">Address scan risk is mitigated thanks to AES-128, which provides enough entropy bits of the IID.</p>
+<p id="rfc.section.5.3.p.6">Using this algorithm will also ensure that there is not correlation between the hardware identifier (IEEE-64 devEUI) and the IID, so an attacker can not use manufacturer OUI to target devices.</p>
+<p id="rfc.section.5.3.p.7">Exemple with:</p>
+<p></p>
+
+<ul>
+<li>devEui: 0x1122334455667788</li>
+<li>appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB</li>
+</ul>
+<pre>
+1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
+2. string: 0x00000000000000001122334455667788
+3. output: 0x3532E559FCCD707F9E1364029125B26D
+3. IID: 0x9E1364029125B26D
+</pre>
 <h1 id="rfc.section.5.4">
-<a href="#rfc.section.5.4">5.4.</a> <a href="#padding" id="padding">Padding</a>
+<a href="#rfc.section.5.4">5.4.</a> <a href="#Fig-iid-computation-example" id="Fig-iid-computation-example">Padding</a>
 </h1>
 <p id="rfc.section.5.4.p.1">All padding bits MUST be 0.</p>
 <h1 id="rfc.section.5.5">
@@ -867,6 +892,16 @@ ul.toc li {
 <td class="reference"><b id="RFC7136">[RFC7136]</b></td>
 <td class="top">
 <a>Carpenter, B.</a> and <a>S. Jiang</a>, "<a href="https://tools.ietf.org/html/rfc7136">Significance of IPv6 Interface Identifiers</a>", RFC 7136, DOI 10.17487/RFC7136, February 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8064">[RFC8064]</b></td>
+<td class="top">
+<a>Gont, F.</a>, <a>Cooper, A.</a>, <a>Thaler, D.</a> and <a>W. Liu</a>, "<a href="https://tools.ietf.org/html/rfc8064">Recommendation on Stable IPv6 Interface Identifiers</a>", RFC 8064, DOI 10.17487/RFC8064, February 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8065">[RFC8065]</b></td>
+<td class="top">
+<a>Thaler, D.</a>, "<a href="https://tools.ietf.org/html/rfc8065">Privacy Considerations for IPv6 Adaptation-Layer Mechanisms</a>", RFC 8065, DOI 10.17487/RFC8065, February 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC8174">[RFC8174]</b></td>
