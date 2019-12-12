@@ -356,10 +356,10 @@ server to device, is called downlink fragmentation session. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
-FPorts can use arbitrary values inside the FPort range allowed by LoRaWAN and
-MUST be shared by the end-device, the Network Server and SCHC gateway prior to
-the communication. The uplink and downlink fragmentation FPorts MUST be
-different.
+All ruleId can use arbitrary values inside the FPort range allowed by LoRaWAN
+specification and MUST be shared by the end-device and SCHC gateway prior to
+the communication with the selected rule.
+The uplink and downlink fragmentation FPorts MUST be different.
 
 ## Rule ID management  {#rule-id-management}
 
