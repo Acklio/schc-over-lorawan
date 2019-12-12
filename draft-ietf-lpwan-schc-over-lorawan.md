@@ -459,6 +459,7 @@ Packet, as per {{lorawan-schc-payload}}.
   mainly driven by application requirements and MAY be changed by the
   application.
 * Last tile: The last tile MUST NOT be carried in the All-1 fragment.
+* Penultimate tile must be equal to the regular size.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
