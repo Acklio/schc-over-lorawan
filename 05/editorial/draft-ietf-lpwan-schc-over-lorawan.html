@@ -310,7 +310,6 @@ ul.toc li {
 <link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Uplink - Compression example - No fragmentation">
 <link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 Uplink - Compression and fragmentation example">
 <link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 Downlink">
-<link href="#rfc.appendix.B" rel="Chapter" title="B Note">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -433,9 +432,7 @@ ul.toc li {
 </li>
 <li>A.3.   <a href="#rfc.appendix.A.3">Downlink</a>
 </li>
-</ul><li>Appendix B.   <a href="#rfc.appendix.B">Note</a>
-</li>
-<li><a href="#rfc.authors">Authors' Addresses</a>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
 </li>
 
 
@@ -456,6 +453,7 @@ ul.toc li {
 <p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to an end-device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
 <p id="rfc.section.2.p.5">o  RCS: Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process</p>
 <p id="rfc.section.2.p.6">o  TBD: all significant LoRaWAN-related terms.</p>
+<p id="rfc.section.2.p.7">o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
 </h1>
@@ -621,10 +619,34 @@ ul.toc li {
 <h1 id="rfc.section.5.3">
 <a href="#rfc.section.5.3">5.3.</a> <a href="#iid-computation" id="iid-computation">IID computation</a>
 </h1>
-<p id="rfc.section.5.3.p.1">As LoRaWAN network uses unique EUI-64 per end-device, the Interface IDentifier is the LoRaWAN DevEUI.  It is compliant with <a href="#RFC4291" class="xref">[RFC4291]</a> and IID starting with binary 000 must enforce the 64-bit rule.</p>
-<p id="rfc.section.5.3.p.2">TODO: Derive IID from DevEUI with privacy constraints ? Ask working group ?</p>
+<p id="rfc.section.5.3.p.1">In order to mitigate risks described in <a href="#RFC8064" class="xref">[RFC8064]</a> and <a href="#RFC8065" class="xref">[RFC8065]</a> IID MUST be created regarding the following algorithm:</p>
+<p></p>
+
+<ol>
+<li>key = LoRaWAN AppSKey</li>
+<li>string = devEui in HEX representation, padded to 128 bits by adding 0s as most significant bits</li>
+<li>output = aes128_encrypt(key, string)</li>
+<li>IID = 64 least significant bits of output</li>
+</ol>
+<p id="rfc.section.5.3.p.3">aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006 Annex B [IEEE802154]. It has been chosen as it is already used by devices for LoRaWAN procotol.</p>
+<p id="rfc.section.5.3.p.4">As AppSKey is renewed each time a device joins or rejoins a network, the IID will change over time; this mitigates privacy, location tracking and correlation over time risks. Rejoin periodicity is defined at the application level.</p>
+<p id="rfc.section.5.3.p.5">Address scan risk is mitigated thanks to AES-128, which provides enough entropy bits of the IID.</p>
+<p id="rfc.section.5.3.p.6">Using this algorithm will also ensure that there is not correlation between the hardware identifier (IEEE-64 devEUI) and the IID, so an attacker can not use manufacturer OUI to target devices.</p>
+<p id="rfc.section.5.3.p.7">Exemple with:</p>
+<p></p>
+
+<ul>
+<li>devEui: 0x1122334455667788</li>
+<li>appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB</li>
+</ul>
+<pre>
+1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
+2. string: 0x00000000000000001122334455667788
+3. output: 0x3532E559FCCD707F9E1364029125B26D
+3. IID: 0x9E1364029125B26D
+</pre>
 <h1 id="rfc.section.5.4">
-<a href="#rfc.section.5.4">5.4.</a> <a href="#padding" id="padding">Padding</a>
+<a href="#rfc.section.5.4">5.4.</a> <a href="#Fig-iid-computation-example" id="Fig-iid-computation-example">Padding</a>
 </h1>
 <p id="rfc.section.5.4.p.1">All padding bits MUST be 0.</p>
 <h1 id="rfc.section.5.5">
@@ -838,16 +860,12 @@ ul.toc li {
 <p id="rfc.section.7.p.1">Thanks to all those listed in the Contributors section for the excellent text, insightful discussions, reviews and suggestions, but also to (in alphabetical order) Dominique Barthel, Arunprabhu Kandasamy, Rodrigo Mu&#241;oz, Alexander Pelov, Pascal Thubert for useful design considerations, reviews and comments.</p>
 <h1 id="rfc.contributors"><a href="#rfc.contributors">Contributors</a></h1>
 <p id="rfc.section.8.p.1">Contributors ordered by family name.</p>
-<p></p>
-
-<ul>
-<li>ins: V. Audebert name: Vincent AUDEBERT org: EDF R&amp;D street: 7 bd Gaspard Monge city: 91120 PALAISEAU country: FRANCE email: vincent.audebert@edf.fr</li>
-<li>ins: J. Catalano name: Julien Catalano org: Kerlink street: 1 rue Jacqueline Auriol city: 35235 Thorign&#233;-Fouillard country: France email: j.catalano@kerlink.fr</li>
-<li>ins: M. Coracin name: Michael Coracin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: mcoracin@semtech.com</li>
-<li>ins: M. Le Gourrierec name: Marc Le Gourrierec org: SagemCom street: 250 Route de l&#8217;Empereur city: 92500 Rueil Malmaison country: FRANCE email: marc.legourrierec@sagemcom.com</li>
-<li>ins: N. Sornin name: Nicolas Sornin org: Semtech street: 14 Chemin des Clos city: Meylan country: France email: nsornin@semtech.com</li>
-<li>ins: A. Yegin name: Alper Yegin org: Actility street: .  city: Paris, Paris country: France email: alper.yegin@actility.com</li>
-</ul>
+<p id="rfc.section.8.p.2">Vincent Audebert<br> EDF R&amp;D<br> Email: vincent.audebert@edf.fr</p>
+<p id="rfc.section.8.p.3">Julien Catalano<br> Kerlink<br> Email: j.catalano@kerlink.fr</p>
+<p id="rfc.section.8.p.4">Michael Coracin<br> Semtech<br> Email: mcoracin@semtech.com</p>
+<p id="rfc.section.8.p.5">Marc Le Gourrierec<br> Sagemcom<br> Email: marc.legourrierec@sagemcom.com</p>
+<p id="rfc.section.8.p.6">Nicolas Sornin<br> Semtech<br> Email: nsornin@semtech.com</p>
+<p id="rfc.section.8.p.7">Alper Yegin<br> Actility<br> Email: alper.yegin@actility.com</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">9.</a> References</h1>
 <h1 id="rfc.references.1">
@@ -882,6 +900,16 @@ ul.toc li {
 <td class="reference"><b id="RFC7136">[RFC7136]</b></td>
 <td class="top">
 <a>Carpenter, B.</a> and <a>S. Jiang</a>, "<a href="https://tools.ietf.org/html/rfc7136">Significance of IPv6 Interface Identifiers</a>", RFC 7136, DOI 10.17487/RFC7136, February 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8064">[RFC8064]</b></td>
+<td class="top">
+<a>Gont, F.</a>, <a>Cooper, A.</a>, <a>Thaler, D.</a> and <a>W. Liu</a>, "<a href="https://tools.ietf.org/html/rfc8064">Recommendation on Stable IPv6 Interface Identifiers</a>", RFC 8064, DOI 10.17487/RFC8064, February 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8065">[RFC8065]</b></td>
+<td class="top">
+<a>Thaler, D.</a>, "<a href="https://tools.ietf.org/html/rfc8065">Privacy Considerations for IPv6 Adaptation-Layer Mechanisms</a>", RFC 8065, DOI 10.17487/RFC8065, February 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC8174">[RFC8174]</b></td>
@@ -1106,9 +1134,6 @@ Content of the tile is:
 | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 </pre>
 <p class="figure">Figure 31: Uplink example: LoRaWAN packet 6 - SCHC ACK</p>
-<h1 id="rfc.appendix.B">
-<a href="#rfc.appendix.B">Appendix B.</a> <a href="#note" id="note">Note</a>
-</h1>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
