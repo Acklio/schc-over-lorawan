@@ -306,9 +306,8 @@ confirmed messages.
   end-device's AppKey and contains (amongst other fields) the major network's
   settings and a network random nonce used to derive the session keys.
 * Data:
-  Application data frame with two levels of AES-128 encryption.  One at
-  application level thanks to the AppSKey, the other at network level with the
-  NwkSKey.
+  MAC and application data. Application data are protected with AES-128
+  encryption, MAC related data are AES-128 encrypted with another key.
 
 ## Unicast and multicast technology
 
