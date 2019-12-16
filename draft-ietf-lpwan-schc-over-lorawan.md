@@ -40,6 +40,7 @@ normative:
   RFC8064:
   RFC8065:
   RFC8376:
+  RFC4493:
   I-D.ietf-lpwan-ipv6-static-context-hc:
 informative:
   lora-alliance-spec:
