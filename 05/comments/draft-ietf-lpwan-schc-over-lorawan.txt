@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: June 14, 2020                                            Acklio
-                                                       December 12, 2019
+Expires: June 18, 2020                                            Acklio
+                                                       December 16, 2019
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 14, 2020.
+   This Internet-Draft will expire on June 18, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 1]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -87,7 +87,7 @@ Table of Contents
        5.6.3.  Downlink fragmentation: From SCHC gateway to a device  14
    6.  Security considerations . . . . . . . . . . . . . . . . . . .  17
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  17
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  19
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 2]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 3]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 4]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 5]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 6]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 7]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -406,9 +406,9 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
       contains (amongst other fields) the major network's settings and a
       network random nonce used to derive the session keys.
 
-   o  Data: Application data frame with two levels of AES-128
-      encryption.  One at application level thanks to the AppSKey, the
-      other at network level with the NwkSKey.
+   o  Data: MAC and application data.  Application data are protected
+      with AES-128 encryption, MAC related data are AES-128 encrypted
+      with another key.
 
 4.5.  Unicast and multicast technology
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 8]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                 [Page 9]
+Gimenez & Petrov          Expires June 18, 2020                 [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
@@ -525,16 +525,12 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    1.  key = LoRaWAN AppSKey
 
-   2.  string = devEui in HEX representation, padded to 128 bits by
-       adding 0s as most significant bits
+   2.  cmac = aes128_cmac(key, devEui)
 
-   3.  output = aes128_encrypt(key, string)
+   3.  IID = cmac[0..7]
 
-   4.  IID = 64 least significant bits of output
-
-   aes128_encrypt algorithm is the generic algorithm described in
-   IEEE802.15.4/2006 Annex B [IEEE802154].  It has been chosen as it is
-   already used by devices for LoRaWAN procotol.
+   aes128_cmac algorithm is described in [RFC4493].  It has been chosen
+   as it is already used by devices for LoRaWAN procotol.
 
    As AppSKey is renewed each time a device joins or rejoins a network,
    the IID will change over time; this mitigates privacy, location
@@ -554,18 +550,17 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    o  appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
 
+   1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
+   2. cmac: 0xBA59F4B196C6C3432D9383C145AD412A
+   3. IID: 0xBA59F4B196C6C3
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                [Page 10]
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
-
-   1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
-   2. string: 0x00000000000000001122334455667788
-   3. output: 0x3532E559FCCD707F9E1364029125B26D
-   3. IID: 0x9E1364029125B26D
 
 5.4.  Padding
 
@@ -610,19 +605,18 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    o  SCHC header size is two bytes (the FPort byte + 1 additional
       byte).
 
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 11]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    o  RuleID: 8 bits stored in LoRaWAN FPort.
 
    o  SCHC fragmentation reliability mode: "ACK-on-Error"
 
    o  DTag: Size is 0 bit, not used
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 11]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    o  FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63
       tiles are allowed in a window
@@ -662,18 +656,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 5.6.2.1.  Regular fragments
 
-
-
-
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 12]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    | FPort  |  LoRaWAN payload          |
    + ------ + ------------------------- +
    | RuleID |   W    | FCN    | Payload |
@@ -683,6 +665,14 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    Figure 6: All fragments except the last one.  SCHC header size is 16
                       bits, including LoRaWAN FPort.
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 12]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
 5.6.2.2.  Last fragment (All-1)
 
@@ -718,18 +708,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
                      Figure 9: Receiver-Abort format.
 
-
-
-
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 13]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
 5.6.2.5.  SCHC acknowledge request
 
    | FPort  | LoRaWAN payload          |
@@ -741,6 +719,16 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
 
                       Figure 10: SCHC ACK REQ format.
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 13]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
 5.6.3.  Downlink fragmentation: From SCHC gateway to a device
 
@@ -779,13 +767,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    used for SCHC-over-LoRaWAN protocol.  It might be set by the Network
    Server for other purposes but not SCHC needs.
 
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 14]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
 5.6.3.1.  Regular fragments
 
    | FPort  | LoRaWAN payload                      |
@@ -797,6 +778,13 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
      Figure 11: All fragments but the last one.  Header size 10 bits,
                          including LoraWAN FPort.
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 14]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
 5.6.3.2.  Last fragment (All-1)
 
@@ -834,14 +822,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
     Figure 14: Receiver-Abort packet (following an All-1 SCHC Fragment
                            with incorrect RCS).
 
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 15]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    Class A and Class B or Class C end-devices do not manage
    retransmissions and timers in the same way.
 
@@ -854,6 +834,14 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    The device replies with an ACK message to every single fragment
    received from the SCHC gateway (because the window size is 1).
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 15]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
+
    Following the reception of a FCN=0 fragment (fragment that is not the
    last fragment of the packet or SCHC ACK REQ, but the end of a
    window), the device MUST transmit the SCHC ACK fragment until it
@@ -890,14 +878,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    the SCHC gateway (because the window size is 1).  Following the
    reception of an FCN=0 fragment (fragment that is not the last
    fragment of the packet or SCHC ACK REQ), the device MUST always
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 16]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    transmit the corresponding SCHC ACK message even if that fragment has
    already been received.  The ACK bitmap is 1 bit long and is always 1.
    If the SCHC gateway receives this ACK, it proceeds to send the next
@@ -909,6 +889,15 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    Following the reception of an FCN=All-1 fragment (the last fragment
    of a datagram) and if the RCS is correct, the device SHALL transmit
    the ACK with the "RCS is correct" indicator bit set.  If the SCHC
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 16]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
+
    gateway receives this ACK, the current fragmentation session has
    succeeded and its context can be cleared.
 
@@ -937,23 +926,16 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    This document is only providing parameters that are expected to be
    better suited for LoRaWAN networks for
-   [I-D.ietf-lpwan-ipv6-static-context-hc].  As such, this document does
-   not contribute to any new security issues in addition to those
-   identified in [I-D.ietf-lpwan-ipv6-static-context-hc].
+   [I-D.ietf-lpwan-ipv6-static-context-hc].  IID security is discussed
+   in Section 5.3.As such, this document does not contribute to any new
+   security issues in addition to those identified in
+   [I-D.ietf-lpwan-ipv6-static-context-hc].
 
 Acknowledgements
 
    Thanks to all those listed in the Contributors section for the
    excellent text, insightful discussions, reviews and suggestions, and
    also to (in alphabetical order) Dominique Barthel, Arunprabhu
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 17]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    Kandasamy, Rodrigo Munoz, Alexander Pelov, Pascal Thubert, Laurent
    Toutain for useful design considerations, reviews and comments.
 
@@ -964,6 +946,13 @@ Contributors
    Vincent Audebert
    EDF R&D
    Email: vincent.audebert@edf.fr
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 17]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    Julien Catalano
    Kerlink
@@ -1001,15 +990,6 @@ Contributors
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 18]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    [RFC3385]  Sheinwald, D., Satran, J., Thaler, P., and V. Cavanna,
               "Internet Protocol Small Computer System Interface (iSCSI)
               Cyclic Redundancy Check (CRC)/Checksum Considerations",
@@ -1019,6 +999,20 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    [RFC4291]  Hinden, R. and S. Deering, "IP Version 6 Addressing
               Architecture", RFC 4291, DOI 10.17487/RFC4291, February
               2006, <https://www.rfc-editor.org/info/rfc4291>.
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
+
+   [RFC4493]  Song, JH., Poovendran, R., Lee, J., and T. Iwata, "The
+              AES-CMAC Algorithm", RFC 4493, DOI 10.17487/RFC4493, June
+              2006, <https://www.rfc-editor.org/info/rfc4493>.
 
    [RFC4944]  Montenegro, G., Kushalnagar, N., Hui, J., and D. Culler,
               "Transmission of IPv6 Packets over IEEE 802.15.4
@@ -1059,17 +1053,18 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
               alliance.org/sites/default/files/2018-09/
               remote_multicast_setup_v1.0.0.pdf>.
 
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 19]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    [lora-alliance-spec]
               Alliance, L., "LoRaWAN Specification Version V1.0.3",
               <https://lora-alliance.org/sites/default/files/2018-07/
               lorawan1.0.3.pdf>.
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 19]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
 Appendix A.  Examples
 
@@ -1111,17 +1106,6 @@ A.2.  Uplink - Compression and fragmentation example
    layer.  Rule 1 is used by C/D layer, allowing to compress it to 282
    bytes and 5 bits: 1 byte RuleID, 21 bits residue + 279 bytes payload.
 
-
-
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 20]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    | RuleID | Compression residue |  Payload  |
    + ------ + ------------------- + --------- +
    |   1    |       21 bits       | 279 bytes |
@@ -1130,6 +1114,14 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    The current LoRaWAN MTU is 11 bytes, 0 bytes FOpts are used by
    LoRaWAN protocol: 11 bytes are available for SCHC payload + 1 byte
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 20]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
+
    FPort field.  SCHC header is 2 bytes (including FPort) so 1 tile is
    sent in first fragment.
 
@@ -1168,16 +1160,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
    are transmitted, the last tile is only 2 bytes + 5 bits.  Padding is
    added for the remaining 3 bits.
 
-
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 21]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
 | LoRaWAN Header    | LoRaWAN payload (44 bytes)                        |
 + ---- + -----------+ ------------------------------------------------- +
 |      | RuleID=20  |   W   |  FCN  |     5 tiles       | Padding=b'000 |
@@ -1187,6 +1169,14 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
                 Figure 21: Uplink example: LoRaWAN packet 3
 
    Then All-1 message can be transmitted:
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 21]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    | LoRaWAN Header    | LoRaWAN payload (44 bytes) |
    + ---- + -----------+ -------------------------- +
@@ -1224,16 +1214,6 @@ A.3.  Downlink
    protocol: 51 bytes are available for SCHC payload + FPort field => it
    has to be fragmented.
 
-
-
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 22]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
    | LoRaWAN Header    | LoRaWAN payload (51 bytes)             |
    + ---- + ---------- + -------------------------------------- +
    |      | RuleID=21  |  W = 0 | FCN = 0 |       1 tile        |
@@ -1243,6 +1223,16 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
       Figure 25: Downlink example: LoRaWAN packet 1 - SCHC Fragment 1
 
    Content of the tile is:
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 22]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    | RuleID | Compression residue |        Payload     |
    + ------ + ------------------- + ------------------ +
@@ -1282,14 +1272,6 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
 
    The last downlink is sent, no FOpts:
 
-
-
-
-Gimenez & Petrov          Expires June 14, 2020                [Page 23]
-
-Internet-Draft              SCHC-over-LoRaWAN              December 2019
-
-
 | LoRaWAN Header   | LoRaWAN payload (37 bytes)                                        |
 + ---- + --------- + ----------------------------------------------------------------- +
 |      | RuleID=21 |  W = 0  | FCN = 1 |   RCS   |      1 tile       | Padding=b'00000 |
@@ -1299,6 +1281,14 @@ Internet-Draft              SCHC-over-LoRaWAN              December 2019
         Figure 30: Uplink example: LoRaWAN packet 5 - All-1 message
 
    The receiver answers to the sender with an SCHC ACK:
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 23]
+
+Internet-Draft              SCHC-over-LoRaWAN              December 2019
+
 
    | LoRaWAN Header   | LoRaWAN payload                  |
    + ---- + --------- + -------------------------------- +
@@ -1341,4 +1331,14 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov          Expires June 14, 2020                [Page 24]
+
+
+
+
+
+
+
+
+
+
+Gimenez & Petrov          Expires June 18, 2020                [Page 24]
