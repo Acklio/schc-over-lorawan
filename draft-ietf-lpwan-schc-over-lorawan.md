@@ -393,7 +393,7 @@ instance the device is required to communicate with.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
 
-## IID computation
+## IID computation {#IID}
 
 In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
@@ -733,9 +733,10 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 # Security considerations
 
 This document is only providing parameters that are expected to be better
-suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
-such, this document does not contribute to any new security issues in
-addition to those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. IID
+security is discussed in {{IID}}.As such, this document does not contribute to
+any new security issues in addition to those identified in
+{{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
 # Acknowledgements
 {:numbered="false"}
