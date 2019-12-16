@@ -398,14 +398,11 @@ In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
 
 1. key = LoRaWAN AppSKey
-2. string = devEui in HEX representation, padded to 128 bits by adding 0s as
-   most significant bits
-3. output = aes128_encrypt(key, string)
-4. IID = 64 least significant bits of output
+2. cmac = aes128_cmac(key, devEui)
+3. IID = cmac[0..7]
 
-aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006
-Annex B [IEEE802154]. It has been chosen as it is already used by devices for
-LoRaWAN procotol.
+aes128_cmac algorithm is described in [rfc4493]. It has been chosen as it is
+already used by devices for LoRaWAN procotol.
 
 As AppSKey is renewed each time a device joins or rejoins a network, the IID
 will change over time; this mitigates privacy, location tracking and
@@ -426,9 +423,8 @@ Exemple with:
 
 ~~~~
 1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
-2. string: 0x00000000000000001122334455667788
-3. output: 0x3532E559FCCD707F9E1364029125B26D
-3. IID: 0x9E1364029125B26D
+2. cmac: 0xBA59F4B196C6C3432D9383C145AD412A
+3. IID: 0xBA59F4B196C6C3
 ~~~~
 
 {: #Fig-iid-computation-example title='Example of IID computation.'}
