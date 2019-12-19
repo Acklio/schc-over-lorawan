@@ -477,26 +477,32 @@ Packet, as per {{lorawan-schc-payload}}.
 * RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * MAX_ACK_REQUESTS: 8
 * Tile: size is 10 bytes
-* Retransmission and inactivity timers:
-  LoRaWAN end-devices MUST NOT implement a "retransmission timer", this changes
-  the specification of {{I-D.ietf-lpwan-ipv6-static-context-hc}}, see
-  {{uplink-class-a}}. At the end of
-  a window or a fragmentation session, corresponding ACK(s) is (are)
-  transmitted by the network gateway (LoRaWAN application server) in the RX1 or
-  RX2 receive slot of end-device.
-  If this ACK is not received by the end-device at the end of its RX windows,
-  it sends an SCHC ACK REQ. The periodicity between retransmission of SCHC ACK
-  REQs is device/application specific and MAY be different for each device
-  (not specified). The SCHC gateway implements an "inactivity timer".
-  The default RECOMMENDED duration of this timer is 12 hours. This value is
-  mainly driven by application requirements and MAY be changed by the
-  application.
+* Retransmission timer: LoRaWAN end-devices MUST NOT implement a
+  "retransmission timer", this changes the specification of
+  {{I-D.ietf-lpwan-ipv6-static-context-hc}}, see {{uplink-class-a}}.  It must
+  transmit MAX_ACK_REQUESTS time the SCHC ACK REQ at it own timing; ie the
+  periodicity between retransmission of SCHC ACK REQs is device specific and
+  can vary depending on other application uplinks and regulations.
+* Inactivity timer: The SCHC gateway implements an "inactivity timer". The
+  default RECOMMENDED duration of this timer is 12 hours; this value is mainly
+  driven by application requirements and MAY be changed by the application.
 * Last tile: The last tile MUST NOT be carried in the All-1 fragment.
 * Penultimate tile MUST be equal to the regular size.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
+
+_Note_: As LoRaWAN is a radio communication, it is RECOMMENDED for an
+implementation to use ACK mechanism at the end of each window:
+
+* SCHC receiver sends an SCHC ACK after every window even if there is no missing tiles.
+* SCHC sender waits for the SCHC ACK from the SCHC receiver before sending tiles from
+  next window. If the SCHC ACK is not received it should send an SCHC ACK REQ up
+  to MAX_ACK_REQUESTS time as described previously.
+
+This OPTIONAL feature will prevent a device to transmit full payload if the
+network can not be reach, thus save battery life.
 
 #### Regular fragments
 
