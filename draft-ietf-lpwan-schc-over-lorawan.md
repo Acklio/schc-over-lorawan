@@ -40,8 +40,9 @@ normative:
   RFC8064:
   RFC8065:
   RFC8376:
-informative:
+  RFC4493:
   I-D.ietf-lpwan-ipv6-static-context-hc:
+informative:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
     author:
@@ -120,7 +121,7 @@ This section contains a short overview of Static Context Header Compression
 It defines:
 
 1. Compression mechanisms to avoid transport of known data by both
-   sender and receiver over the air. Known data are called "context"
+   sender and receiver over the air. Known data are part of the "context"
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
    potentially variable, MTU
 
@@ -305,9 +306,8 @@ confirmed messages.
   end-device's AppKey and contains (amongst other fields) the major network's
   settings and a network random nonce used to derive the session keys.
 * Data:
-  Application data frame with two levels of AES-128 encryption.  One at
-  application level thanks to the AppSKey, the other at network level with the
-  NwkSKey.
+  MAC and application data. Application data are protected with AES-128
+  encryption, MAC related data are AES-128 encrypted with another key.
 
 ## Unicast and multicast technology
 
@@ -356,10 +356,10 @@ server to device, is called downlink fragmentation session. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
-FPorts can use arbitrary values inside the FPort range allowed by LoRaWAN and
-MUST be shared by the end-device, the Network Server and SCHC gateway prior to
-the communication. The uplink and downlink fragmentation FPorts MUST be
-different.
+All ruleId can use arbitrary values inside the FPort range allowed by LoRaWAN
+specification and MUST be shared by the end-device and SCHC gateway prior to
+the communication with the selected rule.
+The uplink and downlink fragmentation FPorts MUST be different.
 
 ## Rule ID management  {#rule-id-management}
 
@@ -392,20 +392,17 @@ instance the device is required to communicate with.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
 
-## IID computation
+## IID computation {#IID}
 
 In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
 
 1. key = LoRaWAN AppSKey
-2. string = devEui in HEX representation, padded to 128 bits by adding 0s as
-   most significant bits
-3. output = aes128_encrypt(key, string)
-4. IID = 64 least significant bits of output
+2. cmac = aes128_cmac(key, devEui)
+3. IID = cmac[0..7]
 
-aes128_encrypt algorithm is the generic algorithm described in IEEE802.15.4/2006
-Annex B [IEEE802154]. It has been chosen as it is already used by devices for
-LoRaWAN procotol.
+aes128_cmac algorithm is described in [rfc4493]. It has been chosen as it is
+already used by devices for LoRaWAN procotol.
 
 As AppSKey is renewed each time a device joins or rejoins a network, the IID
 will change over time; this mitigates privacy, location tracking and
@@ -426,9 +423,8 @@ Exemple with:
 
 ~~~~
 1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
-2. string: 0x00000000000000001122334455667788
-3. output: 0x3532E559FCCD707F9E1364029125B26D
-3. IID: 0x9E1364029125B26D
+2. cmac: 0x4E822D9775B2649928F82066AF804FEC
+3. IID: 0x28F82066AF804FEC
 ~~~~
 
 {: #Fig-iid-computation-example title='Example of IID computation.'}
@@ -481,26 +477,32 @@ Packet, as per {{lorawan-schc-payload}}.
 * RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 * MAX_ACK_REQUESTS: 8
 * Tile: size is 10 bytes
-* Retransmission and inactivity timers:
-  LoRaWAN end-devices MUST NOT implement a "retransmission timer", this changes
-  the specification of {{I-D.ietf-lpwan-ipv6-static-context-hc}}, see
-  {{uplink-class-a}}. At the end of
-  a window or a fragmentation session, corresponding ACK(s) is (are)
-  transmitted by the network gateway (LoRaWAN application server) in the RX1 or
-  RX2 receive slot of end-device.
-  If this ACK is not received by the end-device at the end of its RX windows,
-  it sends an SCHC ACK REQ. The periodicity between retransmission of SCHC ACK
-  REQs is device/application specific and MAY be different for each device
-  (not specified). The SCHC gateway implements an "inactivity timer".
-  The default RECOMMENDED duration of this timer is 12 hours. This value is
-  mainly driven by application requirements and MAY be changed by the
-  application.
+* Retransmission timer: LoRaWAN end-devices MUST NOT implement a
+  "retransmission timer", this changes the specification of
+  {{I-D.ietf-lpwan-ipv6-static-context-hc}}, see {{uplink-class-a}}.  It must
+  transmit MAX_ACK_REQUESTS time the SCHC ACK REQ at it own timing; ie the
+  periodicity between retransmission of SCHC ACK REQs is device specific and
+  can vary depending on other application uplinks and regulations.
+* Inactivity timer: The SCHC gateway implements an "inactivity timer". The
+  default RECOMMENDED duration of this timer is 12 hours; this value is mainly
+  driven by application requirements and MAY be changed by the application.
 * Last tile: The last tile MUST NOT be carried in the All-1 fragment.
-* Penultimate tile must be equal to the regular size.
+* Penultimate tile MUST be equal to the regular size.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
+
+_Note_: As LoRaWAN is a radio communication, it is RECOMMENDED for an
+implementation to use ACK mechanism at the end of each window:
+
+* SCHC receiver sends an SCHC ACK after every window even if there is no missing tiles.
+* SCHC sender waits for the SCHC ACK from the SCHC receiver before sending tiles from
+  next window. If the SCHC ACK is not received it should send an SCHC ACK REQ up
+  to MAX_ACK_REQUESTS time as described previously.
+
+This OPTIONAL feature will prevent a device to transmit full payload if the
+network can not be reach, thus save battery life.
 
 #### Regular fragments
 
@@ -736,18 +738,19 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 # Security considerations
 
 This document is only providing parameters that are expected to be better
-suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. As
-such, this document does not contribute to any new security issues in
-addition to those identified in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. IID
+security is discussed in {{IID}}.As such, this document does not contribute to
+any new security issues in addition to those identified in
+{{I-D.ietf-lpwan-ipv6-static-context-hc}}.
 
 # Acknowledgements
 {:numbered="false"}
 
 Thanks to all those listed in the Contributors section for the excellent text,
-insightful discussions, reviews and suggestions, but also to (in
+insightful discussions, reviews and suggestions, and also to (in
 alphabetical order) Dominique Barthel, Arunprabhu Kandasamy, Rodrigo Muñoz,
-Alexander Pelov, Pascal Thubert for useful design considerations, reviews and
-comments.
+Alexander Pelov, Pascal Thubert, Laurent Toutain for useful design
+considerations, reviews and comments.
 
 # Contributors
 {:numbered="false"}
