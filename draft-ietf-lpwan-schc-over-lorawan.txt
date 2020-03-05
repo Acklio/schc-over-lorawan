@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Informational                            I. Petrov, Ed.
-Expires: August 8, 2020                                           Acklio
-                                                       February 05, 2020
+Expires: September 6, 2020                                        Acklio
+                                                          March 05, 2020
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 8, 2020.
+   This Internet-Draft will expire on September 6, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 1]
+Gimenez & Petrov        Expires September 6, 2020               [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 2]
+Gimenez & Petrov        Expires September 6, 2020               [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    have some slight differences in respect of payload sizes,
@@ -165,9 +165,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 3]
+Gimenez & Petrov        Expires September 6, 2020               [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    2.  Fragmentation mechanisms to allow SCHC Packet transportation on
@@ -221,9 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 4]
+Gimenez & Petrov        Expires September 6, 2020               [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
        Dev                                                  App
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 5]
+Gimenez & Petrov        Expires September 6, 2020               [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
        ()   ()   ()       |                      +------+
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 6]
+Gimenez & Petrov        Expires September 6, 2020               [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
       are not transmitting.  Class C end-devices can receive downlinks
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 7]
+Gimenez & Petrov        Expires September 6, 2020               [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 4.4.  LoRaWAN MAC Frames
@@ -445,9 +445,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 8]
+Gimenez & Petrov        Expires September 6, 2020               [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    | FPort | LoRaWAN payload  |
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                 [Page 9]
+Gimenez & Petrov        Expires September 6, 2020               [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    session (for example, SCHC ACKs).  Similarly, the only downlink
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 10]
+Gimenez & Petrov        Expires September 6, 2020              [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 5.4.  Padding
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 11]
+Gimenez & Petrov        Expires September 6, 2020              [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    o  FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63
@@ -669,9 +669,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 12]
+Gimenez & Petrov        Expires September 6, 2020              [Page 12]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 5.6.2.1.  Regular fragments
@@ -725,9 +725,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 13]
+Gimenez & Petrov        Expires September 6, 2020              [Page 13]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 5.6.2.5.  SCHC acknowledge request
@@ -781,9 +781,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 14]
+Gimenez & Petrov        Expires September 6, 2020              [Page 14]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 5.6.3.1.  Regular fragments
@@ -837,9 +837,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 15]
+Gimenez & Petrov        Expires September 6, 2020              [Page 15]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    Class A and Class B or Class C end-devices do not manage
@@ -893,9 +893,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 16]
+Gimenez & Petrov        Expires September 6, 2020              [Page 16]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    transmit the corresponding SCHC ACK message even if that fragment has
@@ -949,9 +949,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 17]
+Gimenez & Petrov        Expires September 6, 2020              [Page 17]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 Acknowledgements
@@ -1005,9 +1005,9 @@ Contributors
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 18]
+Gimenez & Petrov        Expires September 6, 2020              [Page 18]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -1061,9 +1061,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 19]
+Gimenez & Petrov        Expires September 6, 2020              [Page 19]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    [RFC8376]  Farrell, S., Ed., "Low-Power Wide Area Network (LPWAN)
@@ -1117,9 +1117,9 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 20]
+Gimenez & Petrov        Expires September 6, 2020              [Page 20]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
 A.2.  Uplink - Compression and fragmentation example
@@ -1173,9 +1173,9 @@ A.2.  Uplink - Compression and fragmentation example
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 21]
+Gimenez & Petrov        Expires September 6, 2020              [Page 21]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
  | LoRaWAN Header                        | LoRaWAN payload (231 bytes) |
@@ -1229,9 +1229,9 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 22]
+Gimenez & Petrov        Expires September 6, 2020              [Page 22]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    | RuleID | Compression residue |  Payload  |
@@ -1285,9 +1285,9 @@ Internet-Draft              SCHC-over-LoRaWAN              February 2020
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 23]
+Gimenez & Petrov        Expires September 6, 2020              [Page 23]
 
-Internet-Draft              SCHC-over-LoRaWAN              February 2020
+Internet-Draft              SCHC-over-LoRaWAN                 March 2020
 
 
    | LoRaWAN Header   | LoRaWAN payload                  |
@@ -1341,4 +1341,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov         Expires August 8, 2020                [Page 24]
+Gimenez & Petrov        Expires September 6, 2020              [Page 24]
