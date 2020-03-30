@@ -429,6 +429,10 @@ Exemple with:
 
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
+There is a small probability of IID collision in a network, if such event occurs
+the IID can be changed by rekeying the device on L2 level (ie: LoRaWAN rejoin).
+The way the device is rekeyed is out of scope of this document and left to the
+implementation.
 
 ## Padding
 
