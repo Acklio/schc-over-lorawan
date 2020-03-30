@@ -146,10 +146,10 @@ Context exchange or pre-provisioning is out of scope of this document.
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
 based on {{RFC8376}} terminology. The Device is sending applications flows
-using IPv6 or IPv6/UDP protocols. These flow might be compressed by an Static
+using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static
 Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
 size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
-(L2) frame to an LPWAN Radio Gateway (RGW) which forwards the frame to a Network
+(L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
 Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if
 required, then C/D for decompression which shares the same rules with the
 device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
@@ -301,10 +301,11 @@ confirmed messages.
   unique identifier devEUI and a random nonce that will be used for session key
   derivation.
 * JoinAccept:
-  To on-board an end-device, the Network Server responds to the JoinRequest end-device's
-  message with a JoinAccept message. That message is encrypted with the
-  end-device's AppKey and contains (amongst other fields) the major network's
-  settings and a network random nonce used to derive the session keys.
+  To on-board an end-device, the Network Server responds to the JoinRequest
+  issued by end-device's message with a JoinAccept message. That message is
+  encrypted with the end-device's AppKey and contains (amongst other fields)
+  the major network's settings and a network random nonce used to derive the
+  session keys.
 * Data:
   MAC and application data. Application data are protected with AES-128
   encryption, MAC related data are AES-128 encrypted with another key.
@@ -367,7 +368,7 @@ RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in
 {{lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
 the range \[1;223\] as defined in section 4.3.2 of {{lora-alliance-spec}}, it implies
 that RuleID MSB SHOULD be inside this range. An application can send non SCHC
-traffic by using FPort values differents from the ones used for SCHC.
+traffic by using FPort values different from the ones used for SCHC.
 
 In order to improve interoperability RECOMMENDED fragmentation RuleID values are:
 
@@ -412,11 +413,11 @@ level.
 Address scan risk is mitigated thanks to AES-128, which provides enough entropy
 bits of the IID.
 
-Using this algorithm will also ensure that there is not correlation between the
-hardware identifier (IEEE-64 devEUI) and the IID, so an attacker can not use
+Using this algorithm will also ensure that there is no correlation between the
+hardware identifier (IEEE-64 devEUI) and the IID, so an attacker cannot use
 manufacturer OUI to target devices.
 
-Exemple with:
+Example with:
 
 * devEui: 0x1122334455667788
 * appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
@@ -502,7 +503,7 @@ implementation to use ACK mechanism at the end of each window:
 
 * SCHC receiver sends an SCHC ACK after every window even if there is no missing tiles.
 * SCHC sender waits for the SCHC ACK from the SCHC receiver before sending tiles from
-  next window. If the SCHC ACK is not received it should send an SCHC ACK REQ up
+  next window. If the SCHC ACK is not received, it should send an SCHC ACK REQ up
   to MAX_ACK_REQUESTS time as described previously.
 
 This OPTIONAL feature will prevent a device to transmit full payload if the
