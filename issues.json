@@ -1,6 +1,60 @@
 [
 
   {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/27",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/27/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/27/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/27/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/27",
+    "id": 590332192,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0Mzk1Njg1Mzgz",
+    "number": 27,
+    "title": "Draft ietf lpwan schc over lorawan 06",
+    "user": {
+      "login": "Oliv4945",
+      "id": 6248122,
+      "node_id": "MDQ6VXNlcjYyNDgxMjI=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6248122?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Oliv4945",
+      "html_url": "https://github.com/Oliv4945",
+      "followers_url": "https://api.github.com/users/Oliv4945/followers",
+      "following_url": "https://api.github.com/users/Oliv4945/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Oliv4945/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Oliv4945/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Oliv4945/subscriptions",
+      "organizations_url": "https://api.github.com/users/Oliv4945/orgs",
+      "repos_url": "https://api.github.com/users/Oliv4945/repos",
+      "events_url": "https://api.github.com/users/Oliv4945/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Oliv4945/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-03-30T14:22:19Z",
+    "updated_at": "2020-03-30T14:22:19Z",
+    "closed_at": null,
+    "author_association": "COLLABORATOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/27",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/27",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/27.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/27.patch"
+    },
+    "body": "- Add IID collision\r\n- Fix typos\r\n- Update security\r\n- Improve SCHC ACK following Arun comment\r\n- Fix RFC compilation\r\n- Clarify last tile"
+  },
+  {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/26",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
     "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/26/labels{/name}",
