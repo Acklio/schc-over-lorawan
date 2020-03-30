@@ -744,9 +744,12 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 
 This document is only providing parameters that are expected to be better
 suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. IID
-security is discussed in {{IID}}.As such, this document does not contribute to
+security is discussed in {{IID}}. As such, this document does not contribute to
 any new security issues in addition to those identified in
 {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+Moreover SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
+encryption with key shared by device and SCHC gateway. Those keys are renew each
+LoRaWAN session (ie: each join or rejoin to the network)
 
 # Acknowledgements
 {:numbered="false"}
