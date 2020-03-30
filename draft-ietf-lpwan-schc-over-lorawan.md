@@ -490,8 +490,13 @@ Packet, as per {{lorawan-schc-payload}}.
 * Inactivity timer: The SCHC gateway implements an "inactivity timer". The
   default RECOMMENDED duration of this timer is 12 hours; this value is mainly
   driven by application requirements and MAY be changed by the application.
-* Last tile: The last tile MUST NOT be carried in the All-1 fragment.
 * Penultimate tile MUST be equal to the regular size.
+* Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC
+  Fragment or with any of these two methods: implementation must ensure that:
+  * The sender MUST ascertain that the receiver will not receive
+    the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.
+  * If last tile is in All-1 message: current L2 MTU MUST be big enough to fit
+    the All-1 and the last tile.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
