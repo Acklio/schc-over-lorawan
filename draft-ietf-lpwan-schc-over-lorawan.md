@@ -427,7 +427,6 @@ Example with:
 2. cmac: 0x4E822D9775B2649928F82066AF804FEC
 3. IID: 0x28F82066AF804FEC
 ~~~~
-
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
 There is a small probability of IID collision in a network, if such event occurs
