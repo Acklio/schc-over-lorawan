@@ -146,10 +146,10 @@ Context exchange or pre-provisioning is out of scope of this document.
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
 based on {{RFC8376}} terminology. The Device is sending applications flows
-using IPv6 or IPv6/UDP protocols. These flow might be compressed by an Static
+using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static
 Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
 size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
-(L2) frame to an LPWAN Radio Gateway (RGW) which forwards the frame to a Network
+(L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
 Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if
 required, then C/D for decompression which shares the same rules with the
 device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
@@ -301,10 +301,11 @@ confirmed messages.
   unique identifier devEUI and a random nonce that will be used for session key
   derivation.
 * JoinAccept:
-  To on-board an end-device, the Network Server responds to the JoinRequest end-device's
-  message with a JoinAccept message. That message is encrypted with the
-  end-device's AppKey and contains (amongst other fields) the major network's
-  settings and a network random nonce used to derive the session keys.
+  To on-board an end-device, the Network Server responds to the JoinRequest
+  issued by end-device's message with a JoinAccept message. That message is
+  encrypted with the end-device's AppKey and contains (amongst other fields)
+  the major network's settings and a network random nonce used to derive the
+  session keys.
 * Data:
   MAC and application data. Application data are protected with AES-128
   encryption, MAC related data are AES-128 encrypted with another key.
@@ -367,7 +368,7 @@ RuleID MUST be 8 bits, encoded in the LoRaWAN FPort as described in
 {{lorawan-schc-payload}}. LoRaWAN supports up to 223 application FPorts in
 the range \[1;223\] as defined in section 4.3.2 of {{lora-alliance-spec}}, it implies
 that RuleID MSB SHOULD be inside this range. An application can send non SCHC
-traffic by using FPort values differents from the ones used for SCHC.
+traffic by using FPort values different from the ones used for SCHC.
 
 In order to improve interoperability RECOMMENDED fragmentation RuleID values are:
 
@@ -406,17 +407,17 @@ already used by devices for LoRaWAN procotol.
 
 As AppSKey is renewed each time a device joins or rejoins a network, the IID
 will change over time; this mitigates privacy, location tracking and
-correlation over time risks. Rejoin periodicity is defined at the application
+correlation over time risks. Join periodicity is defined at the application
 level.  
 
 Address scan risk is mitigated thanks to AES-128, which provides enough entropy
 bits of the IID.
 
-Using this algorithm will also ensure that there is not correlation between the
-hardware identifier (IEEE-64 devEUI) and the IID, so an attacker can not use
+Using this algorithm will also ensure that there is no correlation between the
+hardware identifier (IEEE-64 devEUI) and the IID, so an attacker cannot use
 manufacturer OUI to target devices.
 
-Exemple with:
+Example with:
 
 * devEui: 0x1122334455667788
 * appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
@@ -426,9 +427,13 @@ Exemple with:
 2. cmac: 0x4E822D9775B2649928F82066AF804FEC
 3. IID: 0x28F82066AF804FEC
 ~~~~
-
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
+There is a small probability of IID collision in a network, if such event occurs
+the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN
+join).
+The way the device is rekeyed is out of scope of this document and left to the
+implementation.
 
 ## Padding
 
@@ -486,8 +491,13 @@ Packet, as per {{lorawan-schc-payload}}.
 * Inactivity timer: The SCHC gateway implements an "inactivity timer". The
   default RECOMMENDED duration of this timer is 12 hours; this value is mainly
   driven by application requirements and MAY be changed by the application.
-* Last tile: The last tile MUST NOT be carried in the All-1 fragment.
 * Penultimate tile MUST be equal to the regular size.
+* Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC
+  Fragment or with any of these two methods: implementation must ensure that:
+  * The sender MUST ascertain that the receiver will not receive
+    the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.
+  * If last tile is in All-1 message: current L2 MTU MUST be big enough to fit
+    the All-1 and the last tile.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
@@ -498,11 +508,14 @@ implementation to use ACK mechanism at the end of each window:
 
 * SCHC receiver sends an SCHC ACK after every window even if there is no missing tiles.
 * SCHC sender waits for the SCHC ACK from the SCHC receiver before sending tiles from
-  next window. If the SCHC ACK is not received it should send an SCHC ACK REQ up
+  next window. If the SCHC ACK is not received, it should send an SCHC ACK REQ up
   to MAX_ACK_REQUESTS time as described previously.
 
-This OPTIONAL feature will prevent a device to transmit full payload if the
-network can not be reach, thus save battery life.
+This OPTIONAL feature allows the implementation to select between:
+ * SCHC ACK after every window: Save battery life by preventing a device to
+   transmit full payload if the network cannot be reached
+ * Otherwise: Reduce downlink load on the network by reducing the number of downlinks
+
 
 #### Regular fragments
 
@@ -739,9 +752,12 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 
 This document is only providing parameters that are expected to be better
 suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. IID
-security is discussed in {{IID}}.As such, this document does not contribute to
+security is discussed in {{IID}}. As such, this document does not contribute to
 any new security issues in addition to those identified in
 {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+Moreover SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
+encryption with key shared by device and SCHC gateway. Those keys are renew each
+LoRaWAN session (ie: each join or rejoin to the network)
 
 # Acknowledgements
 {:numbered="false"}
