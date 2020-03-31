@@ -407,7 +407,7 @@ already used by devices for LoRaWAN procotol.
 
 As AppSKey is renewed each time a device joins or rejoins a network, the IID
 will change over time; this mitigates privacy, location tracking and
-correlation over time risks. Rejoin periodicity is defined at the application
+correlation over time risks. Join periodicity is defined at the application
 level.  
 
 Address scan risk is mitigated thanks to AES-128, which provides enough entropy
@@ -430,7 +430,8 @@ Example with:
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
 There is a small probability of IID collision in a network, if such event occurs
-the IID can be changed by rekeying the device on L2 level (ie: LoRaWAN rejoin).
+the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN
+join).
 The way the device is rekeyed is out of scope of this document and left to the
 implementation.
 
