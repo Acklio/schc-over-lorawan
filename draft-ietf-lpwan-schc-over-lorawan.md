@@ -302,7 +302,7 @@ confirmed messages.
   derivation.
 * JoinAccept:
   To on-board an end-device, the Network Server responds to the JoinRequest
-  issued by end-device's message with a JoinAccept message. That message is
+  issued by end-device's with a JoinAccept message. That message is
   encrypted with the end-device's AppKey and contains (amongst other fields)
   the major network's settings and a network random nonce used to derive the
   session keys.
