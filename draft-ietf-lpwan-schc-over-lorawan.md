@@ -511,7 +511,9 @@ implementation to use ACK mechanism at the end of each window:
   next window. If the SCHC ACK is not received, it should send an SCHC ACK REQ up
   to MAX_ACK_REQUESTS time as described previously.
 
-This OPTIONAL feature allows the implementation to select between:
+SCHC sender MUST implement both cases to ensure compatibility with all
+implementations.  This feature allows the implementation to select between:
+
  * SCHC ACK after every window: Save battery life by preventing a device to
    transmit full payload if the network cannot be reached
  * Otherwise: Reduce downlink load on the network by reducing the number of downlinks
