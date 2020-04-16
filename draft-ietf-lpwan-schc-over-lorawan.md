@@ -302,7 +302,7 @@ confirmed messages.
   derivation.
 * JoinAccept:
   To on-board an end-device, the Network Server responds to the JoinRequest
-  issued by end-device's with a JoinAccept message. That message is
+  issued by an end-device with a JoinAccept message. That message is
   encrypted with the end-device's AppKey and contains (amongst other fields)
   the major network's settings and a network random nonce used to derive the
   session keys.
@@ -403,7 +403,7 @@ created regarding the following algorithm:
 3. IID = cmac[0..7]
 
 aes128_cmac algorithm is described in [rfc4493]. It has been chosen as it is
-already used by devices for LoRaWAN procotol.
+already used by devices for LoRaWAN protocol.
 
 As AppSKey is renewed each time a device joins or rejoins a network, the IID
 will change over time; this mitigates privacy, location tracking and
