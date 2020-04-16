@@ -503,20 +503,22 @@ With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 
-_Note_: As LoRaWAN is a radio communication, it is RECOMMENDED for an
-implementation to use ACK mechanism at the end of each window:
+For battery powered SCHC sender, it is RECOMMENDED to use ACK mechanism at the
+end of each window instead of waiting the end of all windows:
 
-* SCHC receiver sends an SCHC ACK after every window even if there is no missing tiles.
-* SCHC sender waits for the SCHC ACK from the SCHC receiver before sending tiles from
-  next window. If the SCHC ACK is not received, it should send an SCHC ACK REQ up
-  to MAX_ACK_REQUESTS time as described previously.
+* SCHC receiver sends a SCHC ACK after every window even if there is no
+  missing tiles.
+* SCHC sender waits for the SCHC ACK from the SCHC receiver before sending
+tiles from next window. If the SCHC ACK is not received, it should send an SCHC
+ACK REQ up to MAX_ACK_REQUESTS time as described previously.
 
-SCHC sender MUST implement both cases to ensure compatibility with all
-implementations.  This feature allows the implementation to select between:
+For non-battery powered devices, SCHC receiver can also choose to send a SCHC
+ACK only at the end of all windows. It will reduce downlink load on the network,
+by reducing the number of downlinks.
 
- * SCHC ACK after every window: Save battery life by preventing a device to
-   transmit full payload if the network cannot be reached
- * Otherwise: Reduce downlink load on the network by reducing the number of downlinks
+SCHC implementations must be compatible with both behavior, and selection is
+made on a RuleID basis. The rules datamodel MUST include this field in the
+fragmentation rules for LoRaWAN.
 
 
 #### Regular fragments
