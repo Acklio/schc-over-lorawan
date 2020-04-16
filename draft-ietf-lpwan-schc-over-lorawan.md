@@ -41,7 +41,7 @@ normative:
   RFC8065:
   RFC8376:
   RFC4493:
-  I-D.ietf-lpwan-ipv6-static-context-hc:
+  RFC8724:
 informative:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
@@ -72,7 +72,7 @@ This is called a profile.
 # Introduction {#Introduction}
 
 The Static Context Header Compression (SCHC) specification
-{{I-D.ietf-lpwan-ipv6-static-context-hc}} describes
+[RFC8724] describes
 generic header compression and fragmentation techniques that can be used on all
 LPWAN (Low Power Wide Area Networks) technologies defined in
 {{RFC8376}}. Even though those technologies share a great
@@ -97,7 +97,7 @@ when, and only when, they appear in all capitals, as shown here.
 
 This section defines the terminology and acronyms used in this document. For
 all other definitions, please look up the SCHC specification
-{{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+[RFC8724].
 
   o  DevEUI: an IEEE EUI-64 identifier used to identify the end-device during the
      procedure while joining the network (Join Procedure)
@@ -116,7 +116,7 @@ all other definitions, please look up the SCHC specification
 
 This section contains a short overview of Static Context Header Compression
 (SCHC). For a detailed description, refer to the full specification
-{{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+[RFC8724].
 
 It defines:
 
@@ -189,7 +189,7 @@ terminology to:
 
 An overview of LoRaWAN {{lora-alliance-spec}} protocol and architecture is
 described in {{RFC8376}}. The mapping between the LPWAN
-architecture entities as described in {{I-D.ietf-lpwan-ipv6-static-context-hc}}
+architecture entities as described in [RFC8724]
 and the ones in {{lora-alliance-spec}} is as follows:
 
    o Devices (Dev) are the end-devices or hosts (e.g. sensors,
@@ -479,12 +479,12 @@ Packet, as per {{lorawan-schc-payload}}.
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles
   are allowed in a window
 * Window index: encoded on W = 2 bits. So 4 windows are available.
-* RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* RCS: Use recommended calculation algorithm in [RFC8724].
 * MAX_ACK_REQUESTS: 8
 * Tile: size is 10 bytes
 * Retransmission timer: LoRaWAN end-devices MUST NOT implement a
   "retransmission timer", this changes the specification of
-  {{I-D.ietf-lpwan-ipv6-static-context-hc}}, see {{uplink-class-a}}.  It must
+  [RFC8724], see {{uplink-class-a}}.  It must
   transmit MAX_ACK_REQUESTS time the SCHC ACK REQ at it own timing; ie the
   periodicity between retransmission of SCHC ACK REQs is device specific and
   can vary depending on other application uplinks and regulations.
@@ -605,11 +605,11 @@ Packet as described in {{lorawan-schc-payload}}.
   * Multicast downlinks: No-ACK, reliability has to be ensured by the upper
     layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
 * RuleID: 8 bits stored in LoRaWAN FPort.
-* Window index (unicast only): encoded on W=1 bit, as per {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* Window index (unicast only): encoded on W=1 bit, as per [RFC8724].
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
   (FCN=All-1 is reserved for SCHC).
-* RCS: Use recommended calculation algorithm in {{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+* RCS: Use recommended calculation algorithm in [RFC8724].
 * MAX_ACK_REQUESTS: 8
 
 As only 1 tile is used, its size can change for each downlink, and will be
@@ -755,10 +755,10 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 # Security considerations
 
 This document is only providing parameters that are expected to be better
-suited for LoRaWAN networks for {{I-D.ietf-lpwan-ipv6-static-context-hc}}. IID
+suited for LoRaWAN networks for [RFC8724]. IID
 security is discussed in {{IID}}. As such, this document does not contribute to
 any new security issues in addition to those identified in
-{{I-D.ietf-lpwan-ipv6-static-context-hc}}.
+[RFC8724].
 Moreover SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
 encryption with key shared by device and SCHC gateway. Those keys are renew each
 LoRaWAN session (ie: each join or rejoin to the network)
