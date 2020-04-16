@@ -506,17 +506,17 @@ LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 For battery powered SCHC sender, it is RECOMMENDED to use ACK mechanism at the
 end of each window instead of waiting the end of all windows:
 
-* SCHC receiver sends a SCHC ACK after every window even if there is no
+* SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
   missing tiles.
-* SCHC sender waits for the SCHC ACK from the SCHC receiver before sending
-tiles from next window. If the SCHC ACK is not received, it should send an SCHC
+* SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
+tiles from next window. If the SCHC ACK is not received, it SHOULD send an SCHC
 ACK REQ up to MAX_ACK_REQUESTS time as described previously.
 
-For non-battery powered devices, SCHC receiver can also choose to send a SCHC
+For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC
 ACK only at the end of all windows. It will reduce downlink load on the network,
 by reducing the number of downlinks.
 
-SCHC implementations must be compatible with both behavior, and selection is
+SCHC implementations MUST be compatible with both behavior, and selection is
 made on a RuleID basis. The rules datamodel MUST include this field in the
 fragmentation rules for LoRaWAN.
 
