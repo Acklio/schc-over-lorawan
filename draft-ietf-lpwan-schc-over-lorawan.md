@@ -517,8 +517,7 @@ ACK only at the end of all windows. It will reduce downlink load on the network,
 by reducing the number of downlinks.
 
 SCHC implementations MUST be compatible with both behavior, and selection is
-made on a RuleID basis. The rules datamodel MUST include this field in the
-fragmentation rules for LoRaWAN.
+a part of the rule context.
 
 
 #### Regular fragments
