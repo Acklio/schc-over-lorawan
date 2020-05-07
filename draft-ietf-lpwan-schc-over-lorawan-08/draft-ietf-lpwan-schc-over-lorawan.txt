@@ -159,9 +159,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
 
    It defines:
 
-   1.  Compression mechanisms to avoid transport of known data by both
-       sender and receiver over the air.  Known data are part of the
-       "context"
+   1.  Compression mechanisms to avoid transporting information known by
+       both sender and receiver over the air.  Known information are
+       part of the "context"
 
 
 
@@ -200,13 +200,13 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    fragmented (SCHC F/R).  The resulting information is sent on a layer
    two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the
    frame to a Network Gateway (NGW).  The NGW sends the data to a SCHC
-   F/R for defragmentation, if required, then C/D for decompression
-   which shares the same rules with the device.  The SCHC F/R and C/D
-   can be located on the Network Gateway (NGW) or in another place as
-   long as a tunnel is established between the NGW and the SCHC F/R,
-   then SCHC F/R and SCHC C/D.  The SCHC C/D in both sides MUST share
-   the same set of rules.  After decompression, the packet can be sent
-   on the Internet to one or several LPWAN Application Servers (App).
+   F/R for reassembly, if required, then to C/D for decompression, which
+   shares the same rules with the device.  The SCHC F/R and C/D can be
+   located on the Network Gateway (NGW) or in another place as long as a
+   tunnel is established between the NGW and the SCHC F/R, then SCHC F/R
+   and SCHC C/D.  The SCHC C/D in both sides MUST share the same set of
+   rules.  After decompression, the packet can be sent on the Internet
+   to one or several LPWAN Application Servers (App).
 
    The SCHC F/R and SCHC C/D process is bidirectional, so the same
    principles can be applied in the other direction.
@@ -660,8 +660,8 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    o  Penultimate tile MUST be equal to the regular size.
 
    o  Last tile: it can be carried in a Regular SCHC Fragment, alone in
-      an All-1 SCHC Fragment or with any of these two methods:
-      implementation must ensure that:
+      an All-1 SCHC Fragment or with any of these two methods.
+      Implementation must ensure that:
 
       *  The sender MUST ascertain that the receiver will not receive
          the last tile through both a Regular SCHC Fragment and an All-1
@@ -981,13 +981,13 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
 6.  Security considerations
 
    This document is only providing parameters that are expected to be
-   better suited for LoRaWAN networks for [RFC8724].  IID security is
+   best suited for LoRaWAN networks for [RFC8724].  IID security is
    discussed in Section 5.3.  As such, this document does not contribute
    to any new security issues in addition to those identified in
-   [RFC8724].  Moreover SCHC data (LoRaWAN payload) are protected on
+   [RFC8724].  Moreover, SCHC data (LoRaWAN payload) are protected on
    LoRaWAN level by an AES-128 encryption with key shared by device and
-   SCHC gateway.  Those keys are renew each LoRaWAN session (ie: each
-   join or rejoin to the network)
+   SCHC gateway.  Those keys are renewed at each LoRaWAN session (ie:
+   each join or rejoin to the network)
 
 Acknowledgements
 
@@ -1352,7 +1352,7 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
 + ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
 | XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
 
-        Figure 31: Uplink example: LoRaWAN packet 5 - All-1 message
+       Figure 31: Downlink example: LoRaWAN packet 5 - All-1 message
 
    The receiver answers to the sender with an SCHC ACK:
 
@@ -1362,7 +1362,7 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    + ---- + --------- + ----- + ----- + ---------------- +
    | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 
-          Figure 32: Uplink example: LoRaWAN packet 6 - SCHC ACK
+         Figure 32: Downlink example: LoRaWAN packet 6 - SCHC ACK
 
 Authors' Addresses
 

@@ -462,7 +462,7 @@ ul.toc li {
 <p></p>
 
 <ol>
-<li>Compression mechanisms to avoid transport of known data by both sender and receiver over the air. Known data are part of the &#8220;context&#8221;</li>
+<li>Compression mechanisms to avoid transporting information known by both sender and receiver over the air. Known information are part of the &#8220;context&#8221;</li>
 <li>Fragmentation mechanisms to allow SCHC Packet transportation on small, and potentially variable, MTU</li>
 </ol>
 <p id="rfc.section.3.p.4">Context exchange or pre-provisioning is out of scope of this document.</p>
@@ -484,7 +484,7 @@ ul.toc li {
                                 +----+    +----+
 </pre>
 <p class="figure">Figure 1: Architecture</p>
-<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size and fragmented (SCHC F/R).  The resulting information is sent on a layer two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if required, then C/D for decompression which shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same set of rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
+<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The Device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size and fragmented (SCHC F/R).  The resulting information is sent on a layer two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if required, then to C/D for decompression, which shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same set of rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
 <p id="rfc.section.3.p.6">The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can be applied in the other direction.</p>
 <p id="rfc.section.3.p.7">In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server, and the SCHC C/D is an Application Server. It can be provided by the Network Server or any third party software. <a href="#Fig-archi" class="xref">Figure 1</a> can be mapped in LoRaWAN terminology to:</p>
 <div id="rfc.figure.2"></div>
@@ -686,7 +686,7 @@ ul.toc li {
 <li>Retransmission timer: LoRaWAN end-devices MUST NOT implement a &#8220;retransmission timer&#8221;, this changes the specification of <a href="#RFC8724" class="xref">[RFC8724]</a>, see <a href="#uplink-class-a" class="xref">Section 5.6.3.5</a>.  It must transmit MAX_ACK_REQUESTS time the SCHC ACK REQ at it own timing; ie the periodicity between retransmission of SCHC ACK REQs is device specific and can vary depending on other application uplinks and regulations.</li>
 <li>Inactivity timer: The SCHC gateway implements an &#8220;inactivity timer&#8221;. The default RECOMMENDED duration of this timer is 12 hours; this value is mainly driven by application requirements and MAY be changed by the application.</li>
 <li>Penultimate tile MUST be equal to the regular size.</li>
-<li>Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC Fragment or with any of these two methods: implementation must ensure that: <ul>
+<li>Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC Fragment or with any of these two methods. Implementation must ensure that: <ul>
 <li>The sender MUST ascertain that the receiver will not receive the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.</li>
 <li>If last tile is in All-1 message: current L2 MTU MUST be big enough to fit the All-1 and the last tile.</li>
 </ul>
@@ -871,7 +871,7 @@ ul.toc li {
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>
-<p id="rfc.section.6.p.1">This document is only providing parameters that are expected to be better suited for LoRaWAN networks for <a href="#RFC8724" class="xref">[RFC8724]</a>. IID security is discussed in <a href="#IID" class="xref">Section 5.3</a>. As such, this document does not contribute to any new security issues in addition to those identified in <a href="#RFC8724" class="xref">[RFC8724]</a>.  Moreover SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128 encryption with key shared by device and SCHC gateway. Those keys are renew each LoRaWAN session (ie: each join or rejoin to the network)</p>
+<p id="rfc.section.6.p.1">This document is only providing parameters that are expected to be best suited for LoRaWAN networks for <a href="#RFC8724" class="xref">[RFC8724]</a>. IID security is discussed in <a href="#IID" class="xref">Section 5.3</a>. As such, this document does not contribute to any new security issues in addition to those identified in <a href="#RFC8724" class="xref">[RFC8724]</a>.  Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128 encryption with key shared by device and SCHC gateway. Those keys are renewed at each LoRaWAN session (ie: each join or rejoin to the network)</p>
 <h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.7.p.1">Thanks to all those listed in the Contributors section for the excellent text, insightful discussions, reviews and suggestions, and also to (in alphabetical order) Dominique Barthel, Arunprabhu Kandasamy, Rodrigo Mu&#241;oz, Alexander Pelov, Pascal Thubert, Laurent Toutain for useful design considerations, reviews and comments.</p>
 <h1 id="rfc.contributors"><a href="#rfc.contributors">Contributors</a></h1>
@@ -1143,7 +1143,7 @@ Content of the tile is:
 + ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
 | XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
 </pre>
-<p class="figure">Figure 31: Uplink example: LoRaWAN packet 5 - All-1 message</p>
+<p class="figure">Figure 31: Downlink example: LoRaWAN packet 5 - All-1 message</p>
 <p id="rfc.section.A.3.p.8">The receiver answers to the sender with an SCHC ACK:</p>
 <div id="rfc.figure.32"></div>
 <div id="Fig-example-downlink-fragmentation-lorawan-packet-6"></div>
@@ -1154,7 +1154,7 @@ Content of the tile is:
 + ---- + --------- + ----- + ----- + ---------------- +
 | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 </pre>
-<p class="figure">Figure 32: Uplink example: LoRaWAN packet 6 - SCHC ACK</p>
+<p class="figure">Figure 32: Downlink example: LoRaWAN packet 6 - SCHC ACK</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
