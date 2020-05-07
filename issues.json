@@ -1,6 +1,168 @@
 [
 
   {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/31",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/31/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/31/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/31/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/31",
+    "id": 614128550,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDE0NzQ0NjY5",
+    "number": 31,
+    "title": "Fix a new minor nits",
+    "user": {
+      "login": "ivajloip",
+      "id": 170915,
+      "node_id": "MDQ6VXNlcjE3MDkxNQ==",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/170915?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ivajloip",
+      "html_url": "https://github.com/ivajloip",
+      "followers_url": "https://api.github.com/users/ivajloip/followers",
+      "following_url": "https://api.github.com/users/ivajloip/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ivajloip/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ivajloip/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ivajloip/subscriptions",
+      "organizations_url": "https://api.github.com/users/ivajloip/orgs",
+      "repos_url": "https://api.github.com/users/ivajloip/repos",
+      "events_url": "https://api.github.com/users/ivajloip/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ivajloip/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-05-07T15:03:14Z",
+    "updated_at": "2020-05-07T15:03:14Z",
+    "closed_at": null,
+    "author_association": "CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/31",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/31",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/31.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/31.patch"
+    },
+    "body": ""
+  },
+  {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/30",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/30/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/30/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/30/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/30",
+    "id": 613944453,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDE0NTk1MDg2",
+    "number": 30,
+    "title": "a few more nit fixes",
+    "user": {
+      "login": "dbarthel-ol",
+      "id": 16941671,
+      "node_id": "MDQ6VXNlcjE2OTQxNjcx",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/16941671?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dbarthel-ol",
+      "html_url": "https://github.com/dbarthel-ol",
+      "followers_url": "https://api.github.com/users/dbarthel-ol/followers",
+      "following_url": "https://api.github.com/users/dbarthel-ol/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dbarthel-ol/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dbarthel-ol/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dbarthel-ol/subscriptions",
+      "organizations_url": "https://api.github.com/users/dbarthel-ol/orgs",
+      "repos_url": "https://api.github.com/users/dbarthel-ol/repos",
+      "events_url": "https://api.github.com/users/dbarthel-ol/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dbarthel-ol/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-05-07T10:24:40Z",
+    "updated_at": "2020-05-07T13:35:01Z",
+    "closed_at": null,
+    "author_association": "FIRST_TIME_CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/30",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/30",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/30.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/30.patch"
+    },
+    "body": ""
+  },
+  {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/29",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/29/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/29/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/29/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/29",
+    "id": 613910265,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NDE0NTY3OTA4",
+    "number": 29,
+    "title": "comments on ACK behaviour description",
+    "user": {
+      "login": "dbarthel-ol",
+      "id": 16941671,
+      "node_id": "MDQ6VXNlcjE2OTQxNjcx",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/16941671?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dbarthel-ol",
+      "html_url": "https://github.com/dbarthel-ol",
+      "followers_url": "https://api.github.com/users/dbarthel-ol/followers",
+      "following_url": "https://api.github.com/users/dbarthel-ol/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dbarthel-ol/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dbarthel-ol/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dbarthel-ol/subscriptions",
+      "organizations_url": "https://api.github.com/users/dbarthel-ol/orgs",
+      "repos_url": "https://api.github.com/users/dbarthel-ol/repos",
+      "events_url": "https://api.github.com/users/dbarthel-ol/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dbarthel-ol/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-05-07T09:30:09Z",
+    "updated_at": "2020-05-07T09:30:09Z",
+    "closed_at": null,
+    "author_association": "FIRST_TIME_CONTRIBUTOR",
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/29",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/29",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/29.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/29.patch"
+    },
+    "body": "and a few suggested nit fixes."
+  },
+  {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/28",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
     "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/28/labels{/name}",
@@ -1591,7 +1753,10 @@
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/2.patch"
     },
     "body": ""
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/1",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
