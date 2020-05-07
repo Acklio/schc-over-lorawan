@@ -503,17 +503,29 @@ With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 
-For battery powered SCHC sender, it is RECOMMENDED to use ACK mechanism at the
-end of each window instead of waiting the end of all windows:
+For battery powered SCHC sender, it is RECOMMENDED to use the ACK mechanism at the
+end of each window instead of waiting until the end of all windows:
 
 * SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
-  missing tiles.
+  missing tile.
 * SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
-tiles from next window. If the SCHC ACK is not received, it SHOULD send an SCHC
-ACK REQ up to MAX_ACK_REQUESTS time as described previously.
+tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
+ACK REQ up to MAX_ACK_REQUESTS time, as described previously.
 
 For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC
-ACK only at the end of all windows. It will reduce downlink load on the network,
+<!-- the above line is not crystal clear. It could mean "Non-battery powered devices acting as SCHC receivers MAY ...". 
+I know you mean "When a non-battery powered device acts as a SCHC sender, the SCHC receiver ...
+You could simply use this new text. But this would still leave the reader wondering about the other cases.
+If we assume one end is the LoRaWAN network infrastructure, which is always powered, I think we have 4 cases to describe:
+- battery powered end device
+  o acting as SCHC sender
+  o acting as a SCHC receiver
+- non-battery powered end device
+  o acting as SCHC sender
+  o acting as a SCHC receiver
+What are the recommendations is these 4 cases?
+-->
+ACK only at the end of all windows. It will reduce the downlink load on the network,
 by reducing the number of downlinks.
 
 SCHC implementations MUST be compatible with both behavior, and selection is
