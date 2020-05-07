@@ -120,8 +120,8 @@ This section contains a short overview of Static Context Header Compression
 
 It defines:
 
-1. Compression mechanisms to avoid transport of known data by both
-   sender and receiver over the air. Known data are part of the "context"
+1. Compression mechanisms to avoid transporting information known by both
+   sender and receiver over the air. Known information are part of the "context"
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
    potentially variable, MTU
 
@@ -150,8 +150,8 @@ using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static
 Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
 size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
 (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
-Gateway (NGW). The NGW sends the data to a SCHC F/R for defragmentation, if
-required, then C/D for decompression which shares the same rules with the
+Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if
+required, then to C/D for decompression, which shares the same rules with the
 device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
 another place as long as a tunnel is established between the NGW and the SCHC
 F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same
@@ -493,7 +493,7 @@ Packet, as per {{lorawan-schc-payload}}.
   driven by application requirements and MAY be changed by the application.
 * Penultimate tile MUST be equal to the regular size.
 * Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC
-  Fragment or with any of these two methods: implementation must ensure that:
+  Fragment or with any of these two methods. Implementation must ensure that:
   * The sender MUST ascertain that the receiver will not receive
     the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.
   * If last tile is in All-1 message: current L2 MTU MUST be big enough to fit
@@ -753,13 +753,13 @@ RECOMMENDED value is 12 hours for both Class B and Class C end-devices.
 
 # Security considerations
 
-This document is only providing parameters that are expected to be better
+This document is only providing parameters that are expected to be best
 suited for LoRaWAN networks for [RFC8724]. IID
 security is discussed in {{IID}}. As such, this document does not contribute to
 any new security issues in addition to those identified in
 [RFC8724].
-Moreover SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
-encryption with key shared by device and SCHC gateway. Those keys are renew each
+Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
+encryption with key shared by device and SCHC gateway. Those keys are renewed at each
 LoRaWAN session (ie: each join or rejoin to the network)
 
 # Acknowledgements
@@ -999,7 +999,7 @@ The last downlink is sent, no FOpts:
 + ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
 | XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
 ~~~~
-{: #Fig-example-downlink-fragmentation-lorawan-packet-5 title='Uplink example: LoRaWAN packet 5 - All-1 message'}
+{: #Fig-example-downlink-fragmentation-lorawan-packet-5 title='Downlink example: LoRaWAN packet 5 - All-1 message'}
 
 The receiver answers to the sender with an SCHC ACK:
 
@@ -1010,5 +1010,5 @@ The receiver answers to the sender with an SCHC ACK:
 + ---- + --------- + ----- + ----- + ---------------- +
 | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 ~~~~
-{: #Fig-example-downlink-fragmentation-lorawan-packet-6 title='Uplink example: LoRaWAN packet 6 - SCHC ACK'}
+{: #Fig-example-downlink-fragmentation-lorawan-packet-6 title='Downlink example: LoRaWAN packet 6 - SCHC ACK'}
 
