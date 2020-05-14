@@ -162,9 +162,9 @@ The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can
 be applied in the other direction.
 
 In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
-and the SCHC C/D is an Application Server. It can be provided by the Network
-Server or any third party software. {{Fig-archi}} can be mapped in LoRaWAN
-terminology to:
+and the SCHC C/D and SCHC F/R are an Application Server. It can be provided by
+the Network Gateway or any third party software. {{Fig-archi}} can be mapped in
+LoRaWAN terminology to:
 
 ~~~~
    End Device                                               App
@@ -203,9 +203,8 @@ and the ones in {{lora-alliance-spec}} is as follows:
    Radio Gateway and the Internet. This entity maps to the LoRaWAN Network
    Server.
 
-   o Application Server (App). The same terminology is used in LoRaWAN.
-   In that case, the application server will be the SCHC gateway, doing
-   C/D and F/R.
+   o SCHC F/R and SCHC C/D are LoRaWAN Application Server; ie the LoRaWAN
+   application server will do the C/D and F/R.
 
 ~~~~
 
@@ -262,24 +261,24 @@ Class C. Class B and Class C are mutually exclusive.
 LoRaWAN devices use a 32-bit network address (devAddr) to communicate with
 the network over-the-air, this address might not be unique in a LoRaWAN
 network; devices using the same devAddr are distinguished by the Network
-Server based on the cryptographic signature appended to every LoRaWAN frame.
+Gateway based on the cryptographic signature appended to every LoRaWAN frame.
 
-To communicate with the SCHC gateway the Network Server MUST identify the
+To communicate with the SCHC gateway the Network Gateway MUST identify the
 devices by a unique 64-bit device identifier called the devEUI.
 
 The devEUI is assigned to the device during the manufacturing process by the
 device's manufacturer. It is built like an Ethernet MAC address by
 concatenating the manufacturer's IEEE OUI field with a vendor unique number.
 e.g.: 24-bit OUI is concatenated with a 40-bit serial number.
-The Network Server translates the devAddr into a devEUI in the uplink
+The Network Gateway translates the devAddr into a devEUI in the uplink
 direction and reciprocally on the downlink direction.
 
 ~~~~
 
-+--------+         +----------+        +---------+            +----------+
-| Device | <=====> | Network  | <====> | SCHC    | <========> | Internet |
-|        | devAddr | Server   | devEUI | Gateway |  IPv6/UDP  |          |
-+--------+         +----------+        +---------+            +----------+
++--------+         +---------+        +---------+            +----------+
+| Device | <=====> | Network | <====> | SCHC    | <========> | Internet |
+|        | devAddr | Gateway | devEUI | Gateway |  IPv6/UDP  |          |
++--------+         +---------+        +---------+            +----------+
 
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
@@ -301,7 +300,7 @@ confirmed messages.
   unique identifier devEUI and a random nonce that will be used for session key
   derivation.
 * JoinAccept:
-  To on-board an device, the Network Server responds to the JoinRequest
+  To on-board an device, the Network Gateway responds to the JoinRequest
   issued by an device with a JoinAccept message. That message is
   encrypted with the device's AppKey and contains (amongst other fields)
   the major network's settings and a network random nonce used to derive the
@@ -320,7 +319,7 @@ As IPv6 is also a multicast technology this feature can be used to address a
 group of devices.
 
 _Note 1_: IPv6 multicast addresses must be defined as per [RFC4291].  LoRaWAN
-multicast group definition in a network server and the relation between those
+multicast group definition in a Network Gateway and the relation between those
 groups and IPv6 groupID are out of scope of this document.
 
 _Note 2_: LoRa Alliance defined {{lora-alliance-remote-multicast-set}} as
@@ -350,10 +349,10 @@ as a part of the RuleID field.
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
 
 A fragmentation session with application payload transferred from device to
-server, is called uplink fragmentation session. It uses an FPort for data uplink
+Network Gateway, is called uplink fragmentation session. It uses an FPort for data uplink
 and its associated SCHC control downlinks, named FPortUp in this document. The
 other way, a fragmentation session with application payload transferred from
-server to device, is called downlink fragmentation session. It uses another
+Network Gateway to device, is called downlink fragmentation session. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
@@ -626,7 +625,7 @@ As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU.
 
 _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
-SCHC-over-LoRaWAN protocol. It might be set by the Network Server for other
+SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other
 purposes but not SCHC needs.
 
 #### Regular fragments
