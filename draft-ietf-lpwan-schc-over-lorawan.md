@@ -545,7 +545,18 @@ a part of the rule context.
 | 8 bits | 2 bits | 6 bits    | 32 bits |
 
 ~~~~
-{: #Fig-fragmentation-header-all1 title='All-1 fragment detailed format for the last fragment.'}
+{: #Fig-fragmentation-header-all1-no-tile title='All-1 SCHC Message: the last fragment without last tile.'}
+
+~~~~
+
+| FPort  | LoRaWAN payload                             |
++ ------ + ------------------------------------------- +
+| RuleID |   W    | FCN=All-1 |  RCS    |  Last tile   |
++ ------ + ------ + --------- + ------- + ------------ +
+| 8 bits | 2 bits | 6 bits    | 32 bits | 1 to 80 bits |
+
+~~~~
+{: #Fig-fragmentation-header-all1-last-tile title='All-1 SCHC Message: the last fragment with last tile.'}
 
 #### SCHC ACK
 
