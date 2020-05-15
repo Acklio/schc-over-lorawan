@@ -659,7 +659,7 @@ purposes but not SCHC needs.
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC Message: the last fragment.'}
 
-#### SCHC acknowledge
+#### SCHC ACK
 
 ~~~~
 
