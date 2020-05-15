@@ -441,8 +441,8 @@ ul.toc li {
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#Introduction" id="Introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">The Static Context Header Compression (SCHC) specification <a href="#RFC8724" class="xref">[RFC8724]</a> describes generic header compression and fragmentation techniques that can be used on all LPWAN (Low Power Wide Area Networks) technologies defined in <a href="#RFC8376" class="xref">[RFC8376]</a>. Even though those technologies share a great number of common features like star-oriented topologies, network architecture, devices with mostly quite predictable communications, etc; they do have some slight differences in respect of payload sizes, reactiveness, etc.</p>
-<p id="rfc.section.1.p.2">SCHC gives a generic framework that enables those devices to communicate with other Internet networks. However, for efficient performance, some parameters and modes of operation need to be set appropriately for each of the LPWAN technologies.</p>
+<p id="rfc.section.1.p.1">The Static Context Header Compression (SCHC) specification <a href="#RFC8724" class="xref">[RFC8724]</a> describes generic header compression and fragmentation techniques that can be used on all LPWAN (Low Power Wide Area Networks) technologies defined in <a href="#RFC8376" class="xref">[RFC8376]</a>. Even though those technologies share a great number of common features like star-oriented topologies, network architecture, devices with mostly quite predictable communications, etc; they do have some slight differences in respect to payload sizes, reactiveness, etc.</p>
+<p id="rfc.section.1.p.2">SCHC provides a generic framework that enables those devices to communicate with other Internet networks. However, for efficient performance, some parameters and modes of operation need to be set appropriately for each of the LPWAN technologies.</p>
 <p id="rfc.section.1.p.3">This document describes the efficient parameters and modes of operation when SCHC is used over LoRaWAN networks.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a>
@@ -452,8 +452,7 @@ ul.toc li {
 <p id="rfc.section.2.p.3">o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the procedure while joining the network (Join Procedure)</p>
 <p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to an device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
 <p id="rfc.section.2.p.5">o  RCS: Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process</p>
-<p id="rfc.section.2.p.6">o  TBD: all significant LoRaWAN-related terms.</p>
-<p id="rfc.section.2.p.7">o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI</p>
+<p id="rfc.section.2.p.6">o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
 </h1>
@@ -484,7 +483,7 @@ ul.toc li {
                                 +----+    +----+
 </pre>
 <p class="figure">Figure 1: Architecture</p>
-<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size and fragmented (SCHC F/R).  The resulting information is sent on a layer two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if required, then to C/D for decompression, which shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same set of rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
+<p><a href="#Fig-archi" class="xref">Figure 1</a> represents the architecture for compression/decompression, it is based on <a href="#RFC8376" class="xref">[RFC8376]</a> terminology. The device is sending applications flows using IPv6 or IPv6/UDP protocols. These flows might be compressed by a Static Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers size and fragmented (SCHC F/R).  The resulting information is sent on a layer two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if required, then to SCHC C/D for decompression. The C/D shares the same rules with the device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in another place as long as a tunnel is established between the NGW and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same set of rules. After decompression, the packet can be sent on the Internet to one or several LPWAN Application Servers (App).</p>
 <p id="rfc.section.3.p.6">The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can be applied in the other direction.</p>
 <p id="rfc.section.3.p.7">In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server, and the SCHC C/D and SCHC F/R are an Application Server. It can be provided by the Network Gateway or any third party software. <a href="#Fig-archi" class="xref">Figure 1</a> can be mapped in LoRaWAN terminology to:</p>
 <div id="rfc.figure.2"></div>
@@ -599,7 +598,7 @@ ul.toc li {
 </pre>
 <p class="figure">Figure 5: SCHC Message in LoRaWAN</p>
 <p id="rfc.section.5.1.p.3">A fragmentation session with application payload transferred from device to Network Gateway, is called uplink fragmentation session. It uses an FPort for data uplink and its associated SCHC control downlinks, named FPortUp in this document. The other way, a fragmentation session with application payload transferred from Network Gateway to device, is called downlink fragmentation session. It uses another FPort for data downlink and its associated SCHC control uplinks, named FPortDown in this document.</p>
-<p id="rfc.section.5.1.p.4">All ruleId can use arbitrary values inside the FPort range allowed by LoRaWAN specification and MUST be shared by the device and SCHC gateway prior to the communication with the selected rule.  The uplink and downlink fragmentation FPorts MUST be different.</p>
+<p id="rfc.section.5.1.p.4">All ruleID can use arbitrary values inside the FPort range allowed by LoRaWAN specification and MUST be shared by the device and SCHC gateway prior to the communication with the selected rule.  The uplink and downlink fragmentation FPorts MUST be different.</p>
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#rule-id-management" id="rule-id-management">Rule ID management</a>
 </h1>

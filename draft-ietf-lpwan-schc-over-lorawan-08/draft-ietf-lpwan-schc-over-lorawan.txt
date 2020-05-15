@@ -115,9 +115,9 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
 
 
    predictable communications, etc; they do have some slight differences
-   in respect of payload sizes, reactiveness, etc.
+   in respect to payload sizes, reactiveness, etc.
 
-   SCHC gives a generic framework that enables those devices to
+   SCHC provides a generic framework that enables those devices to
    communicate with other Internet networks.  However, for efficient
    performance, some parameters and modes of operation need to be set
    appropriately for each of the LPWAN technologies.
@@ -147,8 +147,6 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    o RCS: Reassembly Check Sequence.  Used to verify the integrity of
    the fragmentation-reassembly process
 
-   o TBD: all significant LoRaWAN-related terms.
-
    o OUI: Organisation Unique Identifier.  IEEE assigned prefix for EUI
 
 3.  Static Context Header Compression Overview
@@ -162,6 +160,8 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    1.  Compression mechanisms to avoid transporting information known by
        both sender and receiver over the air.  Known information are
        part of the "context"
+
+
 
 
 
@@ -195,18 +195,18 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    Figure 1 represents the architecture for compression/decompression,
    it is based on [RFC8376] terminology.  The device is sending
    applications flows using IPv6 or IPv6/UDP protocols.  These flows
-   might be compressed by an Static Context Header Compression
+   might be compressed by a Static Context Header Compression
    Compressor/Decompressor (SCHC C/D) to reduce headers size and
    fragmented (SCHC F/R).  The resulting information is sent on a layer
    two (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the
    frame to a Network Gateway (NGW).  The NGW sends the data to a SCHC
-   F/R for reassembly, if required, then to C/D for decompression, which
-   shares the same rules with the device.  The SCHC F/R and C/D can be
-   located on the Network Gateway (NGW) or in another place as long as a
-   tunnel is established between the NGW and the SCHC F/R, then SCHC F/R
-   and SCHC C/D.  The SCHC C/D in both sides MUST share the same set of
-   rules.  After decompression, the packet can be sent on the Internet
-   to one or several LPWAN Application Servers (App).
+   F/R for reassembly, if required, then to SCHC C/D for decompression.
+   The C/D shares the same rules with the device.  The SCHC F/R and C/D
+   can be located on the Network Gateway (NGW) or in another place as
+   long as a tunnel is established between the NGW and the SCHC F/R,
+   then SCHC F/R and SCHC C/D.  The SCHC C/D in both sides MUST share
+   the same set of rules.  After decompression, the packet can be sent
+   on the Internet to one or several LPWAN Application Servers (App).
 
    The SCHC F/R and SCHC C/D process is bidirectional, so the same
    principles can be applied in the other direction.
@@ -453,7 +453,7 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    It uses another FPort for data downlink and its associated SCHC
    control uplinks, named FPortDown in this document.
 
-   All ruleId can use arbitrary values inside the FPort range allowed by
+   All ruleID can use arbitrary values inside the FPort range allowed by
    LoRaWAN specification and MUST be shared by the device and SCHC
    gateway prior to the communication with the selected rule.  The
    uplink and downlink fragmentation FPorts MUST be different.
