@@ -318,7 +318,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Gimenez, O., Ed. and I. Petrov, Ed." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-lpwan-schc-over-lorawan-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-05-14" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-05-15" />
   <meta name="dct.abstract" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies. This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile. " />
   <meta name="description" content="The Static Context Header Compression (SCHC) specification describes generic header compression and fragmentation techniques for LPWAN (Low Power Wide Area Networks) technologies. SCHC is a generic mechanism designed for great flexibility so that it can be adapted for any of the LPWAN technologies. This document provides the adaptation of SCHC for use in LoRaWAN networks, and provides elements such as efficient parameterization and modes of operation.  This is called a profile. " />
 
@@ -342,12 +342,12 @@ ul.toc li {
 <td class="right">I. Petrov, Ed.</td>
 </tr>
 <tr>
-<td class="left">Expires: November 15, 2020</td>
+<td class="left">Expires: November 16, 2020</td>
 <td class="right">Acklio</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">May 14, 2020</td>
+<td class="right">May 15, 2020</td>
 </tr>
 
     	
@@ -364,7 +364,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 15, 2020.</p>
+<p>This Internet-Draft will expire on November 16, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -693,7 +693,7 @@ ul.toc li {
 </li>
 </ul>
 <p id="rfc.section.5.6.2.p.3">With this set of parameters, the SCHC fragment header is 16 bits, including FPort; payload overhead will be 8 bits as FPort is already a part of LoRaWAN payload. MTU is: <em>4 windows * 63 tiles * 10 bytes per tile = 2520 bytes</em></p>
-<p id="rfc.section.5.6.2.p.4">For battery powered SCHC sender, it is RECOMMENDED to use ACK mechanism at the end of each window instead of waiting the end of all windows:</p>
+<p id="rfc.section.5.6.2.p.4">For battery powered devices, it is RECOMMENDED to use ACK mechanism at the end of each window instead of waiting the end of all windows:</p>
 <p></p>
 
 <ul>
@@ -747,14 +747,15 @@ ul.toc li {
 <div id="rfc.figure.10"></div>
 <div id="Fig-fragmentation-header-long-schc-ack"></div>
 <pre>
-| FPort  | LoRaWAN payload                           |
-+ ------ + ----------------------------------------- +
-| RuleID |   W   | C     | Encoded bitmap (if C = 0) |
-+ ------ + ----- + ----- + ------------------------- +
-| 8 bits | 2 bit | 1 bit | 0 to 63 bits              |
+| FPort  | LoRaWAN payload                                                           |
++ ------ + ------------------------------------------------------------------------- +
+| RuleID |   W   |   C   | Compressed bitmap (if C = 0) | Optional padding (b'0...0) |
++ ------ + ----- + ----- + ---------------------------- + -------------------------- +
+| 8 bits | 2 bit | 1 bit |       5 to 63 bits           |     0, 6 or 7 bits         |
 
 </pre>
 <p class="figure">Figure 10: SCHC ACK format, failed RCS check.</p>
+<p id="rfc.section.5.6.2.3.p.1">Note: Because of the bitmap compression mechanism and L2 byte alignment only few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61. Bitmaps of 63 bits will require 6 bits of padding.</p>
 <h1 id="rfc.section.5.6.2.4">
 <a href="#rfc.section.5.6.2.4">5.6.2.4.</a> <a href="#receiver-abort" id="receiver-abort">Receiver-Abort</a>
 </h1>
@@ -826,16 +827,16 @@ ul.toc li {
 <div id="rfc.figure.14"></div>
 <div id="Fig-fragmentation-downlink-header-all1"></div>
 <pre>
-| FPort  | LoRaWAN payload             |
-+ ------ + --------------------------- +
-| RuleID | W     | FCN = b'1 | RCS     |
-+ ------ + ----- + --------- + ------- +
-| 8 bits | 1 bit | 1 bit     | 32 bits |
+| FPort  | LoRaWAN payload                                 |
++ ------ + --------------------------- + ----------------- +
+| RuleID | W     | FCN = b'1 | RCS     |      Payload      |
++ ------ + ----- + --------- + ------- + ----------------- +
+| 8 bits | 1 bit | 1 bit     | 32 bits | 6 bits to X bytes |
 
 </pre>
 <p class="figure">Figure 14: All-1 SCHC Message: the last fragment.</p>
 <h1 id="rfc.section.5.6.3.3">
-<a href="#rfc.section.5.6.3.3">5.6.3.3.</a> <a href="#schc-acknowledge" id="schc-acknowledge">SCHC acknowledge</a>
+<a href="#rfc.section.5.6.3.3">5.6.3.3.</a> <a href="#schc-ack-1" id="schc-ack-1">SCHC ACK</a>
 </h1>
 <div id="rfc.figure.15"></div>
 <div id="Fig-fragmentation-downlink-header-schc-ack"></div>
