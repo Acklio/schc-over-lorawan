@@ -561,15 +561,19 @@ a part of the rule context.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                           |
-+ ------ + ----------------------------------------- +
-| RuleID |   W   | C     | Encoded bitmap (if C = 0) |
-+ ------ + ----- + ----- + ------------------------- +
-| 8 bits | 2 bit | 1 bit | 0 to 63 bits              |
+| FPort  | LoRaWAN payload                                                           |
++ ------ + ------------------------------------------------------------------------- +
+| RuleID |   W   |   C   | Compressed bitmap (if C = 0) | Optional padding (b'0...0) |
++ ------ + ----- + ----- + ---------------------------- + -------------------------- +
+| 8 bits | 2 bit | 1 bit |       5 to 63 bits           |     0, 6 or 7 bits         |
 
 ~~~~
 {: #Fig-fragmentation-header-long-schc-ack title='SCHC ACK format, failed RCS check.'}
 
+
+Note: Because of the bitmap compression mechanism and L2 byte alignment only
+few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61. Bitmaps of 63
+bits will require 6 bits of padding.
 
 #### Receiver-Abort
 
