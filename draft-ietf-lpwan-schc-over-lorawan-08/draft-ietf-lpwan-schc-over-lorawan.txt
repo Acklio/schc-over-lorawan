@@ -656,16 +656,16 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
    a part of LoRaWAN payload.  MTU is: _4 windows * 63 tiles * 10 bytes
    per tile = 2520 bytes_
 
-   For battery powered devices, it is RECOMMENDED to use ACK mechanism
-   at the end of each window instead of waiting the end of all windows:
+   For battery powered devices, it is RECOMMENDED to use the ACK
+   mechanism at the end of each window instead of waiting until the end
+   of all windows:
 
    o  SCHC receiver SHOULD send a SCHC ACK after every window even if
-      there is no missing tiles.
+      there is no missing tile.
 
    o  SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver
-      before sending tiles from next window.  If the SCHC ACK is not
-      received, it SHOULD send an SCHC ACK REQ up to MAX_ACK_REQUESTS
-      time as described previously.
+      before sending tiles from the next window.  If the SCHC ACK is not
+
 
 
 
@@ -673,6 +673,9 @@ Gimenez & Petrov        Expires November 16, 2020              [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN                   May 2020
 
+
+      received, it SHOULD send an SCHC ACK REQ up to MAX_ACK_REQUESTS,
+      time as described previously.
 
    For non-battery powered devices, SCHC receiver MAY also choose to
    send a SCHC ACK only at the end of all windows.  It will reduce
@@ -714,9 +717,6 @@ Internet-Draft              SCHC-over-LoRaWAN                   May 2020
       Figure 9: All-1 SCHC Message: the last fragment with last tile.
 
 5.6.2.3.  SCHC ACK
-
-
-
 
 
 
