@@ -78,9 +78,9 @@ LPWAN (Low Power Wide Area Networks) technologies defined in
 {{RFC8376}}. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
-slight differences in respect of payload sizes, reactiveness, etc.
+slight differences in respect to payload sizes, reactiveness, etc.
 
-SCHC gives a generic framework that enables those devices to communicate with
+SCHC provides a generic framework that enables those devices to communicate with
 other Internet networks. However, for efficient performance, some parameters
 and modes of operation need to be set appropriately for each of the LPWAN
 technologies.
@@ -107,8 +107,6 @@ all other definitions, please look up the SCHC specification
 
   o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
      fragmentation-reassembly process
-
-  o  TBD: all significant LoRaWAN-related terms.
 
   o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI
 
@@ -146,12 +144,12 @@ Context exchange or pre-provisioning is out of scope of this document.
 
 {{Fig-archi}} represents the architecture for compression/decompression, it is
 based on {{RFC8376}} terminology. The device is sending applications flows
-using IPv6 or IPv6/UDP protocols. These flows might be compressed by an Static
+using IPv6 or IPv6/UDP protocols. These flows might be compressed by a Static
 Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
 size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
 (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
 Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if
-required, then to C/D for decompression, which shares the same rules with the
+required, then to SCHC C/D for decompression. The C/D shares the same rules with the
 device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
 another place as long as a tunnel is established between the NGW and the SCHC
 F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same
@@ -356,7 +354,7 @@ Network Gateway to device, is called downlink fragmentation session. It uses ano
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
-All ruleId can use arbitrary values inside the FPort range allowed by LoRaWAN
+All ruleID can use arbitrary values inside the FPort range allowed by LoRaWAN
 specification and MUST be shared by the device and SCHC gateway prior to
 the communication with the selected rule.
 The uplink and downlink fragmentation FPorts MUST be different.
