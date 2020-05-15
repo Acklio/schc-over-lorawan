@@ -502,7 +502,7 @@ With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 
-For battery powered SCHC sender, it is RECOMMENDED to use ACK mechanism at the
+For battery powered devices, it is RECOMMENDED to use ACK mechanism at the
 end of each window instead of waiting the end of all windows:
 
 * SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
