@@ -650,11 +650,11 @@ purposes but not SCHC needs.
 
 ~~~~
 
-| FPort  | LoRaWAN payload             |
-+ ------ + --------------------------- +
-| RuleID | W     | FCN = b'1 | RCS     |
-+ ------ + ----- + --------- + ------- +
-| 8 bits | 1 bit | 1 bit     | 32 bits |
+| FPort  | LoRaWAN payload                                 |
++ ------ + --------------------------- + ----------------- +
+| RuleID | W     | FCN = b'1 | RCS     |      Payload      |
++ ------ + ----- + --------- + ------- + ----------------- +
+| 8 bits | 1 bit | 1 bit     | 32 bits | 6 bits to X bytes |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC Message: the last fragment.'}
