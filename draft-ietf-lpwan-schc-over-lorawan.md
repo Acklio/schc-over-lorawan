@@ -341,7 +341,7 @@ as a part of the RuleID field.
 
 | FPort | LoRaWAN payload  |
 + ------------------------ +
-|       SCHC payload       |
+|       SCHC packet       |
 
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
