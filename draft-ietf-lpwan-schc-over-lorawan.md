@@ -346,11 +346,11 @@ as a part of the RuleID field.
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
 
-A fragmentation session with application payload transferred from device to
-Network Gateway, is called uplink fragmentation session. It uses an FPort for data uplink
+A fragmentation datagram with application payload transferred from device to
+Network Gateway, is called uplink fragmentation datagram. It uses an FPort for data uplink
 and its associated SCHC control downlinks, named FPortUp in this document. The
-other way, a fragmentation session with application payload transferred from
-Network Gateway to device, is called downlink fragmentation session. It uses another
+other way, a fragmentation datagram with application payload transferred from
+Network Gateway to device, is called downlink fragmentation datagram. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
@@ -380,11 +380,11 @@ means that the fragmentation is not used, thus, on reception, the SCHC Message
 MUST be sent to the C/D layer.
 
 The only uplink messages using the FPortDown port are the fragmentation SCHC
-control messages of a downlink fragmentation session (for example, SCHC ACKs).
+control messages of a downlink fragmentation datagram (for example, SCHC ACKs).
 Similarly, the only downlink messages using the FPortUp port are the
-fragmentation SCHC control messages of an uplink fragmentation session.
+fragmentation SCHC control messages of an uplink fragmentation datagram.
 
-An application can have multiple fragmentation sessions between a device and one
+An application can have multiple fragmentation datagrams between a device and one
 or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway
 instance the device is required to communicate with.
 
@@ -448,18 +448,18 @@ RuleIDs matching FPortUp and FPortDown are reserved for SCHC Fragmentation.
 The L2 Word Size used by LoRaWAN is 1 byte (8 bits).
 The SCHC fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink
 fragmentation and Ack-Always mode for downlink fragmentation. A LoRaWAN
-device cannot support simultaneous interleaved fragmentation sessions in
+device cannot support simultaneous interleaved fragmentation datagrams in
 the same direction (uplink or downlink).
 
 The fragmentation parameters are different for uplink and downlink
-fragmentation sessions and are successively described in the next sections.
+fragmentation datagrams and are successively described in the next sections.
 
 ### DTag
 
 A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same
 FPort.  This field is not used and its size is 0.
 
-Note: The device can still have several parallel fragmentation sessions with one
+Note: The device can still have several parallel fragmentation datagrams with one
 or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
 
 ### Uplink fragmentation: From device to SCHC gateway
@@ -705,7 +705,7 @@ fragment until it receives the fragment of the next window. The device SHALL
 transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device
 should transmit those ACK as soon as possible while taking into consideration
 potential local radio regulation on duty-cycle, to progress the fragmentation
-session as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
+datagram as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
 Following the reception of an FCN=All-1 fragment (the last fragment of a
 datagram) and if the RCS is correct, the device SHALL transmit the ACK with
@@ -716,7 +716,7 @@ a downlink, on SCHC FPortDown from the SCHC gateway different from an
 SCHC ACK REQ: it indicates that the SCHC gateway has received the ACK message.
 
 The fragmentation sender (the SCHC gateway) implements an inactivity timer with
-a default duration of 12 hours. Once a fragmentation session is started, if the
+a default duration of 12 hours. Once a fragmentation datagram is started, if the
 SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after
 the last message from the device was received, the SCHC gateway MAY flush the
 fragmentation context.  For devices with very low transmission rates
@@ -742,7 +742,7 @@ MAX_ACK_REQUESTS times before aborting.
 Following the reception of an FCN=All-1 fragment (the last fragment of a
 datagram) and if the RCS is correct, the device SHALL transmit the ACK with the
 "RCS is correct" indicator bit set. If the SCHC gateway receives this ACK, the
-current fragmentation session has succeeded and its context can be cleared.
+current fragmentation datagram has succeeded and its context can be cleared.
 
 If the retransmission timer elapses and the SCHC gateway has not received the
 SCHC ACK it retransmits the last fragment with the payload (not an SCHC ACK REQ
