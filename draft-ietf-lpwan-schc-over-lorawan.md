@@ -763,6 +763,18 @@ RECOMMENDED value is 12 hours for both Class B and Class C devices.
 
 ## SCHC Fragment Format
 
+### All-0 SCHC fragment
+
+**Uplink fragmentation (Ack-On-Error)**:
+
+All-0 is distinguishable from a SCHC ACK REQ as [RFC8724] states *This condition
+is also met if the SCHC Fragment Header is a multiple of L2 Words*; this
+condition met: SCHC header is 2 bytes.
+
+**Downlink fragmentation (Ack-always)**:
+
+TBC
+
 ### All-1 SCHC fragment
 
 All-1 is distinguishable from a SCHC Sender-Abort as [RFC8724] states *This
