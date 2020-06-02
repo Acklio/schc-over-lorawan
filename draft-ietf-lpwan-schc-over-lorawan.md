@@ -386,7 +386,9 @@ fragmentation SCHC control messages of an uplink fragmentation datagram.
 
 An application can have multiple fragmentation datagrams between a device and one
 or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway
-instance the device is required to communicate with.
+instance the device is required to communicate with.  The application can use
+additional uplinks or downlink fragmentation parameters but SHALL implement at
+least the parameters defined in this document.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
 
