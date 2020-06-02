@@ -773,7 +773,9 @@ condition met: SCHC header is 2 bytes.
 
 **Downlink fragmentation (Ack-always)**:
 
-TBC
+In order to distinguish an All-0 from SCHC ACK REQ, implementation must ensure
+that payload length without padding in the All-0 SCHC fragment will be strictly
+greater than 6 bits, ie All-0 SCHC message will be longer than SCHC ACK REQ.
 
 ### All-1 SCHC fragment
 
