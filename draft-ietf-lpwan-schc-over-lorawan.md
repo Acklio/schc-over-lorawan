@@ -761,6 +761,13 @@ inactivity timer is implemented by the device to flush the context in case
 it receives nothing from the SCHC gateway over an extended period of time. The
 RECOMMENDED value is 12 hours for both Class B and Class C devices.
 
+## SCHC Fragment Format
+
+### Delay after each message to respect local regulation
+
+This profile does not define a delay to be added after each SCHC message, local
+regulation compliance will be enforced by LoRaWAN stack.
+
 # Security considerations
 
 This document is only providing parameters that are expected to be best
