@@ -481,12 +481,8 @@ Packet, as per {{lorawan-schc-payload}}.
 * RCS: Use recommended calculation algorithm in [RFC8724].
 * MAX_ACK_REQUESTS: 8
 * Tile: size is 10 bytes
-* Retransmission timer: LoRaWAN devices MUST NOT implement a
-  "retransmission timer", this changes the specification of
-  [RFC8724], see {{uplink-class-a}}.  It must
-  transmit MAX_ACK_REQUESTS time the SCHC ACK REQ at it own timing; ie the
-  periodicity between retransmission of SCHC ACK REQs is device specific and
-  can vary depending on other application uplinks and regulations.
+* Retransmission timer: Set by the implementation depending on the application
+  requirements.
 * Inactivity timer: The SCHC gateway implements an "inactivity timer". The
   default RECOMMENDED duration of this timer is 12 hours; this value is mainly
   driven by application requirements and MAY be changed by the application.
