@@ -786,7 +786,7 @@ this condition met: RCS is 4 bytes.
 ### Delay after each message to respect local regulation
 
 This profile does not define a delay to be added after each SCHC message, local
-regulation compliance will be enforced by LoRaWAN stack.
+regulation compliance is expected to be enforced by LoRaWAN stack.
 
 # Security considerations
 
