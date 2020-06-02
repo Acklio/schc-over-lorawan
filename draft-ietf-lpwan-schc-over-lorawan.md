@@ -763,6 +763,12 @@ RECOMMENDED value is 12 hours for both Class B and Class C devices.
 
 ## SCHC Fragment Format
 
+### All-1 SCHC fragment
+
+All-1 is distinguishable from a SCHC Sender-Abort as [RFC8724] states *This
+condition is met if the RCS is present and is at least the size of an L2 Word*;
+this condition met: RCS is 4 bytes.
+
 ### Delay after each message to respect local regulation
 
 This profile does not define a delay to be added after each SCHC message, local
