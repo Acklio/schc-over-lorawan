@@ -602,7 +602,7 @@ bits will require 6 bits of padding.
 
 
 
-### Downlink fragmentation: From SCHC gateway to a device
+### Downlink fragmentation: From SCHC gateway to device
 
 In that case the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
