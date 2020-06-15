@@ -371,7 +371,8 @@ In order to improve interoperability RECOMMENDED fragmentation RuleID values are
 
 * RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp
 * RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown
-* RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching
+* RuleID = 22 (8-bit) for heartbeat, named FPortCommandControl
+* RuleID = 23 (8-bit) for which SCHC compression was not possible (no matching
 rule was found)
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
@@ -620,6 +621,16 @@ Packet as described in {{lorawan-schc-payload}}.
   (FCN=All-1 is reserved for SCHC).
 * RCS: Use recommended calculation algorithm in [RFC8724].
 * MAX_ACK_REQUESTS: 8
+* Retransmission timer: Set by the implementation depending on the application
+  requirements. As LoRaWAN class A devices can only receive a message after an
+  uplink the retransmission timer might expire before the SCHC ACK REQ is send
+  by the NGW.  In this case implementation SHALL ensure that only one SCHC ACK REQ
+  is queued. If the NGW is not able to provide queue status, implementation MAY
+  disable retransmission timer or set it to a value greater than the inactivity
+  timer
+* Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours;
+  this value is mainly driven by application requirements and MAY be changed by
+  the application.
 
 As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU.
@@ -684,82 +695,57 @@ purposes but not SCHC needs.
 ~~~~
 {: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an All-1 SCHC Fragment with incorrect RCS).'}
 
+#### Retransmission timer
+Class A and Class B or Class C devices do not manage retransmissions and timers
+in the same way.
 
-Class A and Class B or Class C devices do not manage retransmissions and
-timers in the same way.
-
-#### Class A devices  {#uplink-class-a}
+##### Class A devices  {#uplink-class-a}
 
 Class A devices can only receive in an RX slot following the transmission of an
-uplink.  Therefore there cannot be a concept of "retransmission timer" for an
-SCHC gateway. The SCHC gateway cannot initiate communication to a Class A
+uplink.  Therefore the SCHC gateway cannot initiate communication to a Class A
 device.
+Class A devices SHALL implement an heartbeat sending uplink on port
+FPortCommandControl with an empty payload.  It will create a downlink
+opportunity for the SCHC gateway to start a SCHC session or send the SCHC ACK
+REQ if the retransmission timer expires.  Timing is application specific,
+RECOMMENDED value is one heartbeat every 12h.
 
-The device replies with an ACK message to every single fragment received from
-the SCHC gateway (because the window size is 1). Following the reception of a
-FCN=0 fragment (fragment that is not the last fragment of the packet or
-SCHC ACK REQ, but the end of a window), the device MUST transmit the SCHC ACK
-fragment until it receives the fragment of the next window. The device SHALL
-transmit up to MAX_ACK_REQUESTS ACK messages before aborting. The device
-should transmit those ACK as soon as possible while taking into consideration
-potential local radio regulation on duty-cycle, to progress the fragmentation
-datagram as quickly as possible. The ACK bitmap is 1 bit long and is always 1.
+The device replies with an SCHC ACK message to every single fragment received
+from the SCHC gateway:
 
-Following the reception of an FCN=All-1 fragment (the last fragment of a
-datagram) and if the RCS is correct, the device SHALL transmit the ACK with
-the "RCS is correct" indicator bit set (C=1). This message might be lost
-therefore the SCHC gateway MAY request a retransmission of this ACK in the next
-downlink. The device SHALL keep this ACK message in memory until it receives
-a downlink, on SCHC FPortDown from the SCHC gateway different from an
-SCHC ACK REQ: it indicates that the SCHC gateway has received the ACK message.
+* FCN=0: All fragment but the last have an FCN=0 (because window size is 1).
+  Following it the device SHALL transmit the SCHC ACK. It SHALL transmit up to
+  MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit
+  those ACK as soon as possible while taking into consideration potential local
+  radio regulation on duty-cycle, to progress the fragmentation datagram as
+  quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
-The fragmentation sender (the SCHC gateway) implements an inactivity timer with
-a default duration of 12 hours. Once a fragmentation datagram is started, if the
-SCHC gateway has not received any ACK or Receiver-Abort message 12 hours after
-the last message from the device was received, the SCHC gateway MAY flush the
-fragmentation context.  For devices with very low transmission rates
-(example 1 packet a day in normal operation) , that duration may be extended,
-but this is application specific.
+* FCN=1: The last fragment of a datagram. If the RCS is correct, the device
+  SHALL transmit the ACK with the bit C=1. This message might be lost
+  therefore the SCHC gateway MUST request a retransmission of this ACK in the
+  next downlink when the retransmission timer expires.  The device SHALL keep
+  this ACK message in memory until it receives a downlink, on SCHC FPortDown
+  different from an SCHC ACK REQ: it indicates that the SCHC gateway has
+  received the ACK message.
 
+The SCHC gateway implements an inactivity timer with a RECOMMENDED duration
+of 48 hours. For devices with very low transmission rates (example 1 packet a
+day in normal operation), that duration may be extended, but this is application
+specific.
 
 #### Class B or Class C devices
 
-Class B and Class C devices can receive in scheduled RX slots or in RX
-slots following the transmission of an uplink. The device replies with an ACK
-message to every single fragment received from the SCHC gateway (because the
-window size is 1). Following the reception of an FCN=0 fragment (fragment that
-is not the last fragment of the packet or SCHC ACK REQ), the device MUST always
-transmit the corresponding SCHC ACK message even if that fragment has already
-been received.
-The ACK bitmap is 1 bit long and is always 1. If the SCHC gateway receives this
-ACK, it proceeds to send the next window fragment. If the retransmission timer
-elapses and the SCHC gateway has not received the ACK of the current window it
-retransmits the last fragment. The SCHC gateway tries retransmitting up to
-MAX_ACK_REQUESTS times before aborting.
+Class B devices can receive in scheduled RX slots or in RX slots following the
+transmission of an uplink. Class C devices are almost in constant reception.
+For those classes there is no need of an heartbeat to open RX window.
 
-Following the reception of an FCN=All-1 fragment (the last fragment of a
-datagram) and if the RCS is correct, the device SHALL transmit the ACK with the
-"RCS is correct" indicator bit set. If the SCHC gateway receives this ACK, the
-current fragmentation datagram has succeeded and its context can be cleared.
+RECOMMENDED retransmission timer value:
 
-If the retransmission timer elapses and the SCHC gateway has not received the
-SCHC ACK it retransmits the last fragment with the payload (not an SCHC ACK REQ
-without payload). The SCHC gateway tries retransmitting up to MAX_ACK_REQUESTS
-times before aborting.
+* Class B: 3 times the ping slot periodicity.
+* Class C: 30 seconds
 
-Following the reception of an FCN=All-1 fragment (the last fragment of a
-datagram), if all fragments have been received and if the RCS is NOT correct,
-the device SHALL transmit a Receiver-Abort fragment.  The retransmission
-timer is used by the SCHC gateway (the sender), the optimal value is very much
-application specific but here are some recommended default values.
-For Class B devices, this timer trigger is a function of the periodicity of the
-Class B ping slots. The RECOMMENDED value is equal to 3 times the Class B ping
-slot periodicity. For Class C devices which are nearly constantly receiving,
-the RECOMMENDED value is 30 seconds. This means that the device shall try to
-transmit the ACK within 30 seconds  of the reception of each fragment.  The
-inactivity timer is implemented by the device to flush the context in case
-it receives nothing from the SCHC gateway over an extended period of time. The
-RECOMMENDED value is 12 hours for both Class B and Class C devices.
+The RECOMMENDED transmission timer value is 12 hours for both Class B and Class
+C devices.
 
 ## SCHC Fragment Format
 
