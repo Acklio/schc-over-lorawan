@@ -920,9 +920,10 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    o  FCN=0: All fragment but the last have an FCN=0 (because window
       size is 1).  Following it the device MUST transmit the SCHC ACK.
       It MUST transmit up to MAX_ACK_REQUESTS ACK messages before
-      aborting.  The device should transmit those ACK as soon as
-      possible to progress the fragmentation datagram as quickly as
-      possible.  The ACK bitmap is 1 bit long and is always 1.
+      aborting.  In order to progress the fragmentation datagram as
+      quickly as possible, the device should immediately transmit those
+      ACK if no SCHC downlink have been received during RX1 and RX2
+      window.  The ACK bitmap is 1 bit long and is always 1.
 
    o  FCN=1: The last fragment of a datagram.  If the RCS is correct,
       the device SHALL transmit the ACK with the bit C=1.  This message
@@ -945,7 +946,6 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    in constant reception.  For those classes there is no need of an
    heartbeat to open RX window.
 
-   RECOMMENDED retransmission timer value:
 
 
 
@@ -953,6 +953,8 @@ Gimenez & Petrov        Expires December 18, 2020              [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2020
 
+
+   RECOMMENDED retransmission timer value:
 
    o  Class B: 3 times the ping slot periodicity.
 
@@ -999,8 +1001,6 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    LoRaWAN level by an AES-128 encryption with key shared by device and
    SCHC gateway.  Those keys are renewed at each LoRaWAN session (ie:
    each join or rejoin to the network)
-
-
 
 
 
