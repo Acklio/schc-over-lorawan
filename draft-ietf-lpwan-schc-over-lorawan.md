@@ -696,6 +696,7 @@ purposes but not SCHC needs.
 {: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an All-1 SCHC Fragment with incorrect RCS).'}
 
 #### Retransmission timer
+
 Class A and Class B or Class C devices do not manage retransmissions and timers
 in the same way.
 
@@ -704,26 +705,25 @@ in the same way.
 Class A devices can only receive in an RX slot following the transmission of an
 uplink.  Therefore the SCHC gateway cannot initiate communication to a Class A
 device.
-Class A devices SHALL implement an heartbeat sending uplink on port
+Class A devices MUST implement an heartbeat sending uplink on port
 FPortCommandControl with an empty payload.  It will create a downlink
 opportunity for the SCHC gateway to start a SCHC session or send the SCHC ACK
 REQ if the retransmission timer expires.  Timing is application specific,
 RECOMMENDED value is one heartbeat every 12h.
 
-The device replies with an SCHC ACK message to every single fragment received
+The device replies with a SCHC ACK message to every single fragment received
 from the SCHC gateway:
 
 * FCN=0: All fragment but the last have an FCN=0 (because window size is 1).
-  Following it the device SHALL transmit the SCHC ACK. It SHALL transmit up to
+  Following it the device MUST transmit the SCHC ACK. It MUST transmit up to
   MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit
-  those ACK as soon as possible while taking into consideration potential local
-  radio regulation on duty-cycle, to progress the fragmentation datagram as
+  those ACK as soon as possible to progress the fragmentation datagram as
   quickly as possible. The ACK bitmap is 1 bit long and is always 1.
 
 * FCN=1: The last fragment of a datagram. If the RCS is correct, the device
   SHALL transmit the ACK with the bit C=1. This message might be lost
   therefore the SCHC gateway MUST request a retransmission of this ACK in the
-  next downlink when the retransmission timer expires.  The device SHALL keep
+  next downlink when the retransmission timer expires.  The device MUST keep
   this ACK message in memory until it receives a downlink, on SCHC FPortDown
   different from an SCHC ACK REQ: it indicates that the SCHC gateway has
   received the ACK message.
