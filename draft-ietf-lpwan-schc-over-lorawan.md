@@ -709,9 +709,10 @@ from the SCHC gateway:
 
 * FCN=0: All fragment but the last have an FCN=0 (because window size is 1).
   Following it the device MUST transmit the SCHC ACK. It MUST transmit up to
-  MAX_ACK_REQUESTS ACK messages before aborting. The device should transmit
-  those ACK as soon as possible to progress the fragmentation datagram as
-  quickly as possible. The ACK bitmap is 1 bit long and is always 1.
+  MAX_ACK_REQUESTS ACK messages before aborting. In order to progress the
+  fragmentation datagram as quickly as possible, the device should immediately
+  transmit those ACK if no SCHC downlink have been received during RX1 and RX2
+  window. The ACK bitmap is 1 bit long and is always 1.
 
 * FCN=1: The last fragment of a datagram. If the RCS is correct, the device
   SHALL transmit the ACK with the bit C=1. This message might be lost
