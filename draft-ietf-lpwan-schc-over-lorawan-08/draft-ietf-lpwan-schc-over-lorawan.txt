@@ -808,20 +808,12 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    o  DTag: Size is 0 bit, not used
 
    o  FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
-      (FCN=All-1 is reserved for SCHC).
 
    o  RCS: Use recommended calculation algorithm in [RFC8724].
 
    o  MAX_ACK_REQUESTS: 8
 
-   o  Retransmission timer: Set by the implementation depending on the
-      application requirements.  As LoRaWAN class A devices can only
-      receive a message after an uplink the retransmission timer might
-      expire before the SCHC ACK REQ is send by the NGW.  In this case
-      implementation SHALL ensure that only one SCHC ACK REQ is queued.
-      If the NGW is not able to provide queue status, implementation MAY
-      disable retransmission timer or set it to a value greater than the
-      inactivity timer
+   o  Retransmission timer: See Section 5.6.3.5
 
    o  Inactivity timer: The default RECOMMENDED duration of this timer
       is 12 hours; this value is mainly driven by application
@@ -834,6 +826,14 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    used for SCHC-over-LoRaWAN protocol.  It might be set by the Network
    Gateway for other purposes but not SCHC needs.
 
+5.6.3.1.  Regular fragments
+
+
+
+
+
+
+
 
 
 
@@ -841,8 +841,6 @@ Gimenez & Petrov        Expires December 18, 2020              [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN                  June 2020
 
-
-5.6.3.1.  Regular fragments
 
    | FPort  | LoRaWAN payload                      |
    + ------ + ------------------------------------ +
@@ -889,6 +887,8 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
 
     Figure 16: Receiver-Abort packet (following an All-1 SCHC Fragment
                            with incorrect RCS).
+
+
 
 
 
@@ -973,10 +973,9 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
 
    *Downlink fragmentation (Ack-always)*:
 
-   In order to distinguish an All-0 from SCHC ACK REQ, implementation
-   must ensure that payload length without padding in the All-0 SCHC
-   fragment will be strictly greater than 6 bits, ie All-0 SCHC message
-   will be longer than SCHC ACK REQ.
+   As per [RFC8724] the SCHC All-1 MUST contain the last tile,
+   implementation must ensure that All-0 message Payload will be at
+   least the size of an L2 Word.
 
 5.7.2.  All-1 SCHC fragment
 
@@ -1000,6 +999,7 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
    LoRaWAN level by an AES-128 encryption with key shared by device and
    SCHC gateway.  Those keys are renewed at each LoRaWAN session (ie:
    each join or rejoin to the network)
+
 
 
 

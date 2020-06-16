@@ -813,10 +813,11 @@ ul.toc li {
 <li>RuleID: 8 bits stored in LoRaWAN FPort.</li>
 <li>Window index (unicast only): encoded on W=1 bit, as per <a href="#RFC8724" class="xref">[RFC8724]</a>.</li>
 <li>DTag: Size is 0 bit, not used</li>
-<li>FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile (FCN=All-1 is reserved for SCHC).</li>
+<li>FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile</li>
 <li>RCS: Use recommended calculation algorithm in <a href="#RFC8724" class="xref">[RFC8724]</a>.</li>
 <li>MAX_ACK_REQUESTS: 8</li>
-<li>Retransmission timer: Set by the implementation depending on the application requirements. As LoRaWAN class A devices can only receive a message after an uplink the retransmission timer might expire before the SCHC ACK REQ is send by the NGW.  In this case implementation SHALL ensure that only one SCHC ACK REQ is queued. If the NGW is not able to provide queue status, implementation MAY disable retransmission timer or set it to a value greater than the inactivity timer</li>
+<li>Retransmission timer:  See <a href="#downlink-retransmission-timer" class="xref">Section 5.6.3.5</a>
+</li>
 <li>Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours; this value is mainly driven by application requirements and MAY be changed by the application.</li>
 </ul>
 <p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
@@ -880,11 +881,11 @@ ul.toc li {
 </pre>
 <p class="figure">Figure 16: Receiver-Abort packet (following an All-1 SCHC Fragment with incorrect RCS).</p>
 <h1 id="rfc.section.5.6.3.5">
-<a href="#rfc.section.5.6.3.5">5.6.3.5.</a> <a href="#retransmission-timer" id="retransmission-timer">Retransmission timer</a>
+<a href="#rfc.section.5.6.3.5">5.6.3.5.</a> <a href="#downlink-retransmission-timer" id="downlink-retransmission-timer">Retransmission timer</a>
 </h1>
 <p id="rfc.section.5.6.3.5.p.1">Class A and Class B or Class C devices do not manage retransmissions and timers in the same way.</p>
 <h1 id="rfc.section.5.6.3.5.1">
-<a href="#rfc.section.5.6.3.5.1">5.6.3.5.1.</a> <a href="#uplink-class-a" id="uplink-class-a">Class A devices</a>
+<a href="#rfc.section.5.6.3.5.1">5.6.3.5.1.</a> <a href="#class-a-devices" id="class-a-devices">Class A devices</a>
 </h1>
 <p id="rfc.section.5.6.3.5.1.p.1">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore the SCHC gateway cannot initiate communication to a Class A device.  Class A devices MUST implement an heartbeat sending uplink on port FPortCommandControl with an empty payload.  It will create a downlink opportunity for the SCHC gateway to start a SCHC session or send the SCHC ACK REQ if the retransmission timer expires.  Timing is application specific, RECOMMENDED value is one heartbeat every 12h.</p>
 <p id="rfc.section.5.6.3.5.1.p.2">The device replies with a SCHC ACK message to every single fragment received from the SCHC gateway:</p>
@@ -916,7 +917,7 @@ ul.toc li {
 <p><strong>Uplink fragmentation (Ack-On-Error)</strong>:</p>
 <p id="rfc.section.5.7.1.p.2">All-0 is distinguishable from a SCHC ACK REQ as <a href="#RFC8724" class="xref">[RFC8724]</a> states <em>This condition is also met if the SCHC Fragment Header is a multiple of L2 Words</em>; this condition met: SCHC header is 2 bytes.</p>
 <p><strong>Downlink fragmentation (Ack-always)</strong>:</p>
-<p id="rfc.section.5.7.1.p.4">In order to distinguish an All-0 from SCHC ACK REQ, implementation must ensure that payload length without padding in the All-0 SCHC fragment will be strictly greater than 6 bits, ie All-0 SCHC message will be longer than SCHC ACK REQ.</p>
+<p id="rfc.section.5.7.1.p.4">As per <a href="#RFC8724" class="xref">[RFC8724]</a> the SCHC All-1 MUST contain the last tile, implementation must ensure that All-0 message Payload will be at least the size of an L2 Word.</p>
 <h1 id="rfc.section.5.7.2">
 <a href="#rfc.section.5.7.2">5.7.2.</a> <a href="#all-1-schc-fragment" id="all-1-schc-fragment">All-1 SCHC fragment</a>
 </h1>
