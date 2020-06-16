@@ -618,16 +618,9 @@ Packet as described in {{lorawan-schc-payload}}.
 * Window index (unicast only): encoded on W=1 bit, as per [RFC8724].
 * DTag: Size is 0 bit, not used
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
-  (FCN=All-1 is reserved for SCHC).
 * RCS: Use recommended calculation algorithm in [RFC8724].
 * MAX_ACK_REQUESTS: 8
-* Retransmission timer: Set by the implementation depending on the application
-  requirements. As LoRaWAN class A devices can only receive a message after an
-  uplink the retransmission timer might expire before the SCHC ACK REQ is send
-  by the NGW.  In this case implementation SHALL ensure that only one SCHC ACK REQ
-  is queued. If the NGW is not able to provide queue status, implementation MAY
-  disable retransmission timer or set it to a value greater than the inactivity
-  timer
+* Retransmission timer:  See {{downlink-retransmission-timer}}
 * Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours;
   this value is mainly driven by application requirements and MAY be changed by
   the application.
@@ -695,12 +688,12 @@ purposes but not SCHC needs.
 ~~~~
 {: #Fig-fragmentation-downlink-header-abort title='Receiver-Abort packet (following an All-1 SCHC Fragment with incorrect RCS).'}
 
-#### Retransmission timer
+#### Retransmission timer {#downlink-retransmission-timer}
 
 Class A and Class B or Class C devices do not manage retransmissions and timers
 in the same way.
 
-##### Class A devices  {#uplink-class-a}
+##### Class A devices
 
 Class A devices can only receive in an RX slot following the transmission of an
 uplink.  Therefore the SCHC gateway cannot initiate communication to a Class A
