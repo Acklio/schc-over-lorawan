@@ -738,7 +738,7 @@ RECOMMENDED retransmission timer value:
 * Class B: 3 times the ping slot periodicity.
 * Class C: 30 seconds
 
-The RECOMMENDED transmission timer value is 12 hours for both Class B and Class
+The RECOMMENDED inactivity timer value is 12 hours for both Class B and Class
 C devices.
 
 ## SCHC Fragment Format
