@@ -824,11 +824,11 @@ Internet-Draft              SCHC-over-LoRaWAN                  June 2020
 
    Class A devices can only receive in an RX slot following the
    transmission of an uplink.  Therefore the SCHC gateway cannot
-   initiate communication to a Class A device: It is RECOMMENDED for
-   Class A devices to send an uplink every 24 hours when no SCHC session
-   is started.  It will create a downlink opportunity for the SCHC
-   gateway to start a SCHC session.  This timing is application
-   specific.
+   initiate communication (ex: new SCHC session); in order to create a
+   downlink opportunity it is RECOMMENDED for Class A devices to send an
+   uplink every 24 hours when no SCHC session is started, this is is
+   application specific and can be disabled.  RECOMMENDED uplink is a
+   LoRaWAN message without FPort and FRM payload.
 
    _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be
    used for SCHC-over-LoRaWAN protocol.  It might be set by the Network

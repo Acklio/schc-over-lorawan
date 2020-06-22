@@ -820,7 +820,7 @@ ul.toc li {
 <li>Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours; this value is mainly driven by application requirements and MAY be changed by the application.</li>
 </ul>
 <p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
-<p id="rfc.section.5.6.3.p.4">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore the SCHC gateway cannot initiate communication to a Class A device: It is RECOMMENDED for Class A devices to send an uplink every 24 hours when no SCHC session is started. It will create a downlink opportunity for the SCHC gateway to start a SCHC session.  This timing is application specific.</p>
+<p id="rfc.section.5.6.3.p.4">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC session);  in order to create a downlink opportunity it is RECOMMENDED for Class A devices to send an uplink every 24 hours when no SCHC session is started, this is is application specific and can be disabled. RECOMMENDED uplink is a LoRaWAN message without FPort and FRM payload.</p>
 <p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other purposes but not SCHC needs.</p>
 <h1 id="rfc.section.5.6.3.1">
 <a href="#rfc.section.5.6.3.1">5.6.3.1.</a> <a href="#regular-fragments-1" id="regular-fragments-1">Regular fragments</a>
