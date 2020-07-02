@@ -287,9 +287,10 @@ ul.toc li {
 <link href="#rfc.section.4" rel="Chapter" title="4 LoRaWAN Architecture">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 Device classes (A, B, C) and interactions">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 Device addressing">
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 General Message Types">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 General Frame Types">
 <link href="#rfc.section.4.4" rel="Chapter" title="4.4 LoRaWAN MAC Frames">
-<link href="#rfc.section.4.5" rel="Chapter" title="4.5 Unicast and multicast technology">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 LoRaWAN empty frame">
+<link href="#rfc.section.4.6" rel="Chapter" title="4.6 Unicast and multicast technology">
 <link href="#rfc.section.5" rel="Chapter" title="5 SCHC-over-LoRaWAN">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 LoRaWAN FPort">
 <link href="#rfc.section.5.2" rel="Chapter" title="5.2 Rule ID management">
@@ -390,11 +391,13 @@ ul.toc li {
 </li>
 <li>4.2.   <a href="#rfc.section.4.2">Device addressing</a>
 </li>
-<li>4.3.   <a href="#rfc.section.4.3">General Message Types</a>
+<li>4.3.   <a href="#rfc.section.4.3">General Frame Types</a>
 </li>
 <li>4.4.   <a href="#rfc.section.4.4">LoRaWAN MAC Frames</a>
 </li>
-<li>4.5.   <a href="#rfc.section.4.5">Unicast and multicast technology</a>
+<li>4.5.   <a href="#rfc.section.4.5">LoRaWAN empty frame</a>
+</li>
+<li>4.6.   <a href="#rfc.section.4.6">Unicast and multicast technology</a>
 </li>
 </ul><li>5.   <a href="#rfc.section.5">SCHC-over-LoRaWAN</a>
 </li>
@@ -462,9 +465,10 @@ ul.toc li {
 <p id="rfc.section.2.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a> <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
 <p id="rfc.section.2.p.2">This section defines the terminology and acronyms used in this document. For all other definitions, please look up the SCHC specification <a href="#RFC8724" class="xref">[RFC8724]</a>.</p>
 <p id="rfc.section.2.p.3">o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the procedure while joining the network (Join Procedure)</p>
-<p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to an device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
+<p id="rfc.section.2.p.4">o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or dynamically after a Join Procedure (depending on the activation mode)</p>
 <p id="rfc.section.2.p.5">o  RCS: Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process</p>
 <p id="rfc.section.2.p.6">o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI</p>
+<p id="rfc.section.2.p.7">o  SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages translation between IPv6 network and the Network Gateway (LoRaWAN Network Server)</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#static-context-header-compression-overview" id="static-context-header-compression-overview">Static Context Header Compression Overview</a>
 </h1>
@@ -521,7 +525,7 @@ ul.toc li {
 <a href="#rfc.section.4">4.</a> <a href="#lorawan-architecture" id="lorawan-architecture">LoRaWAN Architecture</a>
 </h1>
 <p id="rfc.section.4.p.1">An overview of LoRaWAN <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a> protocol and architecture is described in <a href="#RFC8376" class="xref">[RFC8376]</a>. The mapping between the LPWAN architecture entities as described in <a href="#RFC8724" class="xref">[RFC8724]</a> and the ones in <a href="#lora-alliance-spec" class="xref">[lora-alliance-spec]</a> is as follows:</p>
-<p id="rfc.section.4.p.2">o Devices are LoRaWAN End Devices (e.g. sensors, actuators, etc.).  There can be a very high density of devices per radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN device.</p>
+<p id="rfc.section.4.p.2">o Devices are LoRaWAN End Devices (e.g. sensors, actuators, etc.).  There can be a very high density of devices per radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN end-device.</p>
 <p id="rfc.section.4.p.3">o The Radio Gateway (RGW), which is the endpoint of the constrained link. This entity maps to the LoRaWAN Gateway.</p>
 <p id="rfc.section.4.p.4">o The Network Gateway (NGW) is the interconnection node between the Radio Gateway and the Internet. This entity maps to the LoRaWAN Network Server.</p>
 <p id="rfc.section.4.p.5">o SCHC F/R and SCHC C/D are LoRaWAN Application Server; ie the LoRaWAN application server will do the C/D and F/R.</p>
@@ -538,7 +542,7 @@ ul.toc li {
 
 </pre>
 <p class="figure">Figure 3: LPWAN Architecture</p>
-<p id="rfc.section.4.p.6">SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly) are performed on the LoRaWAN device and the Application Server (called SCHC gateway). While the point-to-point link between the device and the Application Server constitutes single IP hop, the ultimate end-point of the IP communication may be an Internet node beyond the Application Server.  In other words, the LoRaWAN Application Server (SCHC gateway) acts as the first hop IP router for the device. The Application Server and Network Server may be co-located, which effectively turns the Network/Application Server into the first hop IP router.</p>
+<p id="rfc.section.4.p.6">SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly) are performed on the LoRaWAN end-device and the Application Server (called SCHC gateway). While the point-to-point link between the device and the Application Server constitutes single IP hop, the ultimate end-point of the IP communication may be an Internet node beyond the Application Server.  In other words, the LoRaWAN Application Server (SCHC gateway) acts as the first hop IP router for the device. The Application Server and Network Server may be co-located, which effectively turns the Network/Application Server into the first hop IP router.</p>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#device-classes-a-b-c-and-interactions" id="device-classes-a-b-c-and-interactions">Device classes (A, B, C) and interactions</a>
 </h1>
@@ -546,50 +550,54 @@ ul.toc li {
 <p></p>
 
 <ul>
-<li>Class A: The Class A is the simplest class of devices. The device is allowed to transmit at any time, randomly selecting a communication channel.  The network may reply with a downlink in one of the 2 receive windows immediately following the uplinks. Therefore, the network cannot initiate a downlink, it has to wait for the next uplink from the device to get a downlink opportunity. The Class A is the lowest power device class.</li>
-<li>Class B: Class B devices implement all the functionalities of Class A devices, but also schedule periodic listen windows. Therefore, opposed to the Class A devices, Class B devices can receive downlinks that are initiated by the network and not following an uplink. There is a trade-off between the periodicity of those scheduled Class B listen windows and the power consumption of the device. The lower the downlink latency, the higher the power consumption.</li>
+<li>Class A: The Class A is the simplest class of devices. The device is allowed to transmit at any time, randomly selecting a communication channel.  The Network Gateway may reply with a downlink in one of the 2 receive windows immediately following the uplinks. Therefore, the Network Gateway cannot initiate a downlink, it has to wait for the next uplink from the device to get a downlink opportunity. The Class A is the lowest power device class.</li>
+<li>Class B: Class B devices implement all the functionalities of Class A devices, but also schedule periodic listen windows. Therefore, opposed to the Class A devices, Class B devices can receive downlinks that are initiated by the Network Gateway and not following an uplink. There is a trade-off between the periodicity of those scheduled Class B listen windows and the power consumption of the device. The lower the downlink latency, the higher the power consumption.</li>
 <li>Class C: Class C devices implement all the functionalities of Class A devices, but keep their receiver open whenever they are not transmitting.  Class C devices can receive downlinks at any time at the expense of a higher power consumption. Battery-powered devices can only operate in Class C for a limited amount of time (for example for a firmware upgrade over-the-air).  Most of the Class C devices are grid powered (for example Smart Plugs).</li>
 </ul>
 <h1 id="rfc.section.4.2">
 <a href="#rfc.section.4.2">4.2.</a> <a href="#device-addressing" id="device-addressing">Device addressing</a>
 </h1>
-<p id="rfc.section.4.2.p.1">LoRaWAN devices use a 32-bit network address (devAddr) to communicate with the network over-the-air, this address might not be unique in a LoRaWAN network; devices using the same devAddr are distinguished by the Network Gateway based on the cryptographic signature appended to every LoRaWAN frame.</p>
-<p id="rfc.section.4.2.p.2">To communicate with the SCHC gateway the Network Gateway MUST identify the devices by a unique 64-bit device identifier called the devEUI.</p>
-<p id="rfc.section.4.2.p.3">The devEUI is assigned to the device during the manufacturing process by the device&#8217;s manufacturer. It is built like an Ethernet MAC address by concatenating the manufacturer&#8217;s IEEE OUI field with a vendor unique number.  e.g.: 24-bit OUI is concatenated with a 40-bit serial number.  The Network Gateway translates the devAddr into a devEUI in the uplink direction and reciprocally on the downlink direction.</p>
+<p id="rfc.section.4.2.p.1">LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with the Network Gateway over-the-air, this address might not be unique in a LoRaWAN network; devices using the same devAddr are distinguished by the Network Gateway based on the cryptographic signature appended to every LoRaWAN frame.</p>
+<p id="rfc.section.4.2.p.2">To communicate with the SCHC gateway the Network Gateway MUST identify the devices by a unique 64-bit device identifier called the DevEUI.</p>
+<p id="rfc.section.4.2.p.3">The DevEUI is assigned to the device during the manufacturing process by the device&#8217;s manufacturer. It is built like an Ethernet MAC address by concatenating the manufacturer&#8217;s IEEE OUI field with a vendor unique number.  e.g.: 24-bit OUI is concatenated with a 40-bit serial number.  The Network Gateway translates the devAddr into a DevEUI in the uplink direction and reciprocally on the downlink direction.</p>
 <div id="rfc.figure.4"></div>
 <div id="Fig-LoRaWANaddresses"></div>
 <pre>
 +--------+         +---------+        +---------+            +----------+
 | Device | &lt;=====&gt; | Network | &lt;====&gt; | SCHC    | &lt;========&gt; | Internet |
-|        | devAddr | Gateway | devEUI | Gateway |  IPv6/UDP  |          |
+|        | devAddr | Gateway | DevEUI | Gateway |  IPv6/UDP  |          |
 +--------+         +---------+        +---------+            +----------+
 
 </pre>
 <p class="figure">Figure 4: LoRaWAN addresses</p>
 <h1 id="rfc.section.4.3">
-<a href="#rfc.section.4.3">4.3.</a> <a href="#general-message-types" id="general-message-types">General Message Types</a>
+<a href="#rfc.section.4.3">4.3.</a> <a href="#general-frame-types" id="general-frame-types">General Frame Types</a>
 </h1>
 <p></p>
 
 <ul>
-<li>Confirmed messages: The sender asks the receiver to acknowledge the message.</li>
-<li>Unconfirmed messages: The sender does not ask the receiver to acknowledge the message.</li>
+<li>LoRaWAN Confirmed message: The sender asks the receiver to acknowledge the message.</li>
+<li>LoRaWAN Unconfirmed message: The sender does not ask the receiver to acknowledge the message.</li>
 </ul>
-<p id="rfc.section.4.3.p.2">As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use confirmed messages.</p>
+<p id="rfc.section.4.3.p.2">As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use LoRaWAN Confirmed messages.</p>
 <h1 id="rfc.section.4.4">
 <a href="#rfc.section.4.4">4.4.</a> <a href="#lorawan-mac-frames" id="lorawan-mac-frames">LoRaWAN MAC Frames</a>
 </h1>
 <p></p>
 
 <ul>
-<li>JoinRequest: This message is used by an device to join a network. It contains the device&#8217;s unique identifier devEUI and a random nonce that will be used for session key derivation.</li>
-<li>JoinAccept: To on-board an device, the Network Gateway responds to the JoinRequest issued by an device with a JoinAccept message. That message is encrypted with the device&#8217;s AppKey and contains (amongst other fields) the major network&#8217;s settings and a network random nonce used to derive the session keys.</li>
+<li>JoinRequest: This message is used by a device to join a network. It contains the device&#8217;s unique identifier DevEUI and a random nonce that will be used for session key derivation.</li>
+<li>JoinAccept: To on-board a device, the Network Gateway responds to the JoinRequest issued by a device with a JoinAccept message. That message is encrypted with the device&#8217;s AppKey and contains (amongst other fields) the major network&#8217;s settings and a random nonce used to derive the session keys.</li>
 <li>Data: MAC and application data. Application data are protected with AES-128 encryption, MAC related data are AES-128 encrypted with another key.</li>
 </ul>
 <h1 id="rfc.section.4.5">
-<a href="#rfc.section.4.5">4.5.</a> <a href="#unicast-and-multicast-technology" id="unicast-and-multicast-technology">Unicast and multicast technology</a>
+<a href="#rfc.section.4.5">4.5.</a> <a href="#lorawan-empty-frame" id="lorawan-empty-frame">LoRaWAN empty frame</a>
 </h1>
-<p id="rfc.section.4.5.p.1">LoRaWAN technology supports unicast downlinks, but also multicast: a packet send over LoRaWAN radio link can be received by several devices.  It is useful to address many devices with same content, either a large binary file (firmware upgrade), or same command (e.g: lighting control).  As IPv6 is also a multicast technology this feature can be used to address a group of devices.</p>
+<p id="rfc.section.4.5.p.1">A LoRaWAN empty frame is a LoRaWAN message without FPort and FRM payload.</p>
+<h1 id="rfc.section.4.6">
+<a href="#rfc.section.4.6">4.6.</a> <a href="#unicast-and-multicast-technology" id="unicast-and-multicast-technology">Unicast and multicast technology</a>
+</h1>
+<p id="rfc.section.4.6.p.1">LoRaWAN technology supports unicast downlinks, but also multicast: a packet send over LoRaWAN radio link can be received by several devices.  It is useful to address many devices with same content, either a large binary file (firmware upgrade), or same command (e.g: lighting control).  As IPv6 is also a multicast technology this feature can be used to address a group of devices.</p>
 <p><em>Note 1</em>: IPv6 multicast addresses must be defined as per <a href="#RFC4291" class="xref">[RFC4291]</a>.  LoRaWAN multicast group definition in a Network Gateway and the relation between those groups and IPv6 groupID are out of scope of this document.</p>
 <p><em>Note 2</em>: LoRa Alliance defined <a href="#lora-alliance-remote-multicast-set" class="xref">[lora-alliance-remote-multicast-set]</a> as RECOMMENDED way to setup multicast groups on devices and create a synchronized reception window.</p>
 <h1 id="rfc.section.5">
@@ -605,7 +613,7 @@ ul.toc li {
 <pre>
 | FPort | LoRaWAN payload  |
 + ------------------------ +
-|       SCHC packet       |
+|       SCHC packet        |
 
 </pre>
 <p class="figure">Figure 5: SCHC Message in LoRaWAN</p>
@@ -635,18 +643,18 @@ ul.toc li {
 
 <ol>
 <li>key = LoRaWAN AppSKey</li>
-<li>cmac = aes128_cmac(key, devEui)</li>
+<li>cmac = aes128_cmac(key, DevEUI)</li>
 <li>IID = cmac[0..7]</li>
 </ol>
 <p id="rfc.section.5.3.p.3">aes128_cmac algorithm is described in <a href="#RFC4493" class="xref">[RFC4493]</a>. It has been chosen as it is already used by devices for LoRaWAN protocol.</p>
-<p id="rfc.section.5.3.p.4">As AppSKey is renewed each time a device joins or rejoins a network, the IID will change over time; this mitigates privacy, location tracking and correlation over time risks. Join periodicity is defined at the application level.</p>
+<p id="rfc.section.5.3.p.4">As AppSKey is renewed each time a device joins or rejoins a LoRaWAN network, the IID will change over time; this mitigates privacy, location tracking and correlation over time risks. Join periodicity is defined at the application level.</p>
 <p id="rfc.section.5.3.p.5">Address scan risk is mitigated thanks to AES-128, which provides enough entropy bits of the IID.</p>
-<p id="rfc.section.5.3.p.6">Using this algorithm will also ensure that there is no correlation between the hardware identifier (IEEE-64 devEUI) and the IID, so an attacker cannot use manufacturer OUI to target devices.</p>
+<p id="rfc.section.5.3.p.6">Using this algorithm will also ensure that there is no correlation between the hardware identifier (IEEE-64 DevEUI) and the IID, so an attacker cannot use manufacturer OUI to target devices.</p>
 <p id="rfc.section.5.3.p.7">Example with:</p>
 <p></p>
 
 <ul>
-<li>devEui: 0x1122334455667788</li>
+<li>DevEUI: 0x1122334455667788</li>
 <li>appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB</li>
 </ul>
 <div id="rfc.figure.6"></div>
@@ -657,7 +665,7 @@ ul.toc li {
 3. IID: 0xBA59F4B196C6C343
 </pre>
 <p class="figure">Figure 6: Example of IID computation.</p>
-<p id="rfc.section.5.3.p.9">There is a small probability of IID collision in a network, if such event occurs the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN join).  The way the device is rekeyed is out of scope of this document and left to the implementation.</p>
+<p id="rfc.section.5.3.p.9">There is a small probability of IID collision in a LoRaWAN network, if such event occurs the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN join).  The way the device is rekeyed is out of scope of this document and left to the implementation.</p>
 <h1 id="rfc.section.5.4">
 <a href="#rfc.section.5.4">5.4.</a> <a href="#padding" id="padding">Padding</a>
 </h1>
@@ -675,7 +683,7 @@ ul.toc li {
 <h1 id="rfc.section.5.6.1">
 <a href="#rfc.section.5.6.1">5.6.1.</a> <a href="#dtag" id="dtag">DTag</a>
 </h1>
-<p id="rfc.section.5.6.1.p.1">A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same FPort.  This field is not used and its size is 0.</p>
+<p id="rfc.section.5.6.1.p.1">A Device cannot interleave several fragmented SCHC datagrams on the same FPort.  This field is not used and its size is 0.</p>
 <p id="rfc.section.5.6.1.p.2">Note: The device can still have several parallel fragmentation datagrams with one or more SCHC gateway(s) thanks to distinct sets of FPorts, cf <a href="#rule-id-management" class="xref">Section 5.2</a></p>
 <h1 id="rfc.section.5.6.2">
 <a href="#rfc.section.5.6.2">5.6.2.</a> <a href="#uplink-fragmentation-from-device-to-schc-gateway" id="uplink-fragmentation-from-device-to-schc-gateway">Uplink fragmentation: From device to SCHC gateway</a>
@@ -711,7 +719,7 @@ ul.toc li {
 <li>SCHC receiver SHOULD send a SCHC ACK after every window even if there is no missing tile.</li>
 <li>SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending tiles from the next window. If the SCHC ACK is not received, it SHOULD send an SCHC ACK REQ up to MAX_ACK_REQUESTS, time as described previously.</li>
 </ul>
-<p id="rfc.section.5.6.2.p.6">For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC ACK only at the end of all windows. It will reduce downlink load on the network, by reducing the number of downlinks.</p>
+<p id="rfc.section.5.6.2.p.6">For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC ACK only at the end of all windows. It will reduce downlink load on the LoRaWAN network, by reducing the number of downlinks.</p>
 <p id="rfc.section.5.6.2.p.7">SCHC implementations MUST be compatible with both behavior, and selection is a part of the rule context.</p>
 <h1 id="rfc.section.5.6.2.1">
 <a href="#rfc.section.5.6.2.1">5.6.2.1.</a> <a href="#regular-fragments" id="regular-fragments">Regular fragments</a>
@@ -758,15 +766,15 @@ ul.toc li {
 <div id="rfc.figure.10"></div>
 <div id="Fig-fragmentation-header-long-schc-ack"></div>
 <pre>
-| FPort  | LoRaWAN payload                                                           |
-+ ------ + ------------------------------------------------------------------------- +
-| RuleID |   W   |   C   | Compressed bitmap (if C = 0) | Optional padding (b'0...0) |
-+ ------ + ----- + ----- + ---------------------------- + -------------------------- +
-| 8 bits | 2 bit | 1 bit |       5 to 63 bits           |     0, 6 or 7 bits         |
+| FPort  | LoRaWAN payload                                                      |
++ ------ + -------------------------------------------------------------------- +
+| RuleID |   W   |   C   | Compressed bitmap(C = 0) | Optional padding(b'0...0) |
++ ------ + ----- + ----- + ------------------------ + ------------------------- +
+| 8 bits | 2 bit | 1 bit |       5 to 63 bits       |      0, 6 or 7 bits       |
 
 </pre>
 <p class="figure">Figure 10: SCHC ACK format, failed RCS check.</p>
-<p id="rfc.section.5.6.2.3.p.1">Note: Because of the bitmap compression mechanism and L2 byte alignment only few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61. Bitmaps of 63 bits will require 6 bits of padding.</p>
+<p id="rfc.section.5.6.2.3.p.1">Note: Because of the bitmap compression mechanism and L2 byte alignment only few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61, 62, 63.  Bitmaps of 63 bits will require 6 bits of padding.</p>
 <h1 id="rfc.section.5.6.2.4">
 <a href="#rfc.section.5.6.2.4">5.6.2.4.</a> <a href="#receiver-abort" id="receiver-abort">Receiver-Abort</a>
 </h1>
@@ -820,7 +828,7 @@ ul.toc li {
 <li>Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours; this value is mainly driven by application requirements and MAY be changed by the application.</li>
 </ul>
 <p id="rfc.section.5.6.3.p.3">As only 1 tile is used, its size can change for each downlink, and will be maximum available MTU.</p>
-<p id="rfc.section.5.6.3.p.4">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC session);  in order to create a downlink opportunity it is RECOMMENDED for Class A devices to send an uplink every 24 hours when no SCHC session is started, this is is application specific and can be disabled. RECOMMENDED uplink is a LoRaWAN message without FPort and FRM payload.</p>
+<p id="rfc.section.5.6.3.p.4">Class A devices can only receive in an RX slot following the transmission of an uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC session);  in order to create a downlink opportunity it is RECOMMENDED for Class A devices to send an uplink every 24 hours when no SCHC session is started, this is is application specific and can be disabled. RECOMMENDED uplink is a LoRaWAN empty frame as defined <a href="#lorawan-empty-frame" class="xref">Section 4.5</a>.</p>
 <p><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other purposes but not SCHC needs.</p>
 <h1 id="rfc.section.5.6.3.1">
 <a href="#rfc.section.5.6.3.1">5.6.3.1.</a> <a href="#regular-fragments-1" id="regular-fragments-1">Regular fragments</a>
@@ -892,7 +900,7 @@ ul.toc li {
 <p id="rfc.section.5.6.3.5.1.p.3">RETRANSMISSION_TIMER is application specific and its RECOMMENDED value is INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).</p>
 <p><strong>SCHC All-0 (FCN=0)</strong> All fragment but the last have an FCN=0 (because window size is 1).  Following it the device MUST transmit the SCHC ACK message. It MUST transmit up to MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the fragmentation datagram as quickly as possible, the device should immediately transmit those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.</p>
 <p><em>Note</em>: The ACK bitmap is 1 bit long and is always 1.</p>
-<p><strong>SCHC All-1 (FCN=1)</strong> SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK message might be lost; therefore the SCHC gateway MUST request a retransmission of this ACK when the retransmission timer expires.  To open a downlink opportunity the device MUST transmit an uplink every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * 2).  The format of this uplink is application specific.  It is RECOMMENDED for a device to send an empty uplink (no FPort and FRMPayload) but it is application specific and will be used by the NGW to transmit a potential SCHC ACK REQ.</p>
+<p><strong>SCHC All-1 (FCN=1)</strong> SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK message might be lost; therefore the SCHC gateway MUST request a retransmission of this ACK when the retransmission timer expires.  To open a downlink opportunity the device MUST transmit an uplink every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).  The format of this uplink is application specific.  It is RECOMMENDED for a device to send an empty frame (see <a href="#lorawan-empty-frame" class="xref">Section 4.5</a>) but it is application specific and will be used by the NGW to transmit a potential SCHC ACK REQ.<br> SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value is 2, it MUST be greater than 1. This allows to open downlink opportunity to other eventual downlink with higher priority than SCHC ACK REQ message.</p>
 <p><em>Note</em>: The device MUST keep this SCHC ACK message in memory until it receives a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that the SCHC gateway has received the ACK message.</p>
 <h1 id="rfc.section.5.6.3.6">
 <a href="#rfc.section.5.6.3.6">5.6.3.6.</a> <a href="#class-b-or-class-c-devices" id="class-b-or-class-c-devices">Class B or Class C devices</a>
@@ -927,7 +935,7 @@ ul.toc li {
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security considerations</a>
 </h1>
-<p id="rfc.section.6.p.1">This document is only providing parameters that are expected to be best suited for LoRaWAN networks for <a href="#RFC8724" class="xref">[RFC8724]</a>. IID security is discussed in <a href="#IID" class="xref">Section 5.3</a>. As such, this document does not contribute to any new security issues in addition to those identified in <a href="#RFC8724" class="xref">[RFC8724]</a>.  Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128 encryption with key shared by device and SCHC gateway. Those keys are renewed at each LoRaWAN session (ie: each join or rejoin to the network)</p>
+<p id="rfc.section.6.p.1">This document is only providing parameters that are expected to be best suited for LoRaWAN networks for <a href="#RFC8724" class="xref">[RFC8724]</a>. IID security is discussed in <a href="#IID" class="xref">Section 5.3</a>. As such, this document does not contribute to any new security issues in addition to those identified in <a href="#RFC8724" class="xref">[RFC8724]</a>.  Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128 encryption with key shared by device and SCHC gateway. Those keys are renewed at each LoRaWAN session (ie: each join or rejoin to the LoRaWAN network)</p>
 <h1 id="rfc.acknowledgements"><a href="#rfc.acknowledgements">Acknowledgements</a></h1>
 <p id="rfc.section.7.p.1">Thanks to all those listed in the Contributors section for the excellent text, insightful discussions, reviews and suggestions, and also to (in alphabetical order) Dominique Barthel, Arunprabhu Kandasamy, Rodrigo Mu&#241;oz, Alexander Pelov, Pascal Thubert, Laurent Toutain for useful design considerations, reviews and comments.</p>
 <h1 id="rfc.contributors"><a href="#rfc.contributors">Contributors</a></h1>
