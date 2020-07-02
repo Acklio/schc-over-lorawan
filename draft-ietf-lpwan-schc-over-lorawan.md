@@ -635,12 +635,14 @@ Packet as described in {{lorawan-schc-payload}}.
 As only 1 tile is used, its size can change for each downlink, and will be
 maximum available MTU.
 
-Class A devices can only receive in an RX slot following the transmission of an
+Class A devices can only receive during an RX slot, following the transmission of an
 uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC
 session);  in order to create a downlink opportunity it is RECOMMENDED for
 Class A devices to send an uplink every 24 hours when no SCHC session is
-started, this is is application specific and can be disabled. RECOMMENDED uplink
+started, this is application specific and can be disabled. RECOMMENDED uplink
 is a LoRaWAN empty frame as defined {{lorawan-empty-frame}}.
+As this uplink is to open an RX window any applicative uplink MAY reset this
+counter.
 
 _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other
