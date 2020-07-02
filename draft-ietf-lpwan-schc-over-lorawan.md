@@ -110,6 +110,10 @@ all other definitions, please look up the SCHC specification
 
   o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI
 
+  o  SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
+     translation between IPv6 network and the Network Gateway (LoRaWAN Network
+     Server)
+
 # Static Context Header Compression Overview
 
 This section contains a short overview of Static Context Header Compression
