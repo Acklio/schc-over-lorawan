@@ -285,15 +285,15 @@ direction and reciprocally on the downlink direction.
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
 
-## General Message Types
+## General Frame Types
 
-* Confirmed messages:
+* LoRaWAN Confirmed message:
   The sender asks the receiver to acknowledge the message.
-* Unconfirmed messages:
+* LoRaWAN Unconfirmed message:
   The sender does not ask the receiver to acknowledge the message.
 
 As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use
-confirmed messages.
+LoRaWAN Confirmed messages.
 
 ## LoRaWAN MAC Frames
 
