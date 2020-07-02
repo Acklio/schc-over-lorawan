@@ -723,13 +723,17 @@ RX2 window.
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
 **SCHC All-1 (FCN=1)**
-SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK message might be
-lost; therefore the SCHC gateway MUST request a retransmission of this ACK when
-the retransmission timer expires.  To open a downlink opportunity the device
-MUST transmit an uplink every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * 2).
+SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK
+message might be lost; therefore the SCHC gateway MUST request a retransmission
+of this ACK when the retransmission timer expires.  To open a downlink
+opportunity the device MUST transmit an uplink every
+RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
 The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty uplink (no FPort and FRMPayload) but it is application
-specific and will be used by the NGW to transmit a potential SCHC ACK REQ.
+specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
+SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
+is 2, it MUST be greater than 1. This allows to open downlink opportunity to other
+eventual downlink with higher priority than SCHC ACK REQ message.
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
 a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that
