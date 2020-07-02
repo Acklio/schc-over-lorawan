@@ -723,7 +723,7 @@ RX2 window.
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
 **SCHC All-1 (FCN=1)**
-The last fragment of a datagram, the corresponding SCHC ACK message might be
+SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK message might be
 lost; therefore the SCHC gateway MUST request a retransmission of this ACK when
 the retransmission timer expires.  To open a downlink opportunity the device
 MUST transmit an uplink every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * 2) hours.
