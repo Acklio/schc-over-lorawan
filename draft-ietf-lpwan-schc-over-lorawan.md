@@ -726,9 +726,9 @@ INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 All fragment but the last have an FCN=0 (because window size is 1).  Following
 it the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
-fragmentation datagram as quickly as possible, the device should immediately
-transmit those SCHC ACK if no SCHC downlink have been received during RX1 and
-RX2 window.
+fragmentation datagram, the SCHC layer should immediately queue for transmission
+those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
+LoRaWAN layer will respect the regulation if required.
 
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
