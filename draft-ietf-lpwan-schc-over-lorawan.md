@@ -192,7 +192,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 
    o Devices are LoRaWAN End Devices (e.g. sensors,
    actuators, etc.).  There can be a very high density of devices per
-   radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN device.
+   radio gateway (LoRaWAN gateway). This entity maps to the LoRaWAN end-device.
 
    o The Radio Gateway (RGW), which is the endpoint of the constrained
    link. This entity maps to the LoRaWAN Gateway.
@@ -218,7 +218,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
 
    SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly)
-   are performed on the LoRaWAN device and the Application Server (called
+   are performed on the LoRaWAN end-device and the Application Server (called
    SCHC gateway). While the point-to-point link between the device and the
    Application Server constitutes single IP hop, the ultimate end-point of the
    IP communication may be an Internet node beyond the Application Server.
@@ -256,7 +256,7 @@ Class C. Class B and Class C are mutually exclusive.
 
 ## Device addressing
 
-LoRaWAN devices use a 32-bit network address (devAddr) to communicate with
+LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with
 the network over-the-air, this address might not be unique in a LoRaWAN
 network; devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.
@@ -458,7 +458,7 @@ fragmentation datagrams and are successively described in the next sections.
 
 ### DTag
 
-A LoRaWAN device cannot interleave several fragmented SCHC datagrams on the same
+A Device cannot interleave several fragmented SCHC datagrams on the same
 FPort.  This field is not used and its size is 0.
 
 Note: The device can still have several parallel fragmentation datagrams with one
