@@ -236,14 +236,14 @@ Class C. Class B and Class C are mutually exclusive.
 
 * Class A: The Class A is the simplest class of devices. The device is
   allowed to transmit at any time, randomly selecting a communication channel.
-  The network may reply with a downlink in one of the 2 receive windows
-  immediately following the uplinks. Therefore, the network cannot initiate a
+  The Network Gateway may reply with a downlink in one of the 2 receive windows
+  immediately following the uplinks. Therefore, the Network Gateway cannot initiate a
   downlink, it has to wait for the next uplink from the device to get a
   downlink opportunity. The Class A is the lowest power device class.
 * Class B: Class B devices implement all the functionalities of Class A
   devices, but also schedule periodic listen windows. Therefore, opposed to the
   Class A devices, Class B devices can receive downlinks that are initiated by the
-  network and not following an uplink. There is a trade-off between the
+  Network Gateway and not following an uplink. There is a trade-off between the
   periodicity of those scheduled Class B listen windows and the power
   consumption of the device. The lower the downlink latency, the higher the
   power consumption.
@@ -257,7 +257,7 @@ Class C. Class B and Class C are mutually exclusive.
 ## Device addressing
 
 LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with
-the network over-the-air, this address might not be unique in a LoRaWAN
+the Network Gateway over-the-air, this address might not be unique in a LoRaWAN
 network; devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.
 
@@ -301,8 +301,8 @@ confirmed messages.
   To on-board a device, the Network Gateway responds to the JoinRequest
   issued by a device with a JoinAccept message. That message is
   encrypted with the device's AppKey and contains (amongst other fields)
-  the major network's settings and a network random nonce used to derive the
-  session keys.
+  the major network's settings and a random nonce used to derive the session
+  keys.
 * Data:
   MAC and application data. Application data are protected with AES-128
   encryption, MAC related data are AES-128 encrypted with another key.
@@ -404,8 +404,8 @@ created regarding the following algorithm:
 aes128_cmac algorithm is described in [rfc4493]. It has been chosen as it is
 already used by devices for LoRaWAN protocol.
 
-As AppSKey is renewed each time a device joins or rejoins a network, the IID
-will change over time; this mitigates privacy, location tracking and
+As AppSKey is renewed each time a device joins or rejoins a LoRaWAN network,
+the IID will change over time; this mitigates privacy, location tracking and
 correlation over time risks. Join periodicity is defined at the application
 level.  
 
@@ -428,7 +428,7 @@ Example with:
 ~~~~
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
-There is a small probability of IID collision in a network, if such event occurs
+There is a small probability of IID collision in a LoRaWAN network, if such event occurs
 the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN
 join).
 The way the device is rekeyed is out of scope of this document and left to the
@@ -508,8 +508,8 @@ tiles from the next window. If the SCHC ACK is not received, it SHOULD send an S
 ACK REQ up to MAX_ACK_REQUESTS, time as described previously.
 
 For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC
-ACK only at the end of all windows. It will reduce downlink load on the network,
-by reducing the number of downlinks.
+ACK only at the end of all windows. It will reduce downlink load on the LoRaWAN
+network, by reducing the number of downlinks.
 
 SCHC implementations MUST be compatible with both behavior, and selection is
 a part of the rule context.
@@ -787,7 +787,7 @@ any new security issues in addition to those identified in
 [RFC8724].
 Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
 encryption with key shared by device and SCHC gateway. Those keys are renewed at each
-LoRaWAN session (ie: each join or rejoin to the network)
+LoRaWAN session (ie: each join or rejoin to the LoRaWAN network)
 
 # Acknowledgements
 {:numbered="false"}
