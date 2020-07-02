@@ -311,6 +311,10 @@ confirmed messages.
   MAC and application data. Application data are protected with AES-128
   encryption, MAC related data are AES-128 encrypted with another key.
 
+## LoRaWAN empty frame {#lorawan-empty-frame}
+
+A LoRaWAN empty frame is a LoRaWAN message without FPort and FRM payload.
+
 ## Unicast and multicast technology
 
 LoRaWAN technology supports unicast downlinks, but also multicast: a packet
@@ -636,7 +640,7 @@ uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC
 session);  in order to create a downlink opportunity it is RECOMMENDED for
 Class A devices to send an uplink every 24 hours when no SCHC session is
 started, this is is application specific and can be disabled. RECOMMENDED uplink
-is a LoRaWAN message without FPort and FRM payload.
+is a LoRaWAN empty frame as defined {{lorawan-empty-frame}}.
 
 _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other
@@ -733,7 +737,7 @@ of this ACK when the retransmission timer expires.  To open a downlink
 opportunity the device MUST transmit an uplink every
 RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
 The format of this uplink is application specific.  It is RECOMMENDED for a
-device to send an empty uplink (no FPort and FRMPayload) but it is application
+device to send an empty frame (see {{lorawan-empty-frame}}) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
 is 2, it MUST be greater than 1. This allows to open downlink opportunity to other
