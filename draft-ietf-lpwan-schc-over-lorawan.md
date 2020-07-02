@@ -102,7 +102,7 @@ all other definitions, please look up the SCHC specification
   o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the
      procedure while joining the network (Join Procedure)
 
-  o  DevAddr: a 32-bit non-unique identifier assigned to an device statically or
+  o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or
      dynamically after a Join Procedure (depending on the activation mode)
 
   o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
@@ -262,20 +262,20 @@ network; devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.
 
 To communicate with the SCHC gateway the Network Gateway MUST identify the
-devices by a unique 64-bit device identifier called the devEUI.
+devices by a unique 64-bit device identifier called the DevEUI.
 
-The devEUI is assigned to the device during the manufacturing process by the
+The DevEUI is assigned to the device during the manufacturing process by the
 device's manufacturer. It is built like an Ethernet MAC address by
 concatenating the manufacturer's IEEE OUI field with a vendor unique number.
 e.g.: 24-bit OUI is concatenated with a 40-bit serial number.
-The Network Gateway translates the devAddr into a devEUI in the uplink
+The Network Gateway translates the devAddr into a DevEUI in the uplink
 direction and reciprocally on the downlink direction.
 
 ~~~~
 
 +--------+         +---------+        +---------+            +----------+
 | Device | <=====> | Network | <====> | SCHC    | <========> | Internet |
-|        | devAddr | Gateway | devEUI | Gateway |  IPv6/UDP  |          |
+|        | devAddr | Gateway | DevEUI | Gateway |  IPv6/UDP  |          |
 +--------+         +---------+        +---------+            +----------+
 
 ~~~~
@@ -294,12 +294,12 @@ confirmed messages.
 ## LoRaWAN MAC Frames
 
 * JoinRequest:
-  This message is used by an device to join a network. It contains the device's
-  unique identifier devEUI and a random nonce that will be used for session key
+  This message is used by a device to join a network. It contains the device's
+  unique identifier DevEUI and a random nonce that will be used for session key
   derivation.
 * JoinAccept:
-  To on-board an device, the Network Gateway responds to the JoinRequest
-  issued by an device with a JoinAccept message. That message is
+  To on-board a device, the Network Gateway responds to the JoinRequest
+  issued by a device with a JoinAccept message. That message is
   encrypted with the device's AppKey and contains (amongst other fields)
   the major network's settings and a network random nonce used to derive the
   session keys.
@@ -341,7 +341,7 @@ as a part of the RuleID field.
 
 | FPort | LoRaWAN payload  |
 + ------------------------ +
-|       SCHC packet       |
+|       SCHC packet        |
 
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
@@ -398,7 +398,7 @@ In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
 
 1. key = LoRaWAN AppSKey
-2. cmac = aes128_cmac(key, devEui)
+2. cmac = aes128_cmac(key, DevEUI)
 3. IID = cmac[0..7]
 
 aes128_cmac algorithm is described in [rfc4493]. It has been chosen as it is
@@ -413,12 +413,12 @@ Address scan risk is mitigated thanks to AES-128, which provides enough entropy
 bits of the IID.
 
 Using this algorithm will also ensure that there is no correlation between the
-hardware identifier (IEEE-64 devEUI) and the IID, so an attacker cannot use
+hardware identifier (IEEE-64 DevEUI) and the IID, so an attacker cannot use
 manufacturer OUI to target devices.
 
 Example with:
 
-* devEui: 0x1122334455667788
+* DevEUI: 0x1122334455667788
 * appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
 
 ~~~~
@@ -557,19 +557,19 @@ a part of the rule context.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                                           |
-+ ------ + ------------------------------------------------------------------------- +
-| RuleID |   W   |   C   | Compressed bitmap (if C = 0) | Optional padding (b'0...0) |
-+ ------ + ----- + ----- + ---------------------------- + -------------------------- +
-| 8 bits | 2 bit | 1 bit |       5 to 63 bits           |     0, 6 or 7 bits         |
+| FPort  | LoRaWAN payload                                                      |
++ ------ + -------------------------------------------------------------------- +
+| RuleID |   W   |   C   | Compressed bitmap(C = 0) | Optional padding(b'0...0) |
++ ------ + ----- + ----- + ------------------------ + ------------------------- +
+| 8 bits | 2 bit | 1 bit |       5 to 63 bits       |      0, 6 or 7 bits       |
 
 ~~~~
 {: #Fig-fragmentation-header-long-schc-ack title='SCHC ACK format, failed RCS check.'}
 
 
 Note: Because of the bitmap compression mechanism and L2 byte alignment only
-few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61. Bitmaps of 63
-bits will require 6 bits of padding.
+few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61, 62, 63.
+Bitmaps of 63 bits will require 6 bits of padding.
 
 #### Receiver-Abort
 
