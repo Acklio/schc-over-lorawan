@@ -313,7 +313,7 @@ LoRaWAN Confirmed messages.
 
 ## LoRaWAN empty frame {#lorawan-empty-frame}
 
-A LoRaWAN empty frame is a LoRaWAN message without FPort and FRM payload.
+A LoRaWAN empty frame is a LoRaWAN message without FPort and FRMPayload.
 
 ## Unicast and multicast technology
 
