@@ -34,7 +34,7 @@
     "labels": [
 
     ],
-    "state": "open",
+    "state": "closed",
     "locked": false,
     "assignee": {
       "login": "Oliv4945",
@@ -81,8 +81,8 @@
     "milestone": null,
     "comments": 1,
     "created_at": "2020-05-15T14:00:35Z",
-    "updated_at": "2020-07-03T15:12:17Z",
-    "closed_at": null,
+    "updated_at": "2020-07-20T16:31:26Z",
+    "closed_at": "2020-07-20T16:31:25Z",
     "author_association": "COLLABORATOR",
     "active_lock_reason": null,
     "pull_request": {
@@ -91,7 +91,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/32.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/32.patch"
     },
-    "body": "- Add uplink All-1 example with last tile\r\n- Fixed IID example\r\n- Use RFC8376 terminology\r\n- List all bitmap possibilities in SCHC ACK example\r\n- Add payload to downlink All-1\r\n- Fixed some nits\r\n\r\n@ivajloip @jca-klk. Would you mind to review it ? Thank you"
+    "body": "- Add uplink All-1 example with last tile\r\n- Fixed IID example\r\n- Use RFC8376 terminology\r\n- List all bitmap possibilities in SCHC ACK example\r\n- Add payload to downlink All-1 example\r\n- Fixed some nits and typos\r\n- Specified retransmition timer\r\n- Clarified downlink opportunity, other frag. parameters\r\n- Described all RFC8724 Annex D\r\n\r\n@ivajloip @jca-klk. Would you mind to review it ? Thank you",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/31",
@@ -146,7 +147,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/31.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/31.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/30",
@@ -193,7 +195,7 @@
     "created_at": "2020-05-07T10:24:40Z",
     "updated_at": "2020-05-07T16:37:38Z",
     "closed_at": "2020-05-07T16:37:38Z",
-    "author_association": "NONE",
+    "author_association": "CONTRIBUTOR",
     "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/30",
@@ -201,7 +203,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/30.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/30.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/29",
@@ -248,7 +251,7 @@
     "created_at": "2020-05-07T09:30:09Z",
     "updated_at": "2020-05-15T13:42:18Z",
     "closed_at": "2020-05-15T13:41:56Z",
-    "author_association": "NONE",
+    "author_association": "CONTRIBUTOR",
     "active_lock_reason": null,
     "pull_request": {
       "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/29",
@@ -256,7 +259,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/29.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/29.patch"
     },
-    "body": "and a few suggested nit fixes."
+    "body": "and a few suggested nit fixes.",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/28",
@@ -349,7 +353,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/28.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/28.patch"
     },
-    "body": "- ACK behavior has been reworded with Dominique\r\n- Changed reference from `I-D.ietf-lpwan-ipv6-static-context-hc` to `RFC8724`\r\n- Fix some typos"
+    "body": "- ACK behavior has been reworded with Dominique\r\n- Changed reference from `I-D.ietf-lpwan-ipv6-static-context-hc` to `RFC8724`\r\n- Fix some typos",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/27",
@@ -404,7 +409,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/27.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/27.patch"
     },
-    "body": "- Add IID collision\r\n- Fix typos\r\n- Update security\r\n- Improve SCHC ACK following Arun comment\r\n- Fix RFC compilation\r\n- Clarify last tile"
+    "body": "- Add IID collision\r\n- Fix typos\r\n- Update security\r\n- Improve SCHC ACK following Arun comment\r\n- Fix RFC compilation\r\n- Clarify last tile",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/26",
@@ -459,7 +465,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/26.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/26.patch"
     },
-    "body": "* Fix typos and formatting\r\n* Add IID proposition\r\n* Clarify lot of paragraphs following Dominique review\r\n* Update acknowledgements\r\n* Change ACK behavior between each windows to optional for uplink fragmentation"
+    "body": "* Fix typos and formatting\r\n* Add IID proposition\r\n* Clarify lot of paragraphs following Dominique review\r\n* Update acknowledgements\r\n* Change ACK behavior between each windows to optional for uplink fragmentation",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/25",
@@ -514,7 +521,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/25.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/25.patch"
     },
-    "body": "Should be ready for publication.\r\nWaiting Nicolas S. validation for IID example"
+    "body": "Should be ready for publication.\r\nWaiting Nicolas S. validation for IID example",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/24",
@@ -569,7 +577,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/24.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/24.patch"
     },
-    "body": "* Editorial changes\r\n* Reviews from @dbarthel-ol and @ivajloip "
+    "body": "* Editorial changes\r\n* Reviews from @dbarthel-ol and @ivajloip ",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/23",
@@ -656,7 +665,8 @@
     "closed_at": "2019-12-20T14:19:51Z",
     "author_association": "COLLABORATOR",
     "active_lock_reason": null,
-    "body": "Since we have 10 bytes tiles, it will not fit in SF10/US"
+    "body": "Since we have 10 bytes tiles, it will not fit in SF10/US",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/22",
@@ -711,7 +721,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/22.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/22.patch"
     },
-    "body": "Deriving DevIID from LoRaWAN DevEUI creates privacy/security issues"
+    "body": "Deriving DevIID from LoRaWAN DevEUI creates privacy/security issues",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/21",
@@ -766,7 +777,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/21.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/21.patch"
     },
-    "body": " - Remove YAML syntax, only valid for authors\r\n - Remove snail mail addresses\r\n - Inspired by this random RFC format https://tools.ietf.org/html/rfc8092#section-9.2\r\n - RFC Editor policy: https://www.rfc-editor.org/policy.html#policy.authlist"
+    "body": " - Remove YAML syntax, only valid for authors\r\n - Remove snail mail addresses\r\n - Inspired by this random RFC format https://tools.ietf.org/html/rfc8092#section-9.2\r\n - RFC Editor policy: https://www.rfc-editor.org/policy.html#policy.authlist",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/20",
@@ -821,7 +833,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/20.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/20.patch"
     },
-    "body": "Prepare draft ietf lpwan schc over lorawan 04"
+    "body": "Prepare draft ietf lpwan schc over lorawan 04",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/19",
@@ -876,7 +889,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/19.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/19.patch"
     },
-    "body": "As discussed:\r\n-  Fixed 8 bits ruleId\r\n-  Tile size of 10 bytes\r\n-  Moved Julien to contributor\r\n\r\nReplace PR #17 as multicast was included"
+    "body": "As discussed:\r\n-  Fixed 8 bits ruleId\r\n-  Tile size of 10 bytes\r\n-  Moved Julien to contributor\r\n\r\nReplace PR #17 as multicast was included",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/18",
@@ -931,7 +945,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/18.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/18.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/17",
@@ -986,7 +1001,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/17.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/17.patch"
     },
-    "body": "As discussed:\r\n\r\n- Fixed 8 bits ruleId\r\n- Tile size of 10 bytes\r\n- Moved Julien to Contributor"
+    "body": "As discussed:\r\n\r\n- Fixed 8 bits ruleId\r\n- Tile size of 10 bytes\r\n- Moved Julien to Contributor",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/16",
@@ -1041,7 +1057,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/16.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/16.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/15",
@@ -1096,7 +1113,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/15.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/15.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/14",
@@ -1189,7 +1207,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/14.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/14.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/13",
@@ -1244,7 +1263,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/13.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/13.patch"
     },
-    "body": "Based on @jca-klk proposition #12 without data in FPort. For that:\r\n\r\n- Uplink dtag have been removed\r\n- Uplinks tiles are now on 5 bytes."
+    "body": "Based on @jca-klk proposition #12 without data in FPort. For that:\r\n\r\n- Uplink dtag have been removed\r\n- Uplinks tiles are now on 5 bytes.",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/12",
@@ -1299,7 +1319,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/12.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/12.patch"
     },
-    "body": "Dear editors,\r\n\r\nPlease find my contributions to version -03 branch of the SCHC-over-LoRaWAN draft.\r\nI implemented the ideas I developed after IETF105 in Montreal, about FPort optimization. I took the opportunity to clean-up the draft and move myself into the authors list.\r\nFell free to pick or reject the commits you want.\r\n\r\nI did not implement the RCS idea to move to AES-CMAC, after discussion with @Oliv4945. We can discuss that topic in another branch if you want.\r\n\r\nLet me know what you think.\r\nJulien"
+    "body": "Dear editors,\r\n\r\nPlease find my contributions to version -03 branch of the SCHC-over-LoRaWAN draft.\r\nI implemented the ideas I developed after IETF105 in Montreal, about FPort optimization. I took the opportunity to clean-up the draft and move myself into the authors list.\r\nFell free to pick or reject the commits you want.\r\n\r\nI did not implement the RCS idea to move to AES-CMAC, after discussion with @Oliv4945. We can discuss that topic in another branch if you want.\r\n\r\nLet me know what you think.\r\nJulien",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/11",
@@ -1354,7 +1375,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/11.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/11.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/10",
@@ -1409,7 +1431,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/10.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/10.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/9",
@@ -1458,7 +1481,8 @@
     "closed_at": "2019-07-08T20:48:17Z",
     "author_association": "COLLABORATOR",
     "active_lock_reason": null,
-    "body": "[here](https://github.com/Acklio/schc-over-lorawan/blob/master/draft-ietf-lpwan-schc-over-lorawan.md#fportupshort---1-byte-header)\r\nRuled & window"
+    "body": "[here](https://github.com/Acklio/schc-over-lorawan/blob/master/draft-ietf-lpwan-schc-over-lorawan.md#fportupshort---1-byte-header)\r\nRuled & window",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/8",
@@ -1513,7 +1537,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/8.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/8.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/7",
@@ -1568,7 +1593,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/7.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/7.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/6",
@@ -1617,7 +1643,8 @@
     "closed_at": "2019-05-27T09:22:16Z",
     "author_association": "NONE",
     "active_lock_reason": null,
-    "body": "Editors,\r\n\r\nPlease merge two pull requests.  I would like to check the latest draft and will contribute something, especially, fragmentation.\r\n\r\nThanks,\r\nShoichi"
+    "body": "Editors,\r\n\r\nPlease merge two pull requests.  I would like to check the latest draft and will contribute something, especially, fragmentation.\r\n\r\nThanks,\r\nShoichi",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/5",
@@ -1672,7 +1699,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/5.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/5.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/4",
@@ -1727,7 +1755,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/4.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/4.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/3",
@@ -1820,7 +1849,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/3.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/3.patch"
     },
-    "body": "Hello\r\n\r\nThis Pull Request fixes abbrev field to a the more accurate \"SCHC-over-LoRaWAN\" + fix rendering of figure 1 which is currently jammed.\r\n\r\nThank you\r\nJulien"
+    "body": "Hello\r\n\r\nThis Pull Request fixes abbrev field to a the more accurate \"SCHC-over-LoRaWAN\" + fix rendering of figure 1 which is currently jammed.\r\n\r\nThank you\r\nJulien",
+    "performed_via_github_app": null
   }
 
 ,
@@ -1878,7 +1908,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/2.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/2.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/1",
@@ -1933,7 +1964,8 @@
       "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/1.diff",
       "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/1.patch"
     },
-    "body": ""
+    "body": "",
+    "performed_via_github_app": null
   }
 
 ]
