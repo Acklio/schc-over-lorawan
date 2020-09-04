@@ -795,6 +795,10 @@ Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-1
 encryption with key shared by device and SCHC gateway. Those keys are renewed at each
 LoRaWAN session (ie: each join or rejoin to the LoRaWAN network)
 
+# IANA Considerations
+
+This document has no IANA actions.
+
 # Acknowledgements
 {:numbered="false"}
 
