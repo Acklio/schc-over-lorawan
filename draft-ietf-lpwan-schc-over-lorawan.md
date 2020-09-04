@@ -95,19 +95,19 @@ all other definitions, please look up the SCHC specification
 [RFC8724].
 
   o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the
-     procedure while joining the network (Join Procedure)
+     procedure while joining the network (Join Procedure).
 
   o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or
-     dynamically after a Join Procedure (depending on the activation mode)
+     dynamically after a Join Procedure (depending on the activation mode).
 
   o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
-     fragmentation-reassembly process
+     fragmentation-reassembly process.
 
-  o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI
+  o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 
   o  SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
      translation between IPv6 network and the Network Gateway (LoRaWAN Network
-     Server)
+     Server).
 
 # Static Context Header Compression Overview
 
@@ -117,9 +117,9 @@ refer to the full specification [RFC8724].
 It defines:
 
 1. Compression mechanisms to avoid transporting information known by both
-   sender and receiver over the air. Known information are part of the "context"
+   sender and receiver over the air. Known information are part of the "context".
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
-   potentially variable, MTU
+   potentially variable, MTU.
 
 Context exchange or pre-provisioning is out of scope of this document.
 
@@ -371,10 +371,10 @@ traffic by using FPort values different from the ones used for SCHC.
 
 In order to improve interoperability RECOMMENDED fragmentation RuleID values are:
 
-* RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp
-* RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown
+* RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp.
+* RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown.
 * RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching
-rule was found)
+rule was found).
 
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID not in the set(s) of FPortUp or FPortDown
@@ -475,14 +475,14 @@ Packet, as per {{lorawan-schc-payload}}.
 
 * SCHC header size is two bytes (the FPort byte + 1 additional byte).
 * RuleID: 8 bits stored in LoRaWAN FPort.
-* SCHC fragmentation reliability mode: `ACK-on-Error`
-* DTag: Size is 0 bit, not used
+* SCHC fragmentation reliability mode: `ACK-on-Error`.
+* DTag: Size is 0 bit, not used.
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles
-  are allowed in a window
+  are allowed in a window.
 * Window index: encoded on W = 2 bits. So 4 windows are available.
 * RCS: Use recommended calculation algorithm in [RFC8724].
-* MAX_ACK_REQUESTS: 8
-* Tile: size is 10 bytes
+* MAX_ACK_REQUESTS: 8.
+* Tile: size is 10 bytes.
 * Retransmission timer: Set by the implementation depending on the application
   requirements.
 * Inactivity timer: The SCHC gateway implements an "inactivity timer". The
@@ -617,11 +617,11 @@ Packet as described in {{lorawan-schc-payload}}.
     layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
 * RuleID: 8 bits stored in LoRaWAN FPort.
 * Window index (unicast only): encoded on W=1 bit, as per [RFC8724].
-* DTag: Size is 0 bit, not used
-* FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile
+* DTag: Size is 0 bit, not used.
+* FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile.
 * RCS: Use recommended calculation algorithm in [RFC8724].
-* MAX_ACK_REQUESTS: 8
-* Retransmission timer:  See {{downlink-retransmission-timer}}
+* MAX_ACK_REQUESTS: 8.
+* Retransmission timer:  See {{downlink-retransmission-timer}}.
 * Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours;
   this value is mainly driven by application requirements and MAY be changed by
   the application.
@@ -751,7 +751,7 @@ transmission of an uplink. Class C devices are almost in constant reception.
 RECOMMENDED retransmission timer value:
 
 * Class B: 3 times the ping slot periodicity.
-* Class C: 30 seconds
+* Class C: 30 seconds.
 
 The RECOMMENDED inactivity timer value is 12 hours for both Class B and Class
 C devices.
