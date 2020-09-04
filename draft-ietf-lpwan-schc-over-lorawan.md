@@ -733,7 +733,7 @@ RETRANSMISSION_TIMER is application specific and its RECOMMENDED value is
 INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 
 **SCHC All-0 (FCN=0)**
-All fragment but the last have an FCN=0 (because window size is 1).  Following
+All fragments but the last have an FCN=0 (because window size is 1).  Following
 it the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
 fragmentation datagram, the SCHC layer should immediately queue for transmission
@@ -918,7 +918,7 @@ fragment.
 Content of the tile is:
 | RuleID | Compression residue |  Payload          |
 + ------ + ------------------- + ----------------- +
-|   1    |       21 bits       |  6 byte + 3 bits  |
+|   1    |       21 bits       |  6 bytes + 3 bits |
 ~~~~
 {: #Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content title='Uplink example: LoRaWAN packet 1 - Tile content'}
 
