@@ -289,15 +289,20 @@ direction and reciprocally on the downlink direction.
 
 ## General Frame Types
 
-* LoRaWAN Confirmed message:
+LoRaWAN implements the possibility to send confirmed or unconfirmed messages:
+
+* Confirmed message:
   The sender asks the receiver to acknowledge the message.
-* LoRaWAN Unconfirmed message:
+* Unconfirmed message:
   The sender does not ask the receiver to acknowledge the message.
 
 As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use
 LoRaWAN Confirmed messages.
 
 ## LoRaWAN MAC Frames
+
+In addition to regular data frames LoRaWAN implements JoinRequest and JoinAccept
+frame types, used by a device to join a network:
 
 * JoinRequest:
   This message is used by a device to join a network. It contains the device's
