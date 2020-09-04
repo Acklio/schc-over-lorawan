@@ -123,9 +123,11 @@ refer to the full specification [RFC8724].
 It defines:
 
 1. Compression mechanisms to avoid transporting information known by both
-   sender and receiver over the air. Known information are part of the "context".
+   sender and receiver over the air. Known information are part of the
+   "context". This component is called SCHC Compressor/Decompressor (SCHC C/D)
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
-   potentially variable, MTU.
+   potentially variable, MTU. This component  called SCHC Fragmentation/Reassembly
+   (SCHC F/R)
 
 Context exchange or pre-provisioning is out of scope of this document.
 
