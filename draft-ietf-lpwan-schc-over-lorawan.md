@@ -100,14 +100,20 @@ all other definitions, please look up the SCHC specification
   o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or
      dynamically after a Join Procedure (depending on the activation mode).
 
-  o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
-     fragmentation-reassembly process.
+  o  Downlink: LoRaWAN term for a message transmitted by the network and
+     received by the device.
 
   o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
+
+  o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
+     fragmentation-reassembly process.
 
   o  SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
      translation between IPv6 network and the Network Gateway (LoRaWAN Network
      Server).
+
+  o  Uplink: LoRaWAN term for a message transmitted by the device and received
+     by the network.
 
 # Static Context Header Compression Overview
 
