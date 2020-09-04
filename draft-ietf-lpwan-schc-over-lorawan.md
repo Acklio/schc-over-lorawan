@@ -55,8 +55,8 @@ informative:
 --- abstract
 
 The Static Context Header Compression (SCHC) specification describes generic
-header compression and fragmentation techniques for LPWAN (Low Power Wide Area
-Networks) technologies. SCHC is a generic mechanism designed for great
+header compression and fragmentation techniques for Low Power Wide Area
+Networks (LPWAN) technologies. SCHC is a generic mechanism designed for great
 flexibility so that it can be adapted for any of the LPWAN technologies.
 
 This document provides the adaptation of SCHC for use in LoRaWAN networks, and
@@ -67,10 +67,9 @@ This is called a profile.
 
 # Introduction {#Introduction}
 
-The Static Context Header Compression (SCHC) specification
-[RFC8724] describes
+SCHC specification [RFC8724] describes
 generic header compression and fragmentation techniques that can be used on all
-LPWAN (Low Power Wide Area Networks) technologies defined in
+LPWAN technologies defined in
 {{RFC8376}}. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
@@ -112,9 +111,8 @@ all other definitions, please look up the SCHC specification
 
 # Static Context Header Compression Overview
 
-This section contains a short overview of Static Context Header Compression
-(SCHC). For a detailed description, refer to the full specification
-[RFC8724].
+This section contains a short overview of SCHC. For a detailed description,
+refer to the full specification [RFC8724].
 
 It defines:
 
@@ -217,7 +215,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 ~~~~
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
 
-   SCHC C/D (Compressor/Decompressor) and SCHC F/R (Fragmentation/Reassembly)
+   SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
    are performed on the LoRaWAN end-device and the Application Server (called
    SCHC gateway). While the point-to-point link between the device and the
    Application Server constitutes single IP hop, the ultimate end-point of the
