@@ -318,9 +318,16 @@ frame types, used by a device to join a network:
   MAC and application data. Application data are protected with AES-128
   encryption, MAC related data are AES-128 encrypted with another key.
 
+## LoRaWAN FPort
+
+The LoRaWAN MAC layer features a frame port field in all frames. This field
+(FPort) is 8 bits long and the values from 1 to 223 can be used. It allows
+LoRaWAN networks and applications to identify data.
+
 ## LoRaWAN empty frame {#lorawan-empty-frame}
 
-A LoRaWAN empty frame is a LoRaWAN message without FPort and FRMPayload.
+A LoRaWAN empty frame is a LoRaWAN message without FPort (cf {{lorawan-schc-payload}})
+and FRMPayload.
 
 ## Unicast and multicast technology
 
@@ -341,11 +348,7 @@ reception window.
 
 # SCHC-over-LoRaWAN
 
-## LoRaWAN FPort {#lorawan-schc-payload}
-
-The LoRaWAN MAC layer features a frame port field in all frames. This field
-(FPort) is 8 bits long and the values from 1 to 223 can be used. It allows
-LoRaWAN networks and applications to identify data.
+## LoRaWAN FPort and RuleID {#lorawan-schc-payload}
 
 The FPort field is part of the SCHC Message, as shown in
 {{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate
