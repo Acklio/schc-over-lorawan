@@ -94,26 +94,26 @@ This section defines the terminology and acronyms used in this document. For
 all other definitions, please look up the SCHC specification
 [RFC8724].
 
-  o  DevEUI: an IEEE EUI-64 identifier used to identify the device during the
-     procedure while joining the network (Join Procedure).
+- DevEUI: an IEEE EUI-64 identifier used to identify the device during the
+  procedure while joining the network (Join Procedure). It is assigned by the
+  manufacturer or the device owner and provisioned on the Network Gateway.
+- DevAddr: a 32-bit non-unique identifier assigned to a device wether:
 
-  o  DevAddr: a 32-bit non-unique identifier assigned to a device statically or
-     dynamically after a Join Procedure (depending on the activation mode).
+  - Statically: by the device manufacturer in *Activation by Personalization*
+    mode.
+  - Dynamically: after a Join Procedure by the Network Gateway in *Over The
+    Air Activation* mode.
 
-  o  Downlink: LoRaWAN term for a message transmitted by the network and
-     received by the device.
-
-  o  OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
-
-  o  RCS: Reassembly Check Sequence. Used to verify the integrity of the
-     fragmentation-reassembly process.
-
-  o  SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
-     translation between IPv6 network and the Network Gateway (LoRaWAN Network
-     Server).
-
-  o  Uplink: LoRaWAN term for a message transmitted by the device and received
-     by the network.
+- Downlink: LoRaWAN term for a message transmitted by the network and
+  received by the device.
+- OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
+- RCS: Reassembly Check Sequence. Used to verify the integrity of the
+  fragmentation-reassembly process.
+- SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
+  translation between IPv6 network and the Network Gateway (LoRaWAN Network
+  Server).
+- Uplink: LoRaWAN term for a message transmitted by the device and received
+  by the network.
 
 # Static Context Header Compression Overview
 
