@@ -410,7 +410,7 @@ least the parameters defined in this document.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
 
-## IID computation {#IID}
+## Interface IDentifier (IID) computation {#IID}
 
 In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
 created regarding the following algorithm:
