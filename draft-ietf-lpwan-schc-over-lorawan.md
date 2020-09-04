@@ -32,10 +32,6 @@ author:
 normative:
   RFC2119:
   RFC8174:
-  RFC4944:
-  RFC5795:
-  RFC7136:
-  RFC3385:
   RFC4291:
   RFC8064:
   RFC8065:
