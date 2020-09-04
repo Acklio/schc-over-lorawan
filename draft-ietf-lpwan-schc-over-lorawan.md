@@ -245,7 +245,7 @@ Class C. Class B and Class C are mutually exclusive.
   The Network Gateway may reply with a downlink in one of the 2 receive windows
   immediately following the uplinks. Therefore, the Network Gateway cannot initiate a
   downlink, it has to wait for the next uplink from the device to get a
-  downlink opportunity. The Class A is the lowest power device class.
+  downlink opportunity. The Class A is the lowest power consumption class.
 * Class B: Class B devices implement all the functionalities of Class A
   devices, but also schedule periodic listen windows. Therefore, opposed to the
   Class A devices, Class B devices can receive downlinks that are initiated by the
