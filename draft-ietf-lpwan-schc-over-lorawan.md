@@ -157,7 +157,7 @@ size and fragmented (SCHC F/R).  The resulting information is sent on a layer tw
 Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if
 required, then to SCHC C/D for decompression. The SCHC C/D shares the same rules with the
 device. The SCHC C/D and F/R can be located on the Network Gateway (NGW) or in
-another place as long as a tunnel is established between the NGW and the SCHC
+another place as long as a communication is established between the NGW and the SCHC
 F/R, then SCHC F/R and C/D. The SCHC C/D in both sides MUST share the same
 set of rules. After decompression, the packet can be sent on the Internet to
 one or several LPWAN Application Servers (App).
