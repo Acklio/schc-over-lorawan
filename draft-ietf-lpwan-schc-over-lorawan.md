@@ -155,18 +155,18 @@ Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
 size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
 (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
 Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if
-required, then to SCHC C/D for decompression. The C/D shares the same rules with the
-device. The SCHC F/R and C/D can be located on the Network Gateway (NGW) or in
+required, then to SCHC C/D for decompression. The SCHC C/D shares the same rules with the
+device. The SCHC C/D and F/R can be located on the Network Gateway (NGW) or in
 another place as long as a tunnel is established between the NGW and the SCHC
-F/R, then SCHC F/R and SCHC C/D. The SCHC C/D in both sides MUST share the same
+F/R, then SCHC F/R and C/D. The SCHC C/D in both sides MUST share the same
 set of rules. After decompression, the packet can be sent on the Internet to
 one or several LPWAN Application Servers (App).
 
-The SCHC F/R and SCHC C/D process is bidirectional, so the same principles can
+The SCHC C/D and F/R process is bidirectional, so the same principles can
 be applied in the other direction.
 
 In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
-and the SCHC C/D and SCHC F/R are an Application Server. It can be provided by
+and the SCHC C/D and F/R are an Application Server. It can be provided by
 the Network Gateway or any third party software. {{Fig-archi}} can be mapped in
 LoRaWAN terminology to:
 
@@ -207,8 +207,8 @@ and the ones in {{lora-alliance-spec}} is as follows:
    Radio Gateway and the Internet. This entity maps to the LoRaWAN Network
    Server.
 
-   o SCHC F/R and SCHC C/D are LoRaWAN Application Server; ie the LoRaWAN
-   application server will do the C/D and F/R.
+   o SCHC C/D and F/R are LoRaWAN Application Server; ie the LoRaWAN
+   application server will do the SCHC C/D and F/R.
 
 ~~~~
 
@@ -387,7 +387,7 @@ rule was found).
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID not in the set(s) of FPortUp or FPortDown
 means that the fragmentation is not used, thus, on reception, the SCHC Message
-MUST be sent to the C/D layer.
+MUST be sent to the SCHC C/D layer.
 
 The only uplink messages using the FPortDown port are the fragmentation SCHC
 control messages of a downlink fragmentation datagram (for example, SCHC ACKs).
@@ -852,7 +852,7 @@ This example represents an applicative payload going through SCHC over LoRaWAN,
 no fragmentation required
 
 An applicative payload of 78 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer, allowing to compress it to 40 bytes and 5 bits: 1 byte
+is used by SCHC C/D layer, allowing to compress it to 40 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 37 bytes payload.
 
 ~~~~
@@ -882,7 +882,7 @@ This example represents an applicative payload going through SCHC, with
 fragmentation.
 
 An applicative payload of 478 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer,  allowing to compress it to 282 bytes and 5 bits: 1 byte
+is used by SCHC C/D layer,  allowing to compress it to 282 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 279 bytes payload.
 
 ~~~~
@@ -968,7 +968,7 @@ correct so the following ACK is sent to the device by the SCHC receiver:
 ## Downlink
 
 An applicative payload of 443 bytes is passed to SCHC compression layer. Rule 1
-is used by C/D layer, allowing to compress it to 130 bytes and 5 bits: 1 byte
+is used by SCHC C/D layer, allowing to compress it to 130 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 127 bytes payload.
 
 ~~~~
