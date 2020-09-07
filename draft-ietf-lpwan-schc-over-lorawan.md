@@ -152,7 +152,8 @@ Context exchange or pre-provisioning is out of scope of this document.
 based on {{RFC8376}} terminology. The device is sending applications flows
 using IPv6 or IPv6/UDP protocols. These flows might be compressed by a Static
 Context Header Compression Compressor/Decompressor (SCHC C/D) to reduce headers
-size and fragmented (SCHC F/R).  The resulting information is sent on a layer two
+size and fragmented by the SCHC Fragmentation/Reassembly (SCHC F/R).
+The resulting information is sent on a layer two
 (L2) frame to an LPWAN Radio Gateway (RGW) that forwards the frame to a Network
 Gateway (NGW). The NGW sends the data to a SCHC F/R for reassembly, if
 required, then to SCHC C/D for decompression. The SCHC C/D shares the same rules with the
