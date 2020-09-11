@@ -97,7 +97,7 @@ all other definitions, please look up the SCHC specification
 - DevEUI: an IEEE EUI-64 identifier used to identify the device during the
   procedure while joining the network (Join Procedure). It is assigned by the
   manufacturer or the device owner and provisioned on the Network Gateway.
-- DevAddr: a 32-bit non-unique identifier assigned to a device wether:
+- DevAddr: a 32-bit non-unique identifier assigned to a device either:
 
   - Statically: by the device manufacturer in *Activation by Personalization*
     mode.
