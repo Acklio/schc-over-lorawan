@@ -2,7 +2,7 @@
 stand_alone: true
 ipr: trust200902
 docname: draft-ietf-lpwan-schc-over-lorawan-latest
-cat: info
+cat: std
 pi:
   symrefs: 'yes'
   sortrefs: 'yes'
