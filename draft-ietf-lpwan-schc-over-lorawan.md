@@ -205,8 +205,8 @@ and the ones in {{lora-alliance-spec}} is as follows:
    link. This entity maps to the LoRaWAN Gateway.
 
    o The Network Gateway (NGW) is the interconnection node between the
-   Radio Gateway and the Internet. This entity maps to the LoRaWAN Network
-   Server.
+   Radio Gateway and the SCHC gateway (LoRaWAN Application server). This
+   entity maps to the LoRaWAN Network Server.
 
    o SCHC C/D and F/R are LoRaWAN Application Server; ie the LoRaWAN
    application server will do the SCHC C/D and F/R.
