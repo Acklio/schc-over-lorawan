@@ -113,6 +113,7 @@ all other definitions, please look up the SCHC specification
 - SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
   translation between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
+- Tile: Piece of a fragmented packet as described in [RFC8724] section 8.2.2.1
 - Uplink: LoRaWAN term for a frame transmitted by the device and received
   by the network.
 
