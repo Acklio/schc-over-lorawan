@@ -747,7 +747,7 @@ it the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
 fragmented datagram, the SCHC layer should immediately queue for transmission
 those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
-LoRaWAN layer will respect the regulation if required.
+LoRaWAN layer will respect the local spectrum regulation if required.
 
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
