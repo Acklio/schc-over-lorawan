@@ -106,6 +106,7 @@ all other definitions, please look up the SCHC specification
 
 - Downlink: LoRaWAN term for a frame transmitted by the network and
   received by the device.
+- FRMPayload: Application data in a LoRaWAN frame.
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 - RCS: Reassembly Check Sequence. Used to verify the integrity of the
   fragmentation-reassembly process.
