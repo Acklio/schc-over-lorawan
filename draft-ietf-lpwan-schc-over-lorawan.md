@@ -222,7 +222,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
      () ()  ()      |           | <--|--> |   +------+  |Application|
     () ()  ()  ()  / \==========|    v    |=============|  Server   |
      ()  ()  ()   /   \         +---------+             +-----------+
-    End Devices  Gateways     Network Server
+    End-devices  Gateways     Network Server
 
 ~~~~
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
