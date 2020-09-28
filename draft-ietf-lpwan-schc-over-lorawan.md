@@ -370,11 +370,11 @@ as a part of the RuleID field.
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
 
-A fragmentation datagram with application payload transferred from device to
-Network Gateway, is called uplink fragmentation datagram. It uses an FPort for data uplink
+A fragmented datagram with application payload transferred from device to
+Network Gateway, is called uplink fragmented datagram. It uses an FPort for data uplink
 and its associated SCHC control downlinks, named FPortUp in this document. The
-other way, a fragmentation datagram with application payload transferred from
-Network Gateway to device, is called downlink fragmentation datagram. It uses another
+other way, a fragmented datagram with application payload transferred from
+Network Gateway to device, is called downlink fragmented datagram. It uses another
 FPort for data downlink and its associated SCHC control uplinks, named FPortDown
 in this document.
 
@@ -404,14 +404,14 @@ means that the fragmentation is not used, thus, on reception, the SCHC Message
 MUST be sent to the SCHC C/D layer.
 
 The only uplink frames using the FPortDown port are the fragmentation SCHC
-control messages of a downlink fragmentation datagram (for example, SCHC ACKs).
+control messages of a downlink fragmented datagram (for example, SCHC ACKs).
 Similarly, the only downlink frames using the FPortUp port are the
-fragmentation SCHC control messages of an uplink fragmentation datagram.
+fragmentation SCHC control messages of an uplink fragmented datagram.
 
-An application can have multiple fragmentation datagrams between a device and one
+An application can have multiple fragmented datagrams between a device and one
 or several SCHC gateways.  A set of FPort values is REQUIRED for each SCHC gateway
 instance the device is required to communicate with.  The application can use
-additional uplinks or downlink fragmentation parameters but SHALL implement at
+additional uplinks or downlink fragmented parameters but SHALL implement at
 least the parameters defined in this document.
 
 The mechanism for sharing those RuleID values is outside the scope of this document.
@@ -474,18 +474,18 @@ RuleIDs matching FPortUp and FPortDown are reserved for SCHC Fragmentation.
 The L2 Word Size used by LoRaWAN is 1 byte (8 bits).
 The SCHC fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink
 fragmentation and Ack-Always mode for downlink fragmentation. A LoRaWAN
-device cannot support simultaneous interleaved fragmentation datagrams in
+device cannot support simultaneous interleaved fragmented datagrams in
 the same direction (uplink or downlink).
 
 The fragmentation parameters are different for uplink and downlink
-fragmentation datagrams and are successively described in the next sections.
+fragmented datagrams and are successively described in the next sections.
 
 ### DTag
 
 A Device cannot interleave several fragmented SCHC datagrams on the same
 FPort.  This field is not used and its size is 0.
 
-Note: The device can still have several parallel fragmentation datagrams with one
+Note: The device can still have several parallel fragmented datagrams with one
 or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
 
 ### Uplink fragmentation: From device to SCHC gateway
@@ -742,7 +742,7 @@ INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 All fragments but the last have an FCN=0 (because window size is 1).  Following
 it the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
-fragmentation datagram, the SCHC layer should immediately queue for transmission
+fragmented datagram, the SCHC layer should immediately queue for transmission
 those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
 LoRaWAN layer will respect the regulation if required.
 
