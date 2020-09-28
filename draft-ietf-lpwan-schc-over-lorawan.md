@@ -482,8 +482,10 @@ fragmented datagrams and are successively described in the next sections.
 
 ### DTag
 
-A Device cannot interleave several fragmented SCHC datagrams on the same
-FPort.  This field is not used and its size is 0.
+[RFC8724] section 8.2.4 describes the possibility to interleave several
+fragmented SCHC datagrams for the same RuleID. This is not used in SCHC over
+LoRaWAN profile. A Device cannot interleave several fragmented SCHC datagrams
+on the same FPort.  This field is not used and its size is 0.
 
 Note: The device can still have several parallel fragmented datagrams with one
 or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
