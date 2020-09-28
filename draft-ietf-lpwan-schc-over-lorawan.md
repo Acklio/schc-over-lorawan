@@ -104,7 +104,7 @@ all other definitions, please look up the SCHC specification
   - Dynamically: after a Join Procedure by the Network Gateway in *Over The
     Air Activation* mode.
 
-- Downlink: LoRaWAN term for a message transmitted by the network and
+- Downlink: LoRaWAN term for a frame transmitted by the network and
   received by the device.
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 - RCS: Reassembly Check Sequence. Used to verify the integrity of the
@@ -112,7 +112,7 @@ all other definitions, please look up the SCHC specification
 - SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
   translation between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
-- Uplink: LoRaWAN term for a message transmitted by the device and received
+- Uplink: LoRaWAN term for a frame transmitted by the device and received
   by the network.
 
 # Static Context Header Compression Overview
@@ -294,15 +294,15 @@ direction and reciprocally on the downlink direction.
 
 ## General Frame Types
 
-LoRaWAN implements the possibility to send confirmed or unconfirmed messages:
+LoRaWAN implements the possibility to send confirmed or unconfirmed frames:
 
-* Confirmed message:
-  The sender asks the receiver to acknowledge the message.
-* Unconfirmed message:
-  The sender does not ask the receiver to acknowledge the message.
+* Confirmed frame:
+  The sender asks the receiver to acknowledge the frame.
+* Unconfirmed frame:
+  The sender does not ask the receiver to acknowledge the frame.
 
 As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use
-LoRaWAN Confirmed messages.
+LoRaWAN Confirmed frames.
 
 ## LoRaWAN MAC Frames
 
@@ -310,12 +310,12 @@ In addition to regular data frames LoRaWAN implements JoinRequest and JoinAccept
 frame types, used by a device to join a network:
 
 * JoinRequest:
-  This message is used by a device to join a network. It contains the device's
+  This frame is used by a device to join a network. It contains the device's
   unique identifier DevEUI and a random nonce that will be used for session key
   derivation.
 * JoinAccept:
   To on-board a device, the Network Gateway responds to the JoinRequest
-  issued by a device with a JoinAccept message. That message is
+  issued by a device with a JoinAccept frame. That frame is
   encrypted with the device's AppKey and contains (amongst other fields)
   the major network's settings and a random nonce used to derive the session
   keys.
@@ -331,7 +331,7 @@ LoRaWAN networks and applications to identify data.
 
 ## LoRaWAN empty frame {#lorawan-empty-frame}
 
-A LoRaWAN empty frame is a LoRaWAN message without FPort (cf {{lorawan-schc-payload}})
+A LoRaWAN empty frame is a LoRaWAN frame without FPort (cf {{lorawan-schc-payload}})
 and FRMPayload.
 
 ## Unicast and multicast technology
@@ -402,9 +402,9 @@ uplink and downlink sessions.  A RuleID not in the set(s) of FPortUp or FPortDow
 means that the fragmentation is not used, thus, on reception, the SCHC Message
 MUST be sent to the SCHC C/D layer.
 
-The only uplink messages using the FPortDown port are the fragmentation SCHC
+The only uplink frames using the FPortDown port are the fragmentation SCHC
 control messages of a downlink fragmentation datagram (for example, SCHC ACKs).
-Similarly, the only downlink messages using the FPortUp port are the
+Similarly, the only downlink frames using the FPortUp port are the
 fragmentation SCHC control messages of an uplink fragmentation datagram.
 
 An application can have multiple fragmentation datagrams between a device and one
@@ -514,7 +514,7 @@ Packet, as per {{lorawan-schc-payload}}.
   Fragment or with any of these two methods. Implementation must ensure that:
   * The sender MUST ascertain that the receiver will not receive
     the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.
-  * If last tile is in All-1 message: current L2 MTU MUST be big enough to fit
+  * If last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
     the All-1 and the last tile.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
@@ -762,7 +762,7 @@ eventual downlink with higher priority than SCHC ACK REQ message.
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
 a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that
-the SCHC gateway has received the ACK message.
+the SCHC gateway has received the SCHC ACK message.
 
 #### Class B or Class C devices
 
@@ -790,7 +790,7 @@ condition met: SCHC header is 2 bytes.
 **Downlink fragmentation (Ack-always)**:
 
 As per [RFC8724] the SCHC All-1 MUST contain the last tile, implementation must
-ensure that All-0 message Payload will be at least the size of an L2 Word.
+ensure that SCHC All-0 message Payload will be at least the size of an L2 Word.
 
 ### All-1 SCHC fragment
 
@@ -798,9 +798,9 @@ All-1 is distinguishable from a SCHC Sender-Abort as [RFC8724] states *This
 condition is met if the RCS is present and is at least the size of an L2 Word*;
 this condition met: RCS is 4 bytes.
 
-### Delay after each message to respect local regulation
+### Delay after each LoRaWAN frame to respect local regulation
 
-This profile does not define a delay to be added after each SCHC message, local
+This profile does not define a delay to be added after each LoRaWAN frame, local
 regulation compliance is expected to be enforced by LoRaWAN stack.
 
 # Security considerations
@@ -964,7 +964,7 @@ Then All-1 message can be transmitted:
 + ---- + ---------- + ----- + ----- + ---------- +
 | XXXX | 1 byte     | 0   0 |   63  |  4 bytes   |
 ~~~~
-{: #Fig-example-uplink-fragmentation-lorawan-packet-4 title='Uplink example: LoRaWAN packet 4 - All-1 message'}
+{: #Fig-example-uplink-fragmentation-lorawan-packet-4 title='Uplink example: LoRaWAN packet 4 - All-1 SCHC message'}
 
 All packets have been received by the SCHC gateway, computed RCS is
 correct so the following ACK is sent to the device by the SCHC receiver:
@@ -1055,7 +1055,7 @@ The last downlink is sent, no FOpts:
 + ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
 | XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
 ~~~~
-{: #Fig-example-downlink-fragmentation-lorawan-packet-5 title='Downlink example: LoRaWAN packet 5 - All-1 message'}
+{: #Fig-example-downlink-fragmentation-lorawan-packet-5 title='Downlink example: LoRaWAN packet 5 - All-1 SCHC message'}
 
 The receiver answers to the sender with an SCHC ACK:
 
