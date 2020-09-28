@@ -125,10 +125,10 @@ refer to the full specification [RFC8724].
 It defines:
 
 1. Compression mechanisms to avoid transporting information known by both
-   sender and receiver over the air. Known information are part of the
+   sender and receiver over the air. Known information is part of the
    "context". This component is called SCHC Compressor/Decompressor (SCHC C/D)
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
-   potentially variable, MTU. This component  called SCHC Fragmentation/Reassembly
+   potentially variable, MTU. This component is called SCHC Fragmentation/Reassembly
    (SCHC F/R)
 
 Context exchange or pre-provisioning is out of scope of this document.
@@ -168,7 +168,7 @@ one or several LPWAN Application Servers (App).
 The SCHC C/D and F/R process is bidirectional, so the same principles can
 be applied in the other direction.
 
-In a LoRaWAN network, the RG is called a Gateway, the NGW is Network Server,
+In a LoRaWAN network, the RGW is called a Gateway, the NGW is Network Server,
 and the SCHC C/D and F/R are an Application Server. It can be provided by
 the Network Gateway or any third party software. {{Fig-archi}} can be mapped in
 LoRaWAN terminology to:
@@ -210,7 +210,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
    Radio Gateway and the SCHC gateway (LoRaWAN Application server). This
    entity maps to the LoRaWAN Network Server.
 
-   o SCHC C/D and F/R are LoRaWAN Application Server; ie the LoRaWAN
+   o SCHC C/D and F/R are handled by LoRaWAN Application Server; ie the LoRaWAN
    application server will do the SCHC C/D and F/R.
 
    o The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
@@ -319,7 +319,7 @@ frame types, used by a device to join a network:
   To on-board a device, the Network Gateway responds to the JoinRequest
   issued by a device with a JoinAccept frame. That frame is
   encrypted with the device's AppKey and contains (amongst other fields)
-  the major network's settings and a random nonce used to derive the session
+  the network's major settings and a random nonce used to derive the session
   keys.
 * Data:
   MAC and application data. Application data are protected with AES-128
@@ -339,7 +339,7 @@ and FRMPayload.
 ## Unicast and multicast technology
 
 LoRaWAN technology supports unicast downlinks, but also multicast: a packet
-send over LoRaWAN radio link can be received by several devices.  It is
+sent over LoRaWAN radio link can be received by several devices.  It is
 useful to address many devices with same content, either a large binary
 file (firmware upgrade), or same command (e.g: lighting control).
 As IPv6 is also a multicast technology this feature can be used to address a
@@ -392,7 +392,7 @@ the range \[1;223\] as defined in section 4.3.2 of {{lora-alliance-spec}}, it im
 that RuleID MSB SHOULD be inside this range. An application can send non SCHC
 traffic by using FPort values different from the ones used for SCHC.
 
-In order to improve interoperability RECOMMENDED fragmentation RuleID values are:
+In order to improve interoperability, RECOMMENDED fragmentation RuleID values are:
 
 * RuleID = 20 (8-bit) for uplink fragmentation, named FPortUp.
 * RuleID = 21 (8-bit) for downlink fragmentation, named FPortDown.
@@ -493,8 +493,8 @@ or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-manageme
 
 ### Uplink fragmentation: From device to SCHC gateway
 
-In that case the device is the fragmentation transmitter, and the SCHC gateway
-the fragmentation receiver. A single fragmentation rule is defined.
+In that case the device is the fragment transmitter, and the SCHC gateway
+the fragment receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet, as per {{lorawan-schc-payload}}.
 
@@ -678,7 +678,7 @@ purposes but not SCHC needs.
 | 8 bits | 1 bit | 1 bit     | X bytes + 6 bits |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 10 bits, including LoraWAN FPort.'}
+{: #Fig-fragmentation-downlink-header-all0 title='All fragments but the last one. Header size 10 bits, including LoRaWAN FPort.'}
 
 
 #### Last fragment (All-1)
@@ -807,7 +807,7 @@ this condition met: RCS is 4 bytes.
 This profile does not define a delay to be added after each LoRaWAN frame, local
 regulation compliance is expected to be enforced by LoRaWAN stack.
 
-# Security considerations
+# Security Considerations
 
 This document is only providing parameters that are expected to be best
 suited for LoRaWAN networks for [RFC8724]. IID
