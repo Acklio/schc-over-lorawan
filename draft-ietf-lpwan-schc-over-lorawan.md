@@ -211,6 +211,9 @@ and the ones in {{lora-alliance-spec}} is as follows:
    o SCHC C/D and F/R are LoRaWAN Application Server; ie the LoRaWAN
    application server will do the SCHC C/D and F/R.
 
+   o The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
+   deliver security keys in a secure way, so devices root key is never exposed.
+
 ~~~~
 
     ()   ()   ()       |                      +------+
