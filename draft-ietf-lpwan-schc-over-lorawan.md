@@ -401,6 +401,7 @@ In order to improve interoperability, RECOMMENDED fragmentation RuleID values ar
 * RuleID = 22 (8-bit) for which SCHC compression was not possible (no matching
 rule was found).
 
+FPortUp value MUST be different from FPortDown.
 The remaining RuleIDs are available for compression. RuleIDs are shared between
 uplink and downlink sessions.  A RuleID not in the set(s) of FPortUp or FPortDown
 means that the fragmentation is not used, thus, on reception, the SCHC Message
