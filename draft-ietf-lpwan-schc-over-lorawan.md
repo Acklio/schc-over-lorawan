@@ -229,15 +229,16 @@ and the ones in {{lora-alliance-spec}} is as follows:
 ~~~~
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
 
-   SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
-   are performed on the LoRaWAN end-device and the Application Server (called
-   SCHC gateway). While the point-to-point link between the device and the
-   Application Server constitutes single IP hop, the ultimate end-point of the
-   IP communication may be an Internet node beyond the Application Server.
-   In other words, the LoRaWAN Application Server (SCHC gateway) acts as the
-   first hop IP router for the device. The Application Server and Network
-   Server may be co-located, which effectively turns the Network/Application
-   Server into the first hop IP router.
+
+SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
+are performed on the LoRaWAN end-device and the Application Server (called
+SCHC gateway). While the point-to-point link between the device and the
+Application Server constitutes single IP hop, the ultimate end-point of the
+IP communication may be an Internet node beyond the Application Server.
+In other words, the LoRaWAN Application Server (SCHC gateway) acts as the
+first hop IP router for the device. The Application Server and Network
+Server may be co-located, which effectively turns the Network/Application
+Server into the first hop IP router.
 
 
 ## Device classes (A, B, C) and interactions
