@@ -867,7 +867,7 @@ Email: alper.yegin@actility.com
 
 # Examples
 
-In following examples "applicative payload" refers to the IPv6 payload send by the
+In following examples "applicative payload" refers to the IPv6 payload sent by the
 application to the SCHC layer.
 
 ## Uplink - Compression example - No fragmentation
