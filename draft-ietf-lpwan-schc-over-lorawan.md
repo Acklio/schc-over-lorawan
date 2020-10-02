@@ -258,7 +258,7 @@ Class C. Class B and Class C are mutually exclusive.
   Network Gateway and not following an uplink. There is a trade-off between the
   periodicity of those scheduled Class B listen windows and the power
   consumption of the device: if the periodicity is high downlinks from the NGW
-  will be send faster, but the device wakes up more often: it will have higher
+  will be sent faster, but the device wakes up more often: it will have higher
   power consumption.
 * Class C: Class C devices implement all the functionalities of Class A
   devices, but keep their receiver open whenever they are not transmitting.
