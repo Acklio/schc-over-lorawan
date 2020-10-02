@@ -217,18 +217,19 @@ and the ones in {{lora-alliance-spec}} is as follows:
    deliver security keys in a secure way, so devices root key is never exposed.
 
 ~~~~
-
+                                         (LPWAN-AAA Server)
     ()   ()   ()       |                      +------+
      ()  () () ()     / \       +---------+   | Join |
     () () () () ()   /   \======|    ^    |===|Server|  +-----------+
      () ()  ()      |           | <--|--> |   +------+  |Application|
     () ()  ()  ()  / \==========|    v    |=============|  Server   |
      ()  ()  ()   /   \         +---------+             +-----------+
-    End-devices  Gateways     Network Server
-
+    End-devices  Gateways     Network Server          (SCHC C/D and F/R)
+     (devices)    (RGW)            (NGW)
 ~~~~
 {: #Fig-LPWANarchi title='LPWAN Architecture'}
 
+*Note*: {{Fig-LPWANarchi}} terms are from LoRaWAN, with {{RFC8376}} terminology in brackets.
 
 SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
 are performed on the LoRaWAN end-device and the Application Server (called
