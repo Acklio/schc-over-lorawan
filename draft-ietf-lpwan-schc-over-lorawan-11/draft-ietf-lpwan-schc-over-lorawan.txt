@@ -1169,7 +1169,7 @@ Informative References
 Appendix A.  Examples
 
    In following examples "applicative payload" refers to the IPv6
-   payload send by the application to the SCHC layer.
+   payload sent by the application to the SCHC layer.
 
 
 
