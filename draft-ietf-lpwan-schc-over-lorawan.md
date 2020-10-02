@@ -867,6 +867,9 @@ Email: alper.yegin@actility.com
 
 # Examples
 
+In following examples "applicative payload" refers to the IPv6 payload send by the
+application to the SCHC layer.
+
 ## Uplink - Compression example - No fragmentation
 This example represents an applicative payload going through SCHC over LoRaWAN,
 no fragmentation required
