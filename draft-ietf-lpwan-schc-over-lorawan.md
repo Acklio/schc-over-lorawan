@@ -75,12 +75,12 @@ number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
 slight differences in respect to payload sizes, reactiveness, etc.
 
-SCHC provides a generic framework that enables those devices to communicate with
-other Internet networks. However, for efficient performance, some parameters
+SCHC provides a generic framework that enables those devices to communicate on
+IP networks. However, for efficient performance, some parameters
 and modes of operation need to be set appropriately for each of the LPWAN
 technologies.
 
-This document describes the efficient parameters and modes of operation when
+This document describes the parameters and modes of operation when
 SCHC is used over LoRaWAN networks.
 
 # Terminology
