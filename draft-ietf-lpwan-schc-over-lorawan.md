@@ -520,7 +520,8 @@ Packet, as per {{lorawan-schc-payload}}.
 * Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC
   Fragment or with any of these two methods. Implementation must ensure that:
   * The sender MUST ascertain that the receiver will not receive
-    the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.
+    the last tile through both a Regular SCHC Fragment and an All-1 SCHC
+    Fragment during the same session.
   * If last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
     the All-1 and the last tile.
 
