@@ -12,9 +12,9 @@
 header compression and fragmentation techniques for Low Power Wide Area
 Networks (LPWAN) technologies. SCHC is a generic mechanism designed for great
 flexibility so that it can be adapted for any of the LPWAN technologies. 
-       This document provides the adaptation of SCHC for use in LoRaWAN networks, and
-provides elements such as efficient parameterization and modes of operation.
-This is called a profile. 
+       This document specifies a profile of RFC8724 to use SCHC in LoRaWAN networks,
+and provides elements such as efficient parameterization and modes of
+operation. 
     " name="description">
 <meta content="xml2rfc 3.2.1" name="generator">
 <meta content="draft-ietf-lpwan-schc-over-lorawan-latest" name="ietf.draft">
@@ -323,7 +323,7 @@ ul.toc li {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Gimenez &amp; Petrov</td>
-<td class="center">Expires 5 April 2021</td>
+<td class="center">Expires 8 April 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -336,12 +336,12 @@ ul.toc li {
 <dd class="internet-draft">draft-ietf-lpwan-schc-over-lorawan-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-10-02" class="published">2 October 2020</time>
+<time datetime="2020-10-05" class="published">5 October 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-04-05">5 April 2021</time></dd>
+<dd class="expires"><time datetime="2021-04-08">8 April 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -364,9 +364,9 @@ ul.toc li {
 header compression and fragmentation techniques for Low Power Wide Area
 Networks (LPWAN) technologies. SCHC is a generic mechanism designed for great
 flexibility so that it can be adapted for any of the LPWAN technologies.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document provides the adaptation of SCHC for use in LoRaWAN networks, and
-provides elements such as efficient parameterization and modes of operation.
-This is called a profile.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This document specifies a profile of RFC8724 to use SCHC in LoRaWAN networks,
+and provides elements such as efficient parameterization and modes of
+operation.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -387,7 +387,7 @@ This is called a profile.<a href="#section-abstract-2" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 April 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 April 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -415,128 +415,128 @@ This is called a profile.<a href="#section-abstract-2" class="pilcrow">¶</a></p
         <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
 <a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.1">
+<nav class="toc"><ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.2">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-terminology" class="xref">Terminology</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.3">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="xref">3</a>.  <a href="#name-static-context-header-compr" class="xref">Static Context Header Compression Overview</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.4">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-lorawan-architecture" class="xref">LoRaWAN Architecture</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.4.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.4.2.1">
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-device-classes-a-b-c-and-in" class="xref">Device classes (A, B, C) and interactions</a><a href="#section-toc.1-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.2">
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-device-addressing" class="xref">Device addressing</a><a href="#section-toc.1-1.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-general-frame-types" class="xref">General Frame Types</a><a href="#section-toc.1-1.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.4">
                 <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-lorawan-mac-frames" class="xref">LoRaWAN MAC Frames</a><a href="#section-toc.1-1.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.5">
                 <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-lorawan-fport" class="xref">LoRaWAN FPort</a><a href="#section-toc.1-1.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.6">
                 <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-lorawan-empty-frame" class="xref">LoRaWAN empty frame</a><a href="#section-toc.1-1.4.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.4.2.7">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.4.2.7">
                 <p id="section-toc.1-1.4.2.7.1"><a href="#section-4.7" class="xref">4.7</a>.  <a href="#name-unicast-and-multicast-techn" class="xref">Unicast and multicast technology</a><a href="#section-toc.1-1.4.2.7.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.5">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-schc-over-lorawan" class="xref">SCHC-over-LoRaWAN</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.5.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.1">
                 <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="xref">5.1</a>.  <a href="#name-lorawan-fport-and-ruleid" class="xref">LoRaWAN FPort and RuleID</a><a href="#section-toc.1-1.5.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="xref">5.2</a>.  <a href="#name-rule-id-management" class="xref">Rule ID management</a><a href="#section-toc.1-1.5.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="xref">5.3</a>.  <a href="#name-interface-identifier-iid-co" class="xref">Interface IDentifier (IID) computation</a><a href="#section-toc.1-1.5.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.4">
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="xref">5.4</a>.  <a href="#name-padding" class="xref">Padding</a><a href="#section-toc.1-1.5.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.5">
                 <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="xref">5.5</a>.  <a href="#name-decompression" class="xref">Decompression</a><a href="#section-toc.1-1.5.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.6">
                 <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="xref">5.6</a>.  <a href="#name-fragmentation" class="xref">Fragmentation</a><a href="#section-toc.1-1.5.2.6.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.5.2.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.6.2.1">
                     <p id="section-toc.1-1.5.2.6.2.1.1"><a href="#section-5.6.1" class="xref">5.6.1</a>.  <a href="#name-dtag" class="xref">DTag</a><a href="#section-toc.1-1.5.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.6.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.6.2.2">
                     <p id="section-toc.1-1.5.2.6.2.2.1"><a href="#section-5.6.2" class="xref">5.6.2</a>.  <a href="#name-uplink-fragmentation-from-d" class="xref">Uplink fragmentation: From device to SCHC gateway</a><a href="#section-toc.1-1.5.2.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.6.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.6.2.3">
                     <p id="section-toc.1-1.5.2.6.2.3.1"><a href="#section-5.6.3" class="xref">5.6.3</a>.  <a href="#name-downlink-fragmentation-from" class="xref">Downlink fragmentation: From SCHC gateway to device</a><a href="#section-toc.1-1.5.2.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.7">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.7">
                 <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="xref">5.7</a>.  <a href="#name-schc-fragment-format" class="xref">SCHC Fragment Format</a><a href="#section-toc.1-1.5.2.7.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.5.2.7.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.5.2.7.2.1">
                     <p id="section-toc.1-1.5.2.7.2.1.1"><a href="#section-5.7.1" class="xref">5.7.1</a>.  <a href="#name-all-0-schc-fragment" class="xref">All-0 SCHC fragment</a><a href="#section-toc.1-1.5.2.7.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.7.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.7.2.2">
                     <p id="section-toc.1-1.5.2.7.2.2.1"><a href="#section-5.7.2" class="xref">5.7.2</a>.  <a href="#name-all-1-schc-fragment" class="xref">All-1 SCHC fragment</a><a href="#section-toc.1-1.5.2.7.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                  <li class="ulEmpty compact toc" id="section-toc.1-1.5.2.7.2.3">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.5.2.7.2.3">
                     <p id="section-toc.1-1.5.2.7.2.3.1"><a href="#section-5.7.3" class="xref">5.7.3</a>.  <a href="#name-delay-after-each-lorawan-fr" class="xref">Delay after each LoRaWAN frame to respect local regulation</a><a href="#section-toc.1-1.5.2.7.2.3.1" class="pilcrow">¶</a></p>
 </li>
                 </ul>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.6">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.7">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.8">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref"></a><a href="#name-acknowledgements" class="xref">Acknowledgements</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.9">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.9">
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref"></a><a href="#name-contributors" class="xref">Contributors</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.10">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref"></a><a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.10.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.10.2.1">
                 <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref"></a><a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.10.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.10.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.10.2.2">
                 <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref"></a><a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.10.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.11">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-appendix.a" class="xref">Appendix A</a>.  <a href="#name-examples" class="xref">Examples</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.11.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.11.2.1">
                 <p id="section-toc.1-1.11.2.1.1"><a href="#section-a.1" class="xref">A.1</a>.  <a href="#name-uplink-compression-example-" class="xref">Uplink - Compression example - No fragmentation</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.11.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-a.2" class="xref">A.2</a>.  <a href="#name-uplink-compression-and-frag" class="xref">Uplink - Compression and fragmentation example</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.11.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.11.2.3">
                 <p id="section-toc.1-1.11.2.3.1"><a href="#section-a.3" class="xref">A.3</a>.  <a href="#name-downlink" class="xref">Downlink</a><a href="#section-toc.1-1.11.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="ulEmpty compact toc" id="section-toc.1-1.12">
+          <li class="compact ulEmpty toc" id="section-toc.1-1.12">
             <p id="section-toc.1-1.12.1"><a href="#section-appendix.b" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
@@ -555,11 +555,11 @@ LPWAN technologies defined in
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
 slight differences in respect to payload sizes, reactiveness, etc.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">SCHC provides a generic framework that enables those devices to communicate with
-other Internet networks. However, for efficient performance, some parameters
+<p id="section-1-2">SCHC provides a generic framework that enables those devices to communicate on
+IP networks. However, for efficient performance, some parameters
 and modes of operation need to be set appropriately for each of the LPWAN
 technologies.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This document describes the efficient parameters and modes of operation when
+<p id="section-1-3">This document describes the parameters and modes of operation when
 SCHC is used over LoRaWAN networks.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -807,10 +807,10 @@ direction and reciprocally on the downlink direction.<a href="#section-4.2-3" cl
 <figure id="figure-4">
           <div class="artwork art-text alignLeft" id="section-4.2-4.1">
 <pre>
-+--------+         +---------+        +---------+            +----------+
-| Device | &lt;=====&gt; | Network | &lt;====&gt; | SCHC    | &lt;========&gt; | Internet |
-|        | devAddr | Gateway | DevEUI | Gateway |  IPv6/UDP  |          |
-+--------+         +---------+        +---------+            +----------+
++--------+         +---------+        +---------+          +----------+
+| Device | &lt;=====&gt; | Network | &lt;====&gt; | SCHC    | &lt;======&gt; | Internet |
+|        | devAddr | Gateway | DevEUI | Gateway | IPv6/UDP |          |
++--------+         +---------+        +---------+          +----------+
 
 </pre>
 </div>
@@ -1122,7 +1122,8 @@ driven by application requirements and MAY be changed by the application.<a href
 Fragment or with any of these two methods. Implementation must ensure that:<a href="#section-5.6.2-2.13.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.6.2-2.13.2.1">The sender MUST ascertain that the receiver will not receive
-the last tile through both a Regular SCHC Fragment and an All-1 SCHC Fragment.<a href="#section-5.6.2-2.13.2.1" class="pilcrow">¶</a>
+the last tile through both a Regular SCHC Fragment and an All-1 SCHC
+Fragment during the same session.<a href="#section-5.6.2-2.13.2.1" class="pilcrow">¶</a>
 </li>
                 <li class="normal" id="section-5.6.2-2.13.2.2">If last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
 the All-1 and the last tile.<a href="#section-5.6.2-2.13.2.2" class="pilcrow">¶</a>
@@ -1220,11 +1221,12 @@ a part of the rule context.<a href="#section-5.6.2-7" class="pilcrow">¶</a></p>
 <figure id="figure-10">
               <div class="artwork art-text alignLeft" id="section-5.6.2.3-1.1">
 <pre>
-| FPort  | LoRaWAN payload                                                      |
-+ ------ + -------------------------------------------------------------------- +
-| RuleID |   W   |   C   | Compressed bitmap(C = 0) | Optional padding(b'0...0) |
-+ ------ + ----- + ----- + ------------------------ + ------------------------- +
-| 8 bits | 2 bit | 1 bit |       5 to 63 bits       |      0, 6 or 7 bits       |
+| FPort  | LoRaWAN payload                                      |
++ ------ + --------------------------------- + ---------------- +
+| RuleID |   W   |   C   | Compressed bitmap | Optional padding |
+|        |       |       |      (C = 0)      |    (b'0...0)     |
++ ------ + ----- + ----- + ----------------- + ---------------- +
+| 8 bits | 2 bit | 1 bit |    5 to 63 bits   |  0, 6 or 7 bits  |
 
 </pre>
 </div>
@@ -1622,25 +1624,13 @@ Email: alper.yegin@actility.com<a href="#section-9-7" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Hinden, R.</span><span class="refAuthor"> and S. Deering</span>, <span class="refTitle">"IP Version 6 Addressing Architecture"</span>, <span class="seriesInfo">RFC 4291</span>, <span class="seriesInfo">DOI 10.17487/RFC4291</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4291">https://www.rfc-editor.org/info/rfc4291</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC4493">[RFC4493]</dt>
-        <dd>
-<span class="refAuthor">Song, JH.</span><span class="refAuthor">, Poovendran, R.</span><span class="refAuthor">, Lee, J.</span><span class="refAuthor">, and T. Iwata</span>, <span class="refTitle">"The AES-CMAC Algorithm"</span>, <span class="seriesInfo">RFC 4493</span>, <span class="seriesInfo">DOI 10.17487/RFC4493</span>, <time datetime="2006-06" class="refDate">June 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4493">https://www.rfc-editor.org/info/rfc4493</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8064">[RFC8064]</dt>
         <dd>
 <span class="refAuthor">Gont, F.</span><span class="refAuthor">, Cooper, A.</span><span class="refAuthor">, Thaler, D.</span><span class="refAuthor">, and W. Liu</span>, <span class="refTitle">"Recommendation on Stable IPv6 Interface Identifiers"</span>, <span class="seriesInfo">RFC 8064</span>, <span class="seriesInfo">DOI 10.17487/RFC8064</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8064">https://www.rfc-editor.org/info/rfc8064</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8065">[RFC8065]</dt>
-        <dd>
-<span class="refAuthor">Thaler, D.</span>, <span class="refTitle">"Privacy Considerations for IPv6 Adaptation-Layer Mechanisms"</span>, <span class="seriesInfo">RFC 8065</span>, <span class="seriesInfo">DOI 10.17487/RFC8065</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8065">https://www.rfc-editor.org/info/rfc8065</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8376">[RFC8376]</dt>
-        <dd>
-<span class="refAuthor">Farrell, S., Ed.</span>, <span class="refTitle">"Low-Power Wide Area Network (LPWAN) Overview"</span>, <span class="seriesInfo">RFC 8376</span>, <span class="seriesInfo">DOI 10.17487/RFC8376</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8376">https://www.rfc-editor.org/info/rfc8376</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8724">[RFC8724]</dt>
       <dd>
@@ -1658,8 +1648,20 @@ Email: alper.yegin@actility.com<a href="#section-9-7" class="pilcrow">¶</a></p>
 <span class="refAuthor">Alliance, L.</span>, <span class="refTitle">"LoRaWAN Remote Multicast Setup Specification Version 1.0.0"</span>, <span>&lt;<a href="https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf">https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="lora-alliance-spec">[lora-alliance-spec]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Alliance, L.</span>, <span class="refTitle">"LoRaWAN Specification Version V1.0.3"</span>, <span>&lt;<a href="https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf">https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4493">[RFC4493]</dt>
+        <dd>
+<span class="refAuthor">Song, JH.</span><span class="refAuthor">, Poovendran, R.</span><span class="refAuthor">, Lee, J.</span><span class="refAuthor">, and T. Iwata</span>, <span class="refTitle">"The AES-CMAC Algorithm"</span>, <span class="seriesInfo">RFC 4493</span>, <span class="seriesInfo">DOI 10.17487/RFC4493</span>, <time datetime="2006-06" class="refDate">June 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4493">https://www.rfc-editor.org/info/rfc4493</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8065">[RFC8065]</dt>
+        <dd>
+<span class="refAuthor">Thaler, D.</span>, <span class="refTitle">"Privacy Considerations for IPv6 Adaptation-Layer Mechanisms"</span>, <span class="seriesInfo">RFC 8065</span>, <span class="seriesInfo">DOI 10.17487/RFC8065</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8065">https://www.rfc-editor.org/info/rfc8065</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8376">[RFC8376]</dt>
+      <dd>
+<span class="refAuthor">Farrell, S., Ed.</span>, <span class="refTitle">"Low-Power Wide Area Network (LPWAN) Overview"</span>, <span class="seriesInfo">RFC 8376</span>, <span class="seriesInfo">DOI 10.17487/RFC8376</span>, <time datetime="2018-05" class="refDate">May 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8376">https://www.rfc-editor.org/info/rfc8376</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1797,11 +1799,11 @@ the remaining 3 bits.<a href="#section-a.2-10" class="pilcrow">¶</a></p>
 <figure id="figure-23">
           <div class="artwork art-text alignLeft" id="section-a.2-11.1">
 <pre>
-| LoRaWAN Header    | LoRaWAN payload (44 bytes)                        |
-+ ---- + -----------+ ------------------------------------------------- +
-|      | RuleID=20  |   W   |  FCN  |     5 tiles       | Padding=b'000 |
-+ ---- + ---------- + ----- + ----- + ----------------- + ------------- +
-| XXXX | 1 byte     | 0   0 |   38  | 42 bytes + 5 bits |    3 bits     |
+| LoRaWAN Header    | LoRaWAN payload (44 bytes)                      |
++ ---- + ---------- + ----------------------------------------------- +
+|      | RuleID=20  |   W   |  FCN  |    5 tiles      | Padding=b'000 |
++ ---- + ---------- + ----- + ----- + --------------- + ------------- +
+| XXXX | 1 byte     | 0   0 |  38   | 42 bytes+5 bits |    3 bits     |
 </pre>
 </div>
 <figcaption><a href="#figure-23" class="selfRef">Figure 23</a>:
@@ -1949,11 +1951,12 @@ has to be fragmented.<a href="#section-a.3-3" class="pilcrow">¶</a></p>
 <figure id="figure-32">
           <div class="artwork art-text alignLeft" id="section-a.3-14.1">
 <pre>
-| LoRaWAN Header   | LoRaWAN payload (37 bytes)                                        |
-+ ---- + --------- + ----------------------------------------------------------------- +
-|      | RuleID=21 |  W = 0  | FCN = 1 |   RCS   |      1 tile       | Padding=b'00000 |
-+ ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
-| XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
+| LoRaWAN Header | LoRaWAN payload (37 bytes)                          |
++ ---- + ------- + --------------------------------------------------- +
+|      | RuleID  |   W   |  FCN  |   RCS   |      1 tile     | Padding |
+|      |   21    |   0   |   1   |         |                 | b'00000 |
++ ---- + ------- + ----- + ----- + ------- + --------------- + ------- +
+| XXXX | 1 byte  | 1 bit | 1 bit | 4 bytes | 31 bytes+1 bits | 5 bits  |
 </pre>
 </div>
 <figcaption><a href="#figure-32" class="selfRef">Figure 32</a>:
