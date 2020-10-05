@@ -59,9 +59,9 @@ header compression and fragmentation techniques for Low Power Wide Area
 Networks (LPWAN) technologies. SCHC is a generic mechanism designed for great
 flexibility so that it can be adapted for any of the LPWAN technologies.
 
-This document provides the adaptation of SCHC for use in LoRaWAN networks, and
-provides elements such as efficient parameterization and modes of operation.
-This is called a profile.
+This document specifies a profile of [RFC8724] to use SCHC in LoRaWAN networks,
+and provides elements such as efficient parameterization and modes of
+operation.
 
 --- middle
 
