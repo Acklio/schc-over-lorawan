@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Standards Track                          I. Petrov, Ed.
-Expires: 22 March 2021                                            Acklio
-                                                       18 September 2020
+Expires: 8 April 2021                                             Acklio
+                                                          5 October 2020
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 March 2021.
+   This Internet-Draft will expire on 8 April 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 1]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    and restrictions with respect to this document.  Code Components
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 2]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 3]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    *  OUI: Organisation Unique Identifier.  IEEE assigned prefix for
@@ -221,9 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 4]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    Figure 1 represents the architecture for compression/decompression,
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 5]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 4.  LoRaWAN Architecture
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 6]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    *  Class A: The Class A is the simplest class of devices.  The device
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 7]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 +--------+         +---------+        +---------+            +----------+
@@ -445,9 +445,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 8]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 4.6.  LoRaWAN empty frame
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                 [Page 9]
+Gimenez & Petrov          Expires 8 April 2021                  [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    All RuleID can use arbitrary values inside the FPort range allowed by
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 10]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 5.3.  Interface IDentifier (IID) computation
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 11]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 5.5.  Decompression
@@ -669,9 +669,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 12]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 12]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    *  Window index: encoded on W = 2 bits.  So 4 windows are available.
@@ -725,9 +725,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 13]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 13]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    For non-battery powered devices, SCHC receiver MAY also choose to
@@ -781,9 +781,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 14]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 14]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    Note: Because of the bitmap compression mechanism and L2 byte
@@ -837,9 +837,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 15]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 15]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    *  RCS: Use recommended calculation algorithm in [RFC8724].
@@ -893,9 +893,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 16]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 16]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 5.6.3.3.  SCHC ACK
@@ -949,9 +949,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 17]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 17]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    _Note_: The ACK bitmap is 1 bit long and is always 1.
@@ -1005,9 +1005,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 18]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 18]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    As per [RFC8724] the SCHC All-1 MUST contain the last tile,
@@ -1061,9 +1061,9 @@ Contributors
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 19]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 19]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    Marc Le Gourrierec Sagemcom Email: marc.legourrierec@sagemcom.com
@@ -1117,9 +1117,9 @@ Informative References
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 20]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 20]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    [lora-alliance-remote-multicast-set]
@@ -1173,9 +1173,9 @@ A.2.  Uplink - Compression and fragmentation example
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 21]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 21]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    An applicative payload of 478 bytes is passed to SCHC compression
@@ -1229,9 +1229,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 22]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 22]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    Next transmission MTU is 242 bytes, no FOpts.  All 5 remaining tiles
@@ -1285,9 +1285,9 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 23]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 23]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
    The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
@@ -1341,9 +1341,9 @@ Internet-Draft              SCHC-over-LoRaWAN             September 2020
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 24]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 24]
 
-Internet-Draft              SCHC-over-LoRaWAN             September 2020
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
           Figure 31: Downlink example: LoRaWAN packet 4 - SCHC ACK
@@ -1397,4 +1397,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov          Expires 22 March 2021                [Page 25]
+Gimenez & Petrov          Expires 8 April 2021                 [Page 25]
