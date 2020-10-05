@@ -34,11 +34,11 @@ normative:
   RFC8174:
   RFC4291:
   RFC8064:
-  RFC8065:
-  RFC8376:
-  RFC4493:
   RFC8724:
 informative:
+  RFC4493:
+  RFC8065:
+  RFC8376:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
     author:
@@ -59,7 +59,7 @@ header compression and fragmentation techniques for Low Power Wide Area
 Networks (LPWAN) technologies. SCHC is a generic mechanism designed for great
 flexibility so that it can be adapted for any of the LPWAN technologies.
 
-This document specifies a profile of [RFC8724] to use SCHC in LoRaWAN networks,
+This document specifies a profile of RFC8724 to use SCHC in LoRaWAN networks,
 and provides elements such as efficient parameterization and modes of
 operation.
 
@@ -288,10 +288,10 @@ direction and reciprocally on the downlink direction.
 
 ~~~~
 
-+--------+         +---------+        +---------+            +----------+
-| Device | <=====> | Network | <====> | SCHC    | <========> | Internet |
-|        | devAddr | Gateway | DevEUI | Gateway |  IPv6/UDP  |          |
-+--------+         +---------+        +---------+            +----------+
++--------+         +---------+        +---------+          +----------+
+| Device | <=====> | Network | <====> | SCHC    | <======> | Internet |
+|        | devAddr | Gateway | DevEUI | Gateway | IPv6/UDP |          |
++--------+         +---------+        +---------+          +----------+
 
 ~~~~
 {: #Fig-LoRaWANaddresses title='LoRaWAN addresses'}
@@ -588,11 +588,12 @@ a part of the rule context.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                                      |
-+ ------ + -------------------------------------------------------------------- +
-| RuleID |   W   |   C   | Compressed bitmap(C = 0) | Optional padding(b'0...0) |
-+ ------ + ----- + ----- + ------------------------ + ------------------------- +
-| 8 bits | 2 bit | 1 bit |       5 to 63 bits       |      0, 6 or 7 bits       |
+| FPort  | LoRaWAN payload                                      |
++ ------ + --------------------------------- + ---------------- +
+| RuleID |   W   |   C   | Compressed bitmap | Optional padding |
+|        |       |       |      (C = 0)      |    (b'0...0)     |
++ ------ + ----- + ----- + ----------------- + ---------------- +
+| 8 bits | 2 bit | 1 bit |    5 to 63 bits   |  0, 6 or 7 bits  |
 
 ~~~~
 {: #Fig-fragmentation-header-long-schc-ack title='SCHC ACK format, failed RCS check.'}
@@ -958,11 +959,11 @@ transmitted, the last tile is only 2 bytes + 5 bits. Padding is added for
 the remaining 3 bits.
 
 ~~~~
-| LoRaWAN Header    | LoRaWAN payload (44 bytes)                        |
-+ ---- + -----------+ ------------------------------------------------- +
-|      | RuleID=20  |   W   |  FCN  |     5 tiles       | Padding=b'000 |
-+ ---- + ---------- + ----- + ----- + ----------------- + ------------- +
-| XXXX | 1 byte     | 0   0 |   38  | 42 bytes + 5 bits |    3 bits     |
+| LoRaWAN Header    | LoRaWAN payload (44 bytes)                      |
++ ---- + ---------- + ----------------------------------------------- +
+|      | RuleID=20  |   W   |  FCN  |    5 tiles      | Padding=b'000 |
++ ---- + ---------- + ----- + ----- + --------------- + ------------- +
+| XXXX | 1 byte     | 0   0 |  38   | 42 bytes+5 bits |    3 bits     |
 ~~~~
 {: #Fig-example-uplink-fragmentation-lorawan-packet-3 title='Uplink example: LoRaWAN packet 3'}
 
@@ -1060,11 +1061,12 @@ The receiver answers with an SCHC ACK:
 The last downlink is sent, no FOpts:
 
 ~~~~
-| LoRaWAN Header   | LoRaWAN payload (37 bytes)                                        |
-+ ---- + --------- + ----------------------------------------------------------------- +
-|      | RuleID=21 |  W = 0  | FCN = 1 |   RCS   |      1 tile       | Padding=b'00000 |
-+ ---- + --------- + ------- + ------- + ------- + ----------------- + --------------- +
-| XXXX | 1 byte    |  1 bit  |  1 bit  | 4 bytes | 31 bytes + 1 bits |     5 bits      |
+| LoRaWAN Header | LoRaWAN payload (37 bytes)                          |
++ ---- + ------- + --------------------------------------------------- +
+|      | RuleID  |   W   |  FCN  |   RCS   |      1 tile     | Padding |
+|      |   21    |   0   |   1   |         |                 | b'00000 |
++ ---- + ------- + ----- + ----- + ------- + --------------- + ------- +
+| XXXX | 1 byte  | 1 bit | 1 bit | 4 bytes | 31 bytes+1 bits | 5 bits  |
 ~~~~
 {: #Fig-example-downlink-fragmentation-lorawan-packet-5 title='Downlink example: LoRaWAN packet 5 - All-1 SCHC message'}
 
@@ -1078,4 +1080,3 @@ The receiver answers to the sender with an SCHC ACK:
 | XXXX |  1 byte   | 1 bit | 1 bit |     6 bits       |
 ~~~~
 {: #Fig-example-downlink-fragmentation-lorawan-packet-6 title='Downlink example: LoRaWAN packet 6 - SCHC ACK'}
-
