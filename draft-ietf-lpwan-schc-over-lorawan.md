@@ -73,7 +73,7 @@ LPWAN technologies defined in
 {{RFC8376}}. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
-slight differences in respect to payload sizes, reactiveness, etc.
+slight differences with respect to payload sizes, reactiveness, etc.
 
 SCHC provides a generic framework that enables those devices to communicate on
 IP networks. However, for efficient performance, some parameters
@@ -126,10 +126,10 @@ It defines:
 
 1. Compression mechanisms to avoid transporting information known by both
    sender and receiver over the air. Known information is part of the
-   "context". This component is called SCHC Compressor/Decompressor (SCHC C/D)
+   "context". This component is called SCHC Compressor/Decompressor (SCHC C/D).
 2. Fragmentation mechanisms to allow SCHC Packet transportation on small, and
    potentially variable, MTU. This component is called SCHC Fragmentation/Reassembly
-   (SCHC F/R)
+   (SCHC F/R).
 
 Context exchange or pre-provisioning is out of scope of this document.
 
@@ -166,7 +166,7 @@ share the same set of rules. After decompression, the packet can be sent on the 
 one or several LPWAN Application Servers (App).
 
 The SCHC C/D and F/R process is bidirectional, so the same principles can
-be applied in the other direction.
+be applied to the other direction.
 
 In a LoRaWAN network, the RGW is called a Gateway, the NGW is Network Server,
 and the SCHC C/D and F/R are an Application Server. It can be provided by
@@ -214,7 +214,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
    application server will do the SCHC C/D and F/R.
 
    o The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
-   deliver security keys in a secure way, so devices root key is never exposed.
+   deliver security keys in a secure way, so that the devices root key is never exposed.
 
 ~~~~
                                          (LPWAN-AAA Server)
@@ -234,7 +234,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
 SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
 are performed on the LoRaWAN end-device and the Application Server (called
 SCHC gateway). While the point-to-point link between the device and the
-Application Server constitutes single IP hop, the ultimate end-point of the
+Application Server constitutes a single IP hop, the ultimate end-point of the
 IP communication may be an Internet node beyond the Application Server.
 In other words, the LoRaWAN Application Server (SCHC gateway) acts as the
 first hop IP router for the device. The Application Server and Network
@@ -276,7 +276,7 @@ the Network Gateway over-the-air, this address might not be unique in a LoRaWAN
 network; devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.
 
-To communicate with the SCHC gateway the Network Gateway MUST identify the
+To communicate with the SCHC gateway, the Network Gateway MUST identify the
 devices by a unique 64-bit device identifier called the DevEUI.
 
 The DevEUI is assigned to the device during the manufacturing process by the
@@ -310,8 +310,8 @@ LoRaWAN Confirmed frames.
 
 ## LoRaWAN MAC Frames
 
-In addition to regular data frames LoRaWAN implements JoinRequest and JoinAccept
-frame types, used by a device to join a network:
+In addition to regular data frames, LoRaWAN implements JoinRequest and JoinAccept
+frame types, which are used by a device to join a network:
 
 * JoinRequest:
   This frame is used by a device to join a network. It contains the device's
@@ -352,7 +352,7 @@ multicast group definition in a Network Gateway and the relation between those
 groups and IPv6 groupID are out of scope of this document.
 
 _Note 2_: LoRa Alliance defined {{lora-alliance-remote-multicast-set}} as
-RECOMMENDED way to setup multicast groups on devices and create a synchronized
+the RECOMMENDED way to setup multicast groups on devices and create a synchronized
 reception window.
 
 # SCHC-over-LoRaWAN
@@ -422,7 +422,7 @@ The mechanism for sharing those RuleID values is outside the scope of this docum
 
 ## Interface IDentifier (IID) computation {#IID}
 
-In order to mitigate risks described in [rfc8064] and [rfc8065] IID MUST be
+In order to mitigate the risks described in [rfc8064] and [rfc8065], IID MUST be
 created regarding the following algorithm:
 
 1. key = LoRaWAN AppSKey
@@ -456,8 +456,8 @@ Example with:
 ~~~~
 {: #Fig-iid-computation-example title='Example of IID computation.'}
 
-There is a small probability of IID collision in a LoRaWAN network, if such event occurs
-the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN
+There is a small probability of IID collision in a LoRaWAN network. If this occurs,
+the IID can be changed by rekeying the device at L2 level (ie: trigger a LoRaWAN
 join).
 The way the device is rekeyed is out of scope of this document and left to the
 implementation.
@@ -488,15 +488,15 @@ fragmented datagrams and are successively described in the next sections.
 
 [RFC8724] section 8.2.4 describes the possibility to interleave several
 fragmented SCHC datagrams for the same RuleID. This is not used in SCHC over
-LoRaWAN profile. A Device cannot interleave several fragmented SCHC datagrams
+LoRaWAN profile. A device cannot interleave several fragmented SCHC datagrams
 on the same FPort.  This field is not used and its size is 0.
 
-Note: The device can still have several parallel fragmented datagrams with one
-or more SCHC gateway(s) thanks to distinct sets of FPorts, cf {{rule-id-management}}
+Note: The device can still have several parallel fragmented datagrams with
+more than one SCHC gateway thanks to distinct sets of FPorts, cf {{rule-id-management}}.
 
 ### Uplink fragmentation: From device to SCHC gateway
 
-In that case the device is the fragment transmitter, and the SCHC gateway
+In this case, the device is the fragment transmitter, and the SCHC gateway
 the fragment receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet, as per {{lorawan-schc-payload}}.
@@ -522,8 +522,8 @@ Packet, as per {{lorawan-schc-payload}}.
   * The sender MUST ascertain that the receiver will not receive
     the last tile through both a Regular SCHC Fragment and an All-1 SCHC
     Fragment during the same session.
-  * If last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
-    the All-1 and the last tile.
+  * If the last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
+    the All-1 header and the last tile.
 
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
@@ -532,18 +532,18 @@ LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 For battery powered devices, it is RECOMMENDED to use the ACK mechanism at the
 end of each window instead of waiting until the end of all windows:
 
-* SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
+* the SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
   missing tile.
-* SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
-tiles from the next window. If the SCHC ACK is not received, it SHOULD send an SCHC
-ACK REQ up to MAX_ACK_REQUESTS, time as described previously.
+* the SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
+tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
+ACK REQ up to MAX_ACK_REQUESTS times, as described previously.
 
-For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC
-ACK only at the end of all windows. It will reduce downlink load on the LoRaWAN
+For non-battery powered devices, the SCHC receiver MAY also choose to send a SCHC
+ACK only at the end of all windows. This will reduce downlink load on the LoRaWAN
 network, by reducing the number of downlinks.
 
-SCHC implementations MUST be compatible with both behavior, and selection is
-a part of the rule context.
+SCHC implementations MUST be compatible with both behaviors, and this selection is
+part of the rule context.
 
 
 #### Regular fragments
@@ -599,8 +599,8 @@ a part of the rule context.
 {: #Fig-fragmentation-header-long-schc-ack title='SCHC ACK format, failed RCS check.'}
 
 
-Note: Because of the bitmap compression mechanism and L2 byte alignment only
-few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61, 62, 63.
+Note: Because of the bitmap compression mechanism and L2 byte alignment, only
+the following discrete values are possible for the compressed bitmap size: 5, 13, 21, 29, 37, 45, 53, 61, 62 and 63.
 Bitmaps of 63 bits will require 6 bits of padding.
 
 #### Receiver-Abort
@@ -636,7 +636,7 @@ Bitmaps of 63 bits will require 6 bits of padding.
 
 ### Downlink fragmentation: From SCHC gateway to device
 
-In that case the device is the fragmentation receiver, and the SCHC gateway the
+In this case, the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet as described in {{lorawan-schc-payload}}.
@@ -657,15 +657,15 @@ Packet as described in {{lorawan-schc-payload}}.
   the application.
 
 As only 1 tile is used, its size can change for each downlink, and will be
-maximum available MTU.
+the maximum available MTU.
 
 Class A devices can only receive during an RX slot, following the transmission of an
-uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC
-session);  in order to create a downlink opportunity it is RECOMMENDED for
+uplink.  Therefore the SCHC gateway cannot initiate communication (e.g., start a new SCHC
+session). In order to create a downlink opportunity it is RECOMMENDED for
 Class A devices to send an uplink every 24 hours when no SCHC session is
-started, this is application specific and can be disabled. RECOMMENDED uplink
+started, this is application specific and can be disabled. The RECOMMENDED uplink
 is a LoRaWAN empty frame as defined {{lorawan-empty-frame}}.
-As this uplink is to open an RX window any LoRaWAN uplink frame from the device
+As this uplink is to open an RX window, any LoRaWAN uplink frame from the device
 MAY reset this counter.
 
 _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
@@ -731,7 +731,7 @@ purposes but not SCHC needs.
 #### Downlink retransmission timer {#downlink-retransmission-timer}
 
 Class A and Class B or Class C devices do not manage retransmissions and timers
-in the same way.
+the same way.
 
 ##### Class A devices
 
@@ -748,11 +748,11 @@ INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 
 **SCHC All-0 (FCN=0)**
 All fragments but the last have an FCN=0 (because window size is 1).  Following
-it the device MUST transmit the SCHC ACK message. It MUST transmit up to
+it, the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
 fragmented datagram, the SCHC layer should immediately queue for transmission
 those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
-LoRaWAN layer will respect the local spectrum regulation if required.
+LoRaWAN layer will respect the applicable local spectrum regulation.
 
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
@@ -766,11 +766,11 @@ The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty frame (see {{lorawan-empty-frame}}) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
-is 2, it MUST be greater than 1. This allows to open downlink opportunity to other
-eventual downlink with higher priority than SCHC ACK REQ message.
+is 2. It MUST be greater than 1. This allows to open a downlink opportunity to
+any downlink with higher priority than the SCHC ACK REQ message.
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
-a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that
+a downlink SCHC Fragmentation Message (with FPort == FPortDown) that is not a SCHC ACK REQ: it indicates that
 the SCHC gateway has received the SCHC ACK message.
 
 #### Class B or Class C devices
@@ -817,10 +817,10 @@ regulation compliance is expected to be enforced by LoRaWAN stack.
 This document is only providing parameters that are expected to be best
 suited for LoRaWAN networks for [RFC8724]. IID
 security is discussed in {{IID}}. As such, this document does not contribute to
-any new security issues in addition to those identified in
+any new security issues beyond those already identified in
 [RFC8724].
-Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
-encryption with key shared by device and SCHC gateway. Those keys are renewed at each
+Moreover, SCHC data (LoRaWAN payload) are protected at the LoRaWAN level by an AES-128
+encryption with a session key shared by the device and the SCHC gateway. These session keys are renewed at each
 LoRaWAN session (ie: each join or rejoin to the LoRaWAN network)
 
 # IANA Considerations
