@@ -361,8 +361,7 @@ reception window.
 
 The FPort field is part of the SCHC Message, as shown in
 {{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate
-the FPort field with the LoRaWAN payload to retrieve their payload as it is used
-as a part of the RuleID field.
+the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 
 ~~~~
 
@@ -418,7 +417,8 @@ instance the device is required to communicate with.  The application can use
 additional uplinks or downlink fragmented parameters but SHALL implement at
 least the parameters defined in this document.
 
-The mechanism for sharing those RuleID values is outside the scope of this document.
+The mechanism for context distribution across devices and gateways is
+outside the scope of this document.
 
 ## Interface IDentifier (IID) computation {#IID}
 
@@ -637,7 +637,7 @@ Bitmaps of 63 bits will require 6 bits of padding.
 ### Downlink fragmentation: From SCHC gateway to device
 
 In that case the device is the fragmentation receiver, and the SCHC gateway the
-fragmentation transmitter. The following fields are common to all devices.
+fragmentation transmitter. The following parameters are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet as described in {{lorawan-schc-payload}}.
 
@@ -657,7 +657,7 @@ Packet as described in {{lorawan-schc-payload}}.
   the application.
 
 As only 1 tile is used, its size can change for each downlink, and will be
-maximum available MTU.
+the currently available MTU.
 
 Class A devices can only receive during an RX slot, following the transmission of an
 uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC
@@ -766,8 +766,9 @@ The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty frame (see {{lorawan-empty-frame}}) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
-is 2, it MUST be greater than 1. This allows to open downlink opportunity to other
-eventual downlink with higher priority than SCHC ACK REQ message.
+is 2, it MUST be greater than 1. This allows for more downlink opportunities
+than required by SCHC control traffic, leaving opportunity for any other
+downlink with higher priority than SCHC ACK REQ message.
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
 a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that
