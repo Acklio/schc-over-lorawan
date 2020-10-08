@@ -323,7 +323,7 @@ ul.toc li {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Gimenez &amp; Petrov</td>
-<td class="center">Expires 8 April 2021</td>
+<td class="center">Expires 11 April 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -336,12 +336,12 @@ ul.toc li {
 <dd class="internet-draft">draft-ietf-lpwan-schc-over-lorawan-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2020-10-05" class="published">5 October 2020</time>
+<time datetime="2020-10-08" class="published">8 October 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2021-04-08">8 April 2021</time></dd>
+<dd class="expires"><time datetime="2021-04-11">11 April 2021</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -387,7 +387,7 @@ operation.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 April 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 April 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -554,7 +554,7 @@ LPWAN technologies defined in
 <span>[<a href="#RFC8376" class="xref">RFC8376</a>]</span>. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
-slight differences in respect to payload sizes, reactiveness, etc.<a href="#section-1-1" class="pilcrow">¶</a></p>
+slight differences with respect to payload sizes, reactiveness, etc.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">SCHC provides a generic framework that enables those devices to communicate on
 IP networks. However, for efficient performance, some parameters
 and modes of operation need to be set appropriately for each of the LPWAN
@@ -624,11 +624,11 @@ refer to the full specification <span>[<a href="#RFC8724" class="xref">RFC8724</
 <ol start="1" type="1" class="normal type-1" id="section-3-3">
 <li id="section-3-3.1">Compression mechanisms to avoid transporting information known by both
 sender and receiver over the air. Known information is part of the
-"context". This component is called SCHC Compressor/Decompressor (SCHC C/D)<a href="#section-3-3.1" class="pilcrow">¶</a>
+"context". This component is called SCHC Compressor/Decompressor (SCHC C/D).<a href="#section-3-3.1" class="pilcrow">¶</a>
 </li>
         <li id="section-3-3.2">Fragmentation mechanisms to allow SCHC Packet transportation on small, and
 potentially variable, MTU. This component is called SCHC Fragmentation/Reassembly
-(SCHC F/R)<a href="#section-3-3.2" class="pilcrow">¶</a>
+(SCHC F/R).<a href="#section-3-3.2" class="pilcrow">¶</a>
 </li>
       </ol>
 <p id="section-3-4">Context exchange or pre-provisioning is out of scope of this document.<a href="#section-3-4" class="pilcrow">¶</a></p>
@@ -670,7 +670,7 @@ F/R, then SCHC F/R and C/D. The SCHC C/D and F/R in the device and the SCHC gate
 share the same set of rules. After decompression, the packet can be sent on the Internet to
 one or several LPWAN Application Servers (App).<a href="#section-3-6" class="pilcrow">¶</a></p>
 <p id="section-3-7">The SCHC C/D and F/R process is bidirectional, so the same principles can
-be applied in the other direction.<a href="#section-3-7" class="pilcrow">¶</a></p>
+be applied to the other direction.<a href="#section-3-7" class="pilcrow">¶</a></p>
 <p id="section-3-8">In a LoRaWAN network, the RGW is called a Gateway, the NGW is Network Server,
 and the SCHC C/D and F/R are an Application Server. It can be provided by
 the Network Gateway or any third party software. <a href="#Fig-archi" class="xref">Figure 1</a> can be mapped in
@@ -721,7 +721,7 @@ and the ones in <span>[<a href="#lora-alliance-spec" class="xref">lora-alliance-
 <p id="section-4-5">o SCHC C/D and F/R are handled by LoRaWAN Application Server; ie the LoRaWAN
    application server will do the SCHC C/D and F/R.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">o The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
-   deliver security keys in a secure way, so devices root key is never exposed.<a href="#section-4-6" class="pilcrow">¶</a></p>
+   deliver security keys in a secure way, so that the devices root key is never exposed.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <span id="name-lpwan-architecture"></span><div id="Fig-LPWANarchi">
 <figure id="figure-3">
         <div class="artwork art-text alignLeft" id="section-4-7.1">
@@ -745,7 +745,7 @@ and the ones in <span>[<a href="#lora-alliance-spec" class="xref">lora-alliance-
 <p id="section-4-9">SCHC Compressor/Decompressor (SCHC C/D) and SCHC Fragmentation/Reassembly (SCHC F/R)
 are performed on the LoRaWAN end-device and the Application Server (called
 SCHC gateway). While the point-to-point link between the device and the
-Application Server constitutes single IP hop, the ultimate end-point of the
+Application Server constitutes a single IP hop, the ultimate end-point of the
 IP communication may be an Internet node beyond the Application Server.
 In other words, the LoRaWAN Application Server (SCHC gateway) acts as the
 first hop IP router for the device. The Application Server and Network
@@ -795,7 +795,7 @@ Most of the Class C devices are grid powered (for example Smart Plugs).<a href="
 the Network Gateway over-the-air, this address might not be unique in a LoRaWAN
 network; devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">To communicate with the SCHC gateway the Network Gateway MUST identify the
+<p id="section-4.2-2">To communicate with the SCHC gateway, the Network Gateway MUST identify the
 devices by a unique 64-bit device identifier called the DevEUI.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3">The DevEUI is assigned to the device during the manufacturing process by the
 device's manufacturer. It is built like an Ethernet MAC address by
@@ -843,8 +843,8 @@ LoRaWAN Confirmed frames.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
         <h3 id="name-lorawan-mac-frames">
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-lorawan-mac-frames" class="section-name selfRef">LoRaWAN MAC Frames</a>
         </h3>
-<p id="section-4.4-1">In addition to regular data frames LoRaWAN implements JoinRequest and JoinAccept
-frame types, used by a device to join a network:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-1">In addition to regular data frames, LoRaWAN implements JoinRequest and JoinAccept
+frame types, which are used by a device to join a network:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.4-2.1">JoinRequest:
 This frame is used by a device to join a network. It contains the device's
@@ -899,7 +899,7 @@ group of devices.<a href="#section-4.7-1" class="pilcrow">¶</a></p>
 multicast group definition in a Network Gateway and the relation between those
 groups and IPv6 groupID are out of scope of this document.<a href="#section-4.7-2" class="pilcrow">¶</a></p>
 <p id="section-4.7-3"><em>Note 2</em>: LoRa Alliance defined <span>[<a href="#lora-alliance-remote-multicast-set" class="xref">lora-alliance-remote-multicast-set</a>]</span> as
-RECOMMENDED way to setup multicast groups on devices and create a synchronized
+the RECOMMENDED way to setup multicast groups on devices and create a synchronized
 reception window.<a href="#section-4.7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -988,7 +988,7 @@ least the parameters defined in this document.<a href="#section-5.2-6" class="pi
         <h3 id="name-interface-identifier-iid-co">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-interface-identifier-iid-co" class="section-name selfRef">Interface IDentifier (IID) computation</a>
         </h3>
-<p id="section-5.3-1">In order to mitigate risks described in <span>[<a href="#RFC8064" class="xref">RFC8064</a>]</span> and <span>[<a href="#RFC8065" class="xref">RFC8065</a>]</span> IID MUST be
+<p id="section-5.3-1">In order to mitigate the risks described in <span>[<a href="#RFC8064" class="xref">RFC8064</a>]</span> and <span>[<a href="#RFC8065" class="xref">RFC8065</a>]</span>, IID MUST be
 created regarding the following algorithm:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3-2">
 <li id="section-5.3-2.1">key = LoRaWAN AppSKey<a href="#section-5.3-2.1" class="pilcrow">¶</a>
@@ -1029,8 +1029,8 @@ manufacturer OUI to target devices.<a href="#section-5.3-6" class="pilcrow">¶</
 <a href="#name-example-of-iid-computation" class="selfRef">Example of IID computation.</a>
           </figcaption></figure>
 </div>
-<p id="section-5.3-10">There is a small probability of IID collision in a LoRaWAN network, if such event occurs
-the IID can be changed by rekeying the device on L2 level (ie: trigger a LoRaWAN
+<p id="section-5.3-10">There is a small probability of IID collision in a LoRaWAN network. If this occurs,
+the IID can be changed by rekeying the device at L2 level (ie: trigger a LoRaWAN
 join).
 The way the device is rekeyed is out of scope of this document and left to the
 implementation.<a href="#section-5.3-10" class="pilcrow">¶</a></p>
@@ -1073,10 +1073,10 @@ fragmented datagrams and are successively described in the next sections.<a href
           </h4>
 <p id="section-5.6.1-1"><span>[<a href="#RFC8724" class="xref">RFC8724</a>]</span> section 8.2.4 describes the possibility to interleave several
 fragmented SCHC datagrams for the same RuleID. This is not used in SCHC over
-LoRaWAN profile. A Device cannot interleave several fragmented SCHC datagrams
+LoRaWAN profile. A device cannot interleave several fragmented SCHC datagrams
 on the same FPort.  This field is not used and its size is 0.<a href="#section-5.6.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.6.1-2">Note: The device can still have several parallel fragmented datagrams with one
-or more SCHC gateway(s) thanks to distinct sets of FPorts, cf <a href="#rule-id-management" class="xref">Section 5.2</a><a href="#section-5.6.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.6.1-2">Note: The device can still have several parallel fragmented datagrams with
+more than one SCHC gateway thanks to distinct sets of FPorts, cf <a href="#rule-id-management" class="xref">Section 5.2</a>.<a href="#section-5.6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="uplink-fragmentation-from-device-to-schc-gateway">
@@ -1084,7 +1084,7 @@ or more SCHC gateway(s) thanks to distinct sets of FPorts, cf <a href="#rule-id-
           <h4 id="name-uplink-fragmentation-from-d">
 <a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-uplink-fragmentation-from-d" class="section-name selfRef">Uplink fragmentation: From device to SCHC gateway</a>
           </h4>
-<p id="section-5.6.2-1">In that case the device is the fragment transmitter, and the SCHC gateway
+<p id="section-5.6.2-1">In this case, the device is the fragment transmitter, and the SCHC gateway
 the fragment receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet, as per <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
@@ -1125,8 +1125,8 @@ Fragment or with any of these two methods. Implementation must ensure that:<a hr
 the last tile through both a Regular SCHC Fragment and an All-1 SCHC
 Fragment during the same session.<a href="#section-5.6.2-2.13.2.1" class="pilcrow">¶</a>
 </li>
-                <li class="normal" id="section-5.6.2-2.13.2.2">If last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
-the All-1 and the last tile.<a href="#section-5.6.2-2.13.2.2" class="pilcrow">¶</a>
+                <li class="normal" id="section-5.6.2-2.13.2.2">If the last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
+the All-1 header and the last tile.<a href="#section-5.6.2-2.13.2.2" class="pilcrow">¶</a>
 </li>
               </ul>
 </li>
@@ -1137,19 +1137,19 @@ LoRaWAN payload. MTU is: <em>4 windows * 63 tiles * 10 bytes per tile = 2520 byt
 <p id="section-5.6.2-4">For battery powered devices, it is RECOMMENDED to use the ACK mechanism at the
 end of each window instead of waiting until the end of all windows:<a href="#section-5.6.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.6.2-5.1">SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
+<li class="normal" id="section-5.6.2-5.1">the SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
 missing tile.<a href="#section-5.6.2-5.1" class="pilcrow">¶</a>
 </li>
-            <li class="normal" id="section-5.6.2-5.2">SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
-tiles from the next window. If the SCHC ACK is not received, it SHOULD send an SCHC
-ACK REQ up to MAX_ACK_REQUESTS, time as described previously.<a href="#section-5.6.2-5.2" class="pilcrow">¶</a>
+            <li class="normal" id="section-5.6.2-5.2">the SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
+tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
+ACK REQ up to MAX_ACK_REQUESTS times, as described previously.<a href="#section-5.6.2-5.2" class="pilcrow">¶</a>
 </li>
           </ul>
-<p id="section-5.6.2-6">For non-battery powered devices, SCHC receiver MAY also choose to send a SCHC
-ACK only at the end of all windows. It will reduce downlink load on the LoRaWAN
+<p id="section-5.6.2-6">For non-battery powered devices, the SCHC receiver MAY also choose to send a SCHC
+ACK only at the end of all windows. This will reduce downlink load on the LoRaWAN
 network, by reducing the number of downlinks.<a href="#section-5.6.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.6.2-7">SCHC implementations MUST be compatible with both behavior, and selection is
-a part of the rule context.<a href="#section-5.6.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.6.2-7">SCHC implementations MUST be compatible with both behaviors, and this selection is
+part of the rule context.<a href="#section-5.6.2-7" class="pilcrow">¶</a></p>
 <div id="regular-fragments">
 <section id="section-5.6.2.1">
             <h5 id="name-regular-fragments">
@@ -1234,8 +1234,8 @@ a part of the rule context.<a href="#section-5.6.2-7" class="pilcrow">¶</a></p>
 <a href="#name-schc-ack-format-failed-rcs-" class="selfRef">SCHC ACK format, failed RCS check.</a>
               </figcaption></figure>
 </div>
-<p id="section-5.6.2.3-2">Note: Because of the bitmap compression mechanism and L2 byte alignment only
-few discrete values are possible: 5, 13, 21, 29, 37, 45, 53, 61, 62, 63.
+<p id="section-5.6.2.3-2">Note: Because of the bitmap compression mechanism and L2 byte alignment, only
+the following discrete values are possible for the compressed bitmap size: 5, 13, 21, 29, 37, 45, 53, 61, 62 and 63.
 Bitmaps of 63 bits will require 6 bits of padding.<a href="#section-5.6.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1294,7 +1294,7 @@ Bitmaps of 63 bits will require 6 bits of padding.<a href="#section-5.6.2.3-2" c
           <h4 id="name-downlink-fragmentation-from">
 <a href="#section-5.6.3" class="section-number selfRef">5.6.3. </a><a href="#name-downlink-fragmentation-from" class="section-name selfRef">Downlink fragmentation: From SCHC gateway to device</a>
           </h4>
-<p id="section-5.6.3-1">In that case the device is the fragmentation receiver, and the SCHC gateway the
+<p id="section-5.6.3-1">In this case, the device is the fragmentation receiver, and the SCHC gateway the
 fragmentation transmitter. The following fields are common to all devices.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet as described in <a href="#lorawan-schc-payload" class="xref">Section 5.1</a>.<a href="#section-5.6.3-1" class="pilcrow">¶</a></p>
@@ -1329,14 +1329,14 @@ the application.<a href="#section-5.6.3-2.9" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-5.6.3-3">As only 1 tile is used, its size can change for each downlink, and will be
-maximum available MTU.<a href="#section-5.6.3-3" class="pilcrow">¶</a></p>
+the maximum available MTU.<a href="#section-5.6.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.6.3-4">Class A devices can only receive during an RX slot, following the transmission of an
-uplink.  Therefore the SCHC gateway cannot initiate communication (ex: new SCHC
-session);  in order to create a downlink opportunity it is RECOMMENDED for
+uplink.  Therefore the SCHC gateway cannot initiate communication (e.g., start a new SCHC
+session). In order to create a downlink opportunity it is RECOMMENDED for
 Class A devices to send an uplink every 24 hours when no SCHC session is
-started, this is application specific and can be disabled. RECOMMENDED uplink
+started, this is application specific and can be disabled. The RECOMMENDED uplink
 is a LoRaWAN empty frame as defined <a href="#lorawan-empty-frame" class="xref">Section 4.6</a>.
-As this uplink is to open an RX window any LoRaWAN uplink frame from the device
+As this uplink is to open an RX window, any LoRaWAN uplink frame from the device
 MAY reset this counter.<a href="#section-5.6.3-4" class="pilcrow">¶</a></p>
 <p id="section-5.6.3-5"><em>Note</em>: The Fpending bit included in LoRaWAN protocol SHOULD NOT be used for
 SCHC-over-LoRaWAN protocol. It might be set by the Network Gateway for other
@@ -1441,7 +1441,7 @@ purposes but not SCHC needs.<a href="#section-5.6.3-5" class="pilcrow">¶</a></p
 <a href="#section-5.6.3.5" class="section-number selfRef">5.6.3.5. </a><a href="#name-downlink-retransmission-tim" class="section-name selfRef">Downlink retransmission timer</a>
             </h5>
 <p id="section-5.6.3.5-1">Class A and Class B or Class C devices do not manage retransmissions and timers
-in the same way.<a href="#section-5.6.3.5-1" class="pilcrow">¶</a></p>
+the same way.<a href="#section-5.6.3.5-1" class="pilcrow">¶</a></p>
 <div id="class-a-devices">
 <section id="section-5.6.3.5.1">
               <h6 id="name-class-a-devices">
@@ -1457,16 +1457,16 @@ specific.<a href="#section-5.6.3.5.1-2" class="pilcrow">¶</a></p>
 INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).<a href="#section-5.6.3.5.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.6.3.5.1-4"><strong>SCHC All-0 (FCN=0)</strong>
 All fragments but the last have an FCN=0 (because window size is 1).  Following
-it the device MUST transmit the SCHC ACK message. It MUST transmit up to
+it, the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
 fragmented datagram, the SCHC layer should immediately queue for transmission
 those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
-LoRaWAN layer will respect the local spectrum regulation if required.<a href="#section-5.6.3.5.1-4" class="pilcrow">¶</a></p>
+LoRaWAN layer will respect the applicable local spectrum regulation.<a href="#section-5.6.3.5.1-4" class="pilcrow">¶</a></p>
 <p id="section-5.6.3.5.1-5"><em>Note</em>: The ACK bitmap is 1 bit long and is always 1.<a href="#section-5.6.3.5.1-5" class="pilcrow">¶</a></p>
 <p id="section-5.6.3.5.1-6">
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
-is 2, it MUST be greater than 1. This allows to open downlink opportunity to other
-eventual downlink with higher priority than SCHC ACK REQ message.<strong>SCHC All-1 (FCN=1)</strong>
+is 2. It MUST be greater than 1. This allows to open a downlink opportunity to
+any downlink with higher priority than the SCHC ACK REQ message.<strong>SCHC All-1 (FCN=1)</strong>
 SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK
 message might be lost; therefore the SCHC gateway MUST request a retransmission
 of this ACK when the retransmission timer expires.  To open a downlink
@@ -1476,7 +1476,7 @@ The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty frame (see <a href="#lorawan-empty-frame" class="xref">Section 4.6</a>) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.<a href="#section-5.6.3.5.1-6" class="pilcrow">¶</a></p>
 <p id="section-5.6.3.5.1-7"><em>Note</em>: The device MUST keep this SCHC ACK message in memory until it receives
-a downlink, on SCHC FPortDown different from an SCHC ACK REQ: it indicates that
+a downlink SCHC Fragmentation Message (with FPort == FPortDown) that is not a SCHC ACK REQ: it indicates that
 the SCHC gateway has received the SCHC ACK message.<a href="#section-5.6.3.5.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1554,10 +1554,10 @@ regulation compliance is expected to be enforced by LoRaWAN stack.<a href="#sect
 <p id="section-6-1">This document is only providing parameters that are expected to be best
 suited for LoRaWAN networks for <span>[<a href="#RFC8724" class="xref">RFC8724</a>]</span>. IID
 security is discussed in <a href="#IID" class="xref">Section 5.3</a>. As such, this document does not contribute to
-any new security issues in addition to those identified in
+any new security issues beyond those already identified in
 <span>[<a href="#RFC8724" class="xref">RFC8724</a>]</span>.
-Moreover, SCHC data (LoRaWAN payload) are protected on LoRaWAN level by an AES-128
-encryption with key shared by device and SCHC gateway. Those keys are renewed at each
+Moreover, SCHC data (LoRaWAN payload) are protected at the LoRaWAN level by an AES-128
+encryption with a session key shared by the device and the SCHC gateway. These session keys are renewed at each
 LoRaWAN session (ie: each join or rejoin to the LoRaWAN network)<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
