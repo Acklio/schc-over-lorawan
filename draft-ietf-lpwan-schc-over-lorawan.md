@@ -214,7 +214,7 @@ and the ones in {{lora-alliance-spec}} is as follows:
    application server will do the SCHC C/D and F/R.
 
    o The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
-   deliver security keys in a secure way, so that devices root keys are never exposed.
+   deliver security keys in a secure way, so that the devices root key is never exposed.
 
 ~~~~
                                          (LPWAN-AAA Server)
@@ -770,7 +770,7 @@ is 2. It MUST be greater than 1. This allows to open a downlink opportunity to
 any downlink with higher priority than the SCHC ACK REQ message.
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
-a downlink with a SCHC FPortDown different from that of the SCHC ACK REQ: it indicates that
+a downlink SCHC Fragmentation Message (with FPort == FPortDown) that is not a SCHC ACK REQ: it indicates that
 the SCHC gateway has received the SCHC ACK message.
 
 #### Class B or Class C devices
