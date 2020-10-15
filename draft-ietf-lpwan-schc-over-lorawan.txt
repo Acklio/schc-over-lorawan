@@ -510,8 +510,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
    The FPort field is part of the SCHC Message, as shown in Figure 5.
    The SCHC C/D and the SCHC F/R SHALL concatenate the FPort field with
-   the LoRaWAN payload to retrieve their payload as it is used as a part
-   of the RuleID field.
+   the LoRaWAN payload to recompose the SCHC Message.
 
    | FPort | LoRaWAN payload  |
    + ------------------------ +
@@ -557,6 +556,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
+
 Gimenez & Petrov          Expires 18 April 2021                [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
@@ -581,8 +581,8 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
    downlink fragmented parameters but SHALL implement at least the
    parameters defined in this document.
 
-   The mechanism for sharing those RuleID values is outside the scope of
-   this document.
+   The mechanism for context distribution across devices and gateways is
+   outside the scope of this document.
 
 5.3.  Interface IDentifier (IID) computation
 
@@ -876,7 +876,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
       requirements and MAY be changed by the application.
 
    As only 1 tile is used, its size can change for each downlink, and
-   will be the maximum available MTU.
+   will be the currently available MTU.
 
    Class A devices can only receive during an RX slot, following the
    transmission of an uplink.  Therefore the SCHC gateway cannot
@@ -984,23 +984,23 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
    _Note_: The ACK bitmap is 1 bit long and is always 1.
 
    SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its
-   recommended value is 2.  It MUST be greater than 1.  This allows to
-   open a downlink opportunity to any downlink with higher priority than
-   the SCHC ACK REQ message.*SCHC All-1 (FCN=1)* SCHC All-1 is the last
-   fragment of a datagram, the corresponding SCHC ACK message might be
-   lost; therefore the SCHC gateway MUST request a retransmission of
-   this ACK when the retransmission timer expires.  To open a downlink
-   opportunity the device MUST transmit an uplink every
+   recommended value <<<<<<< HEAD is 2, it MUST be greater than 1.  This
+   allows for more downlink opportunities than required by SCHC control
+   traffic, leaving opportunity for any other downlink with higher
+   priority than SCHC ACK REQ message. ======= is 2.  It MUST be greater
+   than 1.  This allows to open a downlink opportunity to any downlink
+   with higher priority than the SCHC ACK REQ message. >>>>>>>
+   0b92a54cc8a5551fcf289f74e1ae3637a2f1c217*SCHC All-1 (FCN=1)* SCHC
+   All-1 is the last fragment of a datagram, the corresponding SCHC ACK
+   message might be lost; therefore the SCHC gateway MUST request a
+   retransmission of this ACK when the retransmission timer expires.  To
+   open a downlink opportunity the device MUST transmit an uplink every
    RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS *
    SCHC_ACK_REQ_DN_OPPORTUNITY).  The format of this uplink is
    application specific.  It is RECOMMENDED for a device to send an
    empty frame (see Section 4.6) but it is application specific and will
    be used by the NGW to transmit a potential SCHC ACK REQ.
 
-   _Note_: The device MUST keep this SCHC ACK message in memory until it
-   receives a downlink SCHC Fragmentation Message (with FPort ==
-   FPortDown) that is not a SCHC ACK REQ: it indicates that the SCHC
-   gateway has received the SCHC ACK message.
 
 
 
@@ -1009,6 +1009,11 @@ Gimenez & Petrov          Expires 18 April 2021                [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
+
+   _Note_: The device MUST keep this SCHC ACK message in memory until it
+   receives a downlink SCHC Fragmentation Message (with FPort ==
+   FPortDown) that is not a SCHC ACK REQ: it indicates that the SCHC
+   gateway has received the SCHC ACK message.
 
 5.6.3.6.  Class B or Class C devices
 
@@ -1052,11 +1057,6 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
    This profile does not define a delay to be added after each LoRaWAN
    frame, local regulation compliance is expected to be enforced by
    LoRaWAN stack.
-
-
-
-
-
 
 
 
