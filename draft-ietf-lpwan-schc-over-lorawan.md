@@ -361,8 +361,7 @@ reception window.
 
 The FPort field is part of the SCHC Message, as shown in
 {{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate
-the FPort field with the LoRaWAN payload to retrieve their payload as it is used
-as a part of the RuleID field.
+the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 
 ~~~~
 
@@ -418,7 +417,8 @@ instance the device is required to communicate with.  The application can use
 additional uplinks or downlink fragmented parameters but SHALL implement at
 least the parameters defined in this document.
 
-The mechanism for sharing those RuleID values is outside the scope of this document.
+The mechanism for context distribution across devices and gateways is
+outside the scope of this document.
 
 ## Interface IDentifier (IID) computation {#IID}
 
@@ -657,7 +657,7 @@ Packet as described in {{lorawan-schc-payload}}.
   the application.
 
 As only 1 tile is used, its size can change for each downlink, and will be
-the maximum available MTU.
+the currently available MTU.
 
 Class A devices can only receive during an RX slot, following the transmission of an
 uplink.  Therefore the SCHC gateway cannot initiate communication (e.g., start a new SCHC
@@ -766,8 +766,14 @@ The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty frame (see {{lorawan-empty-frame}}) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
+<<<<<<< HEAD
+is 2, it MUST be greater than 1. This allows for more downlink opportunities
+than required by SCHC control traffic, leaving opportunity for any other
+downlink with higher priority than SCHC ACK REQ message.
+=======
 is 2. It MUST be greater than 1. This allows to open a downlink opportunity to
 any downlink with higher priority than the SCHC ACK REQ message.
+>>>>>>> 0b92a54cc8a5551fcf289f74e1ae3637a2f1c217
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
 a downlink SCHC Fragmentation Message (with FPort == FPortDown) that is not a SCHC ACK REQ: it indicates that
