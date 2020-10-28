@@ -583,11 +583,11 @@ part of the rule context.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                             |
-+ ------ + ------------------------------------------- +
-| RuleID |   W    | FCN=All-1 |  RCS    |  Last tile   |
-+ ------ + ------ + --------- + ------- + ------------ +
-| 8 bits | 2 bits | 6 bits    | 32 bits | 1 to 80 bits |
+| FPort  | LoRaWAN payload                                            |
++ ------ + ---------------------------------------------------------- +
+| RuleID |   W    | FCN=All-1 |  RCS    |  Last tile   | Opt. padding |
++ ------ + ------ + --------- + ------- + ------------ + ------------ +
+| 8 bits | 2 bits |  6 bits   | 32 bits | 1 to 80 bits | 0 to 7 bits  |
 
 ~~~~
 {: #Fig-fragmentation-header-all1-last-tile title='All-1 SCHC Message: the last fragment with last tile.'}
