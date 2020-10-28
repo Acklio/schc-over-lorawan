@@ -709,11 +709,11 @@ purposes but not SCHC needs.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                 |
-+ ------ + --------------------------- + ----------------- +
-| RuleID | W     | FCN = b'1 | RCS     |      Payload      |
-+ ------ + ----- + --------- + ------- + ----------------- +
-| 8 bits | 1 bit | 1 bit     | 32 bits | 6 bits to X bytes |
+| FPort  | LoRaWAN payload                                         |
++ ------ + --------------------------- + ------------------------- +
+| RuleID | W     | FCN = b'1 |   RCS   |   Payload   | Opt padding |
++ ------ + ----- + --------- + ------- + ----------- + ----------- +
+| 8 bits | 1 bit | 1 bit     | 32 bits | 6 to X bits | 0 to 7 bits |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC Message: the last fragment.'}
