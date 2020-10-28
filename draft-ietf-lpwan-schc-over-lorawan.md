@@ -766,14 +766,8 @@ The format of this uplink is application specific.  It is RECOMMENDED for a
 device to send an empty frame (see {{lorawan-empty-frame}}) but it is application
 specific and will be used by the NGW to transmit a potential SCHC ACK REQ.  
 SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its recommended value
-<<<<<<< HEAD
-is 2, it MUST be greater than 1. This allows for more downlink opportunities
-than required by SCHC control traffic, leaving opportunity for any other
-downlink with higher priority than SCHC ACK REQ message.
-=======
 is 2. It MUST be greater than 1. This allows to open a downlink opportunity to
 any downlink with higher priority than the SCHC ACK REQ message.
->>>>>>> 0b92a54cc8a5551fcf289f74e1ae3637a2f1c217
 
 _Note_: The device MUST keep this SCHC ACK message in memory until it receives
 a downlink SCHC Fragmentation Message (with FPort == FPortDown) that is not a SCHC ACK REQ: it indicates that
