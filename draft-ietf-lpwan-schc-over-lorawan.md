@@ -359,9 +359,11 @@ reception window.
 
 ## LoRaWAN FPort and RuleID {#lorawan-schc-payload}
 
-The FPort field is part of the SCHC Message, as shown in
+The FPort field is part of the SCHC Packet, as shown in
 {{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate
-the FPort field with the LoRaWAN payload to recompose the SCHC Message.
+the FPort field with the LoRaWAN payload to recompose the SCHC Packet.
+LoRaWAN payload is composed of the potential compression residue and
+the payload from the original packet.
 
 ~~~~
 
@@ -370,7 +372,7 @@ the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 |       SCHC packet        |
 
 ~~~~
-{: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
+{: #Fig-lorawan-schc-payload title='SCHC Packet in LoRaWAN'}
 
 A fragmented datagram with application payload transferred from device to
 Network Gateway, is called uplink fragmented datagram. It uses an FPort for data uplink
