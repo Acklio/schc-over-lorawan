@@ -544,6 +544,8 @@ end of each window instead of waiting until the end of all windows:
 tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
 ACK REQ up to MAX_ACK_REQUESTS times, as described previously.
 
+This will avoid useless uplinks if the device has lost network coverage.
+
 For non-battery powered devices, the SCHC receiver MAY also choose to send a SCHC
 ACK only at the end of all windows. This will reduce downlink load on the LoRaWAN
 network, by reducing the number of downlinks.
