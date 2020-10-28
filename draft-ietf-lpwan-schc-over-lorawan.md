@@ -729,8 +729,19 @@ purposes but not SCHC needs.
 | 8 bits | 1 bit | 1 bit   | 6 bits           |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-schc-ack title='SCHC ACK format, RCS is correct.'}
+{: #Fig-frag-downlink-header-schc-ack-rcs-ok title='SCHC ACK format, RCS is correct.'}
 
+
+~~~~
+
+| FPort  | LoRaWAN payload                                   |
++ ------ + ------------------------------------------------- +
+| RuleID | W     | C = b'0 | Bitmap = b'1 | Padding b'000000 |
++ ------ + ----- + ------- + ------------ + ---------------- +
+| 8 bits | 1 bit | 1 bit   |    1 bit     |      5 bits      |
+
+~~~~
+{: #Fig-frag-downlink-header-schc-ack-rcs-fail title='SCHC ACK format, RCS is incorrect.'}
 
 #### Receiver-Abort
 
