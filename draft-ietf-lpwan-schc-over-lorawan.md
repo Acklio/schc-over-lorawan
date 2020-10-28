@@ -107,9 +107,13 @@ all other definitions, please look up the SCHC specification
 - Downlink: LoRaWAN term for a frame transmitted by the network and
   received by the device.
 - FRMPayload: Application data in a LoRaWAN frame.
+- MSB: Most Significant Byte
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 - RCS: Reassembly Check Sequence. Used to verify the integrity of the
   fragmentation-reassembly process.
+- RX: Device's reception window following an uplink.
+- RX1/RX2: LoRaWAN devices must open two RX windows following an uplink,
+  called RX1 and RX2.
 - SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
   translation between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
