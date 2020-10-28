@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Standards Track                          I. Petrov, Ed.
-Expires: 18 April 2021                                            Acklio
-                                                         15 October 2020
+Expires: 1 May 2021                                               Acklio
+                                                         28 October 2020
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 April 2021.
+   This Internet-Draft will expire on 1 May 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 1]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 2]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 3]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 4]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 5]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 6]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 7]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 8]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                 [Page 9]
+Gimenez & Petrov           Expires 1 May 2021                   [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 10]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 11]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 12]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 13]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 14]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 15]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 16]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -949,7 +949,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 17]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -984,36 +984,31 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
    _Note_: The ACK bitmap is 1 bit long and is always 1.
 
    SCHC_ACK_REQ_DN_OPPORTUNITY is application specific and its
-   recommended value <<<<<<< HEAD is 2, it MUST be greater than 1.  This
-   allows for more downlink opportunities than required by SCHC control
-   traffic, leaving opportunity for any other downlink with higher
-   priority than SCHC ACK REQ message. ======= is 2.  It MUST be greater
-   than 1.  This allows to open a downlink opportunity to any downlink
-   with higher priority than the SCHC ACK REQ message. >>>>>>>
-   0b92a54cc8a5551fcf289f74e1ae3637a2f1c217*SCHC All-1 (FCN=1)* SCHC
-   All-1 is the last fragment of a datagram, the corresponding SCHC ACK
-   message might be lost; therefore the SCHC gateway MUST request a
-   retransmission of this ACK when the retransmission timer expires.  To
-   open a downlink opportunity the device MUST transmit an uplink every
+   recommended value is 2.  It MUST be greater than 1.  This allows to
+   open a downlink opportunity to any downlink with higher priority than
+   the SCHC ACK REQ message.*SCHC All-1 (FCN=1)* SCHC All-1 is the last
+   fragment of a datagram, the corresponding SCHC ACK message might be
+   lost; therefore the SCHC gateway MUST request a retransmission of
+   this ACK when the retransmission timer expires.  To open a downlink
+   opportunity the device MUST transmit an uplink every
    RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS *
    SCHC_ACK_REQ_DN_OPPORTUNITY).  The format of this uplink is
    application specific.  It is RECOMMENDED for a device to send an
    empty frame (see Section 4.6) but it is application specific and will
    be used by the NGW to transmit a potential SCHC ACK REQ.
 
-
-
-
-
-Gimenez & Petrov          Expires 18 April 2021                [Page 18]
-
-Internet-Draft              SCHC-over-LoRaWAN               October 2020
-
-
    _Note_: The device MUST keep this SCHC ACK message in memory until it
    receives a downlink SCHC Fragmentation Message (with FPort ==
    FPortDown) that is not a SCHC ACK REQ: it indicates that the SCHC
    gateway has received the SCHC ACK message.
+
+
+
+
+Gimenez & Petrov           Expires 1 May 2021                  [Page 18]
+
+Internet-Draft              SCHC-over-LoRaWAN               October 2020
+
 
 5.6.3.6.  Class B or Class C devices
 
@@ -1061,7 +1056,12 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 19]
+
+
+
+
+
+Gimenez & Petrov           Expires 1 May 2021                  [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1117,7 +1117,7 @@ Normative References
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 20]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1173,7 +1173,7 @@ Appendix A.  Examples
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 21]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1229,7 +1229,7 @@ A.2.  Uplink - Compression and fragmentation example
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 22]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 22]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 23]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 23]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1341,7 +1341,7 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 24]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 24]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 25]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 25]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1453,4 +1453,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov          Expires 18 April 2021                [Page 26]
+Gimenez & Petrov           Expires 1 May 2021                  [Page 26]
