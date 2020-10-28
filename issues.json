@@ -1,6 +1,118 @@
 [
 
   {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/38",
+    "id": 731456261,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NTExNTU4MzUy",
+    "number": 38,
+    "title": "Fix merge issue",
+    "user": {
+      "login": "Oliv4945",
+      "id": 6248122,
+      "node_id": "MDQ6VXNlcjYyNDgxMjI=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6248122?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Oliv4945",
+      "html_url": "https://github.com/Oliv4945",
+      "followers_url": "https://api.github.com/users/Oliv4945/followers",
+      "following_url": "https://api.github.com/users/Oliv4945/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Oliv4945/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Oliv4945/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Oliv4945/subscriptions",
+      "organizations_url": "https://api.github.com/users/Oliv4945/orgs",
+      "repos_url": "https://api.github.com/users/Oliv4945/repos",
+      "events_url": "https://api.github.com/users/Oliv4945/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Oliv4945/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-10-28T13:45:59Z",
+    "updated_at": "2020-10-28T13:46:34Z",
+    "closed_at": "2020-10-28T13:46:34Z",
+    "author_association": "COLLABORATOR",
+    "active_lock_reason": null,
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/38",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/38",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/38.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/38.patch"
+    },
+    "body": "",
+    "performed_via_github_app": null
+  },
+  {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/37",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/37/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/37/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/37/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/37",
+    "id": 722206574,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NTAzOTk2MTEw",
+    "number": 37,
+    "title": "Draft ietf lpwan schc over lorawan 11-fix",
+    "user": {
+      "login": "Oliv4945",
+      "id": 6248122,
+      "node_id": "MDQ6VXNlcjYyNDgxMjI=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6248122?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Oliv4945",
+      "html_url": "https://github.com/Oliv4945",
+      "followers_url": "https://api.github.com/users/Oliv4945/followers",
+      "following_url": "https://api.github.com/users/Oliv4945/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Oliv4945/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Oliv4945/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Oliv4945/subscriptions",
+      "organizations_url": "https://api.github.com/users/Oliv4945/orgs",
+      "repos_url": "https://api.github.com/users/Oliv4945/repos",
+      "events_url": "https://api.github.com/users/Oliv4945/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Oliv4945/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "closed",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-10-15T10:27:55Z",
+    "updated_at": "2020-10-15T10:28:06Z",
+    "closed_at": "2020-10-15T10:28:06Z",
+    "author_association": "COLLABORATOR",
+    "active_lock_reason": null,
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/37",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/37",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/37.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/37.patch"
+    },
+    "body": "Fix un-pushed commit",
+    "performed_via_github_app": null
+  },
+  {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/36",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
     "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/36/labels{/name}",
@@ -1707,7 +1819,10 @@
     "active_lock_reason": null,
     "body": "[here](https://github.com/Acklio/schc-over-lorawan/blob/master/draft-ietf-lpwan-schc-over-lorawan.md#fportupshort---1-byte-header)\r\nRuled & window",
     "performed_via_github_app": null
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/8",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
@@ -1819,10 +1934,7 @@
     },
     "body": "",
     "performed_via_github_app": null
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/6",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
