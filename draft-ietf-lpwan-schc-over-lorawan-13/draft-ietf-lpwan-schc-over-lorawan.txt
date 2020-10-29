@@ -5,8 +5,8 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Standards Track                          I. Petrov, Ed.
-Expires: 1 May 2021                                               Acklio
-                                                         28 October 2020
+Expires: 2 May 2021                                               Acklio
+                                                         29 October 2020
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 May 2021.
+   This Internet-Draft will expire on 2 May 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 1]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 1]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 2]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 2]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -165,7 +165,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 3]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 3]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -221,7 +221,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 4]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 4]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -277,7 +277,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 5]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 5]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -333,7 +333,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 6]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 6]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -389,7 +389,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 7]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 7]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -445,7 +445,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 8]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 8]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -501,7 +501,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                   [Page 9]
+Gimenez & Petrov           Expires 2 May 2021                   [Page 9]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -528,17 +528,17 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 5.1.  LoRaWAN FPort and RuleID
 
-   The FPort field is part of the SCHC Packet, as shown in Figure 5.
+   The FPort field is part of the SCHC Message, as shown in Figure 5.
    The SCHC C/D and the SCHC F/R SHALL concatenate the FPort field with
-   the LoRaWAN payload to recompose the SCHC Packet.  LoRaWAN payload is
-   composed of the potential compression residue and the payload from
-   the original packet.
+   the LoRaWAN payload to recompose the SCHC Message.
 
    | FPort | LoRaWAN payload  |
    + ------------------------ +
-   |       SCHC packet        |
+   |       SCHC Message       |
 
-                      Figure 5: SCHC Packet in LoRaWAN
+                     Figure 5: SCHC Message in LoRaWAN
+
+   Note: SCHC Message is any datagram sent by SCHC C/D or F/R layers.
 
    A fragmented datagram with application payload transferred from
    device to Network Gateway, is called uplink fragmented datagram.  It
@@ -557,7 +557,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 10]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 10]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -613,7 +613,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 11]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 11]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -669,7 +669,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 12]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 12]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -725,7 +725,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 13]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 13]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -781,7 +781,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 14]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 14]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -837,7 +837,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 15]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 15]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -893,7 +893,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 16]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 16]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -949,7 +949,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 17]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 17]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 18]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 18]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 19]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 19]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 20]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 20]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1173,7 +1173,7 @@ Normative References
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 21]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 21]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1229,7 +1229,7 @@ A.1.  Uplink - Compression example - No fragmentation
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 22]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 22]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1285,7 +1285,7 @@ A.2.  Uplink - Compression and fragmentation example
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 23]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 23]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 24]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 24]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1397,7 +1397,7 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 25]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 25]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 26]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 26]
 
 Internet-Draft              SCHC-over-LoRaWAN               October 2020
 
@@ -1509,4 +1509,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov           Expires 1 May 2021                  [Page 27]
+Gimenez & Petrov           Expires 2 May 2021                  [Page 27]
