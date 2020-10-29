@@ -1,6 +1,62 @@
 [
 
   {
+    "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/39",
+    "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
+    "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/39/labels{/name}",
+    "comments_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/39/comments",
+    "events_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/39/events",
+    "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/39",
+    "id": 731659305,
+    "node_id": "MDExOlB1bGxSZXF1ZXN0NTExNzI3ODU0",
+    "number": 39,
+    "title": "Clarifications following Martin Duke and shepherd comments",
+    "user": {
+      "login": "Oliv4945",
+      "id": 6248122,
+      "node_id": "MDQ6VXNlcjYyNDgxMjI=",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6248122?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Oliv4945",
+      "html_url": "https://github.com/Oliv4945",
+      "followers_url": "https://api.github.com/users/Oliv4945/followers",
+      "following_url": "https://api.github.com/users/Oliv4945/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Oliv4945/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Oliv4945/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Oliv4945/subscriptions",
+      "organizations_url": "https://api.github.com/users/Oliv4945/orgs",
+      "repos_url": "https://api.github.com/users/Oliv4945/repos",
+      "events_url": "https://api.github.com/users/Oliv4945/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Oliv4945/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "labels": [
+
+    ],
+    "state": "open",
+    "locked": false,
+    "assignee": null,
+    "assignees": [
+
+    ],
+    "milestone": null,
+    "comments": 0,
+    "created_at": "2020-10-28T17:44:53Z",
+    "updated_at": "2020-10-29T17:00:24Z",
+    "closed_at": null,
+    "author_association": "COLLABORATOR",
+    "active_lock_reason": null,
+    "pull_request": {
+      "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/pulls/39",
+      "html_url": "https://github.com/Acklio/schc-over-lorawan/pull/39",
+      "diff_url": "https://github.com/Acklio/schc-over-lorawan/pull/39.diff",
+      "patch_url": "https://github.com/Acklio/schc-over-lorawan/pull/39.patch"
+    },
+    "body": "Hey @ivajloip @jca-klk \r\n\r\nCould you please review the changes ?\r\nThere will be one last change as Dominique discussed commit 78ee6f8 . I proposed to update the section to the following but I am waiting for his acknowledgment\r\n\r\n```\r\nThe FPort field is part of the SCHC Message, as shown in\r\n{{Fig-lorawan-schc-payload}}. The SCHC C/D and the SCHC F/R SHALL concatenate\r\nthe FPort field with the LoRaWAN payload to recompose the SCHC Message.\r\n\r\n~~~~\r\n\r\n| FPort | LoRaWAN payload  |\r\n+ ------------------------ +\r\n|       SCHC Message       |\r\n\r\n~~~~\r\n{: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}\r\n\r\nNote: SCHC Message is any datagram send by SCHC C/D or F/R layers.\r\n```\r\n\r\nAnyway we can start the review now as cut off date is soon.",
+    "performed_via_github_app": null
+  },
+  {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
     "labels_url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/38/labels{/name}",
@@ -1769,7 +1825,10 @@
     },
     "body": "",
     "performed_via_github_app": null
-  },
+  }
+
+,
+
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/9",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
@@ -1819,10 +1878,7 @@
     "active_lock_reason": null,
     "body": "[here](https://github.com/Acklio/schc-over-lorawan/blob/master/draft-ietf-lpwan-schc-over-lorawan.md#fportupshort---1-byte-header)\r\nRuled & window",
     "performed_via_github_app": null
-  }
-
-,
-
+  },
   {
     "url": "https://api.github.com/repos/Acklio/schc-over-lorawan/issues/8",
     "repository_url": "https://api.github.com/repos/Acklio/schc-over-lorawan",
