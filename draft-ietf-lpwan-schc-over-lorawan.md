@@ -376,7 +376,7 @@ the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
 
-Note: SCHC Message is any datagram send by SCHC C/D or F/R layers.
+Note: SCHC Message is any datagram sent by SCHC C/D or F/R layers.
 
 A fragmented datagram with application payload transferred from device to
 Network Gateway, is called uplink fragmented datagram. It uses an FPort for data uplink
