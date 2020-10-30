@@ -111,9 +111,9 @@ all other definitions, please look up the SCHC specification
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 - RCS: Reassembly Check Sequence. Used to verify the integrity of the
   fragmentation-reassembly process.
-- RX: Device's reception window following an uplink.
-- RX1/RX2: LoRaWAN devices must open two RX windows following an uplink,
-  called RX1 and RX2.
+- RX: Device's reception window.
+- RX1/RX2: LoRaWAN class A devices open two RX windows following an
+  uplink, called RX1 and RX2.
 - SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
   translation between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
