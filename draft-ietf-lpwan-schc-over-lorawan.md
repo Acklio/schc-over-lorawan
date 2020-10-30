@@ -107,9 +107,13 @@ all other definitions, please look up the SCHC specification
 - Downlink: LoRaWAN term for a frame transmitted by the network and
   received by the device.
 - FRMPayload: Application data in a LoRaWAN frame.
+- MSB: Most Significant Byte
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
 - RCS: Reassembly Check Sequence. Used to verify the integrity of the
   fragmentation-reassembly process.
+- RX: Device's reception window.
+- RX1/RX2: LoRaWAN class A devices open two RX windows following an
+  uplink, called RX1 and RX2.
 - SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
   translation between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
@@ -367,10 +371,12 @@ the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 
 | FPort | LoRaWAN payload  |
 + ------------------------ +
-|       SCHC packet        |
+|       SCHC Message       |
 
 ~~~~
 {: #Fig-lorawan-schc-payload title='SCHC Message in LoRaWAN'}
+
+Note: SCHC Message is any datagram sent by SCHC C/D or F/R layers.
 
 A fragmented datagram with application payload transferred from device to
 Network Gateway, is called uplink fragmented datagram. It uses an FPort for data uplink
@@ -538,6 +544,8 @@ end of each window instead of waiting until the end of all windows:
 tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
 ACK REQ up to MAX_ACK_REQUESTS times, as described previously.
 
+This will avoid useless uplinks if the device has lost network coverage.
+
 For non-battery powered devices, the SCHC receiver MAY also choose to send a SCHC
 ACK only at the end of all windows. This will reduce downlink load on the LoRaWAN
 network, by reducing the number of downlinks.
@@ -575,11 +583,11 @@ part of the rule context.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                             |
-+ ------ + ------------------------------------------- +
-| RuleID |   W    | FCN=All-1 |  RCS    |  Last tile   |
-+ ------ + ------ + --------- + ------- + ------------ +
-| 8 bits | 2 bits | 6 bits    | 32 bits | 1 to 80 bits |
+| FPort  | LoRaWAN payload                                            |
++ ------ + ---------------------------------------------------------- +
+| RuleID |   W    | FCN=All-1 |  RCS    |  Last tile   | Opt. padding |
++ ------ + ------ + --------- + ------- + ------------ + ------------ +
+| 8 bits | 2 bits |  6 bits   | 32 bits | 1 to 80 bits | 0 to 7 bits  |
 
 ~~~~
 {: #Fig-fragmentation-header-all1-last-tile title='All-1 SCHC Message: the last fragment with last tile.'}
@@ -588,15 +596,26 @@ part of the rule context.
 
 ~~~~
 
+| FPort  | LoRaWAN payload           |
++ ------ + --------------------------+
+| RuleID |   W   | C = 1 |  padding  |
+|        |       |       | (b'00000) |
++ ------ + ----- + ----- + --------- +
+| 8 bits | 2 bit | 1 bit |  5 bits   |
+
+~~~~
+{: #Fig-frag-header-long-schc-ack-rcs-ok title='SCHC ACK format, correct RCS check.'}
+
+~~~~
 | FPort  | LoRaWAN payload                                      |
 + ------ + --------------------------------- + ---------------- +
-| RuleID |   W   |   C   | Compressed bitmap | Optional padding |
+| RuleID |   W   | C = 0 | Compressed bitmap | Optional padding |
 |        |       |       |      (C = 0)      |    (b'0...0)     |
 + ------ + ----- + ----- + ----------------- + ---------------- +
 | 8 bits | 2 bit | 1 bit |    5 to 63 bits   |  0, 6 or 7 bits  |
 
 ~~~~
-{: #Fig-fragmentation-header-long-schc-ack title='SCHC ACK format, failed RCS check.'}
+{: #Fig-frag-header-long-schc-ack-rcs-fail title='SCHC ACK format, failed RCS check.'}
 
 
 Note: Because of the bitmap compression mechanism and L2 byte alignment, only
@@ -690,11 +709,11 @@ purposes but not SCHC needs.
 
 ~~~~
 
-| FPort  | LoRaWAN payload                                 |
-+ ------ + --------------------------- + ----------------- +
-| RuleID | W     | FCN = b'1 | RCS     |      Payload      |
-+ ------ + ----- + --------- + ------- + ----------------- +
-| 8 bits | 1 bit | 1 bit     | 32 bits | 6 bits to X bytes |
+| FPort  | LoRaWAN payload                                         |
++ ------ + --------------------------- + ------------------------- +
+| RuleID | W     | FCN = b'1 |   RCS   |   Payload   | Opt padding |
++ ------ + ----- + --------- + ------- + ----------- + ----------- +
+| 8 bits | 1 bit | 1 bit     | 32 bits | 6 to X bits | 0 to 7 bits |
 
 ~~~~
 {: #Fig-fragmentation-downlink-header-all1 title='All-1 SCHC Message: the last fragment.'}
@@ -710,8 +729,19 @@ purposes but not SCHC needs.
 | 8 bits | 1 bit | 1 bit   | 6 bits           |
 
 ~~~~
-{: #Fig-fragmentation-downlink-header-schc-ack title='SCHC ACK format, RCS is correct.'}
+{: #Fig-frag-downlink-header-schc-ack-rcs-ok title='SCHC ACK format, RCS is correct.'}
 
+
+~~~~
+
+| FPort  | LoRaWAN payload                                   |
++ ------ + ------------------------------------------------- +
+| RuleID | W     | C = b'0 | Bitmap = b'1 | Padding b'000000 |
++ ------ + ----- + ------- + ------------ + ---------------- +
+| 8 bits | 1 bit | 1 bit   |    1 bit     |      5 bits      |
+
+~~~~
+{: #Fig-frag-downlink-header-schc-ack-rcs-fail title='SCHC ACK format, RCS is incorrect.'}
 
 #### Receiver-Abort
 
@@ -748,7 +778,7 @@ INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 
 **SCHC All-0 (FCN=0)**
 All fragments but the last have an FCN=0 (because window size is 1).  Following
-it, the device MUST transmit the SCHC ACK message. It MUST transmit up to
+an All-0 SCHC Fragment, the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
 fragmented datagram, the SCHC layer should immediately queue for transmission
 those SCHC ACK if no SCHC downlink have been received during RX1 and RX2 window.
