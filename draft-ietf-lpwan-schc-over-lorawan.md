@@ -114,8 +114,8 @@ all other definitions, please look up the SCHC specification
 - RX: Device's reception window.
 - RX1/RX2: LoRaWAN class A devices open two RX windows following an
   uplink, called RX1 and RX2.
-- SCHC gateway: It corresponds to the LoRaWAN Application Server. It manages
-  translation between IPv6 network and the Network Gateway (LoRaWAN Network
+- SCHC gateway: The LoRaWAN Application Server that manages translation
+  between IPv6 network and the Network Gateway (LoRaWAN Network
   Server).
 - Tile: Piece of a fragmented packet as described in [RFC8724] section 8.2.2.1
 - Uplink: LoRaWAN term for a frame transmitted by the device and received
@@ -309,8 +309,9 @@ LoRaWAN implements the possibility to send confirmed or unconfirmed frames:
 * Unconfirmed frame:
   The sender does not ask the receiver to acknowledge the frame.
 
-As SCHC defines its own acknowledgment mechanisms, SCHC does not require to use
-LoRaWAN Confirmed frames.
+As SCHC defines its own acknowledgment mechanisms, SCHC does not require
+the to use of LoRaWAN Confirmed frames (MType=0b100 as per
+{{lora-alliance-spec}})
 
 ## LoRaWAN MAC Frames
 
@@ -379,7 +380,7 @@ the FPort field with the LoRaWAN payload to recompose the SCHC Message.
 Note: SCHC Message is any datagram sent by SCHC C/D or F/R layers.
 
 A fragmented datagram with application payload transferred from device to
-Network Gateway, is called uplink fragmented datagram. It uses an FPort for data uplink
+Network Gateway, is called an uplink fragmented datagram. It uses an FPort for data uplink
 and its associated SCHC control downlinks, named FPortUp in this document. The
 other way, a fragmented datagram with application payload transferred from
 Network Gateway to device, is called downlink fragmented datagram. It uses another
