@@ -69,7 +69,7 @@ operation.
 
 SCHC specification [RFC8724] describes
 generic header compression and fragmentation techniques that can be used on all
-LPWAN technologies defined in
+Low Power Wide Area Networks (LPWAN) technologies defined in
 {{RFC8376}}. Even though those technologies share a great
 number of common features like star-oriented topologies, network architecture,
 devices with mostly quite predictable communications, etc; they do have some
@@ -81,7 +81,8 @@ and modes of operation need to be set appropriately for each of the LPWAN
 technologies.
 
 This document describes the parameters and modes of operation when
-SCHC is used over LoRaWAN networks.
+SCHC is used over LoRaWAN networks. LoRaWAN protocol is specified by the
+LoRa Alliance in {{lora-alliance-spec}}
 
 # Terminology
 
@@ -94,6 +95,10 @@ This section defines the terminology and acronyms used in this document. For
 all other definitions, please look up the SCHC specification
 [RFC8724].
 
+- LoRaWAN: LoRaWAN is a wireless technology based on Industrial,
+   Scientific, and Medical (ISM) radio bands that is used for long-range,
+   low-power, low-data-rate applications developed by the LoRa Alliance, a
+   membership consortium: [https://www.lora-alliance.org](https://www.lora-alliance.org).
 - DevEUI: an IEEE EUI-64 identifier used to identify the device during the
   procedure while joining the network (Join Procedure). It is assigned by the
   manufacturer or the device owner and provisioned on the Network Gateway.
