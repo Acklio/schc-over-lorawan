@@ -310,7 +310,7 @@ LoRaWAN implements the possibility to send confirmed or unconfirmed frames:
   The sender does not ask the receiver to acknowledge the frame.
 
 As SCHC defines its own acknowledgment mechanisms, SCHC does not require
-the to use of LoRaWAN Confirmed frames (MType=0b100 as per
+the use of LoRaWAN Confirmed frames (MType=0b100 as per
 {{lora-alliance-spec}})
 
 ## LoRaWAN MAC Frames
