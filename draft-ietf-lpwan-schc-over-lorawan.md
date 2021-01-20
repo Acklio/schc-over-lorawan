@@ -33,18 +33,18 @@ normative:
   RFC2119:
   RFC8174:
   RFC4291:
-  RFC8064:
-  RFC8724:
-informative:
   RFC4493:
-  RFC8065:
-  RFC8376:
+  RFC8724:
   lora-alliance-spec:
     title: LoRaWAN Specification Version V1.0.3
     author:
       name: LoRa Alliance
     date: 07.2018
     target: https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf
+informative:
+  RFC8064:
+  RFC8065:
+  RFC8376:
   lora-alliance-remote-multicast-set:
     title: LoRaWAN Remote Multicast Setup Specification Version 1.0.0
     author:
@@ -82,7 +82,7 @@ technologies.
 
 This document describes the parameters and modes of operation when
 SCHC is used over LoRaWAN networks. LoRaWAN protocol is specified by the
-LoRa Alliance in {{lora-alliance-spec}}
+LoRa® Alliance in {{lora-alliance-spec}}
 
 # Terminology
 
@@ -95,11 +95,8 @@ This section defines the terminology and acronyms used in this document. For
 all other definitions, please look up the SCHC specification
 [RFC8724].
 
-- LoRaWAN: LoRaWAN is a wireless technology based on Industrial,
-   Scientific, and Medical (ISM) radio bands that is used for long-range,
-   low-power, low-data-rate applications developed by the LoRa Alliance, a
-   membership consortium: [https://www.lora-alliance.org](https://www.lora-alliance.org).
-- DevEUI: an IEEE EUI-64 identifier used to identify the device during the
+- DevEUI: Device Extended Unique Identifier, an IEEE EUI-64 identifier
+  used to identify the device during the
   procedure while joining the network (Join Procedure). It is assigned by the
   manufacturer or the device owner and provisioned on the Network Gateway.
 - DevAddr: a 32-bit non-unique identifier assigned to a device either:
@@ -111,6 +108,11 @@ all other definitions, please look up the SCHC specification
 
 - Downlink: LoRaWAN term for a frame transmitted by the network and
   received by the device.
+- EUI: Extended Unique Identifier
+- LoRaWAN: LoRaWAN is a wireless technology based on Industrial,
+  Scientific, and Medical (ISM) radio bands that is used for long-range,
+  low-power, low-data-rate applications developed by the LoRa Alliance, a
+  membership consortium: [https://www.lora-alliance.org](https://www.lora-alliance.org).
 - FRMPayload: Application data in a LoRaWAN frame.
 - MSB: Most Significant Byte
 - OUI: Organisation Unique Identifier. IEEE assigned prefix for EUI.
@@ -156,6 +158,7 @@ Context exchange or pre-provisioning is out of scope of this document.
          +~ |RGW| === |NGW | == |SCHC| == |SCHC|...... Internet ....
             +---+     +----+    |F/R |    |C/D |
                                 +----+    +----+
+|<- - - - LoRaWAN - - ->|
 ~~~~
 {: #Fig-archi title='Architecture'}
 
@@ -197,6 +200,7 @@ LoRaWAN terminology to:
            +-------+     |server |    |server     |
                          +-------+    | F/R - C/D |
                                       +-----------+
+|<- - - - - LoRaWAN - - - ->|
 ~~~~
 {: #Fig-archi-lorawan title='SCHC Architecture mapped to LoRaWAN'}
 
@@ -282,7 +286,7 @@ Class C. Class B and Class C are mutually exclusive.
 
 LoRaWAN end-devices use a 32-bit network address (devAddr) to communicate with
 the Network Gateway over-the-air, this address might not be unique in a LoRaWAN
-network; devices using the same devAddr are distinguished by the Network
+network. Devices using the same devAddr are distinguished by the Network
 Gateway based on the cryptographic signature appended to every LoRaWAN frame.
 
 To communicate with the SCHC gateway, the Network Gateway MUST identify the
@@ -335,7 +339,7 @@ frame types, which are used by a device to join a network:
   keys.
 * Data:
   MAC and application data. Application data are protected with AES-128
-  encryption, MAC related data are AES-128 encrypted with another key.
+  encryption. MAC related data are AES-128 encrypted with another key.
 
 ## LoRaWAN FPort
 
@@ -496,7 +500,7 @@ the same direction (uplink or downlink).
 The fragmentation parameters are different for uplink and downlink
 fragmented datagrams and are successively described in the next sections.
 
-### DTag
+### DTag {#DTag}
 
 [RFC8724] section 8.2.4 describes the possibility to interleave several
 fragmented SCHC datagrams for the same RuleID. This is not used in SCHC over
@@ -513,22 +517,13 @@ the fragment receiver. A single fragmentation rule is defined.
 SCHC F/R MUST concatenate FPort and LoRaWAN payload to retrieve the SCHC
 Packet, as per {{lorawan-schc-payload}}.
 
-* SCHC header size is two bytes (the FPort byte + 1 additional byte).
-* RuleID: 8 bits stored in LoRaWAN FPort.
 * SCHC fragmentation reliability mode: `ACK-on-Error`.
-* DTag: Size is 0 bit, not used.
+* SCHC header size is two bytes (the FPort byte + 1 additional byte).
+* RuleID: 8 bits stored in LoRaWAN FPort. cf {{rule-id-management}}
+* DTag: Size T=0 bit, not used. cf {{DTag}}, §8.2.3. Integrity Checking
+* Window index: 4 windows are used, encoded on M = 2 bits
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles
   are allowed in a window.
-* Window index: encoded on W = 2 bits. So 4 windows are available.
-* RCS: Use recommended calculation algorithm in [RFC8724].
-* MAX_ACK_REQUESTS: 8.
-* Tile: size is 10 bytes.
-* Retransmission timer: Set by the implementation depending on the application
-  requirements.
-* Inactivity timer: The SCHC gateway implements an "inactivity timer". The
-  default RECOMMENDED duration of this timer is 12 hours; this value is mainly
-  driven by application requirements and MAY be changed by the application.
-* Penultimate tile MUST be equal to the regular size.
 * Last tile: it can be carried in a Regular SCHC Fragment, alone in an All-1 SCHC
   Fragment or with any of these two methods. Implementation must ensure that:
   * The sender MUST ascertain that the receiver will not receive
@@ -536,17 +531,30 @@ Packet, as per {{lorawan-schc-payload}}.
     Fragment during the same session.
   * If the last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
     the All-1 header and the last tile.
-
+* Penultimate tile MUST be equal to the regular size.
+* RCS: Use recommended calculation algorithm in [RFC8724], §8.2.3. Integrity Checking
+* Tile: size is 10 bytes.
+* Retransmission timer: Set by the implementation depending on the application
+  requirements. The default RECOMMENDED duration of this timer is 12 hours;
+  this value is mainly driven by application requirements and MAY be
+  changed by the application.
+* Inactivity timer: The SCHC gateway implements an "inactivity timer". The
+  default RECOMMENDED duration of this timer is 12 hours; this value is mainly
+  driven by application requirements and MAY be changed by the application.
+* MAX_ACK_REQUESTS: 8.
 With this set of parameters, the SCHC fragment header is 16 bits,
 including FPort; payload overhead will be 8 bits as FPort is already a part of
 LoRaWAN payload. MTU is: _4 windows * 63 tiles * 10 bytes per tile = 2520 bytes_
 
+In addition to the per-rule context parameters specified in [RFC8724],
+for uplink rules, an additional context parameter is added: whether or
+not to ack after each window.  
 For battery powered devices, it is RECOMMENDED to use the ACK mechanism at the
 end of each window instead of waiting until the end of all windows:
 
-* the SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
+* The SCHC receiver SHOULD send a SCHC ACK after every window even if there is no
   missing tile.
-* the SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
+* The SCHC sender SHOULD wait for the SCHC ACK from the SCHC receiver before sending
 tiles from the next window. If the SCHC ACK is not received, it SHOULD send a SCHC
 ACK REQ up to MAX_ACK_REQUESTS times, as described previously.
 
@@ -558,7 +566,6 @@ network, by reducing the number of downlinks.
 
 SCHC implementations MUST be compatible with both behaviors, and this selection is
 part of the rule context.
-
 
 #### Regular fragments
 
@@ -670,16 +677,19 @@ Packet as described in {{lorawan-schc-payload}}.
   * Unicast downlinks: ACK-Always.
   * Multicast downlinks: No-ACK, reliability has to be ensured by the upper
     layer. This feature is OPTIONAL and may not be implemented by SCHC gateway.
-* RuleID: 8 bits stored in LoRaWAN FPort.
-* Window index (unicast only): encoded on W=1 bit, as per [RFC8724].
-* DTag: Size is 0 bit, not used.
+* RuleID: 8 bits stored in LoRaWAN FPort. cf {{rule-id-management}}
+* DTag: Size T=0 bit, not used. cf {{DTag}}
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile.
-* RCS: Use recommended calculation algorithm in [RFC8724].
-* MAX_ACK_REQUESTS: 8.
-* Retransmission timer:  See {{downlink-retransmission-timer}}.
+* RCS: Use recommended calculation algorithm in [RFC8724], §8.2.3. Integrity Checking.
 * Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours;
   this value is mainly driven by application requirements and MAY be changed by
   the application.
+
+The following parameters apply to ACK-Always (Unicast) only:
+
+* Retransmission timer:  See {{downlink-retransmission-timer}}.
+* MAX_ACK_REQUESTS: 8.
+* Window index (unicast only): encoded on M=1 bit, as per [RFC8724].
 
 As only 1 tile is used, its size can change for each downlink, and will be
 the currently available MTU.
@@ -783,6 +793,7 @@ RETRANSMISSION_TIMER is application specific and its RECOMMENDED value is
 INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).
 
 **SCHC All-0 (FCN=0)**
+
 All fragments but the last have an FCN=0 (because window size is 1).  Following
 an All-0 SCHC Fragment, the device MUST transmit the SCHC ACK message. It MUST transmit up to
 MAX_ACK_REQUESTS SCHC ACK messages before aborting.  In order to progress the
@@ -793,6 +804,7 @@ LoRaWAN layer will respect the applicable local spectrum regulation.
 _Note_: The ACK bitmap is 1 bit long and is always 1.
 
 **SCHC All-1 (FCN=1)**
+
 SCHC All-1 is the last fragment of a datagram, the corresponding SCHC ACK
 message might be lost; therefore the SCHC gateway MUST request a retransmission
 of this ACK when the retransmission timer expires.  To open a downlink
@@ -905,14 +917,15 @@ Email: alper.yegin@actility.com
 
 # Examples
 
-In following examples "applicative payload" refers to the IPv6 payload sent by the
+In following examples "applicative data" refers to the IPv6 payload sent by the
 application to the SCHC layer.
 
 ## Uplink - Compression example - No fragmentation
-This example represents an applicative payload going through SCHC over LoRaWAN,
+
+This example represents an applicative data going through SCHC over LoRaWAN,
 no fragmentation required
 
-An applicative payload of 78 bytes is passed to SCHC compression layer. Rule 1
+An applicative data of 78 bytes is passed to SCHC compression layer. Rule 1
 is used by SCHC C/D layer, allowing to compress it to 40 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 37 bytes payload.
 
@@ -939,10 +952,10 @@ fragmentation. The payload will be transmitted through FPort = 1.
 
 ## Uplink - Compression and fragmentation example
 
-This example represents an applicative payload going through SCHC, with
+This example represents an applicative data going through SCHC, with
 fragmentation.
 
-An applicative payload of 478 bytes is passed to SCHC compression layer. Rule 1
+An applicative data of 300 bytes is passed to SCHC compression layer. Rule 1
 is used by SCHC C/D layer,  allowing to compress it to 282 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 279 bytes payload.
 
@@ -1028,7 +1041,7 @@ correct so the following ACK is sent to the device by the SCHC receiver:
 
 ## Downlink
 
-An applicative payload of 443 bytes is passed to SCHC compression layer. Rule 1
+An applicative data of 155 bytes is passed to SCHC compression layer. Rule 1
 is used by SCHC C/D layer, allowing to compress it to 130 bytes and 5 bits: 1 byte
 RuleID, 21 bits residue + 127 bytes payload.
 
