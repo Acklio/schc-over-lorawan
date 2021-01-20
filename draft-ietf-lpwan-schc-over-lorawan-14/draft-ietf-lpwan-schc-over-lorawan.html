@@ -1008,8 +1008,8 @@ outside the scope of this document.<a href="#section-5.2-7" class="pilcrow">¶</
         <h3 id="name-interface-identifier-iid-co">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-interface-identifier-iid-co" class="section-name selfRef">Interface IDentifier (IID) computation</a>
         </h3>
-<p id="section-5.3-1">In order to mitigate the risks described in <span>[<a href="#RFC8064" class="xref">RFC8064</a>]</span> and <span>[<a href="#RFC8065" class="xref">RFC8065</a>]</span>, IID MUST be
-created regarding the following algorithm:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">In order to mitigate the risks described in <span>[<a href="#RFC8064" class="xref">RFC8064</a>]</span> and <span>[<a href="#RFC8065" class="xref">RFC8065</a>]</span>,
+implementation MUST implement the following algorithm and SHOULD use it.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3-2">
 <li id="section-5.3-2.1">key = LoRaWAN AppSKey<a href="#section-5.3-2.1" class="pilcrow">¶</a>
 </li>
@@ -1054,6 +1054,9 @@ the IID can be changed by rekeying the device at L2 level (ie: trigger a LoRaWAN
 join).
 The way the device is rekeyed is out of scope of this document and left to the
 implementation.<a href="#section-5.3-10" class="pilcrow">¶</a></p>
+<p id="section-5.3-11">Note: Implementation also using another IID source MUST ensure that the
+same IID is shared between the device and the SCHC gateway in the
+compression and decompression of the IPv6 address of the device.<a href="#section-5.3-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="padding">
