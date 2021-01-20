@@ -36,11 +36,11 @@ normative:
   RFC4493:
   RFC8724:
   lora-alliance-spec:
-    title: LoRaWAN Specification Version V1.0.3
+    title: LoRaWAN Specification Version V1.0.4
     author:
       name: LoRa Alliance
-    date: 07.2018
-    target: https://lora-alliance.org/sites/default/files/2018-07/lorawan1.0.3.pdf
+    date: 10.2020
+    target: https://lora-alliance.org/resource_hub/lorawan-104-specification-package/
 informative:
   RFC8064:
   RFC8065:
