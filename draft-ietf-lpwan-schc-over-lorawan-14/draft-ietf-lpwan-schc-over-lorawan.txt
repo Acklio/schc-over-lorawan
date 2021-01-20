@@ -1187,9 +1187,9 @@ References
 Normative References
 
    [lora-alliance-spec]
-              Alliance, L., "LoRaWAN Specification Version V1.0.3",
-              <https://lora-alliance.org/sites/default/files/2018-07/
-              lorawan1.0.3.pdf>.
+              Alliance, L., "LoRaWAN Specification Version V1.0.4",
+              <https://lora-alliance.org/resource_hub/lorawan-104-
+              specification-package/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
