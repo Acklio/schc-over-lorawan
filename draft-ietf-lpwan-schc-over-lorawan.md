@@ -438,8 +438,8 @@ outside the scope of this document.
 
 ## Interface IDentifier (IID) computation {#IID}
 
-In order to mitigate the risks described in [rfc8064] and [rfc8065], IID MUST be
-created regarding the following algorithm:
+In order to mitigate the risks described in [rfc8064] and [rfc8065],
+implementation MUST implement the following algorithm and SHOULD use it.
 
 1. key = LoRaWAN AppSKey
 2. cmac = aes128_cmac(key, DevEUI)
@@ -477,6 +477,10 @@ the IID can be changed by rekeying the device at L2 level (ie: trigger a LoRaWAN
 join).
 The way the device is rekeyed is out of scope of this document and left to the
 implementation.
+
+Note: Implementation also using another IID source MUST ensure that the
+same IID is shared between the device and the SCHC gateway in the
+compression and decompression of the IPv6 address of the device.
 
 ## Padding
 
