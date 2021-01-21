@@ -524,7 +524,7 @@ Packet, as per {{lorawan-schc-payload}}.
 * SCHC fragmentation reliability mode: `ACK-on-Error`.
 * SCHC header size is two bytes (the FPort byte + 1 additional byte).
 * RuleID: 8 bits stored in LoRaWAN FPort. cf {{rule-id-management}}
-* DTag: Size T=0 bit, not used. cf {{DTag}}, §8.2.3. Integrity Checking
+* DTag: Size T=0 bit, not used. cf {{DTag}}
 * Window index: 4 windows are used, encoded on M = 2 bits
 * FCN: The FCN field is encoded on N = 6 bits, so WINDOW_SIZE = 63 tiles
   are allowed in a window.
@@ -536,7 +536,7 @@ Packet, as per {{lorawan-schc-payload}}.
   * If the last tile is in All-1 SCHC message: current L2 MTU MUST be big enough to fit
     the All-1 header and the last tile.
 * Penultimate tile MUST be equal to the regular size.
-* RCS: Use recommended calculation algorithm in [RFC8724], §8.2.3. Integrity Checking
+* RCS: Use recommended calculation algorithm in [RFC8724] (§8.2.3. Integrity Checking).
 * Tile: size is 10 bytes.
 * Retransmission timer: Set by the implementation depending on the application
   requirements. The default RECOMMENDED duration of this timer is 12 hours;
@@ -684,7 +684,7 @@ Packet as described in {{lorawan-schc-payload}}.
 * RuleID: 8 bits stored in LoRaWAN FPort. cf {{rule-id-management}}
 * DTag: Size T=0 bit, not used. cf {{DTag}}
 * FCN: The FCN field is encoded on N=1 bit, so WINDOW_SIZE = 1 tile.
-* RCS: Use recommended calculation algorithm in [RFC8724], §8.2.3. Integrity Checking.
+* RCS: Use recommended calculation algorithm in [RFC8724] (§8.2.3. Integrity Checking).
 * Inactivity timer: The default RECOMMENDED duration of this timer is 12 hours;
   this value is mainly driven by application requirements and MAY be changed by
   the application.
