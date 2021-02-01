@@ -5,12 +5,12 @@
 lpwan Working Group                                      O. Gimenez, Ed.
 Internet-Draft                                                   Semtech
 Intended status: Standards Track                          I. Petrov, Ed.
-Expires: 29 July 2021                                             Acklio
-                                                         25 January 2021
+Expires: 5 August 2021                                            Acklio
+                                                         1 February 2021
 
 
          Static Context Header Compression (SCHC) over LoRaWAN
-               draft-ietf-lpwan-schc-over-lorawan-latest
+                 draft-ietf-lpwan-schc-over-lorawan-14
 
 Abstract
 
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 July 2021.
+   This Internet-Draft will expire on 5 August 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 1]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 1]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    and restrictions with respect to this document.  Code Components
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 2]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 2]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 1.  Introduction
@@ -131,7 +131,7 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
    This document describes the parameters and modes of operation when
    SCHC is used over LoRaWAN networks.  LoRaWAN protocol is specified by
-   the LoRa(R) Alliance in [lora-alliance-spec]
+   the LoRa Alliance(R) in [lora-alliance-spec]
 
 2.  Terminology
 
@@ -165,9 +165,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 3]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 3]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    *  EUI: Extended Unique Identifier
@@ -221,9 +221,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 4]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 4]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    Context exchange or pre-provisioning is out of scope of this
@@ -277,9 +277,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 5]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 5]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    End Device                                               App
@@ -333,9 +333,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 6]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 6]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
                                          (LPWAN-AAA Server)
@@ -389,9 +389,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 7]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 7]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    *  Class B: Class B devices implement all the functionalities of
@@ -445,9 +445,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 8]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 8]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 4.3.  General Frame Types
@@ -501,9 +501,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                  [Page 9]
+Gimenez & Petrov          Expires 5 August 2021                 [Page 9]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 4.7.  Unicast and multicast technology
@@ -557,9 +557,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 10]
+Gimenez & Petrov          Expires 5 August 2021                [Page 10]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 5.2.  Rule ID management
@@ -613,9 +613,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 11]
+Gimenez & Petrov          Expires 5 August 2021                [Page 11]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    1.  key = LoRaWAN AppSKey
@@ -669,9 +669,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 12]
+Gimenez & Petrov          Expires 5 August 2021                [Page 12]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 5.5.  Decompression
@@ -725,9 +725,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 13]
+Gimenez & Petrov          Expires 5 August 2021                [Page 13]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    *  Window index: 4 windows are used, encoded on M = 2 bits
@@ -781,9 +781,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 14]
+Gimenez & Petrov          Expires 5 August 2021                [Page 14]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    *  The SCHC sender SHOULD wait for the SCHC ACK from the SCHC
@@ -837,9 +837,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 15]
+Gimenez & Petrov          Expires 5 August 2021                [Page 15]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    | FPort  | LoRaWAN payload           |
@@ -893,9 +893,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 16]
+Gimenez & Petrov          Expires 5 August 2021                [Page 16]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 5.6.3.  Downlink fragmentation: From SCHC gateway to device
@@ -949,9 +949,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 17]
+Gimenez & Petrov          Expires 5 August 2021                [Page 17]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    _Note_: The Fpending bit included in LoRaWAN protocol SHOULD NOT be
@@ -1005,9 +1005,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 18]
+Gimenez & Petrov          Expires 5 August 2021                [Page 18]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    | FPort  | LoRaWAN payload                                |
@@ -1061,9 +1061,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 19]
+Gimenez & Petrov          Expires 5 August 2021                [Page 19]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    SCHC_ACK_REQ_DN_OPPORTUNITY).  The format of this uplink is
@@ -1117,9 +1117,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 20]
+Gimenez & Petrov          Expires 5 August 2021                [Page 20]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
 5.7.2.  All-1 SCHC fragment
@@ -1173,9 +1173,9 @@ Contributors
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 21]
+Gimenez & Petrov          Expires 5 August 2021                [Page 21]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    Nicolas Sornin Semtech Email: nsornin@semtech.com
@@ -1229,9 +1229,9 @@ Informative References
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 22]
+Gimenez & Petrov          Expires 5 August 2021                [Page 22]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    [RFC8065]  Thaler, D., "Privacy Considerations for IPv6 Adaptation-
@@ -1285,9 +1285,9 @@ A.2.  Uplink - Compression and fragmentation example
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 23]
+Gimenez & Petrov          Expires 5 August 2021                [Page 23]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    An applicative data of 300 bytes is passed to SCHC compression layer.
@@ -1341,9 +1341,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 24]
+Gimenez & Petrov          Expires 5 August 2021                [Page 24]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    Next transmission MTU is 242 bytes, no FOpts.  All 5 remaining tiles
@@ -1397,9 +1397,9 @@ A.3.  Downlink
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 25]
+Gimenez & Petrov          Expires 5 August 2021                [Page 25]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
    The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN
@@ -1453,9 +1453,9 @@ Internet-Draft              SCHC-over-LoRaWAN               January 2021
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 26]
+Gimenez & Petrov          Expires 5 August 2021                [Page 26]
 
-Internet-Draft              SCHC-over-LoRaWAN               January 2021
+Internet-Draft              SCHC-over-LoRaWAN              February 2021
 
 
           Figure 33: Downlink example: LoRaWAN packet 4 - SCHC ACK
@@ -1509,4 +1509,4 @@ Authors' Addresses
 
 
 
-Gimenez & Petrov          Expires 29 July 2021                 [Page 27]
+Gimenez & Petrov          Expires 5 August 2021                [Page 27]
