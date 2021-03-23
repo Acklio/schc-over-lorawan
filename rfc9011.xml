@@ -75,8 +75,29 @@ Author (OGZ)
       designed for great flexibility so that it can be adapted for any of the
       LPWAN technologies.</t>
 
+<!-- [rfced] We follow the CMOS guidance related to not using trademark indicators.  FYI - We will remove these throughout the doucment to be consistent with both CMOS guidance and use in recent RFCs.
+
+Original:
+
+   This document specifies a profile of RFC8724 to use SCHC in
+   LoRaWAN(R) networks, and provides elements such as efficient
+   parameterization and modes of operation.
+
+Perhaps:
+
+   This document specifies a profile of RFC 8724 to use SCHC in
+   LoRaWAN networks and provides elements such as efficient
+   parameterization and modes of operation.
+
+Or the above suggested text and the following addition to the Acknowledgments section?
+   LoRaWAN is a registered trademark of the LoRa Alliance.
+
+Author (OGZ)
+  OK for second solution, I removed (R) and updated the Acknowledgments
+  section
+-->
       <t>This document specifies a profile of RFC 8724 to use SCHC in
-      LoRaWAN(R) networks and provides elements such as efficient
+      LoRaWAN networks and provides elements such as efficient
       parameterization and modes of operation.</t>
     </abstract>
   </front>
@@ -1461,6 +1482,7 @@ RuleID, 21 bits residue + 127 bytes payload.</t>
       Munoz"/>, <contact fullname="Alexander Pelov"/>, <contact
       fullname="Pascal Thubert"/>, and <contact fullname="Laurent Toutain"/> for
       useful design considerations, reviews, and comments.</t>
+      <t>LoRaWAN is a registered trademark of the LoRa Alliance.</t>
     </section>
 
 
