@@ -504,17 +504,14 @@ also schedule periodic listen windows. Therefore, as opposed to Class A
 devices, Class B devices can receive downlinks that are initiated by the
 Network Gateway and not following an uplink. There is a trade-off between the
 periodicity of those scheduled Class B listen windows and the power
-consumption of the device: if the periodicity is high, downlinks from the NGW
-will be sent faster, but the device wakes up more often. Therefore, it will
-have higher power consumption.
+consumption of the device: 
 </dd>
-<ul>
-<li>High periodicity: downlinks from the NGW will be sent faster but the
-device wakes up more often and power consumption is increased.
-</li>
-<li>Low periodicity: higher latency but lower power consumption.
-</li>
-</ul>
+<dt>High periodicity:</dt>
+<dd>Downlinks from the NGW will be sent faster but the
+device wakes up more often and power consumption is increased.</dd>
+
+<dt>Low periodicity:</dt>
+<dd>Higher latency but lower power consumption.</dd>
 
 <!-- [rfced] In the following sentence, how might we rephrase to avoid repeated uses of a colon?
 
@@ -537,6 +534,9 @@ Author (OGZ)
    - High periodicity: downlinks from the NGW will be sent faster but the
      device wakes up more often and power consumption is increased.
    - Low periodicity: higher latency but lower power consumption.
+
+   I did not succeed to correctly render it, either with a list or a dt/dd tag.
+   Could you please help?
 -->
 
 <dt>Class C:
