@@ -707,9 +707,25 @@ and its associated SCHC control downlinks, named "FPortUp" in this document. The
 other way, a fragmented datagram with application payload transferred from
 Network Gateway to device is called a "downlink-fragmented datagram". It uses another
 FPort for data downlink and its associated SCHC control uplinks, named "FPortDown"
-in this document.</t>
+	in this document.</t>
+<!--[rfced] It may be helpful to the reader to add a citation here so they know what the "LoRaWAN specification" is.
+
+Original:
+All RuleID can use arbitrary values inside the FPort range allowed by
+the LoRaWAN specification and MUST be shared by the device and SCHC
+gateway prior to the communication with the selected rule.
+
+Perhaps:
+All RuleIDs can use arbitrary values inside the FPort range allowed by
+the LoRaWAN specification [LORA-SPEC] and MUST be shared by the device and SCHC
+gateway prior to the communication with the selected rule.
+
+Author (OGZ)
+  Ok added, FYI this is defined in the next section "LoRaWAN
+  supports up to 223 application FPorts in the range [...]"
+-->
         <t>All RuleIDs can use arbitrary values inside the FPort range allowed
-        by the LoRaWAN specification and <bcp14>MUST</bcp14> be shared by the
+        by the LoRaWAN specification [LORA-SPEC] and <bcp14>MUST</bcp14> be shared by the
         device and SCHC gateway prior to the communication with the selected
         rule.  The uplink and downlink fragmentation FPorts
         <bcp14>MUST</bcp14> be different.</t>
