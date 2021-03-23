@@ -152,16 +152,43 @@ provisioned on the Network Gateway.
   <dl> 
     <dt>Statically:
     </dt>
-    <dd>by the device manufacturer in <em>Activation-by-Personalization</em>
+    <dd>by the device manufacturer in "Activation-by-Personalization"
     mode, or
     </dd>
     <dt>Dynamically:
     </dt>
-    <dd>after a Join Procedure by the Network Gateway in <em>Over-the-Air-Activation</em> mode.
+    <dd>after a Join Procedure by the Network Gateway in "Over-the-Air-Activation" mode.
     </dd>
   </dl>
 </dd>
 
+<!-- [rfced] Was it intended in the following sentences to have "Over The Air Activation" and "Activation by Personalization" in italics (enclosed in the <em> element), or would quotes be more fitting?
+
+
+Original in xml: 
+   Dynamically: after a Join Procedure by the Network Gateway in <em>Over The Air
+   Activation</em> mode.
+
+   Statically: by the device manufacturer in <em>Activation by Personalization</em> mode.
+
+Author (OGZ)
+  Double quotes are OK, I updated the text
+-->
+
+<!--[rfced] Might it be helpful to the reader to add the following abbreviations to the Terminology section?
+
+SCHC C/D
+SCHC F/R
+NGW
+RGW
+IID
+
+Author (OGZ)
+  I have been asked by the working group to remove them as they are
+  defined in RFC8376 and RFC8724 to avoid reperition. What is your
+  recommendation as RFC Editors?
+
+-->
 
 <dt>Downlink:
 </dt>
