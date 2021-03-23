@@ -157,7 +157,7 @@ provisioned on the Network Gateway.
     </dd>
     <dt>Dynamically:
     </dt>
-    <dd>after a Join Procedure by the Network Gateway in "Over-the-Air-Activation" mode.
+    <dd>after a LoRaWAN "Join Procedure" by the Network Gateway in "Over-the-Air-Activation" mode.
     </dd>
   </dl>
 </dd>
@@ -1783,7 +1783,23 @@ Author (OGZ)
   Ok, I changed section 5.3 to reference only the DevEUI, which is
   defined in the terminology section as an IEEE EUI-64.
 
+2. FYI: We've updated "Fpending bit" to "FPending bit" per the LoRa Alliance website.
 
+Author (OGZ)
+  OK
+
+3. We have updated to use "SCHC C/D and SCHC F/R" instead of "SCHC C/D and F/R" everywhere but in figures.  Please let us know any objections.
+
+Author (OGZ)
+  OK
+
+4. Please verify that "Join Procedure" should be capitalized in this document. Its only other apparent use in past RFCs is lowercased.
+
+Original:
+   Dynamically: after a Join Procedure by the Network Gateway in Over The Air Activation mode. 
+
+Author (OGZ)
+  Updated to LoRaWAN "Join Procedure" as it is a LoRaWAN terminology like "Over-The-Air-Activation"
 -->
 
 
