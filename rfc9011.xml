@@ -635,12 +635,38 @@ LoRaWAN networks and applications to identify data.</t>
         <t>A LoRaWAN empty frame is a LoRaWAN frame without FPort (cf. <xref
         target="lorawan-schc-payload" format="default"/>) and FRMPayload.</t>
       </section>
+
+
+<!-- [rfced] How might we rephrase the following sentence for clarity?
+
+Original:
+ 
+It is useful to address many devices with same content, either a
+large binary file (firmware upgrade), or same command (e.g:
+lighting control).
+
+Perhaps:
+   
+It is useful to address many devices with the same content: either a
+large binary file (firmware upgrade) or the same command (e.g.,
+lighting control).
+
+Or perhaps:
+
+It is useful to address many devices with the same content, or
+either a large binary file (firmware upgrade) or the same command
+(e.g., lighting control).
+
+Author (OGZ)
+  OK, I integrated your first proposition
+
+ -->
+
       <section anchor="unicast-and-multicast-technology" numbered="true" toc="default">
         <name>Unicast and Multicast Technology</name>
         <t>LoRaWAN technology supports unicast downlinks but also multicast; a
-        packet sent over LoRaWAN a radio link can be received by several
-        devices.  It is useful to address many devices with the same content,
-        either a large binary file (firmware upgrade) or same command (e.g.,
+        devices.  It is useful to address many devices with the same content:
+        either a large binary file (firmware upgrade) or the same command (e.g.,
         lighting control).  As IPv6 is also a multicast technology, this
         feature can be used to address a group of devices.</t>
 
