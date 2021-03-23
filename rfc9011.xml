@@ -391,12 +391,22 @@ Gateway and the SCHC gateway (LoRaWAN Application server). This entity maps to
 the LoRaWAN Network Server.
 </li>
 
-<li>The SCHC C/D and SCHC F/R are handled by the LoRaWAN Application Server; that is, the LoRaWAN
-application server will do the SCHC C/D and SCHC F/R.
+<li>The SCHC C/D and SCHC F/R are handled by the LoRaWAN Application Server.
 </li>
+<!-- [rfced] The following bullet point may be a bit redundant. How might we
+rephrase to avoid sounding repetitive? Can we expand what "do"
+entails?
 
+Original:
+   SCHC C/D and F/R are handled by LoRaWAN Application Server; ie the LoRaWAN application 
+   server will do the SCHC C/D and F/R.
 
+Perhaps:
+   The SCHC C/D and SCHC F/R are handled by the LoRaWAN Application Server.
 
+Author (OGZ):
+  OK, I implemented your proposition
+-->
 
 <li>The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
 deliver security keys in a secure way so that the devices root key is never
