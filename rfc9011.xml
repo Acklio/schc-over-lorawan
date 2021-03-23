@@ -270,7 +270,7 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
       <ol spacing="normal" type="1"><li>Compression mechanisms to avoid
       transporting information known by both sender and receiver over the
       air. Known information is part of the "context". This component is
-      called the "SCHC Compressor/Decompressor" (SCHC C/D).</li>
+      called the "SCHC Compression/Decompression" (SCHC C/D).</li>
         <li>Fragmentation mechanisms to allow SCHC Packet transportation on a
         small, and potentially variable, MTU. This component is called the "SCHC
         Fragmentation/Reassembly" (SCHC F/R).</li>
@@ -310,14 +310,30 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
       and the SCHC F/R, then SCHC F/R and SCHC C/D. The SCHC C/D and SCHC F/R in the
       device and the SCHC gateway <bcp14>MUST</bcp14> share the same set of
       rules. After decompression, the packet can be sent on the Internet to
-one or several LPWAN Application Servers (App).</t>
+      one or several LPWAN Application Servers (App).</t>
       <t>The SCHC C/D and SCHC F/R process is bidirectional, so the same principles
       can be applied to the other direction.</t>
       <t>In a LoRaWAN network, the RGW is called a "Gateway", the NGW is a
-      "Network Server", and the SCHC C/D and SCHC F/R are an "Application Server". It
-      can be provided by the NGW or any third-party
+      "Network Server", and the SCHC C/D and SCHC F/R are one or more
+      "Application Server". Application servers can be provided by the NGW or any third-party
       software. <xref target="Fig-archi" format="default"/> can be mapped in
-LoRaWAN terminology to:</t>
+      LoRaWAN terminology to:</t>
+
+<!-- [rfced] In the following setence, what does "it" refer to?
+
+Original:
+   In a LoRaWAN network, the RGW is called a Gateway, the NGW is Network
+   Server, and the SCHC C/D and F/R are an Application Server.  It can
+   be provided by the Network Gateway or any third party software.
+
+Perhaps:
+   In a LoRaWAN network, the RGW is called a Gateway, the NGW is a Network
+   Server, and the SCHC C/D and SCHC F/R are an Application Server. The Application Server can
+   be provided by the Network Gateway or any third-party software.
+
+Author (OGZ)
+  I clarified the text
+-->
       <figure anchor="Fig-archi-lorawan">
         <name>SCHC Architecture Mapped to LoRaWAN</name>
         <artwork name="" type="" align="left" alt=""><![CDATA[
