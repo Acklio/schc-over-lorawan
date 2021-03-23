@@ -1685,8 +1685,27 @@ RuleID, 21 bits residue + 127 bytes payload.</t>
         </figure>
         <t>The current LoRaWAN MTU is 51 bytes; no FOpts are used by the
         LoRaWAN protocol: 51 bytes are available for SCHC payload + FPort
-        field =&gt; it has to be fragmented.</t>
+        field; The applicative data has to be fragmented.</t>
 
+<!-- [rfced] In the following sentence, may we replace the symbol "=>" with a
+semi-colon without changing the intended meaning?
+
+Original: 
+   The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN   
+   protocol: 51 bytes are available for SCHC payload + FPort field => it has to
+   be fragmented.  
+
+Perhaps:
+   The current LoRaWAN MTU is 51 bytes; no FOpts are used by the LoRaWAN   
+   protocol: 51 bytes are available for SCHC payload + FPort field; it has to
+   be fragmented.  
+
+Author (OGZ)
+  Ok, I added the semicolon and changed the "it" to "The applicative data"
+  I wonder it we should put a comma and start a new sentence:
+  51 bytes are available for SCHC payload + FPort field. The applicative
+  data has to be fragmented.
+ -->
 
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-1">
           <name>Downlink Example: LoRaWAN Packet 1 - SCHC Fragment 1</name>
