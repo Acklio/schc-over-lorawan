@@ -1208,9 +1208,24 @@ be changed by the application.
           session is started; this is application specific and can be
           disabled. The <bcp14>RECOMMENDED</bcp14> uplink is a LoRaWAN empty
           frame as defined in <xref target="lorawan-empty-frame"
-          format="default"/>.  As this uplink is to open an RX window, any
+          format="default"/>.  As this uplink is send only to open an RX window, any
           LoRaWAN uplink frame from the device <bcp14>MAY</bcp14> reset this
           counter.</t>
+<!-- [rfced] The following sentence may be missing a word. What was intended after "this uplink is"?
+
+Original: 
+   As this uplink is to open an RX window, any LoRaWAN uplink frame
+   from the device MAY reset this counter.
+
+Perhaps: 
+   As this uplink is used to open an RX window, any LoRaWAN uplink frame from
+   the device MAY reset this counter.
+
+Author (OGZ)
+  True I changed it to:
+    As this uplink is send only to open an RX window, any LoRaWAN uplink
+    frame from the device MAY reset this counter.
+-->
 
 <aside><t>Note: The FPending bit included in the LoRaWAN protocol <bcp14>SHOULD
 NOT</bcp14> be used for the SCHC-over-LoRaWAN protocol. It might be set by the
