@@ -1496,8 +1496,20 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8065.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8376.xml"/>
 
-<!-- [rfced] [lora-alliance-remote-multicast-set] The URL below returns error "It Appears You Didn't Find The Item You Were Looking For".  Found URL https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/ -->
+<!-- [rfced] FYI: The previous URL for [LORA-REMOTE-MULTICAST-SET] pointed to
+a missing file on the LoRa website. We've updated it to a page that
+allows downloading the three PDFs relating to the LoRaWAN Remote
+Multicast Setup Specification.
 
+Original:
+   <https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf>
+
+Updated:
+   <https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/>
+
+Author (OGZ)
+  Good catch, LoRa Alliance changed its website. You selected the good one
+-->
         <reference anchor="LORA-REMOTE-MULTICAST-SET" target="https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/">
           <front>
             <title>LoRaWAN Remote Multicast Setup Specification v1.0.0</title>
