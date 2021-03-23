@@ -9,7 +9,7 @@
 
   <!-- xml2rfc v2v3 conversion 3.5.0 -->
   <front>
-    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression (SCHC) over LoRaWAN</title>
+    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and fragementation (SCHC) over LoRaWAN</title>
     <seriesInfo name="RFC" value="9011"/>
     <author initials="O." surname="Gimenez" fullname="Olivier Gimenez" role="editor">
       <organization>Semtech</organization>
@@ -69,7 +69,7 @@ Author (OGZ)
 <keyword>SCHC</keyword>
 
     <abstract>
-      <t>The Static Context Header Compression (SCHC) specification (RFC 8724) describes
+      <t>The Static Context Header Compression and fragmentation (SCHC) specification (RFC 8724) describes
       generic header compression and fragmentation techniques for Low-Power
       Wide Area Network (LPWAN) technologies. SCHC is a generic mechanism
       designed for great flexibility so that it can be adapted for any of the
@@ -1800,6 +1800,23 @@ Original:
 
 Author (OGZ)
   Updated to LoRaWAN "Join Procedure" as it is a LoRaWAN terminology like "Over-The-Air-Activation"
+
+5.  As the last C in SCHC stands for Compression, may we update to use simply "SCHC" instead of "SCHC compression" where it occurs?
+
+Author (OGZ)
+  No, SCHC is not an acronym, it means "Static Context Header Compression and
+  fragmentation" but the "And fragmentation" part is not in SCHC. Please see
+  RFC8724 absctract. Nevertheless it was not correctly explained in this
+  document, I changed:
+  <title abbrev="SCHC over LoRaWAN">Static Context Header Compression (SCHC) over LoRaWAN</title>
+  to
+  <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and fragementation (SCHC) over LoRaWAN</title>
+
+  and
+  <t>The Static Context Header Compression (SCHC) specification (RFC 8724) describes
+  to
+  <t>The Static Context Header Compression and fragmentation (SCHC) specification (RFC 8724) describes
+
 -->
 
 
