@@ -1016,10 +1016,13 @@ missing tile.</li>
 part of the rule context.</t>
           <section anchor="regular-fragments" numbered="true" toc="default">
             <name>Regular Fragments</name>
-
+            <t>Figure <xref target="Fig-fragmentation-header-long-all0" format="default"/>
+            is an example of a regular frament for all fragments except
+            the last one.  SCHC Header Size is 16 Bits, including the
+            LoRaWAN FPort.
+            </t>
             <figure anchor="Fig-fragmentation-header-long-all0">
-              <name>All Fragments Except the Last One.&nbsp; SCHC Header Size is 16
-              Bits, Including the LoRaWAN FPort.</name>
+              <name>All Fragments Except the Last One.</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  |  LoRaWAN payload          |
 + ------ + ------------------------- +
@@ -1031,8 +1034,12 @@ part of the rule context.</t>
           </section>
           <section anchor="last-fragment-all-1" numbered="true" toc="default">
             <name>Last Fragment (All-1)</name>
+            <t>Following figures are examples of All-1 messages. <xref target="Fig-fragmentation-header-all1-no-tile" format="default"/>
+            is without the last tile, <xref target="Fig-fragmentation-header-all1-last-tile" format="default"/>
+            is with the last tile.
+            </t>
             <figure anchor="Fig-fragmentation-header-all1-no-tile">
-              <name>All-1 SCHC Message: The Last Fragment without Last Tile</name>
+              <name>All-1 SCHC Message without Last Tile</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload              |
 + ------ + ---------------------------- +
@@ -1042,7 +1049,7 @@ part of the rule context.</t>
 ]]></artwork>
             </figure>
             <figure anchor="Fig-fragmentation-header-all1-last-tile">
-              <name>All-1 SCHC Message: The Last Fragment with Last Tile</name>
+              <name>All-1 SCHC Message with Last Tile</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                                            |
 + ------ + ---------------------------------------------------------- +
@@ -1056,7 +1063,7 @@ part of the rule context.</t>
 	    
             <name>SCHC ACK</name>
             <figure anchor="Fig-frag-header-long-schc-ack-rcs-ok">
-              <name>SCHC ACK Format, Correct RCS Check</name>
+              <name>SCHC ACK Format - Correct RCS Check</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload           |
 + ------ + --------------------------+
@@ -1067,7 +1074,7 @@ part of the rule context.</t>
 ]]></artwork>
             </figure>
             <figure anchor="Fig-frag-header-long-schc-ack-rcs-fail">
-              <name>SCHC ACK Format, Failed RCS Check</name>
+              <name>SCHC ACK Format - Incorrect RCS Check</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                                      |
 + ------ + --------------------------------- + ---------------- +
@@ -1232,8 +1239,13 @@ NOT</bcp14> be used for the SCHC-over-LoRaWAN protocol. It might be set by the
 Network Gateway for other purposes but not SCHC needs.</t></aside>
           <section anchor="regular-fragments-1" numbered="true" toc="default">
             <name>Regular Fragments</name>
+            <t>Figure <xref target="Fig-fragmentation-downlink-header-all0" format="default"/>
+            is an example of a regular frament for all fragments except
+            the last one.  SCHC Header Size is 10 Bits, including the
+            LoRaWAN FPort.
+            </t>
             <figure anchor="Fig-fragmentation-downlink-header-all0">
-              <name>All Fragments but the Last One.&nbsp; Header Size is 10 Bits, Including the LoRaWAN FPort.</name>
+              <name>All Fragments but the Last One.</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                      |
 + ------ + ------------------------------------ +
@@ -1259,7 +1271,7 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
           <section anchor="schc-ack-1" numbered="true" toc="default">
             <name>SCHC ACK</name>
             <figure anchor="Fig-frag-downlink-header-schc-ack-rcs-ok">
-              <name>SCHC ACK Format, RCS is Correct</name>
+              <name>SCHC ACK Format - Correct RCS Check</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                    |
 + ------ + ---------------------------------- +
@@ -1269,7 +1281,7 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
 ]]></artwork>
             </figure>
             <figure anchor="Fig-frag-downlink-header-schc-ack-rcs-fail">
-              <name>SCHC ACK Format, RCS is Incorrect</name>
+              <name>SCHC ACK Format - Incorrect RCS Check</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                                   |
 + ------ + ------------------------------------------------- +
@@ -1281,8 +1293,12 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
           </section>
           <section anchor="receiver-abort-1" numbered="true" toc="default">
             <name>Receiver-Abort</name>
+             <t>Figure <xref target="Fig-fragmentation-downlink-header-abort" format="default"/>
+            is an example of a Receiver-Abort packet, following an All-1
+            SCHC Fragment with incorrect RCS.
+            </t>
             <figure anchor="Fig-fragmentation-downlink-header-abort">
-              <name>Receiver-Abort Packet (Following an All-1 SCHC Fragment with Incorrect RCS)</name>
+              <name>Receiver-Abort Packet</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
 | FPort  | LoRaWAN payload                                |
 + ------ + ---------------------------------------------- +
@@ -1465,7 +1481,7 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
       <name>IANA Considerations</name>
       <t>This document has no IANA actions.</t>
     </section>
-
+ 
   </middle>
   <back>
     <references>
@@ -1609,8 +1625,10 @@ RuleID, 21 bits residue + 279 bytes payload.</t>
 |       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
 ]]></artwork>
         </figure>
+        <t>The tile content is described in figure <xref target="Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
+        </t>
         <figure anchor="Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content">
-          <name>Uplink Example: LoRaWAN Packet 1 - Tile Content</name>
+          <name>Uplink Example: First Tile Content</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
 Content of the tile is:
 | RuleID | Compression residue |  Payload          |
@@ -1717,11 +1735,47 @@ Author (OGZ)
 | XXXX | 1 byte     |  1 bit |  1 bit  | 50 bytes and 6 bits |
 ]]></artwork>
         </figure>
-        <t>Content of the tile is:</t>
+        <t>The tile content is described in figure <xref target="Fig-example-downlink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
+        </t>
+
+
+<!-- [rfced] Regarding the figures in Sections 5.6.2.* and 5.6.3* as well as the Appendix:
+
+a) Might the titles of these figures be shortened and some of the text that currently exists in the titles be moved to the sections themselves?
+
+b) If not resolved by a) above: several of the names of these figures contain colons. May we replace end colons with dashes in cases similar to the example below?
+
+Note: Some figure titles already have the "Perhaps" format below.
+
+Original:
+   Figure 30: Downlink example: LoRaWAN packet 1: Tile content
+
+Perhaps:
+   Figure 30: Downlink Example: LoRaWAN Packet 1 - Tile Content
+
+c) Again, if not resolved by a), we see the following inconsistent use of "failed" as opposed to "incorrect".  Should these be made consistent?
+
+
+Figure 10: SCHC ACK format, correct RCS Check
+Figure 11: SCHC ACK format, failed RCS Check
+
+vs.
+Figure 16: SCHC ACK format, RCS is correct
+Figure 17: SCHC ACK format, RCS is incorrect
+
+That is, should the title of Figure 11 be changed to "incorrect RCS Check"?
+
+Author (OGZ)
+  I updated with propostion a) when I can, b) from time to time.
+  For the Appendix we can always delete "Uplink example" and "Downlink
+  example" if required but I prefer to keep them as the difference
+  between uplinks and downlinks are not obvious and I want to disambiguate
+  them as much as possible.
+-->
 
 
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-1-tile-content">
-          <name>Downlink Example: LoRaWAN Packet 1: Tile Content</name>
+          <name>Downlink Example: First Tile Content</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
 | RuleID | Compression residue |        Payload     |
 + ------ + ------------------- + ------------------ +
