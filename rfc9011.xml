@@ -883,7 +883,7 @@ Address-scan risk is mitigated thanks to AES-128, which provides
         <t>Example with:</t>
         <ul spacing="normal">
           <li>DevEUI: 0x1122334455667788</li>
-          <li>appSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB</li>
+          <li>AppSKey: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB</li>
         </ul>
         <figure anchor="Fig-iid-computation-example">
           <name>Example of IID Computation</name>
