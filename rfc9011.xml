@@ -399,7 +399,7 @@ link. This entity maps to the LoRaWAN Gateway.
 </li>
 
 <li>The NGW is the interconnection node between the Radio
-Gateway and the SCHC gateway (LoRaWAN Application server). This entity maps to
+Gateway and the SCHC gateway (LoRaWAN Application Server). This entity maps to
 the LoRaWAN Network Server.
 </li>
 
@@ -883,7 +883,7 @@ Author (OGZ)
         <name>Fragmentation</name>
         <t>The L2 Word Size used by LoRaWAN is 1 byte (8 bits).
 The SCHC fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink
-fragmentation and Ack-Always mode for downlink fragmentation. A LoRaWAN
+fragmentation and ACK-Always mode for downlink fragmentation. A LoRaWAN
 device cannot support simultaneous interleaved fragmented datagrams in
 the same direction (uplink or downlink).</t>
         <t>The fragmentation parameters are different for uplink- and downlink-fragmented datagrams and are successively described in the next sections.</t>
@@ -1456,7 +1456,7 @@ transmission of an uplink. Class C devices are almost in constant reception.</t>
           target="RFC8724" format="default"/> states "This condition is also
           met if the SCHC Fragment Header is a multiple of L2 Words", the
           following condition being met: SCHC header is 2 bytes.</t>
-          <t><strong>Downlink fragmentation (Ack-always)</strong>:</t>
+          <t><strong>Downlink fragmentation (ACK-Always)</strong>:</t>
           <t>As per <xref target="RFC8724" format="default"/>, SCHC All-1
           <bcp14>MUST</bcp14> contain the last tile, and implementations must
           ensure that SCHC All-0 message Payload will be at least the size of
@@ -1835,6 +1835,39 @@ Author (OGZ)
   I confirm their use. It is better not to expand them as it is usually
   not done in LoRaWAN documents. Nevertheless I added them in the
   terminology section
+
+7. We see each of the following similar forms.  May these be made consistent?  If so, what is the preferred form?
+
+Ack-Always vs. ACK-Always vs. Ack-always
+
+LoRaWAN Application Server vs. LoRaWAN Application server vs. LoRaWAN application server
+
+LoRaWAN Join server vs. LoRaWAN join
+
+LoRaWANEnd Device vs. LoRaWAN device
+
+SCHC Fragmentation vs. SCHC fragmentation vs. Regular SCHC Fragment vs. SCHC Fragment Header
+
+RuleID vs. Rule ID
+
+Author (OGZ)
+
+  ACK-Always, as per RFC8724
+
+  LoRaWAN Application Server, as per [LORA-SPEC]
+
+  "LoRaWAN Join Server" is for a component called "Join Server"
+  "LoRaWAN join" is the action done during the "Join Procedure"
+  => No changes to be made
+
+  LoRaWAN End Device: "End-device" is LoRaWAN terminology, it should be
+  used only where the mapping between SCHC and LoRaWAN is explained.
+  "device" describes the same component in "IETF terminology" from
+  RFC8376, it should be used everywhere in this document except in the 
+  explanations of the mapping between SCHC and LoRaWAN.
+  => No changes to be made expect maybe "LoRaWAN End Device" to
+  "LoRaWAN End-Device" if we want to respect [LORA-SPEC] ?
+
 -->
 
 
