@@ -574,16 +574,24 @@ Class C devices are grid powered (for example, Smart Plugs).
 </dd>
 
 </dl>
+<!-- [rfced] This document refers to the "use of LoRaWAN Confirmed frames
+(MType=0b100 as per [LORA-SPEC])" despite none of the LoRaWAN files in
+the reference using either "mtype" or "ob100". Please verify that that
+information is correct.
 
-<!--
-        <ul spacing="normal">
-          <li>Confirmed frame:
-The sender asks the receiver to acknowledge the frame.</li>
-          <li>Unconfirmed frame:
-The sender does not ask the receiver to acknowledge the frame.</li>
-        </ul>-->
+Original:
+    As SCHC defines its own acknowledgment mechanisms, SCHC does not
+   require the use of LoRaWAN Confirmed frames (MType=0b100 as per
+   [lora-alliance-spec])
+
+Author (OGZ)
+    Thanks. It is now "Ftype" instead of "MType". Chapter 4.2.1, table 4
+    Searching for characters "0b100" does not work as it is written "100"
+    in [LORA-SPEC]. Nevertheless, I would like to explain that we are
+    using binary base to write this.
+-->
         <t>As SCHC defines its own acknowledgment mechanisms, SCHC does not require
-the use of LoRaWAN Confirmed frames (MType = 0b100 as per
+the use of LoRaWAN Confirmed frames (FType = 0b100 as per
 <xref target="LORA-SPEC" format="default"/>).</t>
       </section>
       <section anchor="lorawan-mac-frames" numbered="true" toc="default">
