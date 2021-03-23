@@ -279,6 +279,11 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
       description, refer to the full specification <xref target="RFC8724"
       format="default"/>.</t>
       <t>It defines:</t>
+<!-- [author]
+SCHC Compressor/Decompressor is called SCHC Compression/Decompression in RFC 8704
+Moreover changing it to SCHC "Compression/Decompression" is be more consistent with 
+"SCHC Fragmentation/Reassembly"
+-->
       <ol spacing="normal" type="1"><li>Compression mechanisms to avoid
       transporting information known by both sender and receiver over the
       air. Known information is part of the "context". This component is
@@ -674,9 +679,23 @@ Author (OGZ)
 
  -->
 
+<!-- [author]
+
+"[...] multicast: a packet sent over LoRaWAN a radio link can be received
+by several devices"
+
+I am ok to replace the colon by a semi-colon as you did but I propose:
+
+"[...]  multicast; a multicast packet sent over a LoRaWAN radio link
+  can be received by several devices.""
+
+Note that I moved the "a" from after "LoRaWAN" to before
+-->
+
       <section anchor="unicast-and-multicast-technology" numbered="true" toc="default">
         <name>Unicast and Multicast Technology</name>
         <t>LoRaWAN technology supports unicast downlinks but also multicast; a
+        multical packet sent over a LoRaWAN radio link can be received by several
         devices.  It is useful to address many devices with the same content:
         either a large binary file (firmware upgrade) or the same command (e.g.,
         lighting control).  As IPv6 is also a multicast technology, this
