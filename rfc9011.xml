@@ -299,6 +299,13 @@ Moreover changing it to SCHC "Compression/Decompression" is be more consistent w
 <!-- [rfced] Figures 1, 2, 3, 4, 9, 20, 24, 25, 32, and 34 are variously 1-3
 spaces over the 72-max character limit for the .txt output. How might we
 shorten these to fit?
+
+Author (OGZ)
+  I fixed the 2 figures with 73 char, they are now 72 char width. What is the issue?
+  I see that a space is appended before the figures, is there a way to avoid it?
+  Then it is suprising because https://tools.ietf.org/tools/idnits tool
+  does not complain 
+
 -->
 
         <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -360,20 +367,20 @@ Author (OGZ)
       <figure anchor="Fig-archi-lorawan">
         <name>SCHC Architecture Mapped to LoRaWAN</name>
         <artwork name="" type="" align="left" alt=""><![CDATA[
-   End Device                                               App
-+--------------+                                    +----+ +----+ +----+
-|App1 App2 App3|                                    |App1| |App2| |App3|
-|              |                                    |    | |    | |    |
-|      UDP     |                                    |UDP | |UDP | |UDP |
-|     IPv6     |                                    |IPv6| |IPv6| |IPv6|
-|              |                                    |    | |    | |    |
-|SCHC C/D & F/R|                                    |    | |    | |    |
-+-------+------+                                    +----+ +----+ +----+
-        |  +-------+     +-------+    +-----------+    .      .      .
-        +~ |Gateway| === |Network| == |Application|..... Internet ....
-           +-------+     |server |    |server     |
-                         +-------+    | F/R - C/D |
-                                      +-----------+
+   End Device                                              App
++--------------+                                   +----+ +----+ +----+
+|App1 App2 App3|                                   |App1| |App2| |App3|
+|              |                                   |    | |    | |    |
+|      UDP     |                                   |UDP | |UDP | |UDP |
+|     IPv6     |                                   |IPv6| |IPv6| |IPv6|
+|              |                                   |    | |    | |    |
+|SCHC C/D & F/R|                                   |    | |    | |    |
++-------+------+                                   +----+ +----+ +----+
+        |  +-------+    +-------+    +-----------+    .      .      .
+        +~ |Gateway| == |Network| == |Application|..... Internet ....
+           +-------+    |server |    |server     |
+                        +-------+    | F/R - C/D |
+                                     +-----------+
 |<- - - - - LoRaWAN - - - ->|
 ]]></artwork>
       </figure>
@@ -1067,7 +1074,7 @@ missing tile.</li>
 part of the rule context.</t>
           <section anchor="regular-fragments" numbered="true" toc="default">
             <name>Regular Fragments</name>
-            <t>Figure <xref target="Fig-fragmentation-header-long-all0" format="default"/>
+            <t><xref target="Fig-fragmentation-header-long-all0" format="default"/>
             is an example of a regular frament for all fragments except
             the last one.  SCHC Header Size is 16 Bits, including the
             LoRaWAN FPort.
@@ -1302,7 +1309,7 @@ NOT</bcp14> be used for the SCHC-over-LoRaWAN protocol. It might be set by the
 Network Gateway for other purposes but not SCHC needs.</t></aside>
           <section anchor="regular-fragments-1" numbered="true" toc="default">
             <name>Regular Fragments</name>
-            <t>Figure <xref target="Fig-fragmentation-downlink-header-all0" format="default"/>
+            <t><xref target="Fig-fragmentation-downlink-header-all0" format="default"/>
             is an example of a regular frament for all fragments except
             the last one.  SCHC Header Size is 10 Bits, including the
             LoRaWAN FPort.
@@ -1356,7 +1363,7 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
           </section>
           <section anchor="receiver-abort-1" numbered="true" toc="default">
             <name>Receiver-Abort</name>
-             <t>Figure <xref target="Fig-fragmentation-downlink-header-abort" format="default"/>
+             <t><xref target="Fig-fragmentation-downlink-header-abort" format="default"/>
             is an example of a Receiver-Abort packet, following an All-1
             SCHC Fragment with incorrect RCS.
             </t>
@@ -1688,7 +1695,7 @@ RuleID, 21 bits residue + 279 bytes payload.</t>
 |       XXXX     | 1 byte    | 0   0 |   62   | 10 bytes  |
 ]]></artwork>
         </figure>
-        <t>The tile content is described in figure <xref target="Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
+        <t>The tile content is described in <xref target="Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
         </t>
         <figure anchor="Fig-example-uplink-fragmentation-lorawan-packet-1-tile-content">
           <name>Uplink Example: First Tile Content</name>
@@ -1798,7 +1805,7 @@ Author (OGZ)
 | XXXX | 1 byte     |  1 bit |  1 bit  | 50 bytes and 6 bits |
 ]]></artwork>
         </figure>
-        <t>The tile content is described in figure <xref target="Fig-example-downlink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
+        <t>The tile content is described in <xref target="Fig-example-downlink-fragmentation-lorawan-packet-1-tile-content" format="default"/>
         </t>
 
 
@@ -1967,12 +1974,12 @@ Author (OGZ)
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-5">
           <name>Downlink Example: LoRaWAN Packet 5 - All-1 SCHC Message</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
-| LoRaWAN Header | LoRaWAN payload (37 bytes)                          |
-+ ---- + ------- + --------------------------------------------------- +
-|      | RuleID  |   W   |  FCN  |   RCS   |      1 tile     | Padding |
-|      |   21    |   0   |   1   |         |                 | b'00000 |
-+ ---- + ------- + ----- + ----- + ------- + --------------- + ------- +
-| XXXX | 1 byte  | 1 bit | 1 bit | 4 bytes | 31 bytes+1 bits | 5 bits  |
+| LoRaWAN Header | LoRaWAN payload (37 bytes)                         |
++ ---- + ------- + -------------------------------------------------- +
+|      | RuleID  |   W   |  FCN  |   RCS   |      1 tile    | Padding |
+|      |   21    |   0   |   1   |         |                | b'00000 |
++ ---- + ------- + ----- + ----- + ------- + -------------- + ------- +
+| XXXX | 1 byte  | 1 bit | 1 bit | 4 bytes | 31 bytes+1 bit | 5 bits  |
 ]]></artwork>
         </figure>
         <t>The receiver answers to the sender with an SCHC ACK:</t>
