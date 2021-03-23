@@ -1296,8 +1296,21 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
           <section anchor="downlink-retransmission-timer" numbered="true" toc="default">
             <name>Downlink Retransmission Timer</name>
 
+<!--[rfced] May we update this list as follows?
+
+Original:
+   Class A and Class B or Class C devices do not manage retransmissions
+   and timers the same way.
+
+Perhaps:
+   Class A, Class B, and Class C devices do not manage retransmissions
+   and timers the same way.
+
+Author (OGZ)
+  Ok, I implemented you proposition
+-->
 	    
-            <t>Class A and Class B or Class C devices do not manage
+            <t>Class A, Class B, and Class C devices do not manage
             retransmissions and timers the same way.</t>
 
             <section anchor="class-a-devices" numbered="true" toc="default">
