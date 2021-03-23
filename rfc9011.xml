@@ -368,7 +368,21 @@ Author (OGZ)
 can be a very high density of devices per radio gateway (LoRaWAN
 gateway). This entity maps to the LoRaWAN end device.
 </li>
-<li>The RGW, which is the endpoint of the constrained
+<!-- [rfced] How may we rephrase this fragment to make a full sentence to match the other bullet points?
+
+Original:
+   The Radio Gateway (RGW), which is the endpoint of the constrained
+   link.  This entity maps to the LoRaWAN Gateway.
+
+Perhaps:
+   The Radio Gateway (RGW) is the endpoint of the constrained
+   link.  This entity maps to the LoRaWAN Gateway.
+
+Author (OGZ):
+  OK, I implemented it but did not expand RGW as it is not expended for the NGW.
+  Is it correct?
+-->
+<li>The RGW is the endpoint of the constrained
 link. This entity maps to the LoRaWAN Gateway.
 </li>
 
