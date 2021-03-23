@@ -482,9 +482,39 @@ devices, Class B devices can receive downlinks that are initiated by the
 Network Gateway and not following an uplink. There is a trade-off between the
 periodicity of those scheduled Class B listen windows and the power
 consumption of the device: if the periodicity is high, downlinks from the NGW
-will be sent faster, but the device wakes up more often: it will have higher
-power consumption.
+will be sent faster, but the device wakes up more often. Therefore, it will
+have higher power consumption.
 </dd>
+<ul>
+<li>High periodicity: downlinks from the NGW will be sent faster but the
+device wakes up more often and power consumption is increased.
+</li>
+<li>Low periodicity: higher latency but lower power consumption.
+</li>
+</ul>
+
+<!-- [rfced] In the following sentence, how might we rephrase to avoid repeated uses of a colon?
+
+Original: 
+   There is a trade-off between the periodicity of those scheduled
+   Class B listen windows and the power consumption of the device: if the
+   periodicity is high downlinks from the NGW will be sent faster, but the device
+   wakes up more often: it will have higher power consumption.
+
+Perhaps: 
+   There is a trade-off between the periodicity of those scheduled Class
+   B listen windows and the power consumption of the device: if the periodicity
+   is high, downlinks from the NGW will be sent faster, but the device wakes up
+   more often. Therefore, it will have higher power consumption.
+
+Author (OGZ)
+  Proposition:
+   There is a trade-off between the periodicity of those scheduled Class
+   B listen windows and the power consumption of the device:
+   - High periodicity: downlinks from the NGW will be sent faster but the
+     device wakes up more often and power consumption is increased.
+   - Low periodicity: higher latency but lower power consumption.
+-->
 
 <dt>Class C:
 </dt>
