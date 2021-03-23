@@ -767,8 +767,19 @@ Author (OGZ)
           <li>RuleID = 22 (8-bit) for which SCHC compression was not possible (i.e., no matching
 compression Rule was found), as described in <xref target="RFC8724" sectionFormat="of" section="6" format="default"/>.</li>
         </ul>
+<!--[rfced] Should both the FPortUp and FPortDown be "values" here?
+
+Original:
+FPortUp value MUST be different from FPortDown.
+
+Perhaps:
+The FPortUp value MUST be different from the FPortDown value.
+
+Author (OGZ)
+Yes, text changed
+-->
 	
-        <t>The FPortUp value <bcp14>MUST</bcp14> be different from FPortDown.  The
+        <t>The FPortUp value <bcp14>MUST</bcp14> be different from the FPortDown value.  The
         remaining RuleIDs are available for compression. RuleIDs are shared
         between uplink and downlink sessions.  A RuleID not in the set(s) of
         FPortUp or FPortDown means that the fragmentation is not used; thus,
