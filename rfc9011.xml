@@ -295,6 +295,12 @@ Moreover changing it to SCHC "Compression/Decompression" is be more consistent w
       <t>Context exchange or pre-provisioning is out of scope of this document.</t>
       <figure anchor="Fig-archi">
         <name>Architecture</name>
+
+<!-- [rfced] Figures 1, 2, 3, 4, 9, 20, 24, 25, 32, and 34 are variously 1-3
+spaces over the 72-max character limit for the .txt output. How might we
+shorten these to fit?
+-->
+
         <artwork name="" type="" align="left" alt=""><![CDATA[
     Device                                                App
 +----------------+                                +----+ +----+ +----+
@@ -853,13 +859,24 @@ Original:
 Author (OGZ)
   We updated the sentence to be more explicit
 -->
-	
+
+<!-- [author]
+
+Original:
+Address-scan risk is mitigated thanks to AES-128, which provides
+        enough entropy bits of the IID.
+
+The sentence does not make sence, I propose:
+Address-scan risk is mitigated thanks to AES-128, which provides
+        enough entropy in the IID.
+  
+-->
         <t>As AppSKey is renewed each time a device joins or rejoins a LoRaWAN
         network, the IID will change over time; this
         mitigates privacy concerns, for example location tracking or correlation
         over time. Join periodicity is defined at the application level.</t>
         <t>Address-scan risk is mitigated thanks to AES-128, which provides
-        enough entropy bits of the IID.</t>
+        enough entropy in the IID.</t>
         <t>Using this algorithm will also ensure that there is no correlation
         between the hardware identifier (DevEUI) and the IID, so an
         attacker cannot use the manufacturer OUI to target devices.</t>
@@ -872,11 +889,14 @@ Author (OGZ)
           <name>Example of IID Computation</name>
           <sourcecode><![CDATA[
 1. key: 0x00AABBCCDDEEFF00AABBCCDDEEFFAABB
-2. cmac: 0xBA59F4B196C6C3432D9383C145AD412A
-3. IID: 0xBA59F4B196C6C343
+2. cmac: 0x4E822D9775B2649928F82066AF804FEC
+3. IID: 0x4E822D9775B26499
 ]]></sourcecode>
 
         </figure>
+<!-- [author]
+The error in the example has been spotted after the WG last call, the correction have been accepted by the working group and our AD
+-->
         <t>There is a small probability of IID collision in a LoRaWAN
         network. If this occurs, the IID can be changed by rekeying the device
         at the L2 level (i.e., triggering a LoRaWAN join).  The way the device is
@@ -1170,8 +1190,20 @@ Bitmaps of 63 bits will require 6 bits of padding.</t></aside>
 </dd>
 <dt>Multicast downlinks:
 </dt>
+<!-- [author]
+
+Original:
 <dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
 <bcp14>OPTIONAL</bcp14> and may not be implemented by the SCHC gateway.
+
+It might not be clear enough that the "OPTIONAL" applies only to the
+gateway and not the device, I propose:
+<dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
+<bcp14>OPTIONAL</bcp14> for the SCHC gateway and <bcp14>REQUIRED</bcp14> for the device.
+
+-->
+<dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
+<bcp14>OPTIONAL</bcp14> for the SCHC gateway and <bcp14>REQUIRED</bcp14> for the device.
 </dd>
 
 </dl>
