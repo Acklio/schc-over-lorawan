@@ -1544,11 +1544,30 @@ Author (OGZ)
 |   1    |       21 bits       |  37 bytes |    3 bits     |
 ]]></artwork>
         </figure>
-        <t>The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are
+        <t>The current LoRaWAN MTU is 51 bytes, although 2-byte FOpts are
         used by the LoRaWAN protocol: 49 bytes are available for SCHC payload; no
         need for fragmentation. The payload will be transmitted through FPort
         = 1.</t>
 
+<!-- [rfced] This document uses "FOpts" as a pluralized noun after another
+pluralized noun. Would it be more correct to use "2-byte F0pts" instead
+of "2 bytes FOpts"?  
+Note: There are multiple instances in this document.
+
+Original: 
+   The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used
+   by LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+   fragmentation.
+
+Perhaps: 
+   The current LoRaWAN MTU is 51 bytes, although 2-byte FOpts are used
+   by LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
+   fragmentation.
+
+Author (OGZ)
+  Ok, your English is better than mine. I tried to update all occurences
+  if found, please update the one I missed, if any.
+-->
         <figure anchor="Fig-example-uplink-no-fragmentation-compression">
           <name>Uplink Example: LoRaWAN Packet</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -1576,7 +1595,7 @@ RuleID, 21 bits residue + 279 bytes payload.</t>
 |   1    |       21 bits       | 279 bytes |
 ]]></artwork>
         </figure>
-        <t>The current LoRaWAN MTU is 11 bytes; 0 bytes FOpts are used by
+        <t>The current LoRaWAN MTU is 11 bytes; 0-byte FOpts are used by
         the LoRaWAN protocol: 11 bytes are available for SCHC payload + 1 byte
         FPort field.  The SCHC header is 2 bytes (including FPort), so 1 tile is
         sent in the first fragment.</t>
@@ -1599,11 +1618,11 @@ Content of the tile is:
 |   1    |       21 bits       |  6 bytes + 3 bits |
 ]]></artwork>
         </figure>
-        <t>Next transmission MTU is 11 bytes, although 2 bytes FOpts are used
+        <t>Next transmission MTU is 11 bytes, although 2-byte FOpts are used
         by the LoRaWAN protocol: 9 bytes are available for SCHC payload + 1
         byte FPort field, a tile does not fit inside so the LoRaWAN stack will
         send only FOpts.</t>
-        <t>Next transmission MTU is 242 bytes, 4 bytes FOpts. 23 tiles are transmitted:</t>
+        <t>Next transmission MTU is 242 bytes, 4-byte FOpts. 23 tiles are transmitted:</t>
         <figure anchor="Fig-example-uplink-fragmentation-lorawan-packet-2">
           <name>Uplink Example: LoRaWAN Packet 2</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
