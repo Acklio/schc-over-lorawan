@@ -137,6 +137,18 @@ all other definitions, please look up the SCHC specification
 
 <dl>
 
+<dt>AppKey:
+</dt>
+<dd>Application Key. An AES-128 root key specific to each device.
+</dd>
+
+<dt>AppSKey:
+</dt>
+<dd>Application Session Key. An AES-128 key derived from the AppKey for
+each new session. It is used to encrypt the payload field of a LoRaWAN
+applicative frame.
+</dd>
+
 <dt>DevEUI:
 </dt>
 <dd>Device Extended Unique Identifier, an IEEE EUI-64 identifier used to
@@ -1817,6 +1829,12 @@ Author (OGZ)
   to
   <t>The Static Context Header Compression and fragmentation (SCHC) specification (RFC 8724) describes
 
+6.  Please confirm the use of both "AppKey" and "AppSKey".  If both are correct, may we expand them as "application key" and "application session key", respectively?  Perhaps add them to the Terminology section?
+
+Author (OGZ)
+  I confirm their use. It is better not to expand them as it is usually
+  not done in LoRaWAN documents. Nevertheless I added them in the
+  terminology section
 -->
 
 
