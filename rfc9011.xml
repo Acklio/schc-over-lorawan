@@ -1324,7 +1324,7 @@ Author (OGZ)
               application specific.</t>
               <t>RETRANSMISSION_TIMER is application specific and its
               <bcp14>RECOMMENDED</bcp14> value is
-INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).</t>
+              INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).</t>
               <t><strong>SCHC All-0 (FCN = 0)</strong></t>
               <t>All fragments but the last have an FCN = 0 (because the window size
               is 1).  Following an All-0 SCHC Fragment, the device
@@ -1333,8 +1333,27 @@ INACTIVITY_TIMER/(MAX_ACK_REQUESTS + 1).</t>
               messages before aborting.  In order to progress the fragmented
               datagram, the SCHC layer should immediately queue for
               transmission those SCHC ACK messages if no SCHC downlinks have been
-              received during the RX1 and RX2 window.s  The LoRaWAN layer will respect
+              received during the RX1 and RX2 windows.  The LoRaWAN layer will respect
               the applicable local spectrum regulation.</t>
+<!-- [rfced] FYI: We've updated the following sentence for clarity by adding "messages" after ACK and pluralizing "downlinks" and "windows". Please let us know if this is incorrect.
+
+Original: 
+   In order to progress the fragmented datagram, the SCHC layer should
+   immediately queue for transmission those SCHC ACK if no SCHC downlink have
+   been received during RX1 and RX2 window.
+
+Updated: 
+   In order to progress the fragmented datagram, the SCHC layer should
+   immediately queue for transmission those SCHC ACK messages if no SCHC downlinks have
+   been received during the RX1 and RX2 windows.
+
+Author (OGZ)
+  I agree with your update.  The only thing I am not sure is the plural
+  form of downlink in "SCHC ACK messages if no SCHC downlinks have been
+  received during the RX1 and RX2 windows". You can only receive one
+  downlink either in RX1 or RX2 window, they are mutually exclusive.
+  I also fixed the "window.s" typo Ivaylo send you the 15th of march
+-->
 <aside>              <t>Note: The ACK bitmap is 1 bit long and is always 1.</t></aside>
               <t><strong>SCHC All-1 (FCN = 1)</strong></t>
               <t>SCHC All-1 is the last fragment of a datagram, and the
