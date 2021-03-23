@@ -830,7 +830,7 @@ Author (OGZ)
         <t>Address-scan risk is mitigated thanks to AES-128, which provides
         enough entropy bits of the IID.</t>
         <t>Using this algorithm will also ensure that there is no correlation
-        between the hardware identifier (IEEE-64 DevEUI) and the IID, so an
+        between the hardware identifier (DevEUI) and the IID, so an
         attacker cannot use the manufacturer OUI to target devices.</t>
         <t>Example with:</t>
         <ul spacing="normal">
@@ -1771,6 +1771,19 @@ Author (OGZ)
   example" if required but I prefer to keep them as the difference
   between uplinks and downlinks are not obvious and I want to disambiguate
   them as much as possible.
+-->
+
+
+<!-- [rfced] Terminology throughout the document:
+
+1. This document uses both "IEEE-64 DevEUI" and "IEEE EUI-64". Are these the same?  If so, is one form preferred over the other?
+Note that "EUI-64" is used in the cited RFCs.
+
+Author (OGZ)
+  Ok, I changed section 5.3 to reference only the DevEUI, which is
+  defined in the terminology section as an IEEE EUI-64.
+
+
 -->
 
 
