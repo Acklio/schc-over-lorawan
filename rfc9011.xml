@@ -38,9 +38,35 @@
     <workgroup>lpwan Working Group</workgroup>
 
 <!-- [rfced] Please insert any keywords (beyond those that appear in
-the title) for use on https://www.rfc-editor.org/search. -->
+the title) for use on https://www.rfc-editor.org/search.
 
-<keyword>example</keyword>
+Author (OGZ)
+  Added keyword list. Most of them from RFC8724
+ -->
+
+<keyword>header compression</keyword>
+<keyword>compression</keyword>
+<keyword>fragmentation</keyword>
+<keyword>static context</keyword>
+<keyword>rule-based</keyword>
+<keyword>LPWAN</keyword>
+<keyword>LPWANs</keyword>
+<keyword>low power</keyword>
+<keyword>low-power</keyword>
+<keyword>LoRa</keyword>
+<keyword>LoRaWAN</keyword>
+<keyword>IoT</keyword>
+<keyword>Internet of Things</keyword>
+<keyword>adaptation layer</keyword>
+<keyword>UDP</keyword>
+<keyword>IPv6</keyword>
+<keyword>sensor network</keyword>
+<keyword>wireless sensor network</keyword>
+<keyword>802.15.4</keyword>
+<keyword>constrained network</keyword>
+<keyword>constrained node</keyword>
+<keyword>constrained-node network</keyword>
+<keyword>SCHC</keyword>
 
     <abstract>
       <t>The Static Context Header Compression (SCHC) specification (RFC 8724) describes
