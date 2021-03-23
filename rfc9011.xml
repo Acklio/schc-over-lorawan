@@ -813,11 +813,20 @@ implementations <bcp14>MUST</bcp14> implement the following algorithm and <bcp14
         format="default"/>. It has been chosen as it is already used by
         devices for the LoRaWAN protocol.</t>
 
+<!--[rfced] Please review the use of "mitigates privacy".  Should this be "mitigates privacy concerns" or something similar?
+
+Original:
+...this mitigates privacy, location tracking and correlation over time
+   risks. 
+
+Author (OGZ)
+  We updated the sentence to be more explicit
+-->
 	
         <t>As AppSKey is renewed each time a device joins or rejoins a LoRaWAN
         network, the IID will change over time; this
-        mitigates privacy, location tracking, and correlation over time
-        risks. Join periodicity is defined at the application level.</t>
+        mitigates privacy concerns, for example location tracking or correlation
+        over time. Join periodicity is defined at the application level.</t>
         <t>Address-scan risk is mitigated thanks to AES-128, which provides
         enough entropy bits of the IID.</t>
         <t>Using this algorithm will also ensure that there is no correlation
