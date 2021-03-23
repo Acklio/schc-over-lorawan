@@ -1356,12 +1356,26 @@ Author (OGZ)
 -->
 <aside>              <t>Note: The ACK bitmap is 1 bit long and is always 1.</t></aside>
               <t><strong>SCHC All-1 (FCN = 1)</strong></t>
+<!-- [rfced] In the following sentence, it may be easier for readers if the noun is expanded to more than just the formula itself.
+
+Original: 
+   To open a downlink opportunity the device MUST transmit an uplink
+   every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
+
+Perhaps:
+   To open a downlink opportunity, the device MUST transmit an uplink
+   every interval of RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
+
+Author (OGZ)
+  Agreed and implemented
+-->
+
               <t>SCHC All-1 is the last fragment of a datagram, and the
               corresponding SCHC ACK message might be lost; therefore, the SCHC
               gateway <bcp14>MUST</bcp14> request a retransmission of this ACK
               when the retransmission timer expires.  To open a downlink
               opportunity, the device <bcp14>MUST</bcp14> transmit an uplink
-              every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS *
+              every interval of RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS *
               SCHC_ACK_REQ_DN_OPPORTUNITY).  The format of this uplink is
               application specific.  It is <bcp14>RECOMMENDED</bcp14> for a
               device to send an empty frame (see <xref
