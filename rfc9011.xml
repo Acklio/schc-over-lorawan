@@ -27,7 +27,7 @@
       <address>
         <postal>
           <street>1137A Avenue des Champs Blancs</street>
-	  <city>Cesson-Sevigne Cedex</city>
+	    <city>Cesson-Sevigne Cedex</city>
           <code>35510</code>
           <country>France</country>
         </postal>
@@ -160,11 +160,19 @@ Author (OGZ)
 
 The terms SCHC C/D, SCHC F/r, NGW, and RGW are used in prior to their expansion in this document and readers not familiar wiith the terms would have to look at other documents to understand their meaning. As a few of the terms are used in Figure 1, where adjacent expansion is not possible, it would be ideal to include them in the terminology section. 
 
+
+Author (OGZ)
+Ok, I added them
 -->
 
 <dt>Downlink:
 </dt>
 <dd>A LoRaWAN term for a frame transmitted by the network and received by the device.
+</dd>
+
+<dt>IID:
+</dt>
+<dd>Interface Identifier.
 </dd>
 
 <dt>EUI:
@@ -196,9 +204,19 @@ brackets="angle" target="https://www.lora-alliance.org"/>.
 <dd>Organizationally Unique Identifier. IEEE-assigned prefix for EUI.
 </dd>
 
+<dt>NGW:
+</dt>
+<dd>Network Gateway.
+</dd>
+
 <dt>RCS:
 </dt>
 <dd>Reassembly Check Sequence. Used to verify the integrity of the fragmentation-reassembly process.
+</dd>
+
+<dt>RGW:
+</dt>
+<dd>Radio Gateway.
 </dd>
 
 <dt>RX:
@@ -209,6 +227,16 @@ brackets="angle" target="https://www.lora-alliance.org"/>.
 <dt>RX1/RX2:
 </dt>
 <dd>LoRaWAN class A devices open two RX windows following an uplink, called "RX1" and "RX2".
+</dd>
+
+<dt>SCHC C/D
+</dt>
+<dd>SCHC Compression/Decompression.
+</dd>
+
+<dt>SCHC F/R
+</dt>
+<dd>SCHC Fragmentation/Reassembly.
 </dd>
 
 <dt>SCHC gateway:
@@ -232,7 +260,7 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
 </dl>
 
 
-    </section>
+</section>
     <section anchor="static-context-header-compression-overview" numbered="true" toc="default">
       <name>SCHC Overview</name>
       <t>This section contains a short overview of SCHC. For a detailed
