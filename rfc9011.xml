@@ -765,7 +765,7 @@ Verify this either through email search or just ask AD again.
         <t>The SCHC C/D <bcp14>MUST</bcp14> concatenate FPort and LoRaWAN payload
         to retrieve the SCHC Packet as per <xref target="lorawan-schc-payload"
         format="default"/>.</t>
-        <t>RuleIDs matching FPortUp and FPortDown are reserved for SCHC Fragmentation.</t>
+        <t>RuleIDs matching FPortUp and FPortDown are reserved for SCHC fragmentation.</t>
       </section>
       <section anchor="Frag" numbered="true" toc="default">
         <name>Fragmentation</name>
@@ -1594,6 +1594,7 @@ RuleID vs. Rule ID
 Author (OGZ)
 
   RuleID as per RF8724, I replaced the occurance of Rule ID
+  We are using SCHC fragmentation as a concept and (Regular) SCHC Fragment (Header) as it descibes a type of message.
 
 -->
 
