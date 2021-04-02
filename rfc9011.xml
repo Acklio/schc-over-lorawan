@@ -722,8 +722,12 @@ implementations <bcp14>MUST</bcp14> implement the following algorithm and <bcp14
         network, the IID will change over time; this
         mitigates privacy concerns, for example, location tracking or correlation
         over time. Join periodicity is defined at the application level.</t>
-        <t>Address-scan risk is mitigated thanks to AES-128, which provides
-        enough entropy in the IID.</t>
+<!--
+Author (OGZ)
+  Changed with a suggestion from the AD (Eric Vyncke)
+-->
+        <t>Address-scan risk is mitigated thanks to the entropy added to
+        the IID by the inclusion of AppSKey.</t>
         <t>Using this algorithm will also ensure that there is no correlation
         between the hardware identifier (DevEUI) and the IID, so an
         attacker cannot use the manufacturer OUI to target devices.</t>
