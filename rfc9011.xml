@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- updated by Chris 02/02/21 -->
+
 
 
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-lpwan-schc-over-lorawan-14" number="9011" obsoletes="" updates="" submissionType="IETF" category="std" consensus="true" xml:lang="en" symRefs="true" sortRefs="true" tocInclude="true" version="3">
 
-  <!-- xml2rfc v2v3 conversion 3.5.0 -->
+
   <front>
-    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and fragementation (SCHC) over LoRaWAN</title>
+    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and Fragementation (SCHC) over LoRaWAN</title>
     <seriesInfo name="RFC" value="9011"/>
     <author initials="O." surname="Gimenez" fullname="Olivier Gimenez" role="editor">
       <organization>Semtech</organization>
@@ -36,13 +36,6 @@
     </author>
     <date year="2021" month="March"/>
     <workgroup>lpwan Working Group</workgroup>
-
-<!-- [rfced] Please insert any keywords (beyond those that appear in
-the title) for use on https://www.rfc-editor.org/search.
-
-Author (OGZ)
-  Added keyword list. Most of them from RFC8724
- -->
 
 <keyword>header compression</keyword>
 <keyword>compression</keyword>
@@ -75,27 +68,6 @@ Author (OGZ)
       designed for great flexibility so that it can be adapted for any of the
       LPWAN technologies.</t>
 
-<!-- [rfced] We follow the CMOS guidance related to not using trademark indicators.  FYI - We will remove these throughout the doucment to be consistent with both CMOS guidance and use in recent RFCs.
-
-Original:
-
-   This document specifies a profile of RFC8724 to use SCHC in
-   LoRaWAN(R) networks, and provides elements such as efficient
-   parameterization and modes of operation.
-
-Perhaps:
-
-   This document specifies a profile of RFC 8724 to use SCHC in
-   LoRaWAN networks and provides elements such as efficient
-   parameterization and modes of operation.
-
-Or the above suggested text and the following addition to the Acknowledgments section?
-   LoRaWAN is a registered trademark of the LoRa Alliance.
-
-Author (OGZ)
-  OK for second solution, I removed (R) and updated the Acknowledgments
-  section
--->
       <t>This document specifies a profile of RFC 8724 to use SCHC in
       LoRaWAN networks and provides elements such as efficient
       parameterization and modes of operation.</t>
@@ -174,21 +146,7 @@ provisioned on the Network Gateway.
   </dl>
 </dd>
 
-<!-- [rfced] Was it intended in the following sentences to have "Over The Air Activation" and "Activation by Personalization" in italics (enclosed in the <em> element), or would quotes be more fitting?
-
-
-Original in xml: 
-   Dynamically: after a Join Procedure by the Network Gateway in <em>Over The Air
-   Activation</em> mode.
-
-   Statically: by the device manufacturer in <em>Activation by Personalization</em> mode.
-
-Author (OGZ)
-  Double quotes are OK, I updated the text
--->
-
 <!--[rfced] Might it be helpful to the reader to add the following abbreviations to the Terminology section?
-
 SCHC C/D
 SCHC F/R
 NGW
@@ -199,6 +157,8 @@ Author (OGZ)
   I have been asked by the working group to remove them as they are
   defined in RFC8376 and RFC8724 to avoid reperition. What is your
   recommendation as RFC Editors?
+
+The terms SCHC C/D, SCHC F/r, NGW, and RGW are used in prior to their expansion in this document and readers not familiar wiith the terms would have to look at other documents to understand their meaning. As a few of the terms are used in Figure 1, where adjacent expansion is not possible, it would be ideal to include them in the terminology section. 
 
 -->
 
@@ -283,6 +243,9 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
 SCHC Compressor/Decompressor is called SCHC Compression/Decompression in RFC 8704
 Moreover changing it to SCHC "Compression/Decompression" is be more consistent with 
 "SCHC Fragmentation/Reassembly"
+
+ask for AD approval - probably okay
+
 -->
       <ol spacing="normal" type="1"><li>Compression mechanisms to avoid
       transporting information known by both sender and receiver over the
@@ -299,13 +262,11 @@ Moreover changing it to SCHC "Compression/Decompression" is be more consistent w
 <!-- [rfced] Figures 1, 2, 3, 4, 9, 20, 24, 25, 32, and 34 are variously 1-3
 spaces over the 72-max character limit for the .txt output. How might we
 shorten these to fit?
-
 Author (OGZ)
   I fixed the 2 figures with 73 char, they are now 72 char width. What is the issue?
   I see that a space is appended before the figures, is there a way to avoid it?
   Then it is suprising because https://tools.ietf.org/tools/idnits tool
   does not complain 
-
 -->
 
         <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -345,25 +306,14 @@ Author (OGZ)
       can be applied to the other direction.</t>
       <t>In a LoRaWAN network, the RGW is called a "Gateway", the NGW is a
       "Network Server", and the SCHC C/D and SCHC F/R are one or more
-      "Application Server". Application servers can be provided by the NGW or any third-party
+      "Application Servers".
+<!-- get AD approval for change above
+-->
+ Application servers can be provided by the NGW or any third-party
       software. <xref target="Fig-archi" format="default"/> can be mapped in
       LoRaWAN terminology to:</t>
 
-<!-- [rfced] In the following setence, what does "it" refer to?
 
-Original:
-   In a LoRaWAN network, the RGW is called a Gateway, the NGW is Network
-   Server, and the SCHC C/D and F/R are an Application Server.  It can
-   be provided by the Network Gateway or any third party software.
-
-Perhaps:
-   In a LoRaWAN network, the RGW is called a Gateway, the NGW is a Network
-   Server, and the SCHC C/D and SCHC F/R are an Application Server. The Application Server can
-   be provided by the Network Gateway or any third-party software.
-
-Author (OGZ)
-  I clarified the text
--->
       <figure anchor="Fig-archi-lorawan">
         <name>SCHC Architecture Mapped to LoRaWAN</name>
         <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -398,20 +348,7 @@ Author (OGZ)
 can be a very high density of devices per radio gateway (LoRaWAN
 gateway). This entity maps to the LoRaWAN end device.
 </li>
-<!-- [rfced] How may we rephrase this fragment to make a full sentence to match the other bullet points?
 
-Original:
-   The Radio Gateway (RGW), which is the endpoint of the constrained
-   link.  This entity maps to the LoRaWAN Gateway.
-
-Perhaps:
-   The Radio Gateway (RGW) is the endpoint of the constrained
-   link.  This entity maps to the LoRaWAN Gateway.
-
-Author (OGZ):
-  OK, I implemented it but did not expand RGW as it is not expended for the NGW.
-  Is it correct?
--->
 <li>The RGW is the endpoint of the constrained
 link. This entity maps to the LoRaWAN Gateway.
 </li>
@@ -423,20 +360,6 @@ the LoRaWAN Network Server.
 
 <li>The SCHC C/D and SCHC F/R are handled by the LoRaWAN Application Server.
 </li>
-<!-- [rfced] The following bullet point may be a bit redundant. How might we
-rephrase to avoid sounding repetitive? Can we expand what "do"
-entails?
-
-Original:
-   SCHC C/D and F/R are handled by LoRaWAN Application Server; ie the LoRaWAN application 
-   server will do the SCHC C/D and F/R.
-
-Perhaps:
-   The SCHC C/D and SCHC F/R are handled by the LoRaWAN Application Server.
-
-Author (OGZ):
-  OK, I implemented your proposition
--->
 
 <li>The LPWAN-AAA Server is the LoRaWAN Join Server. Its role is to manage and
 deliver security keys in a secure way so that the devices root key is never
@@ -473,20 +396,6 @@ exposed.
       <section anchor="device-classes-a-b-c-and-interactions" numbered="true" toc="default">
         <name>Device Classes (A, B, C) and Interactions</name>
 
-<!-- [rfced] FYI: We've expanded "MAC" in this document to "Message Authentication Code". Please let us know if this is incorrect.
-
-Original:
-   The LoRaWAN MAC layer supports 3 classes of devices named A, B and C. 
-
-Updated:
-   The LoRaWAN Message Authentication Code (MAC) layer supports 3 classes of devices named A, B, and 
-   C. 
-
-Author (OGZ)
-  MAC stands for Medium Access Control here, so it is definitively
-  useful to expand.
-
--->
         <t>The LoRaWAN Medium Access Control (MAC) layer supports three
         classes of devices named A, B, and C.  All devices implement Class
         A, and some devices may implement Class B or Class C. Class B and Class C
@@ -506,34 +415,39 @@ opportunity. Class A is the lowest power consumption class.
 
 <dt>Class B:
 </dt>
-<dd>Class B devices implement all the functionalities of Class A devices but
+<dd><t>Class B devices implement all the functionalities of Class A devices but
 also schedule periodic listen windows. Therefore, as opposed to Class A
 devices, Class B devices can receive downlinks that are initiated by the
 Network Gateway and not following an uplink. There is a trade-off between the
 periodicity of those scheduled Class B listen windows and the power
-consumption of the device: 
-</dd>
+consumption of the device: </t>
+
+
+  <dl>
+
 <dt>High periodicity:</dt>
-<dd>Downlinks from the NGW will be sent faster but the
-device wakes up more often and power consumption is increased.</dd>
+<dd>Downlinks from the NGW will be sent faster but the device wakes up more
+often and power consumption is increased.</dd>
 
 <dt>Low periodicity:</dt>
-<dd>Higher latency but lower power consumption.</dd>
+<dd>Downlinks from the NGW will have higher latency but lower power consumption.</dd>
+  </dl>
+
+
+
+</dd>
 
 <!-- [rfced] In the following sentence, how might we rephrase to avoid repeated uses of a colon?
-
 Original: 
    There is a trade-off between the periodicity of those scheduled
    Class B listen windows and the power consumption of the device: if the
    periodicity is high downlinks from the NGW will be sent faster, but the device
    wakes up more often: it will have higher power consumption.
-
 Perhaps: 
    There is a trade-off between the periodicity of those scheduled Class
    B listen windows and the power consumption of the device: if the periodicity
    is high, downlinks from the NGW will be sent faster, but the device wakes up
    more often. Therefore, it will have higher power consumption.
-
 Author (OGZ)
   Proposition:
    There is a trade-off between the periodicity of those scheduled Class
@@ -541,9 +455,21 @@ Author (OGZ)
    - High periodicity: downlinks from the NGW will be sent faster but the
      device wakes up more often and power consumption is increased.
    - Low periodicity: higher latency but lower power consumption.
-
    I did not succeed to correctly render it, either with a list or a dt/dd tag.
    Could you please help?
+
+
+
+We've formatted but made the def for "low periodicity" a complete sentence:
+High periodicity:
+    Downlinks from the NGW will be sent faster but the device wakes up more often and power consumption is increased.
+Low periodicity:
+    Higher latency but lower power consumption.
+
+
+
+
+
 -->
 
 <dt>Class C:
@@ -583,7 +509,6 @@ Class C devices are grid powered (for example, Smart Plugs).
 | Device | <=====> | Network | <====> | SCHC    | <======> | Internet |
 |        | devAddr | Gateway | DevEUI | Gateway | IPv6/UDP |          |
 +--------+         +---------+        +---------+          +----------+
-
 ]]></artwork>
         </figure>
       </section>
@@ -604,22 +529,7 @@ Class C devices are grid powered (for example, Smart Plugs).
 </dd>
 
 </dl>
-<!-- [rfced] This document refers to the "use of LoRaWAN Confirmed frames
-(MType=0b100 as per [LORA-SPEC])" despite none of the LoRaWAN files in
-the reference using either "mtype" or "ob100". Please verify that that
-information is correct.
 
-Original:
-    As SCHC defines its own acknowledgment mechanisms, SCHC does not
-   require the use of LoRaWAN Confirmed frames (MType=0b100 as per
-   [lora-alliance-spec])
-
-Author (OGZ)
-    Thanks. It is now "Ftype" instead of "MType". Chapter 4.2.1, table 4
-    Searching for characters "0b100" does not work as it is written "100"
-    in [LORA-SPEC]. Nevertheless, I would like to explain that we are
-    using binary base to write this.
--->
         <t>As SCHC defines its own acknowledgment mechanisms, SCHC does not require
 the use of LoRaWAN Confirmed frames (FType = 0b100 as per
 <xref target="LORA-SPEC" format="default"/>).</t>
@@ -666,49 +576,10 @@ LoRaWAN networks and applications to identify data.</t>
         target="lorawan-schc-payload" format="default"/>) and FRMPayload.</t>
       </section>
 
-
-<!-- [rfced] How might we rephrase the following sentence for clarity?
-
-Original:
- 
-It is useful to address many devices with same content, either a
-large binary file (firmware upgrade), or same command (e.g:
-lighting control).
-
-Perhaps:
-   
-It is useful to address many devices with the same content: either a
-large binary file (firmware upgrade) or the same command (e.g.,
-lighting control).
-
-Or perhaps:
-
-It is useful to address many devices with the same content, or
-either a large binary file (firmware upgrade) or the same command
-(e.g., lighting control).
-
-Author (OGZ)
-  OK, I integrated your first proposition
-
- -->
-
-<!-- [author]
-
-"[...] multicast: a packet sent over LoRaWAN a radio link can be received
-by several devices"
-
-I am ok to replace the colon by a semi-colon as you did but I propose:
-
-"[...]  multicast; a multicast packet sent over a LoRaWAN radio link
-  can be received by several devices.""
-
-Note that I moved the "a" from after "LoRaWAN" to before
--->
-
       <section anchor="unicast-and-multicast-technology" numbered="true" toc="default">
         <name>Unicast and Multicast Technology</name>
         <t>LoRaWAN technology supports unicast downlinks but also multicast; a
-        multical packet sent over a LoRaWAN radio link can be received by several
+        multicast packet sent over a LoRaWAN radio link can be received by several
         devices.  It is useful to address many devices with the same content:
         either a large binary file (firmware upgrade) or the same command (e.g.,
         lighting control).  As IPv6 is also a multicast technology, this
@@ -741,7 +612,6 @@ the FPort field with the LoRaWAN payload to recompose the SCHC Message.</t>
 | FPort | LoRaWAN payload  |
 + ------------------------ +
 |       SCHC Message       |
-
 ]]></artwork>
         </figure>
         <aside><t>Note: The SCHC Message is any datagram sent by the SCHC C/D or F/R layers.</t></aside>
@@ -752,22 +622,7 @@ other way, a fragmented datagram with application payload transferred from
 Network Gateway to device is called a "downlink-fragmented datagram". It uses another
 FPort for data downlink and its associated SCHC control uplinks, named "FPortDown"
 	in this document.</t>
-<!--[rfced] It may be helpful to the reader to add a citation here so they know what the "LoRaWAN specification" is.
 
-Original:
-All RuleID can use arbitrary values inside the FPort range allowed by
-the LoRaWAN specification and MUST be shared by the device and SCHC
-gateway prior to the communication with the selected rule.
-
-Perhaps:
-All RuleIDs can use arbitrary values inside the FPort range allowed by
-the LoRaWAN specification [LORA-SPEC] and MUST be shared by the device and SCHC
-gateway prior to the communication with the selected rule.
-
-Author (OGZ)
-  Ok added, FYI this is defined in the next section "LoRaWAN
-  supports up to 223 application FPorts in the range [...]"
--->
         <t>All RuleIDs can use arbitrary values inside the FPort range allowed
         by the LoRaWAN specification [LORA-SPEC] and <bcp14>MUST</bcp14> be shared by the
         device and SCHC gateway prior to the communication with the selected
@@ -780,22 +635,6 @@ Author (OGZ)
         FPort as described in <xref target="lorawan-schc-payload"
         format="default"/>.
 
-	<!--[rfced] Please review this use of the semi-colon.  Should this be made dots, a dash, a comma, etc.? 
-
-Original:
-	LoRaWAN supports up to 223 application FPorts in
-        the range [1;223] as defined in Section 4.3.2...
-
-Perhaps (similar to what's used in the [LORA-SPEC] reference:
-	LoRaWAN supports up to 223 application FPorts in
-        the range [1..223] as defined in Section 4.3.2
-
-Author (OGZ)
-  Ok, I changed to "[1..223]" as specified in [LORA-SPEC]. Please
-  change it to IETF's way to declare range of number, if there is any
-  convention
-
-  -->
 
 	
 	LoRaWAN supports up to 223 application FPorts in
@@ -811,17 +650,7 @@ Author (OGZ)
           <li>RuleID = 22 (8-bit) for which SCHC compression was not possible (i.e., no matching
 compression Rule was found), as described in <xref target="RFC8724" sectionFormat="of" section="6" format="default"/>.</li>
         </ul>
-<!--[rfced] Should both the FPortUp and FPortDown be "values" here?
 
-Original:
-FPortUp value MUST be different from FPortDown.
-
-Perhaps:
-The FPortUp value MUST be different from the FPortDown value.
-
-Author (OGZ)
-Yes, text changed
--->
 	
         <t>The FPortUp value <bcp14>MUST</bcp14> be different from the FPortDown value.  The
         remaining RuleIDs are available for compression. RuleIDs are shared
@@ -856,31 +685,10 @@ implementations <bcp14>MUST</bcp14> implement the following algorithm and <bcp14
         <t>The aes128_cmac algorithm is described in <xref target="RFC4493"
         format="default"/>. It has been chosen as it is already used by
         devices for the LoRaWAN protocol.</t>
-
-<!--[rfced] Please review the use of "mitigates privacy".  Should this be "mitigates privacy concerns" or something similar?
-
-Original:
-...this mitigates privacy, location tracking and correlation over time
-   risks. 
-
-Author (OGZ)
-  We updated the sentence to be more explicit
--->
-
-<!-- [author]
-
-Original:
-Address-scan risk is mitigated thanks to AES-128, which provides
-        enough entropy bits of the IID.
-
-The sentence does not make sence, I propose:
-Address-scan risk is mitigated thanks to AES-128, which provides
-        enough entropy in the IID.
-  
--->
+<!-- get AD approval for this mitigates privacy concerns,...-->
         <t>As AppSKey is renewed each time a device joins or rejoins a LoRaWAN
         network, the IID will change over time; this
-        mitigates privacy concerns, for example location tracking or correlation
+        mitigates privacy concerns, for example, location tracking or correlation
         over time. Join periodicity is defined at the application level.</t>
         <t>Address-scan risk is mitigated thanks to AES-128, which provides
         enough entropy in the IID.</t>
@@ -903,6 +711,8 @@ Address-scan risk is mitigated thanks to AES-128, which provides
         </figure>
 <!-- [author]
 The error in the example has been spotted after the WG last call, the correction have been accepted by the working group and our AD
+
+Verify this either through email search or just ask AD again.
 -->
         <t>There is a small probability of IID collision in a LoRaWAN
         network. If this occurs, the IID can be changed by rekeying the device
@@ -1198,15 +1008,16 @@ Bitmaps of 63 bits will require 6 bits of padding.</t></aside>
 <dt>Multicast downlinks:
 </dt>
 <!-- [author]
-
 Original:
 <dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
 <bcp14>OPTIONAL</bcp14> and may not be implemented by the SCHC gateway.
-
 It might not be clear enough that the "OPTIONAL" applies only to the
 gateway and not the device, I propose:
 <dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
 <bcp14>OPTIONAL</bcp14> for the SCHC gateway and <bcp14>REQUIRED</bcp14> for the device.
+
+verify with AD.
+
 
 -->
 <dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
@@ -1285,23 +1096,24 @@ be changed by the application.
           session is started; this is application specific and can be
           disabled. The <bcp14>RECOMMENDED</bcp14> uplink is a LoRaWAN empty
           frame as defined in <xref target="lorawan-empty-frame"
-          format="default"/>.  As this uplink is send only to open an RX window, any
+          format="default"/>.  As this uplink is sent only to open an RX window, any
           LoRaWAN uplink frame from the device <bcp14>MAY</bcp14> reset this
           counter.</t>
 <!-- [rfced] The following sentence may be missing a word. What was intended after "this uplink is"?
-
 Original: 
    As this uplink is to open an RX window, any LoRaWAN uplink frame
    from the device MAY reset this counter.
-
 Perhaps: 
    As this uplink is used to open an RX window, any LoRaWAN uplink frame from
    the device MAY reset this counter.
-
 Author (OGZ)
   True I changed it to:
     As this uplink is send only to open an RX window, any LoRaWAN uplink
     frame from the device MAY reset this counter.
+
+
+We changed "uplink is send only" to "uplink is sent only" as we felt past tense was intended. Please let us know if this is not the case.
+
 -->
 
 <aside><t>Note: The FPending bit included in the LoRaWAN protocol <bcp14>SHOULD
@@ -1382,20 +1194,6 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
           <section anchor="downlink-retransmission-timer" numbered="true" toc="default">
             <name>Downlink Retransmission Timer</name>
 
-<!--[rfced] May we update this list as follows?
-
-Original:
-   Class A and Class B or Class C devices do not manage retransmissions
-   and timers the same way.
-
-Perhaps:
-   Class A, Class B, and Class C devices do not manage retransmissions
-   and timers the same way.
-
-Author (OGZ)
-  Ok, I implemented you proposition
--->
-	    
             <t>Class A, Class B, and Class C devices do not manage
             retransmissions and timers the same way.</t>
 
@@ -1418,43 +1216,34 @@ Author (OGZ)
               <bcp14>MUST</bcp14> transmit up to MAX_ACK_REQUESTS SCHC ACK
               messages before aborting.  In order to progress the fragmented
               datagram, the SCHC layer should immediately queue for
-              transmission those SCHC ACK messages if no SCHC downlinks have been
+              transmission those SCHC ACK messages if no SCHC downlink has been
               received during the RX1 and RX2 windows.  The LoRaWAN layer will respect
               the applicable local spectrum regulation.</t>
 <!-- [rfced] FYI: We've updated the following sentence for clarity by adding "messages" after ACK and pluralizing "downlinks" and "windows". Please let us know if this is incorrect.
-
 Original: 
    In order to progress the fragmented datagram, the SCHC layer should
    immediately queue for transmission those SCHC ACK if no SCHC downlink have
    been received during RX1 and RX2 window.
-
 Updated: 
    In order to progress the fragmented datagram, the SCHC layer should
    immediately queue for transmission those SCHC ACK messages if no SCHC downlinks have
    been received during the RX1 and RX2 windows.
-
 Author (OGZ)
   I agree with your update.  The only thing I am not sure is the plural
   form of downlink in "SCHC ACK messages if no SCHC downlinks have been
   received during the RX1 and RX2 windows". You can only receive one
   downlink either in RX1 or RX2 window, they are mutually exclusive.
   I also fixed the "window.s" typo Ivaylo send you the 15th of march
+
+
+
+Let author know we updated to "those SCHC ACK messages if no SCHC downlink has
+been received during the RX1 and RX2 windows."
+
 -->
 <aside>              <t>Note: The ACK bitmap is 1 bit long and is always 1.</t></aside>
               <t><strong>SCHC All-1 (FCN = 1)</strong></t>
-<!-- [rfced] In the following sentence, it may be easier for readers if the noun is expanded to more than just the formula itself.
 
-Original: 
-   To open a downlink opportunity the device MUST transmit an uplink
-   every RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
-
-Perhaps:
-   To open a downlink opportunity, the device MUST transmit an uplink
-   every interval of RETRANSMISSION_TIMER/(MAX_ACK_REQUESTS * SCHC_ACK_REQ_DN_OPPORTUNITY).
-
-Author (OGZ)
-  Agreed and implemented
--->
 
               <t>SCHC All-1 is the last fragment of a datagram, and the
               corresponding SCHC ACK message might be lost; therefore, the SCHC
@@ -1582,20 +1371,6 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8065.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8376.xml"/>
 
-<!-- [rfced] FYI: The previous URL for [LORA-REMOTE-MULTICAST-SET] pointed to
-a missing file on the LoRa website. We've updated it to a page that
-allows downloading the three PDFs relating to the LoRaWAN Remote
-Multicast Setup Specification.
-
-Original:
-   <https://lora-alliance.org/sites/default/files/2018-09/remote_multicast_setup_v1.0.0.pdf>
-
-Updated:
-   <https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/>
-
-Author (OGZ)
-  Good catch, LoRa Alliance changed its website. You selected the good one
--->
         <reference anchor="LORA-REMOTE-MULTICAST-SET" target="https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/">
           <front>
             <title>LoRaWAN Remote Multicast Setup Specification v1.0.0</title>
@@ -1635,25 +1410,6 @@ Author (OGZ)
         need for fragmentation. The payload will be transmitted through FPort
         = 1.</t>
 
-<!-- [rfced] This document uses "FOpts" as a pluralized noun after another
-pluralized noun. Would it be more correct to use "2-byte F0pts" instead
-of "2 bytes FOpts"?  
-Note: There are multiple instances in this document.
-
-Original: 
-   The current LoRaWAN MTU is 51 bytes, although 2 bytes FOpts are used
-   by LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
-   fragmentation.
-
-Perhaps: 
-   The current LoRaWAN MTU is 51 bytes, although 2-byte FOpts are used
-   by LoRaWAN protocol: 49 bytes are available for SCHC payload; no need for
-   fragmentation.
-
-Author (OGZ)
-  Ok, your English is better than mine. I tried to update all occurences
-  if found, please update the one I missed, if any.
--->
         <figure anchor="Fig-example-uplink-no-fragmentation-compression">
           <name>Uplink Example: LoRaWAN Packet</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -1773,27 +1529,8 @@ RuleID, 21 bits residue + 127 bytes payload.</t>
         </figure>
         <t>The current LoRaWAN MTU is 51 bytes; no FOpts are used by the
         LoRaWAN protocol: 51 bytes are available for SCHC payload + FPort
-        field; The applicative data has to be fragmented.</t>
+        field; the applicative data has to be fragmented.</t>
 
-<!-- [rfced] In the following sentence, may we replace the symbol "=>" with a
-semi-colon without changing the intended meaning?
-
-Original: 
-   The current LoRaWAN MTU is 51 bytes, no FOpts are used by LoRaWAN   
-   protocol: 51 bytes are available for SCHC payload + FPort field => it has to
-   be fragmented.  
-
-Perhaps:
-   The current LoRaWAN MTU is 51 bytes; no FOpts are used by the LoRaWAN   
-   protocol: 51 bytes are available for SCHC payload + FPort field; it has to
-   be fragmented.  
-
-Author (OGZ)
-  Ok, I added the semicolon and changed the "it" to "The applicative data"
-  I wonder it we should put a comma and start a new sentence:
-  51 bytes are available for SCHC payload + FPort field. The applicative
-  data has to be fragmented.
- -->
 
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-1">
           <name>Downlink Example: LoRaWAN Packet 1 - SCHC Fragment 1</name>
@@ -1809,122 +1546,13 @@ Author (OGZ)
         </t>
 
 
-<!-- [rfced] Regarding the figures in Sections 5.6.2.* and 5.6.3* as well as the Appendix:
-
-a) Might the titles of these figures be shortened and some of the text that currently exists in the titles be moved to the sections themselves?
-
-b) If not resolved by a) above: several of the names of these figures contain colons. May we replace end colons with dashes in cases similar to the example below?
-
-Note: Some figure titles already have the "Perhaps" format below.
-
-Original:
-   Figure 30: Downlink example: LoRaWAN packet 1: Tile content
-
-Perhaps:
-   Figure 30: Downlink Example: LoRaWAN Packet 1 - Tile Content
-
-c) Again, if not resolved by a), we see the following inconsistent use of "failed" as opposed to "incorrect".  Should these be made consistent?
-
-
-Figure 10: SCHC ACK format, correct RCS Check
-Figure 11: SCHC ACK format, failed RCS Check
-
-vs.
-Figure 16: SCHC ACK format, RCS is correct
-Figure 17: SCHC ACK format, RCS is incorrect
-
-That is, should the title of Figure 11 be changed to "incorrect RCS Check"?
-
-Author (OGZ)
-  I updated with propostion a) when I can, b) from time to time.
-  For the Appendix we can always delete "Uplink example" and "Downlink
-  example" if required but I prefer to keep them as the difference
-  between uplinks and downlinks are not obvious and I want to disambiguate
-  them as much as possible.
--->
-
-
 <!-- [rfced] Terminology throughout the document:
 
-1. This document uses both "IEEE-64 DevEUI" and "IEEE EUI-64". Are these the same?  If so, is one form preferred over the other?
-Note that "EUI-64" is used in the cited RFCs.
-
-Author (OGZ)
-  Ok, I changed section 5.3 to reference only the DevEUI, which is
-  defined in the terminology section as an IEEE EUI-64.
-
-2. FYI: We've updated "Fpending bit" to "FPending bit" per the LoRa Alliance website.
-
-Author (OGZ)
-  OK
-
-3. We have updated to use "SCHC C/D and SCHC F/R" instead of "SCHC C/D and F/R" everywhere but in figures.  Please let us know any objections.
-
-Author (OGZ)
-  OK
-
-4. Please verify that "Join Procedure" should be capitalized in this document. Its only other apparent use in past RFCs is lowercased.
-
-Original:
-   Dynamically: after a Join Procedure by the Network Gateway in Over The Air Activation mode. 
-
-Author (OGZ)
-  Updated to LoRaWAN "Join Procedure" as it is a LoRaWAN terminology like "Over-The-Air-Activation"
-
-5.  As the last C in SCHC stands for Compression, may we update to use simply "SCHC" instead of "SCHC compression" where it occurs?
-
-Author (OGZ)
-  No, SCHC is not an acronym, it means "Static Context Header Compression and
-  fragmentation" but the "And fragmentation" part is not in SCHC. Please see
-  RFC8724 absctract. Nevertheless it was not correctly explained in this
-  document, I changed:
-  <title abbrev="SCHC over LoRaWAN">Static Context Header Compression (SCHC) over LoRaWAN</title>
-  to
-  <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and fragementation (SCHC) over LoRaWAN</title>
-
-  and
-  <t>The Static Context Header Compression (SCHC) specification (RFC 8724) describes
-  to
-  <t>The Static Context Header Compression and fragmentation (SCHC) specification (RFC 8724) describes
-
-6.  Please confirm the use of both "AppKey" and "AppSKey".  If both are correct, may we expand them as "application key" and "application session key", respectively?  Perhaps add them to the Terminology section?
-
-Author (OGZ)
-  I confirm their use. It is better not to expand them as it is usually
-  not done in LoRaWAN documents. Nevertheless I added them in the
-  terminology section
-
-7. We see each of the following similar forms.  May these be made consistent?  If so, what is the preferred form?
-
-Ack-Always vs. ACK-Always vs. Ack-always
-
-LoRaWAN Application Server vs. LoRaWAN Application server vs. LoRaWAN application server
-
-LoRaWAN Join server vs. LoRaWAN join
-
-LoRaWANEnd Device vs. LoRaWAN device
+We still need answers for the following terms:
 
 SCHC Fragmentation vs. SCHC fragmentation vs. Regular SCHC Fragment vs. SCHC Fragment Header
-
 RuleID vs. Rule ID
 
-Author (OGZ)
-
-  ACK-Always, as per RFC8724
-
-  LoRaWAN Application Server, as per [LORA-SPEC]
-
-  "LoRaWAN Join Server" is for a component called "Join Server"
-  "LoRaWAN join" is the action done during the "Join Procedure"
-  => No changes to be made
-
-  LoRaWAN End Device: "End-device" is LoRaWAN terminology, it should be
-  used only where the mapping between SCHC and LoRaWAN is explained.
-  "device" describes the same component in "IETF terminology" from
-  RFC8376, it should be used everywhere in this document except in the 
-  explanations of the mapping between SCHC and LoRaWAN.
-  => No changes to be made expect maybe "LoRaWAN End Device" to
-  "LoRaWAN End-Device" if we want to respect [LORA-SPEC] ?
 
 -->
 
