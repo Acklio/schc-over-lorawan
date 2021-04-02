@@ -494,7 +494,8 @@ High periodicity:
 Low periodicity:
     Higher latency but lower power consumption.
 
-
+Author (OGZ)
+OK, thank you
 
 
 
@@ -1142,6 +1143,9 @@ Author (OGZ)
 
 We changed "uplink is send only" to "uplink is sent only" as we felt past tense was intended. Please let us know if this is not the case.
 
+Author (OGZ)
+  Correct, regular mistake on my side
+
 -->
 
 <aside><t>Note: The FPending bit included in the LoRaWAN protocol <bcp14>SHOULD
@@ -1267,6 +1271,9 @@ Author (OGZ)
 
 Let author know we updated to "those SCHC ACK messages if no SCHC downlink has
 been received during the RX1 and RX2 windows."
+
+Author (OGZ)
+OK
 
 -->
 <aside>              <t>Note: The ACK bitmap is 1 bit long and is always 1.</t></aside>
