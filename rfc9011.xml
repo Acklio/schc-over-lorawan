@@ -1728,15 +1728,18 @@ Author (OGZ)
     <email>marc.legourrierec@sagemcom.com</email>
   </address>
 </contact>
-
+<!--
+Author (OGZ) 
+  I updated N. Sornin contacts as per his request, as he is no longer working for Semtech
+-->
 <contact fullname="Nicolas Sornin">
-  <organization>Semtech</organization>
+  <organization>Chirp Foundation</organization>
   <address>
     <postal>
      <city></city>
      <country></country>
     </postal>
-    <email>nsornin@semtech.com</email>
+    <email>nicolas.sornin@chirpfoundation.org</email>
   </address>
 </contact>
 
