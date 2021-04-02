@@ -295,6 +295,9 @@ Author (OGZ)
   I see that a space is appended before the figures, is there a way to avoid it?
   Then it is suprising because https://tools.ietf.org/tools/idnits tool
   does not complain 
+
+Author (OGZ)
+  Figures 1-3 shortened as proposed in the email
 -->
 
         <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -362,7 +365,7 @@ Author (OGZ)
 |<- - - - - LoRaWAN - - - ->|
 ]]></artwork>
       </figure>
-    </section>
+</section>
     <section anchor="lorawan-architecture" numbered="true" toc="default">
       <name>LoRaWAN Architecture</name>
       <t>An overview of the LoRaWAN protocol and architecture <xref target="LORA-SPEC"
@@ -460,7 +463,7 @@ often and power consumption is increased.</dd>
 <dt>Low periodicity:</dt>
 <dd>Downlinks from the NGW will have higher latency but lower power consumption.</dd>
   </dl>
-
+  
 
 
 </dd>
@@ -650,7 +653,7 @@ and its associated SCHC control downlinks, named "FPortUp" in this document. The
 other way, a fragmented datagram with application payload transferred from
 Network Gateway to device is called a "downlink-fragmented datagram". It uses another
 FPort for data downlink and its associated SCHC control uplinks, named "FPortDown"
-	in this document.</t>
+in this document.</t>
 
         <t>All RuleIDs can use arbitrary values inside the FPort range allowed
         by the LoRaWAN specification [LORA-SPEC] and <bcp14>MUST</bcp14> be shared by the
@@ -680,7 +683,7 @@ FPort for data downlink and its associated SCHC control uplinks, named "FPortDow
 compression Rule was found), as described in <xref target="RFC8724" sectionFormat="of" section="6" format="default"/>.</li>
         </ul>
 
-	
+
         <t>The FPortUp value <bcp14>MUST</bcp14> be different from the FPortDown value.  The
         remaining RuleIDs are available for compression. RuleIDs are shared
         between uplink and downlink sessions.  A RuleID not in the set(s) of
@@ -848,23 +851,23 @@ Fragment, or with any of these two methods. Implementations must ensure that:</t
 </dd>
 
 <dt>Penultimate tile:
-    </dt>
+</dt>
     <dd><bcp14>MUST</bcp14> be equal to the regular size.
     </dd>
 
 <dt>RCS:
-    </dt>
+</dt>
     <dd>Use the recommended calculation algorithm in <xref target="RFC8724"
     sectionFormat="of" section="8.2.3"/>, Integrity Checking.
     </dd>
 
 <dt>Tile:
-    </dt>
+</dt>
     <dd>Size is 10 bytes.
     </dd>
 
 <dt>Retransmission timer:
-    </dt>
+</dt>
     <dd>Set by the implementation depending on the application
     requirements. The default <bcp14>RECOMMENDED</bcp14> duration of this
     timer is 12 hours; this value is mainly driven by application requirements
@@ -872,7 +875,7 @@ Fragment, or with any of these two methods. Implementations must ensure that:</t
     </dd>
 
 <dt>Inactivity timer:
-    </dt>
+</dt>
     <dd>The SCHC gateway implements an "inactivity timer". The default
     <bcp14>RECOMMENDED</bcp14> duration of this timer is 12 hours; this value
     is mainly driven by application requirements and <bcp14>MAY</bcp14> be
@@ -880,7 +883,7 @@ Fragment, or with any of these two methods. Implementations must ensure that:</t
     </dd>
 
 <dt>MAX_ACK_REQUESTS:
-    </dt>
+</dt>
     <dd> 8.  With this set of parameters, the SCHC Fragment Header is 16 bits,
     including FPort; payload overhead will be 8 bits as FPort is already a
     part of LoRaWAN payload. MTU is: 4 windows * 63 tiles * 10 bytes per
@@ -957,7 +960,7 @@ part of the rule context.</t>
             </figure>
           </section>
           <section anchor="schc-ack" numbered="true" toc="default">
-	    
+	        
             <name>SCHC ACK</name>
             <figure anchor="Fig-frag-header-long-schc-ack-rcs-ok">
               <name>SCHC ACK Format - Correct RCS Check</name>
@@ -1210,7 +1213,7 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
              <t><xref target="Fig-fragmentation-downlink-header-abort" format="default"/>
             is an example of a Receiver-Abort packet, following an All-1
             SCHC Fragment with incorrect RCS.
-            </t>
+             </t>
             <figure anchor="Fig-fragmentation-downlink-header-abort">
               <name>Receiver-Abort Packet</name>
               <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -1669,7 +1672,7 @@ RuleID vs. Rule ID
       fullname="Pascal Thubert"/>, and <contact fullname="Laurent Toutain"/> for
       useful design considerations, reviews, and comments.</t>
       <t>LoRaWAN is a registered trademark of the LoRa Alliance.</t>
-    </section>
+   </section>
 
 
     <section numbered="false" anchor="contributors" toc="default">
