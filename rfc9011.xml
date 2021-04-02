@@ -662,7 +662,7 @@ in this document.</t>
         <bcp14>MUST</bcp14> be different.</t>
       </section>
       <section anchor="rule-id-management" numbered="true" toc="default">
-        <name>Rule ID Management</name>
+        <name>RuleID Management</name>
         <t>The RuleID <bcp14>MUST</bcp14> be 8 bits and encoded in the LoRaWAN
         FPort as described in <xref target="lorawan-schc-payload"
         format="default"/>.
@@ -1591,6 +1591,9 @@ We still need answers for the following terms:
 SCHC Fragmentation vs. SCHC fragmentation vs. Regular SCHC Fragment vs. SCHC Fragment Header
 RuleID vs. Rule ID
 
+Author (OGZ)
+
+  RuleID as per RF8724, I replaced the occurance of Rule ID
 
 -->
 
