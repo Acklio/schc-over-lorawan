@@ -89,7 +89,7 @@ and modes of operation need to be set appropriately for each of the LPWAN
 technologies.</t>
       <t>This document describes the parameters and modes of operation when
       SCHC is used over LoRaWAN networks. The LoRaWAN protocol is specified by
-      the LoRa Alliance in <xref target="LORA-SPEC" format="default"/>.</t>
+      the LoRa Alliance in <xref target="LORAWAN-SPEC" format="default"/>.</t>
     </section>
     <section anchor="terminology" numbered="true" toc="default">
       <name>Terminology</name>
@@ -378,11 +378,11 @@ Author (OGZ)
 </section>
     <section anchor="lorawan-architecture" numbered="true" toc="default">
       <name>LoRaWAN Architecture</name>
-      <t>An overview of the LoRaWAN protocol and architecture <xref target="LORA-SPEC"
+      <t>An overview of the LoRaWAN protocol and architecture <xref target="LORAWAN-SPEC"
       format="default"/> is described in <xref
       target="RFC8376" format="default"/>. The mapping between the LPWAN
       architecture entities as described in <xref target="RFC8724"
-      format="default"/> and the ones in <xref target="LORA-SPEC"
+      format="default"/> and the ones in <xref target="LORAWAN-SPEC"
       format="default"/> is as follows:</t>
 <ul>
 <li>Devices are LoRaWAN End Devices (e.g., sensors, actuators, etc.).  There
@@ -574,7 +574,7 @@ Class C devices are grid powered (for example, Smart Plugs).
 
         <t>As SCHC defines its own acknowledgment mechanisms, SCHC does not require
 the use of LoRaWAN Confirmed frames (FType = 0b100 as per
-<xref target="LORA-SPEC" format="default"/>).</t>
+<xref target="LORAWAN-SPEC" format="default"/>).</t>
       </section>
       <section anchor="lorawan-mac-frames" numbered="true" toc="default">
         <name>LoRaWAN MAC Frames</name>
@@ -666,7 +666,7 @@ FPort for data downlink and its associated SCHC control uplinks, named "FPortDow
 in this document.</t>
 
         <t>All RuleIDs can use arbitrary values inside the FPort range allowed
-        by the LoRaWAN specification [LORA-SPEC] and <bcp14>MUST</bcp14> be shared by the
+        by the LoRaWAN specification [LORAWAN-SPEC] and <bcp14>MUST</bcp14> be shared by the
         device and SCHC gateway prior to the communication with the selected
         rule.  The uplink and downlink fragmentation FPorts
         <bcp14>MUST</bcp14> be different.</t>
@@ -681,7 +681,7 @@ in this document.</t>
 	
 	LoRaWAN supports up to 223 application FPorts in
         the range [1..223] as defined in Section 4.3.2 of <xref
-        target="LORA-SPEC" format="default"/>; it implies that the RuleID MSB
+        target="LORAWAN-SPEC" format="default"/>; it implies that the RuleID MSB
         <bcp14>SHOULD</bcp14> be inside this range. An application can send
         non-SCHC traffic by using FPort values different from the ones used
         for SCHC.</t>
@@ -1405,9 +1405,11 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4493.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8724.xml"/>
 
-
-
-        <reference anchor="LORA-SPEC" target="https://lora-alliance.org/resource_hub/lorawan-104-specification-package/">
+<!-- [author]
+Changed "LORA-SPEC" to "LORAWAN-SPEC" to avoid LoRa/LoRaWAN confusion
+Changed "LORA-REMOTE-MULTICAST-SET" to "LORAWAN-REMOTE-MULTICAST-SET" to avoid LoRa/LoRaWAN confusion
+-->
+        <reference anchor="LORAWAN-SPEC" target="https://lora-alliance.org/resource_hub/lorawan-104-specification-package/">
           <front>
             <title>LoRaWAN 1.0.4 Specification Package</title>
             <author>
