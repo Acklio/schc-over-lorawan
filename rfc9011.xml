@@ -259,6 +259,16 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
 
 </dl>
 
+<!-- [author]
+Added as per shepherd advice, from RFC8724. Also changed "an SCHC XXX"
+to "a SCHC XXX"
+-->
+
+<t>
+The SCHC acronym is pronounced like "sheek" in English (or "chic" in
+French).  Therefore, this document writes "a SCHC Packet" instead of
+"an SCHC Packet".
+</t>
 
 </section>
     <section anchor="static-context-header-compression-overview" numbered="true" toc="default">
