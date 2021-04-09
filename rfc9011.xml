@@ -321,11 +321,11 @@ Author (OGZ)
       architecture for compression/decompression; it is based on the terminology from <xref
       target="RFC8376" format="default"/>. The device is sending
       application flows using IPv6 or IPv6/UDP protocols. These flows might
-      be compressed by an SCHC C/D to reduce header size, and fragmented
+      be compressed by a SCHC C/D to reduce header size, and fragmented
       by the SCHC F/R.  The resulting
       information is sent on a Layer 2 (L2) frame to an LPWAN Radio Gateway
       (RGW) that forwards the frame to a Network Gateway (NGW). The NGW sends
-      the data to an SCHC F/R for reassembly, if required, then to an SCHC C/D for
+      the data to a SCHC F/R for reassembly, if required, then to a SCHC C/D for
       decompression. The SCHC C/D shares the same rules with the device. The
       SCHC C/D and SCHC F/R can be located on the NGW or in
       another place as long as a communication is established between the NGW
@@ -903,17 +903,17 @@ not to ack after each window.
 For battery powered devices, it is <bcp14>RECOMMENDED</bcp14> to use the ACK mechanism at the
 end of each window instead of waiting until the end of all windows:</t>
           <ul spacing="normal">
-            <li>The SCHC receiver <bcp14>SHOULD</bcp14> send an SCHC ACK after every window even if there is no
+            <li>The SCHC receiver <bcp14>SHOULD</bcp14> send a SCHC ACK after every window even if there is no
 missing tile.</li>
             <li>The SCHC sender <bcp14>SHOULD</bcp14> wait for the SCHC ACK
             from the SCHC receiver before sending tiles from the next
             window. If the SCHC ACK is not received, it <bcp14>SHOULD</bcp14>
-            send an SCHC ACK REQ up to MAX_ACK_REQUESTS times, as described
+            send a SCHC ACK REQ up to MAX_ACK_REQUESTS times, as described
             previously.</li>
           </ul>
           <t>This will avoid useless uplinks if the device has lost network coverage.</t>
           <t>For non-battery powered devices, the SCHC receiver
-          <bcp14>MAY</bcp14> also choose to send an SCHC ACK only at the end
+          <bcp14>MAY</bcp14> also choose to send a SCHC ACK only at the end
           of all windows. This will reduce downlink load on the LoRaWAN
           network by reducing the number of downlinks.</t>
           <t>SCHC implementations <bcp14>MUST</bcp14> be compatible with both behaviors, and this selection is
@@ -1341,7 +1341,7 @@ transmission of an uplink. Class C devices are almost in constant reception.</t>
         <section anchor="all-0-schc-fragment" numbered="true" toc="default">
           <name>All-0 SCHC Fragment</name>
           <t><strong>Uplink Fragmentation (Ack-on-Error)</strong>:</t>
-          <t>All-0 is distinguishable from an SCHC ACK REQ, as <xref
+          <t>All-0 is distinguishable from a SCHC ACK REQ, as <xref
           target="RFC8724" format="default"/> states "This condition is also
           met if the SCHC Fragment Header is a multiple of L2 Words", the
           following condition being met: SCHC header is 2 bytes.</t>
@@ -1353,7 +1353,7 @@ transmission of an uplink. Class C devices are almost in constant reception.</t>
         </section>
         <section anchor="all-1-schc-fragment" numbered="true" toc="default">
           <name>All-1 SCHC Fragment</name>
-          <t>All-1 is distinguishable from an SCHC Sender-Abort, as <xref
+          <t>All-1 is distinguishable from a SCHC Sender-Abort, as <xref
           target="RFC8724" format="default"/> states "This condition is met
           if the RCS is present and is at least the size of an L2 Word",
           the following condition being met: RCS is 4 bytes.</t>
@@ -1611,7 +1611,7 @@ Author (OGZ)
 |   1    |       21 bits       | 48 bytes and 1 bit |
 ]]></artwork>
         </figure>
-        <t>The receiver answers with an SCHC ACK:</t>
+        <t>The receiver answers with a SCHC ACK:</t>
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-2">
           <name>Downlink Example: LoRaWAN Packet 2 -  SCHC ACK</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -1633,7 +1633,7 @@ Author (OGZ)
 | XXXX | 2 bytes | 1 byte     | 1 bit |  1 bit  | 48 bytes and 6 bits |
 ]]></artwork>
         </figure>
-        <t>The receiver answers with an SCHC ACK:</t>
+        <t>The receiver answers with a SCHC ACK:</t>
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-4">
           <name>Downlink Example: LoRaWAN Packet 4 -  SCHC ACK</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
@@ -1656,7 +1656,7 @@ Author (OGZ)
 | XXXX | 1 byte  | 1 bit | 1 bit | 4 bytes | 31 bytes+1 bit | 5 bits  |
 ]]></artwork>
         </figure>
-        <t>The receiver answers to the sender with an SCHC ACK:</t>
+        <t>The receiver answers to the sender with a SCHC ACK:</t>
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-6">
           <name>Downlink Example: LoRaWAN Packet 6 - SCHC ACK</name>
           <artwork name="" type="" align="left" alt=""><![CDATA[
