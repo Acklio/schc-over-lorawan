@@ -1357,7 +1357,7 @@ transmission of an uplink. Class C devices are almost in constant reception.</t>
           following condition being met: SCHC header is 2 bytes.</t>
           <t><strong>Downlink fragmentation (ACK-Always)</strong>:</t>
           <t>As per <xref target="RFC8724" format="default"/>, SCHC All-1
-          <bcp14>MUST</bcp14> contain the last tile, and implementations must
+          <bcp14>MUST</bcp14> contain the last tile, and implementations <bcp14>MUST</bcp14>
           ensure that SCHC All-0 message Payload will be at least the size of
           an L2 Word.</t>
         </section>
