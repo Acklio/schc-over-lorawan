@@ -9,7 +9,7 @@
 
 
   <front>
-    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and Fragementation (SCHC) over LoRaWAN</title>
+    <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and Fragmentation (SCHC) over LoRaWAN</title>
     <seriesInfo name="RFC" value="9011"/>
     <author initials="O." surname="Gimenez" fullname="Olivier Gimenez" role="editor">
       <organization>Semtech</organization>
@@ -27,7 +27,7 @@
       <address>
         <postal>
           <street>1137A Avenue des Champs Blancs</street>
-	    <city>Cesson-Sevigne Cedex</city>
+	    <city>Cesson-Sévigné Cedex</city>
           <code>35510</code>
           <country>France</country>
         </postal>
