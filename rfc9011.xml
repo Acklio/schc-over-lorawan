@@ -558,7 +558,7 @@ LoRaWAN networks and applications to identify data.</t>
         and IPv6 groupID are out of scope of this document.</t>
 </aside>
 <aside> <t>Note 2: The LoRa Alliance defined <xref
-        target="LORA-REMOTE-MULTICAST-SET" format="default"/> as the
+        target="LORAWAN-REMOTE-MULTICAST-SET" format="default"/> as the
         <bcp14>RECOMMENDED</bcp14> way to set up multicast groups on devices
         and create a synchronized reception window.</t>
 </aside>
@@ -1288,7 +1288,7 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8065.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8376.xml"/>
 
-        <reference anchor="LORA-REMOTE-MULTICAST-SET" target="https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/">
+        <reference anchor="LORAWAN-REMOTE-MULTICAST-SET" target="https://lora-alliance.org/resource_hub/lorawan-remote-multicast-setup-specification-v1-0-0/">
           <front>
             <title>LoRaWAN Remote Multicast Setup Specification v1.0.0</title>
             <author>
