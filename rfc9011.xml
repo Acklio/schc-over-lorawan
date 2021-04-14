@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-
-
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" docName="draft-ietf-lpwan-schc-over-lorawan-14" number="9011" obsoletes="" updates="" submissionType="IETF" category="std" consensus="true" xml:lang="en" symRefs="true" sortRefs="true" tocInclude="true" version="3">
-
 
   <front>
     <title abbrev="SCHC over LoRaWAN">Static Context Header Compression and Fragmentation (SCHC) over LoRaWAN</title>
@@ -34,7 +30,7 @@
         <email>ivaylo@ackl.io</email>
       </address>
     </author>
-    <date year="2021" month="March"/>
+    <date year="2021" month="April"/>
     <workgroup>lpwan Working Group</workgroup>
 
 <keyword>header compression</keyword>
@@ -107,6 +103,11 @@ technologies.</t>
 all other definitions, please look up the SCHC specification
 <xref target="RFC8724" format="default"/>.</t>
 
+<aside><t>
+Note: The SCHC acronym is pronounced like "sheek" in English (or "chic" in French).
+Therefore, this document writes "a SCHC Packet" instead of "an SCHC Packet".
+</t></aside>
+
 <dl>
 
 <dt>AppKey:
@@ -121,13 +122,6 @@ each new session. It is used to encrypt the payload field of a LoRaWAN
 applicative frame.
 </dd>
 
-<dt>DevEUI:
-</dt>
-<dd>Device Extended Unique Identifier, an IEEE EUI-64 identifier used to
-identify the device during the procedure while joining the network (Join
-Procedure). It is assigned by the manufacturer or the device owner and
-provisioned on the Network Gateway.
-</dd>
 
 
 <dt>DevAddr:
@@ -146,39 +140,39 @@ provisioned on the Network Gateway.
   </dl>
 </dd>
 
-<!--[rfced] Might it be helpful to the reader to add the following abbreviations to the Terminology section?
-SCHC C/D
-SCHC F/R
-NGW
-RGW
-IID
-
-Author (OGZ)
-  I have been asked by the working group to remove them as they are
-  defined in RFC8376 and RFC8724 to avoid reperition. What is your
-  recommendation as RFC Editors?
-
-The terms SCHC C/D, SCHC F/r, NGW, and RGW are used in prior to their expansion in this document and readers not familiar wiith the terms would have to look at other documents to understand their meaning. As a few of the terms are used in Figure 1, where adjacent expansion is not possible, it would be ideal to include them in the terminology section. 
 
 
-Author (OGZ)
-Ok, I added them
--->
+<dt>DevEUI:
+</dt>
+<dd>Device Extended Unique Identifier, an IEEE EUI-64 identifier used to
+identify the device during the procedure while joining the network (Join
+Procedure). It is assigned by the manufacturer or the device owner and
+provisioned on the Network Gateway.
+</dd>
+
 
 <dt>Downlink:
 </dt>
 <dd>A LoRaWAN term for a frame transmitted by the network and received by the device.
 </dd>
 
-<dt>IID:
-</dt>
-<dd>Interface Identifier.
-</dd>
 
 <dt>EUI:
 </dt>
 <dd>Extended Unique Identifier
 </dd>
+
+<dt>FRMPayload:
+</dt>
+<dd>Application data in a LoRaWAN frame
+</dd>
+
+
+<dt>IID:
+</dt>
+<dd>Interface Identifier
+</dd>
+
 
 <dt>LoRaWAN:
 </dt>
@@ -189,25 +183,23 @@ consortium: <eref
 brackets="angle" target="https://www.lora-alliance.org"/>.
 </dd>
 
-<dt>FRMPayload:
-</dt>
-<dd>Application data in a LoRaWAN frame.
-</dd>
 
 <dt>MSB: 
 </dt>
 <dd>Most Significant Byte
 </dd>
 
+<dt>NGW:
+</dt>
+<dd>Network Gateway
+</dd>
+
+
 <dt>OUI:
 </dt>
 <dd>Organizationally Unique Identifier. IEEE-assigned prefix for EUI.
 </dd>
 
-<dt>NGW:
-</dt>
-<dd>Network Gateway.
-</dd>
 
 <dt>RCS:
 </dt>
@@ -216,7 +208,7 @@ brackets="angle" target="https://www.lora-alliance.org"/>.
 
 <dt>RGW:
 </dt>
-<dd>Radio Gateway.
+<dd>Radio Gateway
 </dd>
 
 <dt>RX:
@@ -229,14 +221,14 @@ brackets="angle" target="https://www.lora-alliance.org"/>.
 <dd>LoRaWAN class A devices open two RX windows following an uplink, called "RX1" and "RX2".
 </dd>
 
-<dt>SCHC C/D
+<dt>SCHC C/D:
 </dt>
-<dd>SCHC Compression/Decompression.
+<dd>SCHC Compression/Decompression
 </dd>
 
-<dt>SCHC F/R
+<dt>SCHC F/R:
 </dt>
-<dd>SCHC Fragmentation/Reassembly.
+<dd>SCHC Fragmentation/Reassembly
 </dd>
 
 <dt>SCHC gateway:
@@ -259,17 +251,6 @@ sectionFormat="of" section="8.2.2.1" format="default"/>.
 
 </dl>
 
-<!-- [author]
-Added as per shepherd advice, from RFC8724. Also changed "an SCHC XXX"
-to "a SCHC XXX"
--->
-
-<t>
-The SCHC acronym is pronounced like "sheek" in English (or "chic" in
-French).  Therefore, this document writes "a SCHC Packet" instead of
-"an SCHC Packet".
-</t>
-
 </section>
     <section anchor="static-context-header-compression-overview" numbered="true" toc="default">
       <name>SCHC Overview</name>
@@ -277,14 +258,7 @@ French).  Therefore, this document writes "a SCHC Packet" instead of
       description, refer to the full specification <xref target="RFC8724"
       format="default"/>.</t>
       <t>It defines:</t>
-<!-- [author]
-SCHC Compressor/Decompressor is called SCHC Compression/Decompression in RFC 8704
-Moreover changing it to SCHC "Compression/Decompression" is be more consistent with 
-"SCHC Fragmentation/Reassembly"
 
-ask for AD approval - probably okay
-
--->
       <ol spacing="normal" type="1"><li>Compression mechanisms to avoid
       transporting information known by both sender and receiver over the
       air. Known information is part of the "context". This component is
@@ -296,19 +270,6 @@ ask for AD approval - probably okay
       <t>Context exchange or pre-provisioning is out of scope of this document.</t>
       <figure anchor="Fig-archi">
         <name>Architecture</name>
-
-<!-- [rfced] Figures 1, 2, 3, 4, 9, 20, 24, 25, 32, and 34 are variously 1-3
-spaces over the 72-max character limit for the .txt output. How might we
-shorten these to fit?
-Author (OGZ)
-  I fixed the 2 figures with 73 char, they are now 72 char width. What is the issue?
-  I see that a space is appended before the figures, is there a way to avoid it?
-  Then it is suprising because https://tools.ietf.org/tools/idnits tool
-  does not complain 
-
-Author (OGZ)
-  Figures 1-3 shortened as proposed in the email
--->
 
         <artwork name="" type="" align="left" alt=""><![CDATA[
     Device                                                App
@@ -348,8 +309,7 @@ Author (OGZ)
       <t>In a LoRaWAN network, the RGW is called a "Gateway", the NGW is a
       "Network Server", and the SCHC C/D and SCHC F/R are one or more
       "Application Servers".
-<!-- get AD approval for change above
--->
+
  Application servers can be provided by the NGW or any third-party
       software. <xref target="Fig-archi" format="default"/> can be mapped in
       LoRaWAN terminology to:</t>
@@ -375,7 +335,7 @@ Author (OGZ)
 |<- - - - - LoRaWAN - - - ->|
 ]]></artwork>
       </figure>
-</section>
+    </section>
     <section anchor="lorawan-architecture" numbered="true" toc="default">
       <name>LoRaWAN Architecture</name>
       <t>An overview of the LoRaWAN protocol and architecture <xref target="LORAWAN-SPEC"
@@ -478,42 +438,6 @@ often and power consumption is increased.</dd>
 
 </dd>
 
-<!-- [rfced] In the following sentence, how might we rephrase to avoid repeated uses of a colon?
-Original: 
-   There is a trade-off between the periodicity of those scheduled
-   Class B listen windows and the power consumption of the device: if the
-   periodicity is high downlinks from the NGW will be sent faster, but the device
-   wakes up more often: it will have higher power consumption.
-Perhaps: 
-   There is a trade-off between the periodicity of those scheduled Class
-   B listen windows and the power consumption of the device: if the periodicity
-   is high, downlinks from the NGW will be sent faster, but the device wakes up
-   more often. Therefore, it will have higher power consumption.
-Author (OGZ)
-  Proposition:
-   There is a trade-off between the periodicity of those scheduled Class
-   B listen windows and the power consumption of the device:
-   - High periodicity: downlinks from the NGW will be sent faster but the
-     device wakes up more often and power consumption is increased.
-   - Low periodicity: higher latency but lower power consumption.
-   I did not succeed to correctly render it, either with a list or a dt/dd tag.
-   Could you please help?
-
-
-
-We've formatted but made the def for "low periodicity" a complete sentence:
-High periodicity:
-    Downlinks from the NGW will be sent faster but the device wakes up more often and power consumption is increased.
-Low periodicity:
-    Higher latency but lower power consumption.
-
-Author (OGZ)
-OK, thank you
-
-
-
--->
-
 <dt>Class C:
 </dt>
 <dd>Class C devices implement all the functionalities of Class A devices but
@@ -529,9 +453,9 @@ Class C devices are grid powered (for example, Smart Plugs).
       </section>
       <section anchor="device-addressing" numbered="true" toc="default">
         <name>Device Addressing</name>
-        <t>LoRaWAN end devices use a 32-bit network address (devAddr) to
+        <t>LoRaWAN end devices use a 32-bit network address (DevAddr) to
         communicate with the Network Gateway over the air; this address might
-        not be unique in a LoRaWAN network. Devices using the same devAddr are
+        not be unique in a LoRaWAN network. Devices using the same DevAddr are
         distinguished by the Network Gateway based on the cryptographic
         signature appended to every LoRaWAN frame.</t>
         <t>To communicate with the SCHC gateway, the Network Gateway
@@ -541,7 +465,7 @@ Class C devices are grid powered (for example, Smart Plugs).
         process by the device's manufacturer. It is built like an Ethernet MAC
         address by concatenating the manufacturer's IEEE OUI field with a
         vendor unique number.  For example, a 24-bit OUI is concatenated with a 40-bit
-        serial number.  The Network Gateway translates the devAddr into a
+        serial number.  The Network Gateway translates the DevAddr into a
         DevEUI in the uplink direction and reciprocally on the downlink
         direction.</t>
         <figure anchor="Fig-LoRaWANaddresses">
@@ -549,7 +473,7 @@ Class C devices are grid powered (for example, Smart Plugs).
           <artwork name="" type="" align="left" alt=""><![CDATA[
 +--------+         +---------+        +---------+          +----------+
 | Device | <=====> | Network | <====> | SCHC    | <======> | Internet |
-|        | devAddr | Gateway | DevEUI | Gateway | IPv6/UDP |          |
+|        | DevAddr | Gateway | DevEUI | Gateway | IPv6/UDP |          |
 +--------+         +---------+        +---------+          +----------+
 ]]></artwork>
         </figure>
@@ -666,10 +590,10 @@ FPort for data downlink and its associated SCHC control uplinks, named "FPortDow
 in this document.</t>
 
         <t>All RuleIDs can use arbitrary values inside the FPort range allowed
-        by the LoRaWAN specification [LORAWAN-SPEC] and <bcp14>MUST</bcp14> be shared by the
-        device and SCHC gateway prior to the communication with the selected
-        rule.  The uplink and downlink fragmentation FPorts
-        <bcp14>MUST</bcp14> be different.</t>
+        by the LoRaWAN specification <xref target="LORAWAN-SPEC"/> and
+        <bcp14>MUST</bcp14> be shared by the device and SCHC gateway prior to
+        the communication with the selected rule.  The uplink and downlink
+        fragmentation FPorts <bcp14>MUST</bcp14> be different.</t>
       </section>
       <section anchor="rule-id-management" numbered="true" toc="default">
         <name>RuleID Management</name>
@@ -727,15 +651,12 @@ implementations <bcp14>MUST</bcp14> implement the following algorithm and <bcp14
         <t>The aes128_cmac algorithm is described in <xref target="RFC4493"
         format="default"/>. It has been chosen as it is already used by
         devices for the LoRaWAN protocol.</t>
-<!-- get AD approval for this mitigates privacy concerns,...-->
+
         <t>As AppSKey is renewed each time a device joins or rejoins a LoRaWAN
         network, the IID will change over time; this
         mitigates privacy concerns, for example, location tracking or correlation
         over time. Join periodicity is defined at the application level.</t>
-<!--
-Author (OGZ)
-  Changed with a suggestion from the AD (Eric Vyncke)
--->
+
         <t>Address-scan risk is mitigated thanks to the entropy added to
         the IID by the inclusion of AppSKey.</t>
         <t>Using this algorithm will also ensure that there is no correlation
@@ -755,11 +676,7 @@ Author (OGZ)
 ]]></sourcecode>
 
         </figure>
-<!-- [author]
-The error in the example has been spotted after the WG last call, the correction have been accepted by the working group and our AD
 
-Verify this either through email search or just ask AD again.
--->
         <t>There is a small probability of IID collision in a LoRaWAN
         network. If this occurs, the IID can be changed by rekeying the device
         at the L2 level (i.e., triggering a LoRaWAN join).  The way the device is
@@ -783,12 +700,14 @@ Verify this either through email search or just ask AD again.
       </section>
       <section anchor="Frag" numbered="true" toc="default">
         <name>Fragmentation</name>
-        <t>The L2 Word Size used by LoRaWAN is 1 byte (8 bits).
-The SCHC fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink
-fragmentation and ACK-Always mode for downlink fragmentation. A LoRaWAN
-device cannot support simultaneous interleaved fragmented datagrams in
-the same direction (uplink or downlink).</t>
-        <t>The fragmentation parameters are different for uplink- and downlink-fragmented datagrams and are successively described in the next sections.</t>
+        <t>The L2 Word Size used by LoRaWAN is 1 byte (8 bits).  The SCHC
+        fragmentation over LoRaWAN uses the ACK-on-Error mode for uplink
+        fragmentation and ACK-Always mode for downlink fragmentation. A
+        LoRaWAN device cannot support simultaneous interleaved fragmented
+        datagrams in the same direction (uplink or downlink).</t>
+        <t>The fragmentation parameters are different for uplink- and
+        downlink-fragmented datagrams and are successively described in the
+        next sections.</t>
         <section anchor="DTag" numbered="true" toc="default">
           <name>DTag</name>
 
@@ -1053,19 +972,7 @@ Bitmaps of 63 bits will require 6 bits of padding.</t></aside>
 </dd>
 <dt>Multicast downlinks:
 </dt>
-<!-- [author]
-Original:
-<dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
-<bcp14>OPTIONAL</bcp14> and may not be implemented by the SCHC gateway.
-It might not be clear enough that the "OPTIONAL" applies only to the
-gateway and not the device, I propose:
-<dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
-<bcp14>OPTIONAL</bcp14> for the SCHC gateway and <bcp14>REQUIRED</bcp14> for the device.
 
-verify with AD.
-
-
--->
 <dd>No-ACK; reliability has to be ensured by the upper layer. This feature is
 <bcp14>OPTIONAL</bcp14> for the SCHC gateway and <bcp14>REQUIRED</bcp14> for the device.
 </dd>
@@ -1145,25 +1052,6 @@ be changed by the application.
           format="default"/>.  As this uplink is sent only to open an RX window, any
           LoRaWAN uplink frame from the device <bcp14>MAY</bcp14> reset this
           counter.</t>
-<!-- [rfced] The following sentence may be missing a word. What was intended after "this uplink is"?
-Original: 
-   As this uplink is to open an RX window, any LoRaWAN uplink frame
-   from the device MAY reset this counter.
-Perhaps: 
-   As this uplink is used to open an RX window, any LoRaWAN uplink frame from
-   the device MAY reset this counter.
-Author (OGZ)
-  True I changed it to:
-    As this uplink is send only to open an RX window, any LoRaWAN uplink
-    frame from the device MAY reset this counter.
-
-
-We changed "uplink is send only" to "uplink is sent only" as we felt past tense was intended. Please let us know if this is not the case.
-
-Author (OGZ)
-  Correct, regular mistake on my side
-
--->
 
 <aside><t>Note: The FPending bit included in the LoRaWAN protocol <bcp14>SHOULD
 NOT</bcp14> be used for the SCHC-over-LoRaWAN protocol. It might be set by the
@@ -1268,31 +1156,7 @@ Network Gateway for other purposes but not SCHC needs.</t></aside>
               transmission those SCHC ACK messages if no SCHC downlink has been
               received during the RX1 and RX2 windows.  The LoRaWAN layer will respect
               the applicable local spectrum regulation.</t>
-<!-- [rfced] FYI: We've updated the following sentence for clarity by adding "messages" after ACK and pluralizing "downlinks" and "windows". Please let us know if this is incorrect.
-Original: 
-   In order to progress the fragmented datagram, the SCHC layer should
-   immediately queue for transmission those SCHC ACK if no SCHC downlink have
-   been received during RX1 and RX2 window.
-Updated: 
-   In order to progress the fragmented datagram, the SCHC layer should
-   immediately queue for transmission those SCHC ACK messages if no SCHC downlinks have
-   been received during the RX1 and RX2 windows.
-Author (OGZ)
-  I agree with your update.  The only thing I am not sure is the plural
-  form of downlink in "SCHC ACK messages if no SCHC downlinks have been
-  received during the RX1 and RX2 windows". You can only receive one
-  downlink either in RX1 or RX2 window, they are mutually exclusive.
-  I also fixed the "window.s" typo Ivaylo send you the 15th of march
 
-
-
-Let author know we updated to "those SCHC ACK messages if no SCHC downlink has
-been received during the RX1 and RX2 windows."
-
-Author (OGZ)
-OK
-
--->
 <aside>              <t>Note: The ACK bitmap is 1 bit long and is always 1.</t></aside>
               <t><strong>SCHC All-1 (FCN = 1)</strong></t>
 
@@ -1315,15 +1179,16 @@ OK
               the SCHC ACK REQ message.</t>
 <aside>        <t>Note: The device <bcp14>MUST</bcp14> keep this SCHC
               ACK message in memory until it receives a downlink SCHC
-              Fragmentation Message (with FPort == FPortDown) that is not an
+              Fragmentation Message (with FPort == FPortDown) that is not a
               SCHC ACK REQ; this indicates that the SCHC gateway has received
               the SCHC ACK message.</t></aside>
             </section>
           </section>
           <section anchor="class-b-or-class-c-devices" numbered="true" toc="default">
             <name>Class B or Class C Devices</name>
-            <t>Class B devices can receive in scheduled RX slots or in RX slots following the
-transmission of an uplink. Class C devices are almost in constant reception.</t>
+            <t>Class B devices can receive in scheduled RX slots or in RX
+            slots following the transmission of an uplink. Class C devices are
+            almost in constant reception.</t>
             <t><bcp14>RECOMMENDED</bcp14> retransmission timer values are:</t>
 
 <dl>
@@ -1357,9 +1222,9 @@ transmission of an uplink. Class C devices are almost in constant reception.</t>
           following condition being met: SCHC header is 2 bytes.</t>
           <t><strong>Downlink fragmentation (ACK-Always)</strong>:</t>
           <t>As per <xref target="RFC8724" format="default"/>, SCHC All-1
-          <bcp14>MUST</bcp14> contain the last tile, and implementations <bcp14>MUST</bcp14>
-          ensure that SCHC All-0 message Payload will be at least the size of
-          an L2 Word.</t>
+          <bcp14>MUST</bcp14> contain the last tile, and implementations
+          <bcp14>MUST</bcp14> ensure that SCHC All-0 message Payload will be
+          at least the size of an L2 Word.</t>
         </section>
         <section anchor="all-1-schc-fragment" numbered="true" toc="default">
           <name>All-1 SCHC Fragment</name>
@@ -1405,10 +1270,8 @@ LoRaWAN session (i.e., each join or rejoin to the LoRaWAN network).</t>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4493.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8724.xml"/>
 
-<!-- [author]
-Changed "LORA-SPEC" to "LORAWAN-SPEC" to avoid LoRa/LoRaWAN confusion
-Changed "LORA-REMOTE-MULTICAST-SET" to "LORAWAN-REMOTE-MULTICAST-SET" to avoid LoRa/LoRaWAN confusion
--->
+
+
         <reference anchor="LORAWAN-SPEC" target="https://lora-alliance.org/resource_hub/lorawan-104-specification-package/">
           <front>
             <title>LoRaWAN 1.0.4 Specification Package</title>
@@ -1600,20 +1463,6 @@ RuleID, 21 bits residue + 127 bytes payload.</t>
         </t>
 
 
-<!-- [rfced] Terminology throughout the document:
-
-We still need answers for the following terms:
-
-SCHC Fragmentation vs. SCHC fragmentation vs. Regular SCHC Fragment vs. SCHC Fragment Header
-RuleID vs. Rule ID
-
-Author (OGZ)
-
-  RuleID as per RF8724, I replaced the occurance of Rule ID
-  We are using SCHC fragmentation as a concept and (Regular) SCHC Fragment (Header) as it descibes a type of message.
-
--->
-
 
         <figure anchor="Fig-example-downlink-fragmentation-lorawan-packet-1-tile-content">
           <name>Downlink Example: First Tile Content</name>
@@ -1745,10 +1594,7 @@ Author (OGZ)
     <email>marc.legourrierec@sagemcom.com</email>
   </address>
 </contact>
-<!--
-Author (OGZ) 
-  I updated N. Sornin contacts as per his request, as he is no longer working for Semtech
--->
+
 <contact fullname="Nicolas Sornin">
   <organization>Chirp Foundation</organization>
   <address>
